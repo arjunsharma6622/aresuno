@@ -24,11 +24,10 @@ const VendorSchema = new mongoose.Schema({
         enum: ['male', 'female', 'other'],
         required: true
     },
-    business_id: {
+    businesses: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Business',
-        required: true
-    }
+    }]
 });
 
 module.exports = mongoose.model('Vendor', VendorSchema);

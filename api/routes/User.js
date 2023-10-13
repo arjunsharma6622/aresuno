@@ -6,13 +6,13 @@ const bcrypt = require('bcrypt');
 // CREATE
 router.post('/register', async (req, res) => {
     try {
-        const {name, email, password, phone, gender, place} = req.body;
+        const { name, email, password, phone, gender, place } = req.body;
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
 
-        const user = new User({name, email, password: hashedPassword, phone, gender, place});
-        
+        const user = new User({ name, email, password: hashedPassword, phone, gender, place });
+
         await user.save();
         res.status(201).send(user);
     } catch (error) {
@@ -58,22 +58,35 @@ router.patch('/:id', async (req, res) => {
         if (!user) {
             return res.status(404).send();
         }
-        updates.forEach((update) => (user[update] = req.body[update]));
-        await user.save();
-        res.send(user);
+
+
+        if (req.body.password) {
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            user.password = hashedPassword;
+        }
+
+        updates.forEach((update) => {       
+            if (update !== 'password') {
+            user[update] = req.body[update];
+            }
+        });
+
+await user.save();
+res.send(user);
     } catch (error) {
-        res.status(400).send(error);
-    }
+    res.status(400).send(error);
+}
 });
 
-// DELETE
+
+//DELETE
 router.delete('/:id', async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         if (!user) {
-            return res.status(404).send();
+            return res.status(404).send({ error: "User not found" });
         }
-        res.send(user);
+        res.status(200).send({ message: "User deleted successfully" });
     } catch (error) {
         res.status(500).send(error);
     }
