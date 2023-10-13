@@ -5,21 +5,21 @@ const Business = require('../models/Business');
 // CREATE
 router.post('/register', async (req, res) => {
     try {
-        const Business = new Business(req.body);
-        console.log(Business)
-        await Business.save();
-        res.status(201).send(Business);
+        const newBusiness = new Business(req.body);
+        console.log(newBusiness);
+        await newBusiness.save();
+        res.status(201).send(newBusiness);
     } catch (error) {
-        console.log('errr')
+        console.log(error);
         res.status(400).send(error);
     }
 });
 
 // READ ALL
-router.get('/service/', async (req, res) => {
+router.get('/service', async (req, res) => {
     try {
-        const Businesss = await Business.find({});
-        res.send(Businesss);
+        const businesses = await Business.find({});
+        res.send(businesses);
     } catch (error) {
         res.status(500).send(error);
     }
@@ -28,11 +28,11 @@ router.get('/service/', async (req, res) => {
 // READ ONE
 router.get('/:id', async (req, res) => {
     try {
-        const Business = await Business.findById(req.params.id);
-        if (!Business) {
+        const business = await Business.findById(req.params.id);
+        if (!business) {
             return res.status(404).send();
         }
-        res.send(Business);
+        res.send(business);
     } catch (error) {
         res.status(500).send(error);
     }
@@ -49,13 +49,13 @@ router.patch('/:id', async (req, res) => {
     }
 
     try {
-        const Business = await Business.findById(req.params.id);
-        if (!Business) {
+        const business = await Business.findById(req.params.id);
+        if (!business) {
             return res.status(404).send();
         }
-        updates.forEach((update) => (Business[update] = req.body[update]));
-        await Business.save();
-        res.send(Business);
+        updates.forEach((update) => (business[update] = req.body[update]));
+        await business.save();
+        res.send(business);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -64,19 +64,14 @@ router.patch('/:id', async (req, res) => {
 // DELETE
 router.delete('/:id', async (req, res) => {
     try {
-        const Business = await Business.findByIdAndDelete(req.params.id);
-        if (!Business) {
+        const business = await Business.findByIdAndDelete(req.params.id);
+        if (!business) {
             return res.status(404).send();
         }
-        res.send(Business);
+        res.send(business);
     } catch (error) {
         res.status(500).send(error);
     }
 });
 
 module.exports = router;
-
-
-
-
-

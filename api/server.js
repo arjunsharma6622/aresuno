@@ -18,7 +18,8 @@ app.get('/', (req, res) => {
 });
 
 // Import routes
-app.use('/api/service', require('./routes/ServiceProfile'));
+app.use('/api/service', require('./routes/Business'));
+app.use('/api/user', require('./routes/User'));
 
 
 

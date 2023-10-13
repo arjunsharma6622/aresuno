@@ -1,11 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 // CREATE
 router.post('/register', async (req, res) => {
     try {
-        const user = new User(req.body);
+        const {name, email, password, phone, gender, place} = req.body;
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+
+        const user = new User({name, email, password: hashedPassword, phone, gender, place});
+        
         await user.save();
         res.status(201).send(user);
     } catch (error) {
@@ -39,7 +46,7 @@ router.get('/:id', async (req, res) => {
 // UPDATE
 router.patch('/:id', async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['name', 'email', 'password'];
+    const allowedUpdates = ['name', 'place', 'password'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
     if (!isValidOperation) {
