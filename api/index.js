@@ -5,6 +5,7 @@ dotenv.config();
 
 const app = express();
 const db = process.env.DB_URL;
+const port = process.env.PORT;
 app.use(express.json());
 
 // Connect to MongoDB database
@@ -24,8 +25,8 @@ app.use('/api/vendor', require('./routes/Vendor'));
 
 
 // Start server
-app.listen(8000, () => {
-    console.log('Server started on port 8000');
+app.listen(port, () => {
+    console.log('Server started on port '+ port);
 });
 
 
