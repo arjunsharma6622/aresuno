@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const analytics = require('@vercel/analytics');
 
 dotenv.config();
@@ -9,6 +10,7 @@ const app = express();
 const db = process.env.DB_URL;
 const port = process.env.PORT;
 app.use(express.json());
+app.use(cors());
 
 // Connect to MongoDB database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
