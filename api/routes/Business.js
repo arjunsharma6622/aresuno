@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
 });
 
 // READ ALL
-router.get('/service', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const businesses = await Business.find({});
         res.send(businesses);
@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
     try {
         const business = await Business.findById(req.params.id);
         if (!business) {
-            return res.status(404).send();
+            return res.status(404).send("Business not found");
         }
         res.send(business);
     } catch (error) {
@@ -41,7 +41,7 @@ router.get('/:id', async (req, res) => {
 // UPDATE
 router.patch('/:id', async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['name', 'description', 'price', 'duration'];
+    const allowedUpdates = ['name', 'type', 'profileImg', 'mainCategory', 'subCategory', 'timing', 'phone', 'photosGallery', 'socialLinks', 'faqs', 'address', 'modeOfPayment'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
     if (!isValidOperation) {
@@ -66,9 +66,9 @@ router.delete('/:id', async (req, res) => {
     try {
         const business = await Business.findByIdAndDelete(req.params.id);
         if (!business) {
-            return res.status(404).send();
+            return res.status(404).send("Business not found");
         }
-        res.send(business);
+        res.send("Business deleted");
     } catch (error) {
         res.status(500).send(error);
     }

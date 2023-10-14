@@ -49,7 +49,6 @@ router.get('/:id', async (req, res) => {
 });
 
 // UPDATE
-// UPDATE
 router.patch('/:id', async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'password'];
@@ -83,8 +82,6 @@ router.patch('/:id', async (req, res) => {
         res.status(400).send(error);
     }
 });
-
-
 
 //DELETE
 router.delete('/:id', async (req, res) => {

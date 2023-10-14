@@ -45,7 +45,7 @@ const BusinessSchema = new mongoose.Schema({
             // required: true
         }
     },
-    contactNumber: {
+    phone: {
         type: String,
         // required: true
     },
@@ -60,10 +60,10 @@ const BusinessSchema = new mongoose.Schema({
     photosGallery: [{
         type: String
     }],
-    modeOfPayment: {
+    modeOfPayment: [{
         type: String,
         // required: true
-    },
+    },],
     ratingsReviews: [{
         rating: {
             type: Number,
