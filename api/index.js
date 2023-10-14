@@ -27,6 +27,19 @@ app.use('/api/business', require('./routes/Business'));
 app.use('/api/user', require('./routes/User'));
 app.use('/api/vendor', require('./routes/Vendor'));
 
+// Error handling middleware for MongoDB duplicate key errors
+app.use((err, req, res, next) => {
+    if (err.name === 'MongoError' && err.code === 11000) {
+        // Duplicate key error
+        const duplicatedKey = err.message.match(/(["'])(\\?.)*?\1/)[0];
+        const message = `Duplicate key error: ${duplicatedKey} already exists.`;
+        console.error('MongoDB Duplicate Key Error:', message);
+        return res.status(400).json({ error: message });
+    }
+    // Handle other errors
+    return res.status(500).json({ error: 'Internal server error' });
+});
+
 
 // Start server
 app.listen(port, () => {
