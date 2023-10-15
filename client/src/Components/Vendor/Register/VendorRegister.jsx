@@ -6,7 +6,8 @@
 //         name: "",
 //         email: "",
 //         password: "",
-//         phone : ""
+//         phone: "",
+//         gender: ""
 //     });
 
 //     const [errors, setErrors] = useState({});
@@ -25,7 +26,11 @@
 //             const res = await axios.post("https://aresunoserver.vercel.app/api/vendor/register", formData);
 //             console.log(res.data);
 //         } catch (err) {
-//             setErrors(err.response.data);
+//             if (err.response && err.response.data) {
+//                 setErrors(err.response.data);
+//             } else {
+//                 setErrors({ message: "An error occurred." });
+//             }
 //         }
 
 //         setIsLoading(false);
@@ -37,7 +42,7 @@
 //                 <h2 className="text-2xl font-bold mb-4">Vendor Register</h2>
 //                 <div className="mb-4">
 //                     <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-//                         Name
+//                         Name<span className="text-black-500 font-light">*</span>
 //                     </label>
 //                     <input
 //                         className={`${errors.name ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -52,23 +57,22 @@
 
 //                 <div className="mb-4">
 //                     <label className="block text-gray-700 font-bold mb-2" htmlFor="phone">
-//                         Phone
+//                         Phone<span className="text-black-500 font-light">*</span>
 //                     </label>
 //                     <input
-//                         className={`${errors.name ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+//                         className={`${errors.phone ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
 //                         id="phone"
 //                         type="text"
 //                         name="phone"
 //                         value={formData.phone}
 //                         onChange={handleChange}
 //                     />
-//                     {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
+//                     {errors.phone && <p className="text-red-500 text-xs italic">{errors.phone}</p>}
 //                 </div>
-
 
 //                 <div className="mb-4">
 //                     <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-//                         Email
+//                         Email<span className="text-black-500 font-light">*</span>
 //                     </label>
 //                     <input
 //                         className={`${errors.email ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -80,9 +84,10 @@
 //                     />
 //                     {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
 //                 </div>
+
 //                 <div className="mb-4">
 //                     <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
-//                         Password
+//                         Password<span className="text-black-500 font-light">*</span>
 //                     </label>
 //                     <div className="relative">
 //                         <input
@@ -102,6 +107,26 @@
 //                     </div>
 //                     {errors.password && <p className="text-red-500 text-xs italic">{errors.password}</p>}
 //                 </div>
+
+//                 <div className="mb-4">
+//                     <label className="block text-gray-700 font-bold mb-2" htmlFor="gender">
+//                         Gender<span className="text-black-500 font-light">*</span>
+//                     </label>
+//                     <select
+//                         className={`${errors.gender ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+//                         id="gender"
+//                         name="gender"
+//                         value={formData.gender}
+//                         onChange={handleChange}
+//                     >
+//                         <option value="">Select Gender</option>
+//                         <option value="male">Male</option>
+//                         <option value="female">Female</option>
+//                         <option value="other">Other</option>
+//                     </select>
+//                     {errors.gender && <p className="text-red-500 text-xs italic">{errors.gender}</p>}
+//                 </div>
+
 //                 <div className="flex items-center justify-between">
 //                     <button
 //                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -128,7 +153,8 @@ const VendorRegister = () => {
         name: "",
         email: "",
         password: "",
-        phone: ""
+        phone: "",
+        gender: ""
     });
 
     const [errors, setErrors] = useState({});
@@ -159,11 +185,11 @@ const VendorRegister = () => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <form onSubmit={handleSubmit} className="w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-4">Vendor Register</h2>
+            <form onSubmit={handleSubmit} className="w-full max-w-md px-4">
+                <h2 className="text-2xl font-bold mb-4 text-center">Vendor Register</h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-                        Name
+                        Name<span className="text-black-500 font-light">*</span>
                     </label>
                     <input
                         className={`${errors.name ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -178,7 +204,7 @@ const VendorRegister = () => {
 
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="phone">
-                        Phone
+                        Phone<span className="text-black-500 font-light">*</span>
                     </label>
                     <input
                         className={`${errors.phone ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -193,7 +219,7 @@ const VendorRegister = () => {
 
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-                        Email
+                        Email<span className="text-black-500 font-light">*</span>
                     </label>
                     <input
                         className={`${errors.email ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -205,9 +231,10 @@ const VendorRegister = () => {
                     />
                     {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
                 </div>
+
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
-                        Password
+                        Password<span className="text-black-500 font-light">*</span>
                     </label>
                     <div className="relative">
                         <input
@@ -227,7 +254,27 @@ const VendorRegister = () => {
                     </div>
                     {errors.password && <p className="text-red-500 text-xs italic">{errors.password}</p>}
                 </div>
-                <div className="flex items-center justify-between">
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="gender">
+                        Gender<span className="text-black-500 font-light">*</span>
+                    </label>
+                    <select
+                        className={`${errors.gender ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                        id="gender"
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleChange}
+                    >
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    {errors.gender && <p className="text-red-500 text-xs italic">{errors.gender}</p>}
+                </div>
+
+                <div className="flex items-center justify-center">
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit"
