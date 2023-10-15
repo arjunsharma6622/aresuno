@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const analytics = require('@vercel/analytics');
 const cookieParser = require('cookie-parser');
+const app = express();
+
 
 
 app.use(
@@ -16,7 +18,6 @@ app.use(
 
 dotenv.config();
 
-const app = express();
 const db = process.env.DB_URL;
 const port = process.env.PORT;
 app.use(express.json());
