@@ -6,6 +6,14 @@ const analytics = require('@vercel/analytics');
 const cookieParser = require('cookie-parser');
 
 
+app.use(
+    cors({
+        origin: 'https://aresuno.vercel.app',
+        credentials: true,
+        allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Headers'
+    })
+);
+
 dotenv.config();
 
 const app = express();
@@ -13,16 +21,9 @@ const db = process.env.DB_URL;
 const port = process.env.PORT;
 app.use(express.json());
 
-app.use(
-    cors({
-      origin: "*",
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true,
-      allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Headers'
-    })
-  );
 
-  app.use(cookieParser());
+
+app.use(cookieParser());
 
 // Connect to MongoDB database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -41,5 +42,5 @@ app.use('/api/vendor', require('./routes/Vendor'));
 
 // Start server
 app.listen(port, () => {
-    console.log('Server started on port '+ port);
+    console.log('Server started on port ' + port);
 });
