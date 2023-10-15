@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const { createSecretToken } = require('../utils/SecretToken');
 
 // CREATE
 router.post('/register', async (req, res) => {
@@ -17,6 +18,30 @@ router.post('/register', async (req, res) => {
         res.status(201).send(user);
     } catch (error) {
         res.status(400).send(error);
+    }
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Incorrect email or password' });
+        }
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: 'Incorrect email or password' });
+        }
+        const token = createSecretToken(user._id);
+        console.log(token);
+        res.cookie("token", token, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
+        });
+        res.status(200).json({ message: "User logged in successfully", success: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
@@ -65,17 +90,17 @@ router.patch('/:id', async (req, res) => {
             user.password = hashedPassword;
         }
 
-        updates.forEach((update) => {       
+        updates.forEach((update) => {
             if (update !== 'password') {
-            user[update] = req.body[update];
+                user[update] = req.body[update];
             }
         });
 
-await user.save();
-res.send(user);
+        await user.save();
+        res.send(user);
     } catch (error) {
-    res.status(400).send(error);
-}
+        res.status(400).send(error);
+    }
 });
 
 

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const analytics = require('@vercel/analytics');
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 
@@ -10,7 +11,15 @@ const app = express();
 const db = process.env.DB_URL;
 const port = process.env.PORT;
 app.use(express.json());
-app.use(cors());
+
+app.use(
+    cors({
+      origin: ["http://localhost:5173", "https://aresunoserver.vercel.app"],
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      credentials: true,
+    })
+  );
+  app.use(cookieParser());
 
 // Connect to MongoDB database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
