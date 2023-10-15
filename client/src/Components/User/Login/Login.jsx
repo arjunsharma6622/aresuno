@@ -22,7 +22,7 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            const res = await axios.post("https://aresunoserver.vercel.app/api/user/login/", formData, {
+            const res = await axios.post("https://aresunoserver.vercel.app/api/user/login", formData, {
                 withCredentials: true
             });
             console.log(res.data);
