@@ -34,7 +34,7 @@ const Register = () => {
     return (
         <div className="flex justify-center items-center h-screen">
             <form onSubmit={handleSubmit} className="w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-4">Register</h2>
+                <h2 className="text-2xl font-bold mb-4">User Register</h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
                         Name
