@@ -3,29 +3,26 @@ const mongoose = require('mongoose');
 const VendorSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Name is required.']
+        required: true
     },
     email: {
         type: String,
-        required: [true, 'Email is required.'],
-        unique: [true, 'Email must be unique.']
+        required: true,
+        unique: true
     },
     phone: {
         type: String,
-        required: [true, 'Phone number is required.'],
-        unique: [true, 'Phone number must be unique.']
+        required: true,
+        unique: true
     },
     password: {
         type: String,
-        required: [true, 'Password is required.']
+        required: true
     },
     gender: {
         type: String,
-        enum: {
-            values: ['male', 'female', 'other'],
-            message: 'Invalid gender type.'
-        },
-        required: [true, 'Gender is required.']
+        enum: ['male', 'female', 'other'],
+        required: true
     },
     businesses: [{
         type: mongoose.Schema.Types.ObjectId,
