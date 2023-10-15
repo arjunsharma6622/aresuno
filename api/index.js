@@ -6,16 +6,6 @@ const analytics = require('@vercel/analytics');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-
-
-app.use(
-    cors({
-        origin: ['https://aresuno.vercel.app', 'http://localhost:5173'],
-        credentials: true,
-        allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Headers'
-    })
-);
-
 dotenv.config();
 
 const db = process.env.DB_URL;
