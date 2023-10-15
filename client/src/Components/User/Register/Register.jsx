@@ -133,6 +133,7 @@ const Register = () => {
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [registered, setRegistered] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -145,6 +146,7 @@ const Register = () => {
         try {
             const res = await axios.post("https://aresunoserver.vercel.app/api/user/register", formData);
             console.log(res.data);
+            setRegistered(true);
         } catch (err) {
             setErrors(err.response.data);
         }
@@ -187,7 +189,7 @@ const Register = () => {
                     {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
                 </div>
 
-                
+
 
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="phone">
@@ -237,6 +239,12 @@ const Register = () => {
                         {isLoading ? "Loading..." : "Register"}
                     </button>
                 </div>
+
+                {registered && (
+                    <div className="text-center mt-4">
+                        <p className="text-green-500">Registered successfully!</p>
+                    </div>
+                )}
             </form>
         </div>
     );

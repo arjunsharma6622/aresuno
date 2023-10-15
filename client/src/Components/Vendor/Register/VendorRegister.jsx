@@ -160,6 +160,8 @@ const VendorRegister = () => {
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [registered, setRegistered] = useState(false);
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -172,6 +174,7 @@ const VendorRegister = () => {
         try {
             const res = await axios.post("https://aresunoserver.vercel.app/api/vendor/register", formData);
             console.log(res.data);
+            setRegistered(true);
         } catch (err) {
             if (err.response && err.response.data) {
                 setErrors(err.response.data);
@@ -203,6 +206,21 @@ const VendorRegister = () => {
                 </div>
 
                 <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
+                        Email<span className="text-black-500 font-light">*</span>
+                    </label>
+                    <input
+                        className={`${errors.email ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                        id="email"
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
+                </div>
+
+                <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="phone">
                         Phone<span className="text-black-500 font-light">*</span>
                     </label>
@@ -217,20 +235,7 @@ const VendorRegister = () => {
                     {errors.phone && <p className="text-red-500 text-xs italic">{errors.phone}</p>}
                 </div>
 
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-                        Email<span className="text-black-500 font-light">*</span>
-                    </label>
-                    <input
-                        className={`${errors.email ? "border-red-500" : ""} shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
-                </div>
+
 
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
@@ -282,6 +287,13 @@ const VendorRegister = () => {
                         {isLoading ? "Loading..." : "Register"}
                     </button>
                 </div>
+
+
+                {registered && (
+                    <div className="text-center mt-4">
+                        <p className="text-green-500">Registered successfully!</p>
+                    </div>
+                )}
             </form>
         </div>
     );
