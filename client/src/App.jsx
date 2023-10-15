@@ -17,11 +17,11 @@ function App() {
             <Route
               path='/'
               element={
-                <>
+                <div className='h-[100vh] flex flex-col items-center justify-center underline text-blue-600 text-lg'> 
                   <Link to="/user/register">User Register</Link>
                   <br />
                   <Link to="/vendor/register">Vendor Register</Link>
-                </>
+                </div>
               }
             />
             <Route path='/user/register' element={<SlidingLoginRegister />} />
