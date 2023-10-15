@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 
 app.use(
     cors({
-        origin: 'https://aresuno.vercel.app',
+        origin: ['https://aresuno.vercel.app', 'http://localhost:5173'],
         credentials: true,
         allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Headers'
     })
