@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -23,10 +26,14 @@ const Login = () => {
 
         try {
             const res = await axios.post("https://aresuno-server.vercel.app/api/user/login", formData, {
+                withCredentials: true
             });
             console.log(res.data);
             setLoggedIn(true);
             toast.success("User Logged In Successfully")
+            setTimeout(() => {
+                navigate("/user/");
+              }, 2000);
         } catch (err) {
             setErrors(err.response.data);
             toast.error("User Login Failed")
