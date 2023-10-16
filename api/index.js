@@ -8,10 +8,17 @@ const app = express();
 
 dotenv.config();
 
+
 const db = process.env.DB_URL;
 const port = process.env.PORT;
 app.use(express.json());
 
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://aresuno.vercel.app'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+
+}))
 
 
 app.use(cookieParser());
@@ -35,3 +42,7 @@ app.use('/api/vendor', require('./routes/Vendor'));
 app.listen(port, () => {
     console.log('Server started on port ' + port);
 });
+
+
+
+module.exports = app
