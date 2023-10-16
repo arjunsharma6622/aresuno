@@ -145,7 +145,7 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            const res = await axios.post("https://aresunoserver.vercel.app/api/user/register", formData);
+            const res = await axios.post("https://aresuno-server.vercel.app/api/user/register", formData);
             console.log(res.data);
             // setRegistered(true);
             toast.success("User Registered Successfully")

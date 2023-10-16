@@ -172,7 +172,7 @@ const VendorRegister = () => {
         setIsLoading(true);
 
         try {
-            const res = await axios.post("https://aresunoserver.vercel.app/api/vendor/register", formData);
+            const res = await axios.post("http://localhost:8000/api/vendor/register", formData);
             console.log(res.data);
             setRegistered(true);
         } catch (err) {
