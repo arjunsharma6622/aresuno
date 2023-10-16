@@ -62,14 +62,14 @@ const VendorLogin = () => {
                         <input
                             className={`${errors.password ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none `}
                             id="password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
                         />
 
                         <span
-                            className="absolute top-1/2  transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer"
+                            className="z-10 absolute top-1/2  transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer"
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? "Hide" : "Show"}

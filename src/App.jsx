@@ -4,6 +4,7 @@ import './App.css'
 import Register from './Components/User/Register/Register'
 import VendorRegister from './Components/Vendor/Register/VendorRegister'
 import SlidingLoginRegister from './Components/User/SlidingLoginRegister'
+import SlidingVendorLoginRegister from './Components/Vendor/SlidingVendorLoginRegister'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,7 +26,7 @@ function App() {
               }
             />
             <Route path='/user/register' element={<SlidingLoginRegister />} />
-            <Route path='/vendor/register' element={<VendorRegister />} />
+            <Route path='/vendor/register' element={<SlidingVendorLoginRegister />} />
             <Route path='/about' element={<h1>About</h1>} />
             <Route path='/contact' element={<h1>Contact</h1>} />
           </Routes>
