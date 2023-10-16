@@ -23,7 +23,6 @@ const Login = () => {
 
         try {
             const res = await axios.post("https://aresuno-server.vercel.app/api/user/login", formData, {
-                withCredentials: true
             });
             console.log(res.data);
             setLoggedIn(true);
