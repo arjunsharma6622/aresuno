@@ -12,8 +12,12 @@ const port = process.env.PORT;
 app.use(express.json());
 
 
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173', 'https://aresuno.vercel.app'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
 
+}))
 app.use(cookieParser());
 
 // Connect to MongoDB database
