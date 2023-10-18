@@ -1,21 +1,19 @@
-
 import React, { useState } from "react";
 import axios from "axios";
+import {ToastContainer, toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-const VendorRegister = () => {
+const Register = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
-        phone: "",
-        gender: ""
+        phone: ""
     });
 
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [registered, setRegistered] = useState(false);
-
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,15 +24,13 @@ const VendorRegister = () => {
         setIsLoading(true);
 
         try {
-            const res = await axios.post("https://aresuno-server.vercel.app/api/vendor/register", formData);
+            const res = await axios.post("https://aresuno-server.vercel.app/api/user/register", formData);
             console.log(res.data);
-            setRegistered(true);
+            // setRegistered(true);
+            toast.success("User Registered Successfully")
         } catch (err) {
-            if (err.response && err.response.data) {
-                setErrors(err.response.data);
-            } else {
-                setErrors({ message: "An error occurred." });
-            }
+            setErrors(err.response.data);
+            toast.error("User Registration Failed")
         }
 
         setIsLoading(false);
@@ -43,12 +39,15 @@ const VendorRegister = () => {
     return (
         <div className="flex justify-center items-center">
             <form onSubmit={handleSubmit} className="w-full max-w-md px-4">
+                {/* <h2 className="text-2xl font-bold mb-4 text-center">User Register</h2> */}
+                <h1 className="text-2xl font-bold mb-4">User Register</h1>
+
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
                         Name<span className="text-black-500 font-light">*</span>
                     </label>
                     <input
-                        className={`${errors.name ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight  `}
+                        className={`${errors.name ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none `}
                         id="name"
                         type="text"
                         name="name"
@@ -58,12 +57,13 @@ const VendorRegister = () => {
                     {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
                 </div>
 
+
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
                         Email<span className="text-black-500 font-light">*</span>
                     </label>
                     <input
-                        className={`${errors.email ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight  `}
+                        className={`${errors.email ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none `}
                         id="email"
                         type="email"
                         name="email"
@@ -73,12 +73,14 @@ const VendorRegister = () => {
                     {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
                 </div>
 
+
+
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="phone">
                         Phone<span className="text-black-500 font-light">*</span>
                     </label>
                     <input
-                        className={`${errors.phone ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight  `}
+                        className={`${errors.phone ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none `}
                         id="phone"
                         type="text"
                         name="phone"
@@ -96,7 +98,7 @@ const VendorRegister = () => {
                     </label>
                     <div className="relative">
                         <input
-                            className={`${errors.password ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight  `}
+                            className={`${errors.password ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none `}
                             id="password"
                             type={showPassword ? "text" : "password"}
                             name="password"
@@ -104,7 +106,7 @@ const VendorRegister = () => {
                             onChange={handleChange}
                         />
                         <span
-                            className="z-10 absolute top-1/2  transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer"
+                            className="absolute top-1/2  transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer"
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? "Hide" : "Show"}
@@ -113,43 +115,18 @@ const VendorRegister = () => {
                     {errors.password && <p className="text-red-500 text-xs italic">{errors.password}</p>}
                 </div>
 
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="gender">
-                        Gender<span className="text-black-500 font-light">*</span>
-                    </label>
-                    <select
-                        className={`${errors.gender ? "border-red-500" : ""}  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight  `}
-                        id="gender"
-                        name="gender"
-                        value={formData.gender}
-                        onChange={handleChange}
-                    >
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                    {errors.gender && <p className="text-red-500 text-xs italic">{errors.gender}</p>}
-                </div>
-
                 <div className="flex items-center justify-center">
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  "
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-full py-2 px-4 rounded focus:outline-none "
                         type="submit"
                     >
                         {isLoading ? "Loading..." : "Register"}
                     </button>
                 </div>
-
-
-                {registered && (
-                    <div className="text-center mt-4">
-                        <p className="text-green-500">Registered successfully!</p>
-                    </div>
-                )}
             </form>
+            <ToastContainer />
         </div>
     );
 };
 
-export default VendorRegister;
+export default Register;

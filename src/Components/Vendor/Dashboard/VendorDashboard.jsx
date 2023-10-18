@@ -1,16 +1,14 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-const UserDashboard = () => {
+const VendorDashboard = () => {
 
     const [user, setUser] = useState({});
 
 
-
-
     const fetchUserData = async () => {
         try {
-            const res = await axios.get("https://aresuno-server.vercel.app/api/user/", { withCredentials: true });
+            const res = await axios.get("https://aresuno-server.vercel.app/api/vendor/", { withCredentials: true });
             const user = res.data;
             console.log(user)
             setUser(user);
@@ -160,4 +158,4 @@ const UserDashboard = () => {
     );
 };
 
-export default UserDashboard;
+export default VendorDashboard;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -25,27 +26,27 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            const res = await axios.post("https://aresuno-server.vercel.app/api/user/login", formData, {
-                withCredentials: true
+            const res = await axios.post("https://aresuno-server.vercel.app/api/login", formData, {
+                withCredentials: true,
             });
             console.log(res.data);
             setLoggedIn(true);
-            toast.success("User Logged In Successfully")
+            toast.success("Logged In Successfully")
             setTimeout(() => {
-                navigate("/user/");
+                navigate(`/${res.data.userType}/dashboard/`);
               }, 2000);
         } catch (err) {
             setErrors(err.response.data);
-            toast.error("User Login Failed")
+            toast.error("Login Failed")
         }
 
         setIsLoading(false);
     };
 
     return (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center h-fit">
             <form onSubmit={handleSubmit} className="w-full max-w-md px-4">
-                {/* <h2 className="text-2xl font-bold mb-4 text-center">User Login</h2> */}
+                <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
                         Email<span className="text-black-500 font-light">*</span>
