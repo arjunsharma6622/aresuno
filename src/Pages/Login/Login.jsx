@@ -48,7 +48,7 @@ const Login = () => {
             <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
             {/* <img src="" alt="logo" /> */}
             <p className="text-3xl font-bold mb-6 text-center text-blue-500">Aresuno</p>
-            <form onSubmit={handleSubmit} className="w-full max-m-md px-4">
+            <form onSubmit={handleSubmit} className="w-full max-m-md">
               <div className="field input-field mb-4 relative">
                 <input
                   type="email"
