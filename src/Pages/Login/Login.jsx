@@ -41,10 +41,10 @@ const Login = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center  h-[85vh]">
+    <div className=" flex items-center justify-center  h-[85vh] my-10">
       <section className="w-full max-w-md">
         <div className={` login w-full`}>
-          <div className=" border-2 w-full p-8 py-10 bg-white rounded-xl">
+          <div className=" border-2 w-full p-8 bg-white rounded-xl">
             <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
             {/* <img src="" alt="logo" /> */}
             <p className="text-3xl font-bold mb-6 text-center text-blue-500">Aresuno</p>
