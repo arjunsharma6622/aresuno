@@ -20,7 +20,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Hero />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/loginx' element={<LoginX />} />
+            {/* <Route path='/loginx' element={<LoginX />} /> */}
             <Route path='/user/register' element={<Register />} />
             <Route path='/vendor/register' element={<VendorRegister />} />
             <Route path='/user/dashboard' element={<UserDashboard />} />
