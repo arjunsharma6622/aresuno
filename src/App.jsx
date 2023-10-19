@@ -9,6 +9,7 @@ import VendorDashboard from './Pages/Vendor/Dashboard/VendorDashboard'
 import UserDashboard from './Pages/User/Dashboard/UserDashboard'
 import Login from './Pages/Login/Login'
 import LoginX from './Pages/Login/LoginX'
+import BusinessRegister from './Pages/Business'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path='/user/dashboard' element={<UserDashboard />} />
             <Route path='/vendor/dashboard' element={<VendorDashboard />} />
             <Route path='/contact' element={<h1>Contact</h1>} />
+            <Route path='/business' element={<BusinessRegister />} />
           </Routes>
         </div>
         <Footer />
