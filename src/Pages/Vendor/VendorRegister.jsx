@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { useNavigate } from "react-router-dom";
 
 
 const VendorRegister = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -33,6 +35,9 @@ const VendorRegister = () => {
             console.log(res.data);
             setRegistered(true);
             toast.success("Vendor Registered Successfully")
+            setTimeout(() => {
+                navigate("/business/register");
+            }, 3000)
         } catch (err) {
             if (err.response && err.response.data) {
                 setErrors(err.response.data);

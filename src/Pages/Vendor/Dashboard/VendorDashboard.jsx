@@ -4,14 +4,22 @@ import React, { useState, useEffect } from 'react';
 const VendorDashboard = () => {
 
     const [user, setUser] = useState({});
+    const [businesses, setBusinesses] = useState([]);
 
 
     const fetchUserData = async () => {
         try {
             const res = await axios.get("https://aresuno-server.vercel.app/api/vendor/", { withCredentials: true });
             const user = res.data;
+
+            const resBusinesses = await axios.get("https://aresuno-server.vercel.app/api/vendor/businesses", { withCredentials: true });
+            const businesses = resBusinesses.data;
+
+
             console.log(user)
+            console.log(businesses)
             setUser(user);
+            setBusinesses(businesses);
         }
         catch (err) {
             console.log(err);
@@ -134,26 +142,20 @@ const VendorDashboard = () => {
 
 
             <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <h2 className="text-2xl font-bold mb-4">Enquiries Section</h2>
-                {userEnquiries.map((enquiry) => (
-                    <div key={enquiry.id} className="mb-4">
-                        <p className="text-gray-700 font-semibold">Title: {enquiry.title}</p>
-                        <p className="text-gray-700 font-semibold">Description: {enquiry.description}</p>
-                        {/* Other enquiry fields */}
+                <h2 className="text-2xl font-bold mb-4">All Businesses</h2>
+                <div className='grid grid-cols-3 gap-6'>
+                {businesses.map((business, index) => (
+                    <div key={business.id} className="mb-4 flex flex-col border border-gray p-6 rounded-2xl">
+                        <span>Business {index+1}</span>
+                        <span>Name : {business.name}</span>
+                        <span>Type : {business.type}</span>
+                        <span>Phone : {business.phone}</span>
+                        <span>MainCategory : {business.mainCategory}</span>
+                        <span>SubCategory : {business.subCategory}</span>
                     </div>
                 ))}
+                </div>
             </div>
-            <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold mb-4">Reviews Section</h2>
-                {userReviews.map((review) => (
-                    <div key={review.id} className="mb-4">
-                        <p className="text-gray-700 font-semibold">Title: {review.title}</p>
-                        <p className="text-gray-700 font-semibold">Content: {review.content}</p>
-                        {/* Other review fields */}
-                    </div>
-                ))}
-            </div>
-            {/* ... (other sections remain the same) */}
         </div>
     );
 };
