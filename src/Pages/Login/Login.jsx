@@ -3,9 +3,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { userLogin } from "../../userSlice";
+import {useSelector, useDispatch} from 'react-redux'
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const [formData, setFormData] = useState({
     email: "",
@@ -29,6 +32,10 @@ const Login = () => {
           withCredentials: true,
         }
       );
+
+      dispatch(userLogin({name : res.data.user.name , userType: res.data.userType}))
+
+
       console.log(res.data);
       toast.success("Logged In Successfully");
       setTimeout(() => {
