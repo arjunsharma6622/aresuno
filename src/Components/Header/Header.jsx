@@ -21,13 +21,8 @@ const Header = () => {
             </div>
 
 
+{user.name == "" &&
                 <div className='flex gap-6'>
-
-                    <div className="text-blue-600 text-base">
-                        <Link to="/vendor/register">Vendor Register</Link>
-                    </div>
-
-
 
                     <div className="text-blue-600 text-base">
                         <Link to="/login">Login</Link>
@@ -37,8 +32,11 @@ const Header = () => {
                         <Link to="/signup">Signup</Link>
                     </div>
 
-
                 </div>
+
+}
+
+{ !user.name == "" &&
 
 
                 <div className='flex gap-6'>
@@ -48,13 +46,16 @@ const Header = () => {
                     </div>
                     <div className="text-blue-600 text-base">
                         <span onClick={async () => {
-                            localStorage.removeItem("token")                           
+                            localStorage.removeItem("token")  
+                            dispatch(userLogout())                         
                             navigate("/")
                         }}>
                             Logout</span>
                     </div>
 
                 </div>
+
+                    }
 
 
 

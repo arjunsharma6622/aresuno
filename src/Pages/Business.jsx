@@ -48,10 +48,13 @@ const BusinessRegister = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const token = localStorage.getItem("token");
             const vendorRes = await axios.get(
                 "https://aresuno-server.vercel.app/api/vendor/",
                 {
-                    withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
                 }
             );
             const vendorId = vendorRes.data._id;
@@ -69,7 +72,9 @@ const BusinessRegister = () => {
                 "https://aresuno-server.vercel.app/api/business/register",
                 updatedBusinessDetails,
                 {
-                    withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
             );
             console.log(res.data);

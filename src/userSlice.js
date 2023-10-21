@@ -17,7 +17,6 @@ const userSlice = createSlice({
             state.name = ""
             state.userType = ""
         }
-        
     }
 })
 

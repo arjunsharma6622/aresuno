@@ -4,6 +4,11 @@ const businessSlice = createSlice({
     name : "Business",
     initialState : {
         name : "",
+        type : "",
+        mainCategory : "",
+        subCategory : "",
+        phone : "",
+        timing : "",
     },
     reducers : {
         getBusiness : (state, action) => {

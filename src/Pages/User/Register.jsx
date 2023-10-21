@@ -33,11 +33,14 @@ const Register = () => {
                 `https://aresuno-server.vercel.app/api/${role}/register`,
                 formData
             );
-
             console.log(res.data);
             const token = res.data.token
             localStorage.setItem("token", token)
             toast.success("success")
+            dispatch(userLogin({
+                name: res.data.name,
+                userType: res.data.userType
+            }))
             if (role === 'user') {
                 navigate("/user/dashboard");
             } else {
