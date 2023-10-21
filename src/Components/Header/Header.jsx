@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { userLogout } from '../../userSlice';
 import axios from "axios";
-import { useCookies } from "react-cookie";
 
 
 
@@ -12,7 +11,6 @@ const Header = () => {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     console.log(user)
-    const [cookies, removeCookie] = useCookies([]);
 
 
 
@@ -50,7 +48,7 @@ const Header = () => {
                     </div>
                     <div className="text-blue-600 text-base">
                         <span onClick={async () => {
-                            await axios.post("https://aresuno-server.vercel.app/api/logout")
+                            localStorage.removeItem("token")                           
                             navigate("/")
                         }}>
                             Logout</span>

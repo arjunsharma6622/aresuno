@@ -27,11 +27,11 @@ const Login = () => {
     try {
       const res = await axios.post(
         "https://aresuno-server.vercel.app/api/login",
-        formData,
-        {
-          withCredentials: true,
-        }
+        formData
       );
+
+      const token = res.data.token
+      localStorage.setItem("token", token)
 
       dispatch(userLogin({name : res.data.user.name , userType: res.data.userType}))
 

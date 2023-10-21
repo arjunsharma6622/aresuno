@@ -33,22 +33,16 @@ const Register = () => {
                 `https://aresuno-server.vercel.app/api/${role}/register`,
                 formData
             );
+
             console.log(res.data);
-            toast.success("User Registered Successfully");
-
-            {
-                if(role == 'user'){
-                    setTimeout(() => {
-                        navigate("/user/dashboard")
-                    },3000)
-                }
-                else{
-                    setTimeout(() => {
-                        navigate("/business/register")
-                    },3000)
-                }
+            const token = res.data.token
+            localStorage.setItem("token", token)
+            toast.success("success")
+            if (role === 'user') {
+                navigate("/user/dashboard");
+            } else {
+                navigate("/business/register");
             }
-
         } catch (err) {
             setErrors(err.response.data);
             toast.error("User Registration Failed");

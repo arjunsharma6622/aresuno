@@ -9,10 +9,11 @@ const VendorDashboard = () => {
 
     const fetchUserData = async () => {
         try {
-            const res = await axios.get("https://aresuno-server.vercel.app/api/vendor/", { withCredentials: true });
+            const token = localStorage.getItem("token");
+            const res = await axios.get("https://aresuno-server.vercel.app/api/vendor/", { headers: { Authorization: `Bearer ${token}` } });
             const user = res.data;
 
-            const resBusinesses = await axios.get("https://aresuno-server.vercel.app/api/vendor/businesses", { withCredentials: true });
+            const resBusinesses = await axios.get("https://aresuno-server.vercel.app/api/vendor/businesses", { headers: { Authorization: `Bearer ${token}` } });
             const businesses = resBusinesses.data;
 
 
