@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userLogin } from "../../userSlice";
@@ -48,13 +48,14 @@ const Login = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center  h-[85vh] my-10">
+    <div className=" flex items-center justify-center h-screen">
       <section className="w-full max-w-md">
         <div className={` login w-full`}>
-          <div className=" border-2 w-full p-8 bg-white rounded-xl">
+          <div className="shadow-lg w-full p-8 bg-white rounded-xl">
+          <p className="text-3xl font-bold mb-6 text-center text-blue-500">Aresuno</p>
+
             <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
             {/* <img src="" alt="logo" /> */}
-            <p className="text-3xl font-bold mb-6 text-center text-blue-500">Aresuno</p>
             <form onSubmit={handleSubmit} className="w-full max-m-md">
               <div className="field input-field mb-4 relative">
                 <input
@@ -116,14 +117,15 @@ const Login = () => {
             <div className="form-link text-center mt-4">
               <span>
                 Don't have an account?{" "}
-                <a href="#" className="link signup-link text-blue-500">
+                {/* <a href="#" className="link signup-link text-blue-500">
                   Signup
-                </a>
+                </a> */}
+                <Link to="/signup" className="link text-blue-500 underline">Signup</Link>
               </span>
             </div>
 
             <div className="line h-[1.4px] w-full mt-9 mb-9 bg-gray-300 relative">
-              <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-gray-600">
+              <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-gray-400 text-sm font-light">
                 Or
               </span>
             </div>

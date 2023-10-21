@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { userLogout } from '../../userSlice';
 import axios from "axios";
@@ -8,6 +8,7 @@ import { useCookies } from "react-cookie";
 
 
 const Header = () => {
+    const navigate = useNavigate()
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     console.log(user)
@@ -21,7 +22,6 @@ const Header = () => {
                 <Link to="/">Aresuno</Link>
             </div>
 
-            {user.name === "" &&
 
                 <div className='flex gap-6'>
 
@@ -36,15 +36,13 @@ const Header = () => {
                     </div>
 
                     <div className="text-blue-600 text-base">
-                        <Link to="/user/register">Signup</Link>
+                        <Link to="/signup">Signup</Link>
                     </div>
 
 
                 </div>
-            }
 
 
-            {user &&
                 <div className='flex gap-6'>
 
                     <div className="text-blue-600 text-base">
@@ -52,15 +50,13 @@ const Header = () => {
                     </div>
                     <div className="text-blue-600 text-base">
                         <span onClick={async () => {
-                            dispatch(userLogout());
                             await axios.post("https://aresuno-server.vercel.app/api/logout")
+                            navigate("/")
                         }}>
                             Logout</span>
                     </div>
 
                 </div>
-
-            }
 
 
 
