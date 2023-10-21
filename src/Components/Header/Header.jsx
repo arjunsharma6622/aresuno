@@ -53,7 +53,7 @@ const Header = () => {
                     <div className="text-blue-600 text-base">
                         <span onClick={async () => {
                             dispatch(userLogout());
-                            removeCookie("token");
+                            await axios.post("https://aresuno-server.vercel.app/api/logout")
                         }}>
                             Logout</span>
                     </div>
