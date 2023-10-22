@@ -6,7 +6,7 @@ import { BiLike } from "react-icons/bi";
 import axios from "axios";
 import Accordion from "./Accordion";
 
-export const Frame = () => {
+export const Business = () => {
     const [business, setBusiness] = useState({})
     useEffect(() => {
         fetchBusiness()
@@ -193,6 +193,7 @@ export const Frame = () => {
 
 
 
+
                     {/* address */}
                     <div className="w-full border-b pb-10 border-b-gray-300">
                         <div className="flex items-center gap-4">
@@ -217,7 +218,6 @@ export const Frame = () => {
                                 H.No.185 Maruti City Mauza Kahrai, Shamshabad Road, Kahrai, Agra - 282001 (Near All Sent School)
                             </p>
                         </div>
-                        <img className="w-full h-auto mt-4" alt="Image" src="image-25-3.png" />
                     </div>
 
 
