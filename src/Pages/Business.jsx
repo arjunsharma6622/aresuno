@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FiArrowRight, FiFileText, FiHelpCircle, FiImage, FiInbox, FiLayout, FiMail, FiMapPin, FiMessageSquare, FiNavigation, FiPhone, FiShare2, FiShield, FiStar, FiThumbsUp, FiUploadCloud } from "react-icons/fi";
-import { AiFillSketchSquare, AiFillStar, AiOutlineLike, AiOutlineWhatsApp } from "react-icons/ai";
+import { FiArrowRight, FiFileText, FiGlobe, FiHelpCircle, FiImage, FiInbox, FiMail, FiMapPin, FiMessageSquare, FiNavigation, FiPhone, FiShield, FiStar, FiUploadCloud } from "react-icons/fi";
+import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
 import { PiShareFatBold } from "react-icons/pi";
 import { BiLike } from "react-icons/bi";
 import axios from "axios";
@@ -23,7 +23,7 @@ export const Business = () => {
     }
 
     return (
-        <div className="bg-white flex flex-col gap-4 justify-center w-full px-6 mt-10">
+        <div className="bg-white flex flex-col gap-6 justify-center w-full px-6 mt-10">
 
 
             <div className="w-full border border-solid border-gray-300 rounded-xl p-8 flex gap-4">
@@ -96,40 +96,37 @@ export const Business = () => {
                 <div className="flex flex-[3] flex-col justify-center items-center md:items-start">
 
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2">
-                            {/* <img className="w-6 h-6" alt="" src="vector-3.svg" /> */}
-                            <FiMail className="text-gray-700" />
-                            <span className="text-gray-700 text-sm">Mail</span>
+                    <div className="flex items-center gap-2 flex-col">
+                            <FiGlobe className="text-blue-500 w-8 h-8" />
                         </div>
-                        <div className="flex items-center gap-2">
-                            {/* <img className="w-6 h-6" alt="" src="group.png" /> */}
-                            <FiLayout className="text-gray-700" />
-                            <span className="text-gray-700 text-sm">Website</span>
+                        <div className="flex items-center gap-2 flex-col">
+                            <FiMail className="text-blue-500 w-8 h-8" />
                         </div>
-                        <div className="flex items-center gap-2">
-                            {/* <img className="w-6 h-6" alt="" src="vector-4.svg" /> */}
-                            <AiOutlineWhatsApp className="text-gray-700" />
-                            <span className="text-gray-700 text-sm">WhatsApp</span>
+
+                        <div className="flex items-center gap-2 flex-col">
+                            <AiOutlineWhatsApp className="text-blue-500 w-8 h-8" />
                         </div>
                     </div>
 
 
                     <div className="w-full flex flex-col items-center gap-4 mb-4">
-                        <div className="w-full flex items-center gap-2 p-2 rounded-lg border border-solid border-blue-500">
-                            <FiPhone className="text-blue-500" />
-                            <span className="text-blue-500 font-semibold">Call Now</span>
-                        </div>
-                        <div className="w-full flex items-center gap-2 p-2 rounded-lg bg-blue-500">
-                            <FiMessageSquare className="text-white" />
+                        <button className="w-full flex items-center justify-center gap-2 p-2 rounded-full border border-solid border-blue-600">
+                            <FiPhone className="text-blue-600 w-6 h-6" />
+                            <span className="text-blue-600 font-semibold">
+                                <a href="tel:1234567890">Call Now</a>
+                            </span>
+                        </button>
+                        <button className="w-full flex items-center justify-center gap-2 p-2 rounded-full bg-blue-600">
+                            <FiMessageSquare className="text-white w-6 h-6" />
                             <span className="text-white font-semibold">Enquire Now</span>
-                        </div>
+                        </button>
                     </div>
 
                 </div>
             </div>
 
 
-            <div className="flex gap-4 mb-10">
+            <div className="flex gap-6 mb-10">
 
                 {/* business bottom sedtion */}
 
@@ -139,12 +136,11 @@ export const Business = () => {
                     <div className="w-full border-b pb-10 border-b-gray-300">
                         <div className="w-full">
                             <div className="flex items-center justify-start gap-4">
-                                <FiFileText className="text-gray-700 w-6 h-6" />
+                                <FiFileText className="text-black w-6 h-6" />
                                 <h2 className="text-2xl font-bold text-black">Overview</h2>
                             </div>
                             <p className="mt-2 text-gray-700 text-base">
-                                <span>Royal Packers and movers excellent Pan India Home Moving &amp; Packing Services. Royal promises the best
-                                    prices, dedicated Move Consultants, authorized Service Partners and Tension Free Shifting for its customers.</span>
+                                <span>Royal Packers and movers excellent Pan India Home Moving &amp; Packing Services. Royal promises the best prices, dedicated Move Consultants, authorized Service Partners and Tension Free Shifting for its customers.</span>
                                 <span className="text-blue-500">#HomeMovingkaSaathi</span>
                                 <span className="text-gray-700">&nbsp;</span>
                                 <span className="text-blue-500">#SmartHomeMoving</span>
@@ -155,7 +151,7 @@ export const Business = () => {
 
                     <div className=" w-full border-b pb-10 border-b-gray-300">
                         <div className="flex items-start gap-4">
-                            <FiImage className="text-gray-700 w-6 h-6" />
+                            <FiImage className="text-black w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Photos</h2>
                         </div>
 
@@ -197,7 +193,7 @@ export const Business = () => {
                     {/* address */}
                     <div className="w-full border-b pb-10 border-b-gray-300">
                         <div className="flex items-center gap-4">
-                            <FiNavigation className="text-gray-700 w-6 h-6" />
+                            <FiNavigation className="text-black w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Address</h2>
 
 
@@ -224,7 +220,7 @@ export const Business = () => {
                     {/* posts */}
                     <div className="w-full border-b pb-10 border-b-gray-300">
                         <div className="flex items-center gap-4">
-                            <FiInbox className="text-gray-700 w-6 h-6" />
+                            <FiInbox className="text-black w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Updates</h2>
                         </div>
 
@@ -273,7 +269,7 @@ export const Business = () => {
 
                     <div className="flex flex-col border-b pb-10 border-b-gray-300">
                         <div className="flex gap-4">
-                            <FiStar className="text-gray-700 w-6 h-6" />
+                            <FiStar className="text-black w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Customer ratings & reviews</h2>
                         </div>
                         <div className="grid grid-cols-1 gap-8 mt-8">
@@ -378,7 +374,7 @@ export const Business = () => {
 
                     <div className="w-full mb-10">
                         <div className="flex items-center gap-4">
-                            <FiHelpCircle className="text-gray-700 w-6 h-6" />
+                            <FiHelpCircle className="text-black w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Frequently Asked Questions</h2>
                         </div>
 
@@ -403,9 +399,9 @@ export const Business = () => {
 
 
 
-                <div>
+                <div className="flex flex-col gap-6">
 
-                    <div className="w-full max-w-md border border-solid border-gray-300 rounded-xl p-8">
+                    <div className="w-full border border-solid border-gray-300 rounded-xl p-8">
                         <p className="text-2xl font-bold mb-4 text-center">Business Hours</p>
                         <p className="text-center text-gray-600 mb-6">Monday - Sunday, 9:00 AM to 10:00 PM</p>
 
@@ -440,7 +436,7 @@ export const Business = () => {
 
 
 
-                    <div className="w-full md:max-w-screen-md border border-solid border-gray-300 rounded-xl p-8 mx-auto">
+                    <div className="w-full border border-solid border-gray-300 rounded-xl p-8">
                         <div className="w-full bg-gray-100 rounded-md mb-4 py-2 px-4">
                             <span className="text-gray-700 text-base">Name</span>
                         </div>
