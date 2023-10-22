@@ -4,15 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userLogin } from "../../userSlice";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   const [focusedField, setFocusedField] = useState(null);
-
 
   const [formData, setFormData] = useState({
     email: "",
@@ -34,11 +32,12 @@ const Login = () => {
         formData
       );
 
-      const token = res.data.token
-      localStorage.setItem("token", token)
+      const token = res.data.token;
+      localStorage.setItem("token", token);
 
-      dispatch(userLogin({ name: res.data.user.name, userType: res.data.userType }))
-
+      dispatch(
+        userLogin({ name: res.data.user.name, userType: res.data.userType })
+      );
 
       console.log(res.data);
       toast.success("Logged In Successfully");
@@ -48,7 +47,6 @@ const Login = () => {
     }
     setIsLoading(false);
   };
-
 
   const handleFocus = (fieldName) => {
     setFocusedField(fieldName);
@@ -63,19 +61,22 @@ const Login = () => {
       <section className="w-full max-w-md">
         <div className={` login w-full`}>
           <div className="shadow-lg w-full p-8 bg-white rounded-xl">
-            <p className="text-3xl font-bold mb-6 text-center text-blue-500">Aresuno</p>
+            <p className="text-3xl font-bold mb-6 text-center text-blue-500">
+              Aresuno
+            </p>
 
             <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
             {/* <img src="" alt="logo" /> */}
             <form onSubmit={handleSubmit} className="w-full max-m-md">
               <div className="field input-field mb-4 relative">
                 <span
-                  className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  text-base transition-all duration-75 ease-in ${(focusedField === "email" || formData.email) ? 'top-0 scale-90 text-blue-500' : 'text-gray-400 top-1/2  '
-                    }`}
-
+                  className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
+                    focusedField === "email" || formData.email
+                      ? "top-0 scale-90 text-blue-500 text-sm"
+                      : "text-gray-400 top-1/2  text-base"
+                  }`}
                   onFocus={handleFocus}
                   onBeforeInput={handleBlur}
-
                 >
                   Email
                 </span>
@@ -96,18 +97,15 @@ const Login = () => {
                 ></img>
               </div>
 
-
-
-
-
               <div className="field input-field mb-4 relative">
                 <span
-                  className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  text-base transition-all duration-75 ease-in ${(focusedField === "password" || formData.password) ? 'top-0 scale-90 text-blue-500' : 'text-gray-400 top-1/2  '
-                    }`}
-
+                  className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  transition-all duration-75 ease-in ${
+                    focusedField === "password" || formData.password
+                      ? "top-0 scale-90 text-blue-500 text-sm"
+                      : "text-gray-400 top-1/2  text-base"
+                  }`}
                   onFocus={handleFocus}
                   onBeforeInput={handleBlur}
-
                 >
                   Password
                 </span>
@@ -145,17 +143,18 @@ const Login = () => {
                   className=" bg-blue-700 text-white font-bold w-full py-3  px-4 rounded-lg focus:outline-none"
                   type="submit"
                 >
-                  {isLoading ?
+                  {isLoading ? (
                     <div
                       class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                      role="status">
-                      <span
-                        class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-                      >Loading...</span
-                      >
+                      role="status"
+                    >
+                      <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                        Loading...
+                      </span>
                     </div>
-
-                    : 'loading'}
+                  ) : (
+                    "loading"
+                  )}
                 </button>
               </div>
             </form>
@@ -166,7 +165,9 @@ const Login = () => {
                 {/* <a href="#" className="link signup-link text-blue-500">
                   Signup
                 </a> */}
-                <Link to="/signup" className="link text-blue-500 underline">Signup</Link>
+                <Link to="/signup" className="link text-blue-500 underline">
+                  Signup
+                </Link>
               </span>
             </div>
 

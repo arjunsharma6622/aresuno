@@ -158,10 +158,10 @@ const Register = () => {
               <form onSubmit={handleSubmit} className="w-full max-w-md">
                 <div className="field input-field mb-4 relative">
                   <span
-                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  text-base transition-all duration-75 ease-in ${
+                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  transition-all duration-75 ease-in ${
                       focusedField === "name" || formData.name
-                        ? "top-0 scale-90 text-blue-500"
-                        : "text-gray-400 top-1/2  "
+                        ? "top-0 scale-90 text-blue-500 text-sm"
+                        : "text-gray-400 top-1/2  text-base"
                     }`}
                     onFocus={handleFocus}
                     onBeforeInput={handleBlur}
@@ -194,10 +194,10 @@ const Register = () => {
 
                 <div className="field input-field mb-4 relative">
                   <span
-                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  text-base transition-all duration-75 ease-in ${
+                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
                       focusedField === "email" || formData.email
-                        ? "top-0 scale-90 text-blue-500"
-                        : "text-gray-400 top-1/2  "
+                        ? "top-0 scale-90 text-blue-500 text-sm"
+                        : "text-gray-400 top-1/2  text-base"
                     }`}
                     onFocus={handleFocus}
                     onBeforeInput={handleBlur}
@@ -230,10 +230,10 @@ const Register = () => {
 
                 <div className="field input-field mb-4 relative">
                   <span
-                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  text-base transition-all duration-75 ease-in ${
+                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
                       focusedField === "password" || formData.password
-                        ? "top-0 scale-90 text-blue-500"
-                        : "text-gray-400 top-1/2  "
+                        ? "top-0 scale-90 text-blue-500 text-sm"
+                        : "text-gray-400 top-1/2  text-base"
                     }`}
                     onFocus={handleFocus}
                     onBeforeInput={handleBlur}
