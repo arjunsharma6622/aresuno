@@ -6,3 +6,30 @@ body{
 }
 
 
+.gradient-overlay-left {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    height: 100%;
+    width: 30px; /* Adjust the width of the gradient overlay as needed */
+    background: linear-gradient(to right, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%);
+    z-index: 1;
+}
+.gradient-overlay-right {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    height: 100%;
+    width: 50px; /* Adjust the width of the gradient overlay as needed */
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+    z-index: 1;
+}
+.custom-scrollbar{
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, and Opera */
+    }
+}
+
