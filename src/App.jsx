@@ -10,6 +10,7 @@ import Login from './Pages/Login/Login';
 import BusinessRegister from './Pages/BusinessRegister';
 import { useSelector } from "react-redux";
 import Business from './Pages/Business';
+import { Frame } from './busi';
 
 function App() {
   return (
@@ -48,7 +49,7 @@ function Main() {
 
 
 
-          <Route path='/' element={<Business />} />
+          <Route path='/business' element={<Frame />} />
 
           <Route path='/contact' element={<h1>Contact</h1>} />
 
