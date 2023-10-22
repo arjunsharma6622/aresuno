@@ -5,8 +5,10 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import CustomDropdown from "./Drop";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BusinessRegister = () => {
+    const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [businessDetails, setBusinessDetails] = useState({
         name: "",
@@ -77,6 +79,9 @@ const BusinessRegister = () => {
                     },
                 }
             );
+
+            navigate("/vendor/dashboard");
+
             console.log(res.data);
         } catch (error) {
             console.error("Error", error);

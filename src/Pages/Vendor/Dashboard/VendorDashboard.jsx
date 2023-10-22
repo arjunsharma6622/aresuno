@@ -146,7 +146,7 @@ const VendorDashboard = () => {
                 <h2 className="text-2xl font-bold mb-4">All Businesses</h2>
                 <div className='grid grid-cols-3 gap-6'>
                 {businesses.map((business, index) => (
-                    <div key={business.id} className="mb-4 flex flex-col border border-gray p-6 rounded-2xl">
+                    <div key={business._id} className="mb-4 flex flex-col border border-gray p-6 rounded-2xl">
                         <span>Business {index+1}</span>
                         <span>Name : {business.name}</span>
                         <span>Type : {business.type}</span>

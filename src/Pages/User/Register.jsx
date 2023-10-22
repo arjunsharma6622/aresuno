@@ -25,7 +25,6 @@ const Register = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -33,24 +32,32 @@ const Register = () => {
                 `https://aresuno-server.vercel.app/api/${role}/register`,
                 formData
             );
-            console.log(res.data);
-            const token = res.data.token
-            localStorage.setItem("token", token)
-            toast.success("success")
-            dispatch(userLogin({
-                name: res.data.name,
-                userType: res.data.userType
-            }))
-            if (role === 'user') {
-                navigate("/user/dashboard");
-            } else {
-                navigate("/business/register");
+            console.log(res.data)
+            const token = res.data.token;
+            localStorage.setItem("token", token);
+
+            toast.success("success");
+
+
+            dispatch(
+                userLogin({
+                    name: res.data.vendor.name,
+                    userType: role,
+                })
+            );
+
+            if(role === "vendor"){
+                navigate(`/business/register`);
+            }else{
+                navigate(`/user/dashboard`);
             }
+
         } catch (err) {
             setErrors(err.response.data);
             toast.error("User Registration Failed");
         }
     };
+
 
     return (
         <div className="flex items-center justify-center h-screen">
