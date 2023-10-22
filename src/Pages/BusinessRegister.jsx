@@ -3,9 +3,9 @@ import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
 } from "react-places-autocomplete";
-import CustomDropdown from "./Drop";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FiArrowLeft, FiArrowRight, FiChevronDown } from "react-icons/fi";
 
 const BusinessRegister = () => {
     const navigate = useNavigate();
@@ -123,11 +123,9 @@ const BusinessRegister = () => {
                                     <option value="Individual">Individual</option>
                                     <option value="Company">Company</option>
                                 </select>
-                                <img
-                                    src="/assets/images/dropdown.svg"
-                                    alt="mail"
-                                    className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-600 w-5 h-5"
-                                ></img>
+                                <div>
+                                    <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                </div>
                             </div>
 
                             <div className="flex mt-8 justify-start gap-4">
@@ -187,11 +185,10 @@ const BusinessRegister = () => {
                                     {/* Add more options as needed */}
                                 </select>
 
-                                <img
-                                    src="/assets/images/dropdown.svg"
-                                    alt="mail"
-                                    className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-600 w-5 h-5"
-                                ></img>
+                                <div>
+                                    <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                </div>
+
                             </div>
 
                             <div className="relative">
@@ -209,15 +206,11 @@ const BusinessRegister = () => {
                                     <option value="SubCategory3">Sub Category 3</option>
                                     {/* Add more options as needed */}
                                 </select>
-
-                                <img
-                                    src="/assets/images/dropdown.svg"
-                                    alt="mail"
-                                    className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-600 w-5 h-5"
-                                ></img>
+                                <div>
+                                    <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                </div>
                             </div>
 
-                            {/* <CustomDropdown options={[{ value: 'Option 1', label: 'Option 1' }, { value: 'Option 2', label: 'Option 2' }, { value: 'Option 3', label: 'Option 3' }]} onChange={handleBusinessDetailsChange} ></CustomDropdown> */}
 
 
 
@@ -296,11 +289,10 @@ const BusinessRegister = () => {
                                 onClick={handlePreviousStep}
                                 className="bg-gray-400 group flex justify-center items-center py-2 px-4 text-white font-medium rounded-md text-base"
                             >
-                                <img
-                                    src="/assets/images/arrow-left.svg"
-                                    alt=""
-                                    className="h-4 w-4 mr-2 "
-                                />
+
+
+                                    <FiArrowLeft className=" text-white w-4 h-4 mr-2" />
+
                                 Back
                             </button>
                         )}
@@ -311,11 +303,10 @@ const BusinessRegister = () => {
                                 className="group flex justify-center items-center py-2 px-4 border-gray-500text-base font-medium rounded-md bg-blue-500 text-white"
                             >
                                 Next
-                                <img
-                                    src="/assets/images/arrow-right.svg"
-                                    alt=""
-                                    className="h-4 w-4 ml-2"
-                                />
+
+                                <FiArrowRight className=" text-white w-4 h-4 ml-2" />
+
+
                             </button>
                         )}
 

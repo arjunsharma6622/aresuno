@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { FiArrowLeft, FiArrowRight, FiEye, FiEyeOff } from "react-icons/fi";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       const res = await axios.post(
@@ -46,6 +48,7 @@ const Register = () => {
           userType: role,
         })
       );
+      setIsLoading(false);
 
       if (role === "vendor") {
         navigate(`/business/register`);
@@ -117,10 +120,9 @@ const Register = () => {
               ) : (
                 <div className="flex items-center">
                   Continue as {role}
-                  <img
-                    src="/assets/images/arrow-right.svg"
-                    alt=""
-                    className="h-4 w-4 mr-2 "
+                  <FiArrowRight
+                    strokeWidth={2}
+                    className=" text-white w-5 h-5 ml-2"
                   />
                 </div>
               )}
@@ -141,11 +143,7 @@ const Register = () => {
                   }}
                   className=""
                 >
-                  <img
-                    src="/assets/images/arrow-left-dark.svg"
-                    alt=""
-                    className="h-5 w-5"
-                  />
+                  <FiArrowLeft strokeWidth={2} className="h-5 w-5" />
                 </button>
               </div>
               <p className="text-3xl font-bold mb-6 text-center text-blue-500">
@@ -156,112 +154,123 @@ const Register = () => {
                 Get Started as {role}
               </h2>
               <form onSubmit={handleSubmit} className="w-full max-w-md">
-                <div className="field input-field mb-4 relative">
-                  <span
-                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  transition-all duration-75 ease-in ${
-                      focusedField === "name" || formData.name
-                        ? "top-0 scale-90 text-blue-500 text-sm"
-                        : "text-gray-400 top-1/2  text-base"
-                    }`}
-                    onFocus={handleFocus}
-                    onBeforeInput={handleBlur}
-                  >
-                    Name
-                  </span>
+                <div className="field input-field mb-6 ">
+                  <div className="relative">
+                    <span
+                      className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  transition-all duration-75 ease-in ${
+                        focusedField === "name" || formData.name
+                          ? "top-0 scale-90 text-blue-500 text-sm"
+                          : "text-gray-400 top-1/2  text-base"
+                      } ${
+                        focusedField === "name"
+                          ? "text-blue-500"
+                          : "text-gray-500"
+                      }`}
+                      onFocus={handleFocus}
+                      onBeforeInput={handleBlur}
+                    >
+                      Name
+                    </span>
 
-                  <input
-                    className={`${
-                      errors.name ? "border-red-500" : ""
-                    }  rounded-lg input border border-gray-300 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500`}
-                    id="name"
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onFocus={() => handleFocus("name")}
-                    onBlur={handleBlur}
-                  />
-
-                  <img
-                    src="./assets/images/user.svg"
-                    alt="mail"
-                    className="bx bx-hide eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-600 w-5 h-5"
-                  ></img>
+                    <input
+                      className={`${
+                        errors.name ? "border-red-500" : ""
+                      }  rounded-md input border border-gray-300 w-full py-3 px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500`}
+                      id="name"
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      onFocus={() => handleFocus("name")}
+                      onBlur={handleBlur}
+                    />
+                  </div>
                   {errors.name && (
                     <p className="text-red-500 text-xs italic">{errors.name}</p>
                   )}
                 </div>
 
-                <div className="field input-field mb-4 relative">
-                  <span
-                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
-                      focusedField === "email" || formData.email
-                        ? "top-0 scale-90 text-blue-500 text-sm"
-                        : "text-gray-400 top-1/2  text-base"
-                    }`}
-                    onFocus={handleFocus}
-                    onBeforeInput={handleBlur}
-                  >
-                    Email
-                  </span>
-                  <input
-                    className={`${
-                      errors.email ? "border-red-500" : ""
-                    }  rounded-lg input border border-gray-300 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500`}
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onFocus={() => handleFocus("email")}
-                    onBlur={handleBlur}
-                  />
+                <div className="field input-field mb-6 ">
+                  <div className="relative">
+                    <span
+                      className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
+                        focusedField === "email" || formData.email
+                          ? "top-0 scale-90 text-blue-500 text-sm"
+                          : "text-gray-400 top-1/2  text-base"
+                      } ${
+                        focusedField === "email"
+                          ? "text-blue-500"
+                          : "text-gray-500"
+                      }`}
+                      onFocus={handleFocus}
+                      onBeforeInput={handleBlur}
+                    >
+                      Email
+                    </span>
+                    <input
+                      className={`${
+                        errors.email ? "border-red-500" : ""
+                      }  rounded-md input border border-gray-300 w-full py-3 px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500`}
+                      id="email"
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      onFocus={() => handleFocus("email")}
+                      onBlur={handleBlur}
+                    />
+                  </div>
                   {errors.email && (
                     <p className="text-red-500 text-xs italic">
                       {errors.email}
                     </p>
                   )}
-                  <img
-                    src="./assets/images/mail.svg"
-                    alt="mail"
-                    className="bx bx-hide eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-600 w-5 h-5"
-                  ></img>
                 </div>
 
-                <div className="field input-field mb-4 relative">
-                  <span
-                    className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
-                      focusedField === "password" || formData.password
-                        ? "top-0 scale-90 text-blue-500 text-sm"
-                        : "text-gray-400 top-1/2  text-base"
-                    }`}
-                    onFocus={handleFocus}
-                    onBeforeInput={handleBlur}
-                  >
-                    Password
-                  </span>
-                  <input
-                    className={`${
-                      errors.password ? "border-red-500" : ""
-                    }  rounded-lg input border border-gray-300 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500`}
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    onFocus={() => handleFocus("password")}
-                    onBlur={handleBlur}
-                  />
-                  <img
-                    src={
-                      !showPassword
-                        ? "./assets/images/eye-off.svg"
-                        : "./assets/images/eye.svg"
-                    }
-                    alt="eye"
-                    className="bx bx-hide eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-600 w-5 h-5"
-                    onClick={() => setShowPassword(!showPassword)}
-                  ></img>
+                <div className="field input-field mb-5">
+                  <div className="relative">
+                    <span
+                      className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
+                        focusedField === "password" || formData.password
+                          ? "top-0 scale-90 text-blue-500 text-sm"
+                          : "text-gray-400 top-1/2  text-base"
+                      } ${
+                        focusedField === "password"
+                          ? "text-blue-500"
+                          : "text-gray-500"
+                      }`}
+                      onFocus={handleFocus}
+                      onBeforeInput={handleBlur}
+                    >
+                      Password
+                    </span>
+                    <input
+                      className={`${
+                        errors.password ? "border-red-500" : ""
+                      }  rounded-md input border border-gray-300 w-full py-3 px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500`}
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      onFocus={() => handleFocus("password")}
+                      onBlur={handleBlur}
+                    />
+
+                    <div onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? (
+                        <FiEye
+                          strokeWidth={1.5}
+                          className="bx bx-hide eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-400 w-6 h-6"
+                        />
+                      ) : (
+                        <FiEyeOff
+                          strokeWidth={1.5}
+                          className="bx bx-show eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-400 w-6 h-6"
+                        />
+                      )}
+                    </div>
+                  </div>
                   {errors.password && (
                     <p className="text-red-500 text-xs italic">
                       {errors.password}
@@ -274,7 +283,18 @@ const Register = () => {
                     className=" bg-blue-700 text-white font-bold w-full py-3  px-4 rounded-lg focus:outline-none"
                     type="submit"
                   >
-                    {isLoading ? "Loading..." : "Register"}
+                    {isLoading ? (
+                      <div
+                        class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                        role="status"
+                      >
+                        <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                          Loading...
+                        </span>
+                      </div>
+                    ) : (
+                      "Sign Up"
+                    )}
                   </button>
                 </div>
               </form>

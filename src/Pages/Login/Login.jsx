@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userLogin } from "../../userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { FiEye, FiEyeOff, FiMail } from "react-icons/fi";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -66,14 +67,15 @@ const Login = () => {
             </p>
 
             <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-            {/* <img src="" alt="logo" /> */}
             <form onSubmit={handleSubmit} className="w-full max-m-md">
-              <div className="field input-field mb-4 relative">
+              <div className="field input-field mb-6 relative">
                 <span
-                  className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
+                  className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
                     focusedField === "email" || formData.email
                       ? "top-0 scale-90 text-blue-500 text-sm"
                       : "text-gray-400 top-1/2  text-base"
+                  } ${
+                    focusedField === "email" ? "text-blue-500" : "text-gray-500"
                   }`}
                   onFocus={handleFocus}
                   onBeforeInput={handleBlur}
@@ -86,23 +88,22 @@ const Login = () => {
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="rounded-lg input border border-gray-300 w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                  className="rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none focus:border-blue-500"
                   onFocus={() => handleFocus("email")}
                   onBlur={handleBlur}
                 />
-                <img
-                  src="./assets/images/mail.svg"
-                  alt="mail"
-                  className={`bx bx-hide eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-600 w-5 h-5`}
-                ></img>
               </div>
 
               <div className="field input-field mb-4 relative">
                 <span
-                  className={`bg-white font-light pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  transition-all duration-75 ease-in ${
+                  className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  transition-all duration-75 ease-in ${
                     focusedField === "password" || formData.password
-                      ? "top-0 scale-90 text-blue-500 text-sm"
+                      ? "top-0 scale-90 text-sm"
                       : "text-gray-400 top-1/2  text-base"
+                  } ${
+                    focusedField === "password"
+                      ? "text-blue-500"
+                      : "text-gray-500"
                   }`}
                   onFocus={handleFocus}
                   onBeforeInput={handleBlur}
@@ -115,21 +116,24 @@ const Login = () => {
                   id="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="password input border border-gray-300 w-full py-3 rounded-lg px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                  className="password input border border-gray-300 w-full py-3 rounded-md px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500"
                   onFocus={() => handleFocus("password")}
                   onBlur={handleBlur}
                 />
 
-                <img
-                  src={
-                    !showPassword
-                      ? "./assets/images/eye-off.svg"
-                      : "./assets/images/eye.svg"
-                  }
-                  alt="eye"
-                  className="bx bx-hide eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-600 w-5 h-5"
-                  onClick={() => setShowPassword(!showPassword)}
-                ></img>
+                <div onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <FiEye
+                      strokeWidth={1.5}
+                      className="bx bx-hide eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-400 w-6 h-6"
+                    />
+                  ) : (
+                    <FiEyeOff
+                      strokeWidth={1.5}
+                      className="bx bx-show eye-icon absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm cursor-pointer text-gray-400 w-6 h-6"
+                    />
+                  )}
+                </div>
               </div>
 
               <div className="form-link text-center mb-4">
@@ -153,7 +157,7 @@ const Login = () => {
                       </span>
                     </div>
                   ) : (
-                    "loading"
+                    "Login"
                   )}
                 </button>
               </div>
@@ -162,9 +166,6 @@ const Login = () => {
             <div className="form-link text-center mt-4">
               <span>
                 Don't have an account?{" "}
-                {/* <a href="#" className="link signup-link text-blue-500">
-                  Signup
-                </a> */}
                 <Link to="/signup" className="link text-blue-500 underline">
                   Signup
                 </Link>

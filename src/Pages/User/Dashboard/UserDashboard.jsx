@@ -77,77 +77,14 @@ const UserDashboard = () => {
                     <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-32 mb-4"></div>
                     <span className="sr-only">Loading...</span>
                 </div> :
-                    <div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-                                Name
-                            </label>
-
-                            {editMode ? (
-                                <>
-                                    <input
-                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        value={user.name}
-                                        onChange={handleChange}
-                                    />
-
-                                    <input
-                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                                        id="email"
-                                        type="text"
-                                        name="email"
-                                        value={user.email}
-                                        onChange={handleChange}
-                                    />
-
-                                    <input
-                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                                        id="phone"
-                                        type="text"
-                                        name="phone"
-                                        value={user.phone}
-                                        onChange={handleChange}
-                                    />
-                                </>
-
-                            ) : (
-                                <>
-                                    <p className="text-gray-700">{user.name}</p>
-                                    <p className="text-gray-700">{user.email}</p>
-                                    <p className="text-gray-700">{user.phone}</p>
-                                </>
-                            )}
-                        </div>
-                        {/* Repeat the same structure for other fields */}
-                        {editMode ? (
-                            <div>
-                                <button
-                                    onClick={saveProfile}
-                                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-                                >
-                                    Save
-                                </button>
-                                <button
-                                    onClick={handleEditProfile}
-                                    className="ml-4 bg-gray-500 text-white py-2 px-4 rounded hover-bg-gray-700"
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        ) : (
-                            <button
-                                onClick={handleEditProfile}
-                                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-                            >
-                                Edit Profile
-                            </button>
-                        )}
-
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
+                            Name
+                        </label>
+                        <p className="text-gray-700">{user.name}</p>
+                        <p className="text-gray-700">{user.email}</p>
+                        <p className="text-gray-700">{user.phone}</p>
                     </div>
-
                 }
             </div>
 
@@ -158,12 +95,11 @@ const UserDashboard = () => {
                     <div key={enquiry.id} className="mb-4">
                         <p className="text-gray-700 font-semibold">Title: {enquiry.title}</p>
                         <p className="text-gray-700 font-semibold">Description: {enquiry.description}</p>
-                        {/* Other enquiry fields */}
                     </div>
                 ))}
             </div>
 
-        </div>
+        </div >
     );
 };
 
