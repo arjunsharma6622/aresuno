@@ -73,11 +73,11 @@ const VendorDashboard = () => {
     };
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-6 flex gap-6">
 
 
-            <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <h2 className="text-2xl font-bold mb-4">Profile Section</h2>
+            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 flex-[3]">
+                <h2 className="text-2xl font-bold mb-4">Vendor Details</h2>
 
                 {loading ?
                     <div role="status" class="max-w-sm animate-pulse">
@@ -91,9 +91,6 @@ const VendorDashboard = () => {
                     <div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-                                Name
-                            </label>
 
                             {editMode ? (
                                 <>
@@ -163,7 +160,7 @@ const VendorDashboard = () => {
             </div>
 
 
-            <div className="bg-white rounded-lg shadow p-6 mb-6">
+            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 flex-[9]">
                 <h2 className="text-2xl font-bold mb-4">All Businesses</h2>
                 {loading ? (
                     <div role="status" class="max-w-sm animate-pulse">
@@ -173,11 +170,11 @@ const VendorDashboard = () => {
                         <span className="sr-only">Loading...</span>
                     </div>
                 ) :
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                         {businesses.map((business, index) => (
                             <div
                                 key={business._id}
-                                className="mb-4 flex flex-col border border-gray p-6 rounded-2xl"
+                                className=" flex flex-col rounded-lg"
                             >
                                 <span className='font-bold'>{business.name}</span>
                                 <span>Type : {business.type}</span>

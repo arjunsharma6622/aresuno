@@ -8,9 +8,10 @@ import VendorRegister from './Pages/Vendor/VendorRegister';
 import VendorDashboard from './Pages/Vendor/Dashboard/VendorDashboard';
 import UserDashboard from './Pages/User/Dashboard/UserDashboard';
 import Login from './Pages/Login/Login';
-import BusinessRegister from './Pages/Business';
+import BusinessRegister from './Pages/BusinessRegister';
 import { useSelector } from "react-redux";
 import { useEffect } from 'react';
+import Business from './Pages/Business';
 
 function App() {
   return (
@@ -48,6 +49,8 @@ function Main() {
           )}
 
 
+
+          <Route path='/' element={<Business />} />
 
           <Route path='/contact' element={<h1>Contact</h1>} />
 

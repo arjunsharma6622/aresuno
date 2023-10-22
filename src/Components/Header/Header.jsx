@@ -44,7 +44,7 @@ const Header = () => {
                     <div className="text-blue-600 text-base">
                         <Link to={`/${user.userType}/dashboard`}>{user.name}</Link>
                     </div>
-                    <div className="text-blue-600 text-base">
+                    <div className="text-blue-600 text-base cursor-pointer">
                         <span onClick={async () => {
                             localStorage.removeItem("token")  
                             dispatch(userLogout())                         

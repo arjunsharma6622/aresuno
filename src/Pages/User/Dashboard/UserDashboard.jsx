@@ -4,18 +4,20 @@ import React, { useState, useEffect } from 'react';
 const UserDashboard = () => {
 
     const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(true);
 
 
 
 
     const fetchUserData = async () => {
         try {
+            setLoading(true);
             const token = localStorage.getItem("token");
-            // const res = await axios.get("https://aresuno-server.vercel.app/api/user/", { withCredentials: true });
             const res = await axios.get("https://aresuno-server.vercel.app/api/user/", { headers: { Authorization: `Bearer ${token}` } });
             const user = res.data;
             console.log(user)
             setUser(user);
+            setLoading(false);
         }
         catch (err) {
             console.log(err);
@@ -64,80 +66,93 @@ const UserDashboard = () => {
     };
 
     return (
-        <div className="container mx-auto p-6">
-            <div className="bg-white rounded-lg shadow p-6 mb-6">
+        <div className="container mx-auto p-6 flex justify-between gap-8">
+            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 flex-[3]">
                 <h2 className="text-2xl font-bold mb-4">Profile Section</h2>
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-                        Name
-                    </label>
 
-                    {editMode ? (
-                        <>
-                            <input
-                                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                                id="name"
-                                type="text"
-                                name="name"
-                                value={user.name}
-                                onChange={handleChange}
-                            />
 
-                            <input
-                                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                                id="email"
-                                type="text"
-                                name="email"
-                                value={user.email}
-                                onChange={handleChange}
-                            />
-
-                            <input
-                                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                                id="phone"
-                                type="text"
-                                name="phone"
-                                value={user.phone}
-                                onChange={handleChange}
-                            />
-                        </>
-
-                    ) : (
-                        <>
-                            <p className="text-gray-700">{user.name}</p>
-                            <p className="text-gray-700">{user.email}</p>
-                            <p className="text-gray-700">{user.phone}</p>
-                        </>
-                    )}
-                </div>
-                {/* Repeat the same structure for other fields */}
-                {editMode ? (
+                {loading ? <div role="status" class="max-w-sm animate-pulse">
+                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-32 mb-4"></div>
+                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-48 mb-4"></div>
+                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-32 mb-4"></div>
+                    <span className="sr-only">Loading...</span>
+                </div> :
                     <div>
-                        <button
-                            onClick={saveProfile}
-                            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-                        >
-                            Save
-                        </button>
-                        <button
-                            onClick={handleEditProfile}
-                            className="ml-4 bg-gray-500 text-white py-2 px-4 rounded hover-bg-gray-700"
-                        >
-                            Cancel
-                        </button>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
+                                Name
+                            </label>
+
+                            {editMode ? (
+                                <>
+                                    <input
+                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                                        id="name"
+                                        type="text"
+                                        name="name"
+                                        value={user.name}
+                                        onChange={handleChange}
+                                    />
+
+                                    <input
+                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                                        id="email"
+                                        type="text"
+                                        name="email"
+                                        value={user.email}
+                                        onChange={handleChange}
+                                    />
+
+                                    <input
+                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                                        id="phone"
+                                        type="text"
+                                        name="phone"
+                                        value={user.phone}
+                                        onChange={handleChange}
+                                    />
+                                </>
+
+                            ) : (
+                                <>
+                                    <p className="text-gray-700">{user.name}</p>
+                                    <p className="text-gray-700">{user.email}</p>
+                                    <p className="text-gray-700">{user.phone}</p>
+                                </>
+                            )}
+                        </div>
+                        {/* Repeat the same structure for other fields */}
+                        {editMode ? (
+                            <div>
+                                <button
+                                    onClick={saveProfile}
+                                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    onClick={handleEditProfile}
+                                    className="ml-4 bg-gray-500 text-white py-2 px-4 rounded hover-bg-gray-700"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={handleEditProfile}
+                                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+                            >
+                                Edit Profile
+                            </button>
+                        )}
+
                     </div>
-                ) : (
-                    <button
-                        onClick={handleEditProfile}
-                        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-                    >
-                        Edit Profile
-                    </button>
-                )}
+
+                }
             </div>
 
 
-            <div className="bg-white rounded-lg shadow p-6 mb-6">
+            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 flex-[9]">
                 <h2 className="text-2xl font-bold mb-4">Enquiries Section</h2>
                 {userEnquiries.map((enquiry) => (
                     <div key={enquiry.id} className="mb-4">
@@ -147,17 +162,7 @@ const UserDashboard = () => {
                     </div>
                 ))}
             </div>
-            <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-2xl font-bold mb-4">Reviews Section</h2>
-                {userReviews.map((review) => (
-                    <div key={review.id} className="mb-4">
-                        <p className="text-gray-700 font-semibold">Title: {review.title}</p>
-                        <p className="text-gray-700 font-semibold">Content: {review.content}</p>
-                        {/* Other review fields */}
-                    </div>
-                ))}
-            </div>
-            {/* ... (other sections remain the same) */}
+
         </div>
     );
 };
