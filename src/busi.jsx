@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiArrowRight, FiFileText, FiHelpCircle, FiImage, FiInbox, FiLayout, FiMail, FiMapPin, FiMessageSquare, FiNavigation, FiPhone, FiShare2, FiShield, FiStar, FiThumbsUp, FiUploadCloud } from "react-icons/fi";
 import { AiFillSketchSquare, AiFillStar, AiOutlineLike, AiOutlineWhatsApp } from "react-icons/ai";
 import { PiShareFatBold } from "react-icons/pi";
 import { BiLike } from "react-icons/bi";
+import axios from "axios";
+import Accordion from "./Accordion";
 
 export const Frame = () => {
+    const [business, setBusiness] = useState({})
+    useEffect(() => {
+        fetchBusiness()
+    }, [])
+    const fetchBusiness = async () => {
+        try {
+            const res = await axios.get('https://aresuno-server.vercel.app/api/business/6533fd7ddb86f671ea9da76a')
+            setBusiness(res.data)
+            console.log(res.data)
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
     return (
-        <div className="bg-white flex flex-col gap-4 justify-center w-full px-6">
+        <div className="bg-white flex flex-col gap-4 justify-center w-full px-6 mt-10">
 
 
             <div className="w-full border border-solid border-gray-300 rounded-xl p-8 flex gap-4">
@@ -22,7 +39,7 @@ export const Frame = () => {
 
 
                             <div>
-                                <div className="text-black text-4xl font-bold whitespace-nowrap">Agra Packers And Movers</div>
+                                <div className="text-black text-2xl font-semibold whitespace-nowrap">{business.name}</div>
 
                                 <div className="flex items-center gap-2">
                                     <FiMapPin className="text-blue-500" />
@@ -112,14 +129,14 @@ export const Frame = () => {
             </div>
 
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 mb-10">
 
                 {/* business bottom sedtion */}
 
-                <div className="flex flex-col gap-4 flex-[9] border border-solid border-[#d7d7d7] rounded-xl px-10 py-8">
+                <div className="flex flex-col gap-10 flex-[9] border border-solid border-[#d7d7d7] rounded-xl px-10 py-8">
 
 
-                    <div className="w-full border-b pb-4 border-b-gray-300">
+                    <div className="w-full border-b pb-10 border-b-gray-300">
                         <div className="w-full">
                             <div className="flex items-center justify-start gap-4">
                                 <FiFileText className="text-gray-700 w-6 h-6" />
@@ -136,7 +153,7 @@ export const Frame = () => {
                         </div>
                     </div>
 
-                    <div className=" w-full">
+                    <div className=" w-full border-b pb-10 border-b-gray-300">
                         <div className="flex items-start gap-4">
                             <FiImage className="text-gray-700 w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Photos</h2>
@@ -177,11 +194,23 @@ export const Frame = () => {
 
 
                     {/* address */}
-                    <div className="w-full">
-                        <div className="flex items-center gap-4 mt-4">
-                            {/* <img className="w-6 h-6" alt="Navigation" src="navigation-2.svg" /> */}
+                    <div className="w-full border-b pb-10 border-b-gray-300">
+                        <div className="flex items-center gap-4">
                             <FiNavigation className="text-gray-700 w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Address</h2>
+
+
+                            {/* <iframe
+                                width="600"
+                                height="450"
+                                loading="lazy"
+                                allowFullScreen
+                                referrerPolicy="no-referrer-when-downgrade"
+                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDaaCWy7vsFxmPd5zHmapYuO5KH8kaw67M&q=Space+Needle,Seattle+WA">
+                            </iframe> */}
+
+
+
                         </div>
                         <div className="mt-4">
                             <p className="text-gray-600 text-base">
@@ -193,8 +222,8 @@ export const Frame = () => {
 
 
                     {/* posts */}
-                    <div className="w-full">
-                        <div className="flex items-center gap-4 mt-4">
+                    <div className="w-full border-b pb-10 border-b-gray-300">
+                        <div className="flex items-center gap-4">
                             <FiInbox className="text-gray-700 w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Updates</h2>
                         </div>
@@ -213,7 +242,7 @@ export const Frame = () => {
                                     <div className="mt-2 text-gray-500">29 august, 2023</div>
                                     <div className="flex items-center mt-2 text-green-600">
                                         <span className="font-semibold">VIEW MORE</span>
-                                        <FiArrowRight className="ml-1 w-5 h-5" strokeWidth={2}/>
+                                        <FiArrowRight className="ml-1 w-5 h-5" strokeWidth={2} />
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +261,7 @@ export const Frame = () => {
                                     <div className="mt-2 text-gray-500">29 august, 2023</div>
                                     <div className="flex items-center mt-2 text-green-600">
                                         <span className="font-semibold">VIEW MORE</span>
-                                        <FiArrowRight className="ml-1 w-5 h-5" strokeWidth={2}/>
+                                        <FiArrowRight className="ml-1 w-5 h-5" strokeWidth={2} />
                                     </div>
                                 </div>
                             </div>
@@ -242,19 +271,104 @@ export const Frame = () => {
 
 
 
-                    <div className="flex flex-col">
-                        <div className="flex gap-4 mt-4">
+                    <div className="flex flex-col border-b pb-10 border-b-gray-300">
+                        <div className="flex gap-4">
                             <FiStar className="text-gray-700 w-6 h-6" />
-                            <h2 className="text-2xl font-bold text-black">Ratings and Reviews</h2>
+                            <h2 className="text-2xl font-bold text-black">Customer ratings & reviews</h2>
                         </div>
                         <div className="grid grid-cols-1 gap-8 mt-8">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
                                     <div className="text-white text-lg font-semibold">4.3</div>
                                 </div>
                                 <p className="text-black text-base">Overall 50 Ratings</p>
                             </div>
-                            <div className="grid grid-cols-1 gap-6">
+                            <div className="flex flex-col gap-4">
+
+                                <div className="flex items-start gap-4">
+                                    <div>
+                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="" className=" w-20 rounded-full" />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <div className="">
+
+
+                                            <span>Arjun Sharma</span>
+                                            <div className="flex gap-4 mt-1">
+                                                <div className="flex items-center">
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-gray-300" />
+                                                </div>
+                                                <div className="text-gray-500 text-xs mr-4">2 days ago</div>
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p className=" font-normal text-sm">
+                                                Had a very great experience with them. They were very efficient and fast in their highly recommend them. ThanksHad a very great experience with them. They were very efficient and fast in their highly recommend them. Thanks
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <div>
+                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="" className=" w-20 rounded-full" />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <div className="">
+
+
+                                            <span>Arjun Sharma</span>
+                                            <div className="flex gap-4 mt-1">
+                                                <div className="flex items-center">
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-gray-300" />
+                                                </div>
+                                                <div className="text-gray-500 text-xs mr-4">2 days ago</div>
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p className=" font-normal text-sm">
+                                                Had a very great experience with them. They were very efficient and fast in their highly recommend them. ThanksHad a very great experience with them. They were very efficient and fast in their highly recommend them. Thanks
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <div>
+                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="" className=" w-20 rounded-full" />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <div className="">
+
+
+                                            <span>Arjun Sharma</span>
+                                            <div className="flex gap-4 mt-1">
+                                                <div className="flex items-center">
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-yellow-500" />
+                                                    <AiFillStar className="text-gray-300" />
+                                                </div>
+                                                <div className="text-gray-500 text-xs mr-4">2 days ago</div>
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p className=" font-normal text-sm">
+                                                Had a very great experience with them. They were very efficient and fast in their highly recommend them. ThanksHad a very great experience with them. They were very efficient and fast in their highly recommend them. Thanks
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -262,31 +376,27 @@ export const Frame = () => {
 
 
 
-                    <div className="max-w-2xl">
-                        <div className="flex items-center gap-4 mt-4">
-                            {/* <img className="w-6 h-6" alt="Help circle" src="help-circle.svg" /> */}
+                    <div className="w-full mb-10">
+                        <div className="flex items-center gap-4">
                             <FiHelpCircle className="text-gray-700 w-6 h-6" />
                             <h2 className="text-2xl font-bold text-black">Frequently Asked Questions</h2>
                         </div>
-                        <div className="grid grid-cols-1 gap-8 mt-8">
-                            <div className="max-w-full">
-                                <p className="text-black text-lg">1. Will Agra Packers and Movers in Kahrai transport my belongings inside itself?</p>
-                                <p className="mt-2 text-gray-600">
-                                    Clothes and other movable items are removed and packed separately in boxes. This also makes them lighter to carry furniture away.
-                                </p>
-                            </div>
-                            <div className="max-w-full">
-                                <p className="text-black text-lg">2. Should I pre-pack everything for them to carry away to the transport facility?</p>
-                                <p className="mt-2 text-gray-600">No, you do not need to pre-pack things. But, if you wish to be better prepared, you can do that too.</p>
-                            </div>
-                            <div className="max-w-full">
-                                <p className="text-black text-lg">3. Can I call them directly on the day of shifting or do I need an earlier appointment?</p>
-                                <p className="mt-2 text-gray-600">
-                                    Personnel from the company needs to visit your home to assess the weight and capacity of your belongings so they can plan to bring adequate supplies and transport them accordingly. Agra Packers and Movers are available during Monday:- Open 24 Hrs, Tuesday: - Open 24 Hrs, Wednesday:- Open 24 Hrs, thu:- Open 24 Hrs, Friday:- Open 24 Hrs, Saturday:- Open 24 Hrs, Sunday:- Open 24 Hrs. So, schedule a house call accordingly.
-                                </p>
-                            </div>
-                        </div>
+
+                        <Accordion question={"1. Will Agra Packers and Movers in Kahrai transport my belongings inside itself?"} content={"Clothes and other movable items are removed and packed separately in boxes. This also makes them lighter to carry furniture away."} />
+                        <Accordion question={"2. Should I pre-pack everything for them to carry away to the transport facility?"} content={"No, you do not need to pre-pack things. But, if you wish to be better prepared, you can do that too."} />
+                        <Accordion question={"3. Can I call them directly on the day of shifting or do I need an earlier appointment?"} content={"Personnel from the company needs to visit your home to assess the weight and capacity of your belongings so they can plan to bring adequate supplies and transport them accordingly. Agra Packers and Movers are available during Monday:- Open 24 Hrs, Tuesday: - Open 24 Hrs, Wednesday:- Open 24 Hrs, thu:- Open 24 Hrs, Friday:- Open 24 Hrs, Saturday:- Open 24 Hrs, Sunday:- Open 24 Hrs. So, schedule a house call accordingly."} />
+
                     </div>
+
+
+
+
+
+
+
+
+
+
 
                 </div>
 
