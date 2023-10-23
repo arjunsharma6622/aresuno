@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiArrowRight, FiFileText, FiGlobe, FiHelpCircle, FiImage, FiInbox, FiMail, FiMapPin, FiMessageSquare, FiNavigation, FiPhone, FiShield, FiStar, FiUploadCloud } from "react-icons/fi";
+import { FiArrowRight, FiClock, FiFileText, FiGlobe, FiHelpCircle, FiImage, FiInbox, FiMail, FiMapPin, FiMessageSquare, FiNavigation, FiPhone, FiShield, FiStar, FiUploadCloud } from "react-icons/fi";
 import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
 import { PiShareFatBold } from "react-icons/pi";
 import { BiLike } from "react-icons/bi";
@@ -27,7 +27,7 @@ export const Business = () => {
 
 
             <div className="w-full border border-solid border-gray-300 rounded-xl p-8 flex gap-4">
-                <div className="flex flex-[9] flex-col justify-center items-center md:items-start">
+                <div className="flex flex-[9] justify-center items-center">
                     <div className="w-full bg-cover bg-center">
 
 
@@ -74,12 +74,26 @@ export const Business = () => {
 
                                 </div>
 
-                                <div className="flex items-center gap-2">
+                                {/* <div className="flex items-center gap-2">
                                     <div className="relative bg-[#E9F5FE] rounded-full h-9 w-9" style={{ border: "2px solid #C9E0F2" }}>
                                         <PiShareFatBold className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                                     </div>
                                     <div className="relative bg-[#E9F5FE] rounded-full h-9 w-9" style={{ border: "2px solid #C9E0F2" }}>
                                         <BiLike className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                                    </div>
+                                </div> */}
+
+                                <div className="w-full flex items-center justify-start gap-4">
+
+                                    <div className="flex justify-start items-center gap-2 flex-col">
+                                        <FiGlobe className="text-blue-500 w-8 h-8" />
+                                    </div>
+                                    <div className="flex items-center gap-2 flex-col">
+                                        <FiMail className="text-blue-500 w-8 h-8" />
+                                    </div>
+
+                                    <div className="flex items-center gap-2 flex-col">
+                                        <AiOutlineWhatsApp className="text-blue-500 w-8 h-8" />
                                     </div>
                                 </div>
 
@@ -93,23 +107,17 @@ export const Business = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-[3] flex-col justify-center items-center md:items-start">
 
-                    <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 flex-col">
-                            <FiGlobe className="text-blue-500 w-8 h-8" />
-                        </div>
-                        <div className="flex items-center gap-2 flex-col">
-                            <FiMail className="text-blue-500 w-8 h-8" />
-                        </div>
 
-                        <div className="flex items-center gap-2 flex-col">
-                            <AiOutlineWhatsApp className="text-blue-500 w-8 h-8" />
-                        </div>
+                <div className="flex flex-[3] flex-col gap-4 justify-center items-center">
+                    <div className="w-full">
+                        <div className="text-2xl font-bold flex items-center gap-3"> <FiClock className="text-black w-6 h-6" /> Business Hours</div>
+                        <p className=" text-gray-600">Monday - Sunday, 9:00 AM to 10:00 PM</p>
                     </div>
 
 
-                    <div className="w-full flex flex-col items-center gap-4 mb-4">
+
+                    <div className="w-full flex flex-col items-center gap-2">
                         <button className="w-full flex items-center justify-center gap-2 p-2 rounded-full border border-solid border-blue-600">
                             <FiPhone className="text-blue-600 w-6 h-6" />
                             <span className="text-blue-600 font-semibold">
@@ -122,7 +130,13 @@ export const Business = () => {
                         </button>
                     </div>
 
+
+
+
+
                 </div>
+
+
             </div>
 
 
@@ -208,12 +222,18 @@ export const Business = () => {
 
 
 
+
+
+
+
                         </div>
-                        <div className="mt-4">
+                        <div className="my-4">
                             <p className="text-gray-600 text-base">
                                 H.No.185 Maruti City Mauza Kahrai, Shamshabad Road, Kahrai, Agra - 282001 (Near All Sent School)
                             </p>
                         </div>
+
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.945429788256!2d77.26983317550078!3d28.631397575665424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd437d9b5153%3A0x96a56befc2cfe09d!2sARESUNO%20INFO%20INDIA%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1698030034459!5m2!1sen!2sin" width="100%" height="400" allowFullScreen="" referrerPolicy="no-referrer-when-downgrade" className="rounded-xl"></iframe>
                     </div>
 
 
@@ -399,61 +419,73 @@ export const Business = () => {
 
 
 
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col flex-[4.7] gap-6">
 
-                    <div className="w-full border border-solid border-gray-300 rounded-xl p-8">
-                        <p className="text-2xl font-bold mb-4 text-center">Business Hours</p>
-                        <p className="text-center text-gray-600 mb-6">Monday - Sunday, 9:00 AM to 10:00 PM</p>
+                    <div className="flex justify-start items-center">
 
-                        <div className="mb-8">
-                            <p className="text-xl font-semibold mb-4">Services</p>
-                            <div className="flex items-center mb-2">
-                                <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
-                                <p className="text-gray-800">Logistic Services</p>
+
+
+                        <div className="flex flex-col justify-start items-start">
+
+                            <div>
+                                <p className="text-xl font-semibold mb-4">Services</p>
+                                <div className="flex items-center mb-2">
+                                    <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
+                                    <p className="text-gray-800">Logistic Services</p>
+                                </div>
+                                <div className="flex items-center mb-2">
+                                    <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
+                                    <p className="text-gray-800">Packers and Movers</p>
+                                </div>
+                                <div className="flex items-center mb-2">
+                                    <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
+                                    <p className="text-gray-800">Transportation</p>
+                                </div>
                             </div>
-                            <div className="flex items-center mb-2">
-                                <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
-                                <p className="text-gray-800">Packers and Movers</p>
+
+                            <div className="mb-8">
+                                <p className="text-xl font-semibold mb-4">Mode of Payment</p>
+                                <p className="text-gray-600">
+                                    Cash <br />
+                                    Master Card <br />
+                                    Visa Card <br />
+                                    Debit Cards <br />
+                                    American Express <br />
+                                    Credit Card
+                                </p>
                             </div>
-                            <div className="flex items-center mb-2">
-                                <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
-                                <p className="text-gray-800">Transportation</p>
-                            </div>
+
                         </div>
 
-                        <div className="mb-8">
-                            <p className="text-xl font-semibold mb-4">Mode of Payment</p>
-                            <p className="text-gray-600">
-                                Cash <br />
-                                Master Card <br />
-                                Visa Card <br />
-                                Debit Cards <br />
-                                American Express <br />
-                                Credit Card
-                            </p>
-                        </div>
+
                     </div>
 
 
 
-                    <div className="w-full border border-solid border-gray-300 rounded-xl p-8">
-                        <div className="w-full bg-gray-100 rounded-md mb-4 py-2 px-4">
-                            <span className="text-gray-700 text-base">Name</span>
+
+
+                    <div className="w-full border border-solid border-gray-300 rounded-xl py-8 px-3">
+                        <span className="text-xl font-bold">Any Query?</span>
+                        <p className="text-gray-500 text-sm my-2">Write to us and we will get back to you</p>
+                        <div className="flex items-center flex-col gap-2">
+                            <input type="text" placeholder="Name" className="w-full h-10 bg-gray-100 rounded-md px-4" />
+                            <input type="text" placeholder="Phone Number" className="w-full h-10 bg-gray-100 rounded-md px-4" />
+                            <input type="text" placeholder="Email" className="w-full h-10 bg-gray-100 rounded-md px-4" />
+                            <textarea name="text" id="" cols="30" placeholder="Message" rows="10" className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"></textarea>
+                            <button className="bg-blue-600 text-white w-full h-10 rounded-md">Submit</button>
                         </div>
-                        <div className="w-full bg-gray-100 rounded-md mb-4 py-2 px-4">
-                            <span className="text-gray-700 text-base text-center">Phone Number</span>
-                        </div>
-                        <div className="w-full bg-gray-100 rounded-md mb-4 py-2 px-4">
-                            <span className="text-gray-700 text-base text-center">Email Id</span>
-                        </div>
-                        <div className="w-full bg-blue-500 rounded-md mb-4 py-2 px-4">
-                            <span className="text-white text-base text-center font-bold">Submit</span>
-                        </div>
-                        <div className="w-full bg-gray-100 rounded-md mb-4 py-2 px-4">
-                            <span className="text-gray-700 text-base text-center">Query</span>
-                        </div>
-                        <div className="w-full mb-4">
-                            <p className="text-black text-xl font-semibold">Questions</p>
+                    </div>
+
+
+                    <div className="w-full border border-solid border-gray-300 rounded-xl py-8 px-3">
+                        <span className="text-xl font-bold">Any Query?</span>
+                        <p className="text-gray-500 text-sm my-2">Write to us and we will get back to you</p>
+                        <div className="flex items-center flex-col gap-2">
+                            <input type="text" placeholder="Name" className="w-full h-10 bg-gray-100 rounded-md px-4" />
+                            <input type="text" placeholder="Phone Number" className="w-full h-10 bg-gray-100 rounded-md px-4" />
+                            <input type="text" placeholder="Email" className="w-full h-10 bg-gray-100 rounded-md px-4" />
+                            <textarea name="text" id="" cols="30" placeholder="Message" rows="10" className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"></textarea>
+                            <button className="bg-blue-600 text-white w-full h-10 rounded-md">Submit</button>
                         </div>
                     </div>
                 </div>
