@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FiArrowRight, FiClock, FiFileText, FiGlobe, FiHelpCircle, FiImage, FiInbox, FiMail, FiMapPin, FiMessageSquare, FiNavigation, FiPhone, FiShield, FiStar, FiUploadCloud } from "react-icons/fi";
-import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
+import { FiArrowRight, FiClock, FiFileText, FiFrown, FiGlobe, FiHelpCircle, FiImage, FiInbox, FiMail, FiMapPin, FiMessageSquare, FiNavigation, FiPhone, FiShield, FiStar, FiUploadCloud } from "react-icons/fi";
+import { AiFillFrown, AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
 import { PiShareFatBold } from "react-icons/pi";
 import { BiLike } from "react-icons/bi";
 import axios from "axios";
@@ -8,6 +8,20 @@ import Accordion from "../Accordion";
 
 export const Business = () => {
     const [business, setBusiness] = useState({})
+    const [selectedStars, setSelectedStars] = useState(4);
+    const [hoveredStars, setHoveredStars] = useState(0);
+
+    const handleStarHover = (index) => {
+        setHoveredStars(index + 1);
+    };
+
+    const handleStarLeave = () => {
+        setHoveredStars(0);
+    };
+
+    const handleStarClick = (index) => {
+        setSelectedStars(index + 1);
+    };
     useEffect(() => {
         fetchBusiness()
     }, [])
@@ -147,6 +161,8 @@ export const Business = () => {
                 <div className="flex flex-col gap-10 flex-[9] border border-solid border-[#d7d7d7] rounded-xl px-10 py-8">
 
 
+                    {/* overview */}
+
                     <div className="w-full border-b pb-10 border-b-gray-300">
                         <div className="w-full">
                             <div className="flex items-center justify-start gap-4">
@@ -155,14 +171,62 @@ export const Business = () => {
                             </div>
                             <p className="mt-2 text-gray-700 text-base">
                                 <span>Royal Packers and movers excellent Pan India Home Moving &amp; Packing Services. Royal promises the best prices, dedicated Move Consultants, authorized Service Partners and Tension Free Shifting for its customers.</span>
-                                <span className="text-blue-500">#HomeMovingkaSaathi</span>
+                                <span className="text-blue-600"> #HomeMovingkaSaathi</span>
                                 <span className="text-gray-700">&nbsp;</span>
-                                <span className="text-blue-500">#SmartHomeMoving</span>
-                                <span className="text-gray-700">&#34;</span>
+                                <span className="text-blue-600">#SmartHomeMoving</span>
                             </p>
+
+                            <div className="flex justify-start items-center">
+
+
+
+                                <div className="flex flex-col justify-start items-start">
+
+                                    <div>
+                                        <p className="text-base font-medium mb-1 mt-2">We offer</p>
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FiArrowRight className="text-gray-800 w-5 h-5" />
+                                            <p className="text-gray-800">Logistic Services</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FiArrowRight className="text-gray-800 w-5 h-5" />
+                                            <p className="text-gray-800">Packers and Movers</p>
+                                        </div>
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FiArrowRight className="text-gray-800 w-5 h-5" />
+                                            <p className="text-gray-800">Transportation</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="">
+                                        <p className="text-base font-medium mb-1 mt-2">We accept</p>
+
+                                        <div className="flex flex-wrap gap-2">
+                                            <div className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
+                                                <span className="text-gray-800 text-sm">Cash</span>
+                                            </div>
+                                            <div className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
+                                                <p className="text-gray-800 text-sm">Card</p>
+                                            </div>
+                                            <div className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
+                                                <p className="text-gray-800 text-sm">UPI</p>
+                                            </div>
+                                            <div className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
+                                                <p className="text-gray-800 text-sm">American Express</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>
 
+
+                    {/* photos gallery */}
                     <div className=" w-full border-b pb-10 border-b-gray-300">
                         <div className="flex items-start gap-4">
                             <FiImage className="text-black w-6 h-6" />
@@ -198,12 +262,6 @@ export const Business = () => {
                     </div>
 
 
-
-
-
-
-
-
                     {/* address */}
                     <div className="w-full border-b pb-10 border-b-gray-300">
                         <div className="flex items-center gap-4">
@@ -219,12 +277,6 @@ export const Business = () => {
                                 referrerPolicy="no-referrer-when-downgrade"
                                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDaaCWy7vsFxmPd5zHmapYuO5KH8kaw67M&q=Space+Needle,Seattle+WA">
                             </iframe> */}
-
-
-
-
-
-
 
                         </div>
                         <div className="my-4">
@@ -285,8 +337,7 @@ export const Business = () => {
                     </div>
 
 
-
-
+                    {/* ratings and reviews */}
                     <div className="flex flex-col border-b pb-10 border-b-gray-300">
                         <div className="flex gap-4">
                             <FiStar className="text-black w-6 h-6" />
@@ -392,6 +443,7 @@ export const Business = () => {
 
 
 
+                    {/* faqs */}
                     <div className="w-full mb-10">
                         <div className="flex items-center gap-4">
                             <FiHelpCircle className="text-black w-6 h-6" />
@@ -404,16 +456,6 @@ export const Business = () => {
 
                     </div>
 
-
-
-
-
-
-
-
-
-
-
                 </div>
 
 
@@ -421,63 +463,77 @@ export const Business = () => {
 
                 <div className="flex flex-col flex-[4.7] gap-6">
 
-                    <div className="flex justify-start items-center">
 
 
 
-                        <div className="flex flex-col justify-start items-start">
 
+
+
+                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-6">
+                        <div className="text-xl font-bold mb-4">
+                            <span>Rate us</span>
+                        </div>
+
+                        <div className="mb-4">
+                            <p className="text-gray-500 text-sm my-2">How would you rate our service?</p>
                             <div>
-                                <p className="text-xl font-semibold mb-4">Services</p>
-                                <div className="flex items-center mb-2">
-                                    <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
-                                    <p className="text-gray-800">Logistic Services</p>
-                                </div>
-                                <div className="flex items-center mb-2">
-                                    <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
-                                    <p className="text-gray-800">Packers and Movers</p>
-                                </div>
-                                <div className="flex items-center mb-2">
-                                    <div className="h-3 w-3 rounded-full bg-green-500 mr-2"></div>
-                                    <p className="text-gray-800">Transportation</p>
+                                {/* <div className="flex items-center">
+                                    <AiFillStar className="text-yellow-500 w-7 h-7 cursor-pointer" />
+                                    <AiFillStar className="text-yellow-500 w-7 h-7 cursor-pointer" />
+                                    <AiFillStar className="text-yellow-500 w-7 h-7 cursor-pointer" />
+                                    <AiFillStar className="text-yellow-500 w-7 h-7 cursor-pointer" />
+                                    <AiFillStar className="text-gray-300 w-7 h-7 cursor-pointer hover:text-yellow-500" />
+                                </div> */}
+
+                                {/* <div className="flex items-center gap-1 ">
+                                    {[...Array(5)].map((_, index) => (
+                                        <AiFillStar
+                                            key={index}
+                                            className={`transition-all duration-75 w-8 h-8 cursor-pointer ${selectedStars > index ? (['text-red-500', "text-orange-500", "text-yellow-500", "text-green-500", "text-blue-500"][selectedStars - 1]) : 'text-gray-300'
+                                                }`}
+                                            onMouseEnter={() => handleStarHover(index)}
+                                            onMouseLeave={handleStarLeave}
+                                        />
+                                    ))}
+                                    {selectedStars > 0 && ([<FiFrown className="text-gray-700 w-6 h-6" />, "ok", "good", "happy", "satisfied"][selectedStars - 1])}
+                                </div> */}
+
+                                <div className="flex items-center gap-1">
+                                    {[...Array(5)].map((_, index) => (
+                                        <AiFillStar
+                                            key={index}
+                                            className={`transition-all duration-75 w-8 h-8 cursor-pointer ${(hoveredStars > 0 ? hoveredStars : selectedStars) > index
+                                                    ? ['text-red-500', 'text-orange-500', 'text-yellow-500', 'text-green-600', 'text-blue-500'][
+                                                    (hoveredStars > 0 ? hoveredStars : selectedStars) - 1
+                                                    ]
+                                                    : 'text-gray-300'
+                                                }`}
+                                            onMouseEnter={() => handleStarHover(index)}
+                                            onMouseLeave={handleStarLeave}
+                                            onClick={() => handleStarClick(index)}
+                                        />
+                                    ))}
+                                    {(hoveredStars > 0 ? hoveredStars : selectedStars) && (
+                                        <span className="ml-2 text-2xl">
+                                            {['😢', '😕', '😐', '🙂', '😄'][(hoveredStars > 0 ? hoveredStars : selectedStars) - 1]}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
-
-                            <div className="mb-8">
-                                <p className="text-xl font-semibold mb-4">Mode of Payment</p>
-                                <p className="text-gray-600">
-                                    Cash <br />
-                                    Master Card <br />
-                                    Visa Card <br />
-                                    Debit Cards <br />
-                                    American Express <br />
-                                    Credit Card
-                                </p>
-                            </div>
-
                         </div>
 
+                        <div>
+                            <p className="text-gray-500 text-sm my-2">What do you like about tis service, your experience?</p>
 
+                            <div className="flex items-center flex-col gap-2">
+                                <textarea name="text" id="" cols="30" placeholder="Message" rows="10" className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"></textarea>
+                                <button className="bg-blue-600 text-white w-full h-10 rounded-md">Submit</button>
+                            </div>
+                        </div>
                     </div>
 
 
-
-
-
-                    <div className="w-full border border-solid border-gray-300 rounded-xl py-8 px-3">
-                        <span className="text-xl font-bold">Any Query?</span>
-                        <p className="text-gray-500 text-sm my-2">Write to us and we will get back to you</p>
-                        <div className="flex items-center flex-col gap-2">
-                            <input type="text" placeholder="Name" className="w-full h-10 bg-gray-100 rounded-md px-4" />
-                            <input type="text" placeholder="Phone Number" className="w-full h-10 bg-gray-100 rounded-md px-4" />
-                            <input type="text" placeholder="Email" className="w-full h-10 bg-gray-100 rounded-md px-4" />
-                            <textarea name="text" id="" cols="30" placeholder="Message" rows="10" className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"></textarea>
-                            <button className="bg-blue-600 text-white w-full h-10 rounded-md">Submit</button>
-                        </div>
-                    </div>
-
-
-                    <div className="w-full border border-solid border-gray-300 rounded-xl py-8 px-3">
+                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-6">
                         <span className="text-xl font-bold">Any Query?</span>
                         <p className="text-gray-500 text-sm my-2">Write to us and we will get back to you</p>
                         <div className="flex items-center flex-col gap-2">
