@@ -1,35 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-
-body{
-    font-family: 'poppins', sans-serif;
+body {
+  font-family: "poppins", sans-serif;
 }
 
+/* Width */
+/* Chrome, Safari, Edge, Opera */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+}
+
+/* Track */
+/* Chrome, Safari, Edge, Opera */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Firefox */
+* {
+  scrollbar-color: #f1f1f1 transparent;
+}
+
+/* Handle */
+/* Chrome, Safari, Edge, Opera */
+::-webkit-scrollbar-thumb {
+  background: #b8b8b8;
+  border-radius: 50px;
+}
+
+/* Firefox */
+* {
+  scrollbar-color: #b8b8b8 transparent;
+}
+
+/* Handle on hover */
+/* Chrome, Safari, Edge, Opera */
+::-webkit-scrollbar-thumb:hover {
+  /* background: #555; */
+}
 
 .gradient-overlay-left {
-    position: absolute;
-    top: 0;
-    left: 0px;
-    height: 100%;
-    width: 30px; /* Adjust the width of the gradient overlay as needed */
-    background: linear-gradient(to right, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%);
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0px;
+  height: 100%;
+  width: 30px; /* Adjust the width of the gradient overlay as needed */
+  background: linear-gradient(
+    to right,
+    rgb(255, 255, 255) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  z-index: 1;
 }
 .gradient-overlay-right {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    height: 100%;
-    width: 50px; /* Adjust the width of the gradient overlay as needed */
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  height: 100%;
+  width: 50px; /* Adjust the width of the gradient overlay as needed */
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgb(255, 255, 255) 100%
+  );
+  z-index: 1;
 }
-.custom-scrollbar{
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+.custom-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 
-    &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, and Opera */
-    }
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
 }
-

@@ -469,34 +469,14 @@ export const Business = () => {
 
 
 
-                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-6">
-                        <div className="text-xl font-bold mb-4">
+                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-5">
+                        <div className="text-xl font-bold mb-3">
                             <span>Rate us</span>
                         </div>
 
                         <div className="mb-4">
-                            <p className="text-gray-500 text-sm my-2">How would you rate our service?</p>
+                            <p className="text-gray-600 text-base my-2">How would you rate our service?</p>
                             <div>
-                                {/* <div className="flex items-center">
-                                    <AiFillStar className="text-yellow-500 w-7 h-7 cursor-pointer" />
-                                    <AiFillStar className="text-yellow-500 w-7 h-7 cursor-pointer" />
-                                    <AiFillStar className="text-yellow-500 w-7 h-7 cursor-pointer" />
-                                    <AiFillStar className="text-yellow-500 w-7 h-7 cursor-pointer" />
-                                    <AiFillStar className="text-gray-300 w-7 h-7 cursor-pointer hover:text-yellow-500" />
-                                </div> */}
-
-                                {/* <div className="flex items-center gap-1 ">
-                                    {[...Array(5)].map((_, index) => (
-                                        <AiFillStar
-                                            key={index}
-                                            className={`transition-all duration-75 w-8 h-8 cursor-pointer ${selectedStars > index ? (['text-red-500', "text-orange-500", "text-yellow-500", "text-green-500", "text-blue-500"][selectedStars - 1]) : 'text-gray-300'
-                                                }`}
-                                            onMouseEnter={() => handleStarHover(index)}
-                                            onMouseLeave={handleStarLeave}
-                                        />
-                                    ))}
-                                    {selectedStars > 0 && ([<FiFrown className="text-gray-700 w-6 h-6" />, "ok", "good", "happy", "satisfied"][selectedStars - 1])}
-                                </div> */}
 
                                 <div className="flex items-center gap-1">
                                     {[...Array(5)].map((_, index) => (
@@ -523,11 +503,11 @@ export const Business = () => {
                         </div>
 
                         <div>
-                            <p className="text-gray-500 text-sm my-2">What do you like about tis service, your experience?</p>
+                            <p className="text-gray-600 text-base my-2 mt-4">Share your experience</p>
 
                             <div className="flex items-center flex-col gap-2">
-                                <textarea name="text" id="" cols="30" placeholder="Message" rows="10" className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"></textarea>
-                                <button className="bg-blue-600 text-white w-full h-10 rounded-md">Submit</button>
+                                <textarea name="text" id="" cols="30" placeholder="This is a very good ..." rows="10" className=" focus:outline-none w-full h-24 bg-gray-100 rounded-md px-4 py-2 resize-none"></textarea>
+                                <button className="bg-blue-600 text-white w-full h-10 rounded-md">Rate</button>
                             </div>
                         </div>
                     </div>
