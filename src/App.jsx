@@ -10,6 +10,8 @@ import Login from './Pages/Login/Login';
 import BusinessRegister from './Pages/BusinessRegister';
 import { useSelector } from "react-redux";
 import { Business } from './Pages/Business';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   return (
