@@ -45,20 +45,32 @@ export const Business = () => {
                     <div className="w-full bg-cover bg-center">
 
 
-                        <div className="flex gap-4 justify-start items-start">
+                        <div className="flex gap-6 justify-start items-center">
 
-                            <div className="">
-                                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT2uKp7lRJ0koQdIwQ_doi-Lg1y_OgomVR4Zmqs3bR4VLyeL4mm" alt="" className="rounded-xl h-[100%]" />
+                            <div className="flex-[4] relative rounded-xl">
+                                <div className="shadow-xl rounded-lg">
+                                    <img src="https://cdn.britannica.com/26/196326-050-06AA1B91/headquarters-Ford-Motor-Company-Dearborn-Michigan.jpg" alt="" className="rounded-xl object-cover h-full w-auto" />
+                                </div>
+                                <span className="absolute top-0 left-0 rounded-tl-xl rounded-br-xl bg-green-600 text-xs text-white px-3 py-1 font-medium">top rated</span>
                             </div>
 
 
-                            <div>
-                                <div className="text-black text-2xl font-semibold whitespace-nowrap">{business.name}</div>
+                            <div className="flex-[8]">
+                                <div className="text-black text-3xl flex-col font-semibold flex justify-start items-start">
+                                    <span>{business.name}</span>
+                                    {/* <span className="text-gray-700 text-lg">{business.mainCategory}</span> */}
+                                    <span className="text-gray-700 text-base font-medium">Packers and movers</span>
+
+                                </div>
+                                <div>
+                                </div>
 
                                 <div className="flex items-center gap-2">
                                     <FiMapPin className="text-blue-500" />
                                     <span className="text-gray-600 text-sm">Hyderabad, Hitech city</span>
                                 </div>
+
+
 
 
                                 <div className="flex items-center gap-2 mt-2">
@@ -158,6 +170,7 @@ export const Business = () => {
 
                 {/* business bottom sedtion */}
 
+                {/* business bottom left */}
                 <div className="flex flex-col gap-10 flex-[9] border border-solid border-[#d7d7d7] rounded-xl px-10 py-8">
 
 
@@ -460,7 +473,7 @@ export const Business = () => {
 
 
 
-
+                {/* business bottom right */}
                 <div className="flex flex-col flex-[4.7] gap-6">
 
 
@@ -483,10 +496,10 @@ export const Business = () => {
                                         <AiFillStar
                                             key={index}
                                             className={`transition-all duration-75 w-8 h-8 cursor-pointer ${(hoveredStars > 0 ? hoveredStars : selectedStars) > index
-                                                    ? ['text-red-500', 'text-orange-500', 'text-yellow-500', 'text-green-600', 'text-blue-500'][
-                                                    (hoveredStars > 0 ? hoveredStars : selectedStars) - 1
-                                                    ]
-                                                    : 'text-gray-300'
+                                                ? ['text-red-500', 'text-orange-500', 'text-yellow-500', 'text-green-600', 'text-blue-500'][
+                                                (hoveredStars > 0 ? hoveredStars : selectedStars) - 1
+                                                ]
+                                                : 'text-gray-300'
                                                 }`}
                                             onMouseEnter={() => handleStarHover(index)}
                                             onMouseLeave={handleStarLeave}
@@ -513,7 +526,7 @@ export const Business = () => {
                     </div>
 
 
-                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-6">
+                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-5">
                         <span className="text-xl font-bold">Any Query?</span>
                         <p className="text-gray-500 text-sm my-2">Write to us and we will get back to you</p>
                         <div className="flex items-center flex-col gap-2">
