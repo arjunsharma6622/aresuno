@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiExternalLink } from 'react-icons/fi';
+import BusinessEdit from "../../BusinessEdit";
 
 const VendorDashboard = () => {
     const [user, setUser] = useState({});
@@ -75,7 +76,9 @@ const VendorDashboard = () => {
     };
 
     return (
-        <div className="container mx-auto p-6 flex gap-6">
+        <div className="container flex flex-col items-start">
+
+            <div className="flex gap-6">
             <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 flex-[3]">
                 <h2 className="text-2xl font-bold mb-4">Vendor Details</h2>
 
@@ -98,7 +101,13 @@ const VendorDashboard = () => {
                 )}
             </div>
 
-            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 flex-[9]">
+            <div className="w-full flex-[9]"></div>
+
+            </div>
+
+
+
+            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6">
                 <h2 className="text-2xl font-bold mb-4">All Businesses</h2>
                 {loading ? (
                     <div role="status" class="max-w-sm animate-pulse">
@@ -131,7 +140,17 @@ const VendorDashboard = () => {
                     </div>
                 )}
             </div>
+
+
+<div className="bg-white rounded-lg border border-gray-300 p-6">
+            <BusinessEdit />
+
+            </div>
+
+
+
         </div>
+
     );
 };
 
