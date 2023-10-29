@@ -25,13 +25,14 @@ function Main() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   const isSignpuPage = location.pathname === '/signup';
+  const isVendorDashboard = location.pathname === '/vendor/dashboard';
   const userType = useSelector((state) => state.user.userType);
   const navigate = useNavigate()
 
 
   return (
     <>
-      {!isLoginPage && !isSignpuPage && <Header />}
+      {!isLoginPage && !isSignpuPage && !isVendorDashboard && <Header />}
       <div className='app'>
         <Routes>
           <Route path='/' element={<Hero />} />
@@ -57,7 +58,7 @@ function Main() {
           <Route path='/business/register' element={<BusinessRegister />} />
         </Routes>
       </div>
-      {!isLoginPage && !isSignpuPage && <Footer />}
+      {!isLoginPage && !isSignpuPage && !isVendorDashboard && <Footer />}
     </>
   );
 }

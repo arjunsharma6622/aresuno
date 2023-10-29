@@ -89,7 +89,7 @@ const BusinessRegister = () => {
     };
 
     return (
-        <div className="min-h-screen  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full justify-between flex flex-col h-80">
                 <div className="flex flex-col">
                     <div>
