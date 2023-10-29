@@ -50,7 +50,7 @@ function Main() {
 
 
 
-          <Route path='/business' element={<Business />} />
+          <Route path={'/business/:id'} element={<Business />} />
 
           <Route path='/contact' element={<h1>Contact</h1>} />
 

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import BusinessCard from '../../Pages/BusinessCard'
 import axios from 'axios'
 import BusinessCardSkeleton from './BusinessCardSkeleton'
 
 
 const Hero = () => {
+    const navigate = useNavigate()
 
     const [allBusinesses, setAllBusinesses] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
         fetchAllBusinesses();
     }, []);
+
+
 
     const fetchAllBusinesses = async () => {
         try {
@@ -50,7 +53,7 @@ const Hero = () => {
                     (
                         allBusinesses.map((business, index) => {
                             return (
-                                <BusinessCard name={business.name} category={business.mainCategory} imageUrl={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHfp2-v0_mvOp5W9vUBpNKVMH4A-3M7oRidg&usqp=CAU'} rating={'4 star'} key={index} />
+                                <BusinessCard name={business.name} id={business._id} category={business.mainCategory} imageUrl={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHfp2-v0_mvOp5W9vUBpNKVMH4A-3M7oRidg&usqp=CAU'} rating={'4 star'} key={index}/>
                             )
                         })
                     )

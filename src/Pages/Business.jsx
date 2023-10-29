@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
     FiArrowRight,
-    FiClock,
-    FiFacebook,
     FiFileText,
-    FiFrown,
-    FiGlobe,
     FiHelpCircle,
     FiImage,
     FiInbox,
-    FiInstagram,
     FiMail,
-    FiMapPin,
     FiMessageSquare,
     FiNavigation,
     FiPhone,
-    FiShield,
     FiStar,
     FiUploadCloud,
 } from "react-icons/fi";
-import { AiFillFrown, AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
+import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
 import { PiCalendarCheckLight, PiShareFatBold } from "react-icons/pi";
 import { CgWebsite } from "react-icons/cg";
-import { BiCheckShield, BiLike, BiMap } from "react-icons/bi";
-import { BsCalendarCheck } from "react-icons/bs";
+import { BiCheckShield } from "react-icons/bi";
 import axios from "axios";
 import Accordion from "../Accordion";
-import Slider from "react-slick";
-import ImageSlider from "./CustomCarousel";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -36,11 +26,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { useParams } from "react-router-dom";
 
 export const Business = () => {
     const [business, setBusiness] = useState({});
     const [selectedStars, setSelectedStars] = useState(4);
     const [hoveredStars, setHoveredStars] = useState(0);
+    const { id } = useParams();
 
     const slides = [
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHfp2-v0_mvOp5W9vUBpNKVMH4A-3M7oRidg&usqp=CAU",
@@ -48,22 +40,7 @@ export const Business = () => {
         "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698019200&semt=sph",
         "https://img.freepik.com/free-photo/group-diverse-people-having-business-meeting_53876-25060.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1697155200&semt=ais",
     ];
-    const containerStyles = {
-        width: "100%",
-        height: "200px",
-        margin: "0 auto",
-    };
 
-    const settings = {
-        // dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        arrows: false,
-    };
 
     const handleStarHover = (index) => {
         setHoveredStars(index + 1);
@@ -82,7 +59,7 @@ export const Business = () => {
     const fetchBusiness = async () => {
         try {
             const res = await axios.get(
-                "https://aresuno-server.vercel.app/api/business/6533fd7ddb86f671ea9da76a"
+                "https://aresuno-server.vercel.app/api/business/" + id
             );
             setBusiness(res.data);
             console.log(res.data);
@@ -99,7 +76,6 @@ export const Business = () => {
                         <div className="flex gap-6 justify-start items-center">
                             <div className="flex-[4] flex w-[300px] rounded-xl">
                                 <div className="w-full h-[200px] rounded-xl relative">
-                                    {/* <ImageSlider slides={slides} /> */}
 
                                     <Swiper
                                         spaceBetween={30}
@@ -108,7 +84,6 @@ export const Business = () => {
                                             delay: 2500,
                                             disableOnInteraction: false,
                                         }}
-                                        // navigation={true}
                                         modules={[Autoplay, Pagination]}
                                         className="mySwiper rounded-xl"
                                     >
