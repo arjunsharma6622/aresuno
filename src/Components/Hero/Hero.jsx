@@ -31,8 +31,7 @@ const Hero = () => {
 
     return (
         <div className=' flex flex-col items-center justify-center text-3xl mt-8'>
-            <h1>Welcome to Aresuno</h1>
-            <h1>Business Page is under construction <Link className='text-blue-500 underline' to={'/business'}>LINK</Link></h1>
+            <h1>Find the service you want</h1>
 
 
             <div className='grid grid-cols-4 w-[90%] gap-8 mt-10'>

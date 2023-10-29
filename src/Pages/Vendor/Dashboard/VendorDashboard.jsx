@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiExternalLink } from 'react-icons/fi';
+import { BiSolidBusiness } from 'react-icons/bi';
+import { BsPeopleFill } from 'react-icons/bs';
+import {  MdReviews } from 'react-icons/md';
 import BusinessEdit from "../../BusinessEdit";
 import BusinessRegister from "../../BusinessRegister";
 
@@ -84,7 +87,7 @@ const VendorDashboard = () => {
                 <div className="flex flex-col gap-8 w-full">
 
                     <div className="flex items-center gap-4">
-                        <img src="https://picsum.photos/200" alt="" className="rounded-full w-10 h-10"/>
+                        <img src="https://picsum.photos/200" alt="" className="rounded-full w-10 h-10" />
                         <h2 className="text-2xl font-semibold">{user.name}</h2>
                     </div>
 
@@ -107,7 +110,7 @@ const VendorDashboard = () => {
                 <div className="flex flex-col w-full justify-center">
 
 
-                    <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 min-h-screen">
+                    <div className="">
                         {loading ? (
                             <div role="status" class="max-w-sm animate-pulse">
                                 <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-32 mb-4"></div>
@@ -116,21 +119,59 @@ const VendorDashboard = () => {
                                 <span className="sr-only">Loading...</span>
                             </div>
                         ) : businesses.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                                                        <h2 className="text-2xl font-bold mb-4">All Businesses</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
 
-                                {businesses.map((business, index) => (
-                                    <div key={business._id} className=" flex flex-col rounded-lg">
-                                        <span className="font-bold">{business.name}</span>
-                                        <span>Type : {business.type}</span>
-                                        <span>Phone : {business.phone}</span>
-                                        <span>MainCategory : {business.mainCategory}</span>
-                                        <span>SubCategory : {business.subCategory}</span>
+                                <div className="flex justify-center gap-4 items-center border rounded-md p-6">
+                                    <div>
+                                        <BiSolidBusiness className="w-14 h-14 text-gray-400" />
                                     </div>
-                                ))}
+
+                                    <div className="flex flex-col justify-center">
+
+                                        <span>Businesses</span>
+                                        <span>{businesses.length}</span>
+                                    </div>
+                                </div>
+                                <div className="flex justify-center gap-4 items-center border rounded-md p-6">
+                                    <div>
+                                        <MdReviews className="w-14 h-14 text-gray-400" />
+                                    </div>
+
+                                    <div className="flex flex-col justify-center">
+
+                                        <span>Reviews</span>
+                                        <span>{businesses.length}</span>
+                                    </div>
+                                </div>
+                                <div className="flex justify-center gap-4 items-center border rounded-md p-6">
+                                    <div>
+                                        <BsPeopleFill className="w-14 h-14 text-gray-400" />
+                                    </div>
+
+                                    <div className="flex flex-col justify-center">
+
+                                        <span>Leads</span>
+                                        <span>{businesses.length}</span>
+                                    </div>
+                                </div>
+
+
+                                {/* <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                                                            <h2 className="text-2xl font-bold mb-4">All Businesses</h2>
+
+                                    {businesses.map((business, index) => (
+                                        <div key={business._id} className=" flex flex-col rounded-lg">
+                                            <span className="font-bold">{business.name}</span>
+                                            <span>Type : {business.type}</span>
+                                            <span>Phone : {business.phone}</span>
+                                            <span>MainCategory : {business.mainCategory}</span>
+                                            <span>SubCategory : {business.subCategory}</span>
+                                        </div>
+                                    ))}
+                                </div> */}
                             </div>
                         ) : (
-                            <div>
+                            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 min-h-screen">
                                 {/* <p>No businesses found.</p>
                                 <Link to="/business/register" className="flex justify-start items-center gap-2 text-blue-500">
                                     <span className="text-blue-500">

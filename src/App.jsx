@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { Business } from './Pages/Business';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ServiceListing from './Pages/Service';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function Main() {
           <Route path='/login' element={<Login />} />
 
           <Route path='/signup' element={<Register />} />
+          <Route path='/service' element={<ServiceListing />} />
 
           {userType === "vendor" && (
             <Route path="/vendor/dashboard" element={<VendorDashboard />} />
