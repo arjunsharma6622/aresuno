@@ -4,14 +4,89 @@ import { Link } from "react-router-dom";
 import { FiExternalLink } from 'react-icons/fi';
 import { BiSolidBusiness } from 'react-icons/bi';
 import { BsPeopleFill } from 'react-icons/bs';
-import {  MdReviews } from 'react-icons/md';
+import { MdReviews } from 'react-icons/md';
 import BusinessEdit from "../../BusinessEdit";
 import BusinessRegister from "../../BusinessRegister";
+import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, AreaChart, Area } from "recharts"
 
 const VendorDashboard = () => {
     const [user, setUser] = useState({});
     const [businesses, setBusinesses] = useState([]);
     const [loading, setLoading] = useState(true);
+    const data = [
+        {
+            name: "Jan",
+            uv: 4000,
+            pv: 2400,
+            amt: 2400,
+        },
+        {
+            name: "Feb",
+            uv: 3000,
+            pv: 1398,
+            amt: 2210,
+        },
+        {
+            name: "Mar",
+            uv: 2000,
+            pv: 9800,
+            amt: 2290,
+        },
+        {
+            name: "Apr",
+            uv: 2780,
+            pv: 3908,
+            amt: 2000,
+        },
+        {
+            name: "May",
+            uv: 1890,
+            pv: 4800,
+            amt: 2181,
+        },
+        {
+            name: "Jun",
+            uv: 2390,
+            pv: 3800,
+            amt: 2500,
+        },
+        {
+            name: "Jul",
+            uv: 3490,
+            pv: 4300,
+            amt: 1900,
+        },
+        {
+            name: "Aug",
+            uv: 2490,
+            pv: 4300,
+            amt: 1700,
+        },
+        {
+            name: "Sep",
+            uv: 1490,
+            pv: 1300,
+            amt: 1000,
+        },
+        {
+            name: "Oct",
+            uv: 2490,
+            pv: 4300,
+            amt: 1700,
+        },
+        {
+            name: "Nov",
+            uv: 2790,
+            pv: 4300,
+            amt: 1700,
+        },
+        {
+            name: "Dec",
+            uv: 3490,
+            pv: 4300,
+            amt: 1700,
+        },
+    ]
 
     const fetchUserData = async () => {
         try {
@@ -93,12 +168,14 @@ const VendorDashboard = () => {
 
 
                     <div className="flex flex-col gap-4 w-full">
-                        <h2>My Profile</h2>
-                        <h2>All Listings</h2>
-                        <h2>Add New Listing</h2>
-                        <h2>Reviews</h2>
-                        <h2>Leads</h2>
-                        <h2>Subscriptions</h2>
+                        <span className="text-sm cursor-pointer">My Profile</span>
+                        <span className="text-sm cursor-pointer">All Listings</span>
+                        <span className="text-sm cursor-pointer">Add New Listing</span>
+                        <span className="text-sm cursor-pointer">Reviews</span>
+                        <span className="text-sm cursor-pointer">Leads</span>
+                        <span className="text-sm cursor-pointer">Subscriptions</span>
+
+
                     </div>
                 </div>
                 <div className="w-full">
@@ -119,57 +196,79 @@ const VendorDashboard = () => {
                                 <span className="sr-only">Loading...</span>
                             </div>
                         ) : businesses.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
 
-                                <div className="flex justify-center gap-4 items-center border rounded-md p-6">
-                                    <div>
-                                        <BiSolidBusiness className="w-14 h-14 text-gray-400" />
-                                    </div>
+                            <div className="flex flex-col gap-12 my-4">
+                                <div className="">
+                                    <h2 className="text-2xl font-semibold mb-6">Overview</h2>
 
-                                    <div className="flex flex-col justify-center">
+                                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
 
-                                        <span>Businesses</span>
-                                        <span>{businesses.length}</span>
-                                    </div>
-                                </div>
-                                <div className="flex justify-center gap-4 items-center border rounded-md p-6">
-                                    <div>
-                                        <MdReviews className="w-14 h-14 text-gray-400" />
-                                    </div>
+                                        <div className="bg-white flex justify-center gap-4 items-center border rounded-xl py-8 p-6">
+                                            <div>
+                                                <BiSolidBusiness className="w-12 h-12 text-gray-400" />
+                                            </div>
 
-                                    <div className="flex flex-col justify-center">
+                                            <div className="flex flex-col justify-center">
 
-                                        <span>Reviews</span>
-                                        <span>{businesses.length}</span>
-                                    </div>
-                                </div>
-                                <div className="flex justify-center gap-4 items-center border rounded-md p-6">
-                                    <div>
-                                        <BsPeopleFill className="w-14 h-14 text-gray-400" />
-                                    </div>
-
-                                    <div className="flex flex-col justify-center">
-
-                                        <span>Leads</span>
-                                        <span>{businesses.length}</span>
-                                    </div>
-                                </div>
-
-
-                                {/* <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                                                            <h2 className="text-2xl font-bold mb-4">All Businesses</h2>
-
-                                    {businesses.map((business, index) => (
-                                        <div key={business._id} className=" flex flex-col rounded-lg">
-                                            <span className="font-bold">{business.name}</span>
-                                            <span>Type : {business.type}</span>
-                                            <span>Phone : {business.phone}</span>
-                                            <span>MainCategory : {business.mainCategory}</span>
-                                            <span>SubCategory : {business.subCategory}</span>
+                                                <span>Businesses</span>
+                                                <span>{businesses.length}</span>
+                                            </div>
                                         </div>
-                                    ))}
-                                </div> */}
+                                        <div className="bg-white flex justify-center gap-4 items-center border rounded-xl py-8 p-6">
+                                            <div>
+                                                <MdReviews className="w-12 h-12 text-gray-400" />
+                                            </div>
+
+                                            <div className="flex flex-col justify-center">
+
+                                                <span>Reviews</span>
+                                                <span>{businesses.length}</span>
+                                            </div>
+                                        </div>
+                                        <div className="bg-white flex justify-center gap-4 items-center border rounded-xl py-8 p-6">
+                                            <div>
+                                                <BsPeopleFill className="w-12 h-12 text-gray-400" />
+                                            </div>
+
+                                            <div className="flex flex-col justify-center">
+
+                                                <span>Leads</span>
+                                                <span>{businesses.length}</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                                <div className="">
+                                    <h2 className="text-2xl font-semibold mb-6">Leads History</h2>
+                                    <ResponsiveContainer width="100%" aspect={4 / 1}>
+
+                                        <LineChart data={data} className="text-sm font-light">
+                                            <Line type="monotone" dataKey="uv" stroke="#007bff" />
+                                            <CartesianGrid stroke="#ddd" strokeDasharray="5 5" />
+                                            {/* <XAxis dataKey="name" /> */}
+                                            <XAxis dataKey="name" padding={{ left: 30, right: 30 }}/>
+
+                                            <YAxis />
+                                            <Tooltip />
+                                            {/* <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" /> */}
+
+                                        </LineChart>
+                                    </ResponsiveContainer>
+
+                                </div>
+
                             </div>
+
+
+
+
                         ) : (
                             <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 min-h-screen">
                                 {/* <p>No businesses found.</p>
