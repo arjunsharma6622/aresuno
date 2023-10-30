@@ -26,8 +26,9 @@ import {
     AiOutlineUser,
 } from "react-icons/ai";
 import BusinessEdit from "../../BusinessEdit";
-import { FiEdit, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
+import { FiEdit, FiExternalLink, FiEye, FiEyeOff, FiLink, FiLock, FiX } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Overview = ({ businesses, data }) => {
     return (
@@ -112,10 +113,30 @@ const Subscriptions = () => {
     );
 };
 
-const AllListings = () => {
+const AllListings = ({ businesses }) => {
     return (
-        <div>
-            <h1>AllListings</h1>
+        <div className="">
+            <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
+            <div className="mb-6">
+                <span>Total Businesses : {businesses.length}</span>
+            </div>
+            <div className="grid grid-cols-3">
+                {businesses.map((business) => (
+                    <div key={business._id} className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded">
+                        <span className="font-semibold text-xl underline">{business.name}</span>
+                        <div className="flex gap-2 flex-col">
+                            <span>Category : {business.mainCategory}</span>
+                            <span>Phone : {business.phone}</span>
+                            <Link to={`/business/${business._id}`} className="flex gap-2 items-center justify-start text-blue-500">
+                                <span>View</span>
+                                <FiExternalLink className="w-4 h-4" />
+                            </Link>
+
+                        </div>
+                    </div>
+                ))
+                }
+            </div>
         </div>
     );
 };
@@ -123,7 +144,8 @@ const AllListings = () => {
 const AddListing = () => {
     return (
         <div>
-            <h1>AddListing</h1>
+            {/* <h1>AddListing</h1> */}
+            <BusinessRegister />
         </div>
     );
 };
@@ -251,7 +273,7 @@ const VendorDashboard = () => {
     const handleProfileUpdate = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.patch("https://aresuno-server.vercel.app/api/vendor/", {name : userEdit.name}, {
+            const res = await axios.patch("https://aresuno-server.vercel.app/api/vendor/", { name: userEdit.name }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -467,7 +489,7 @@ const VendorDashboard = () => {
                                                         />
 
 
-                                                        
+
 
                                                         <button
                                                             type="submit"
@@ -545,9 +567,9 @@ const VendorDashboard = () => {
                                                         )
                                                         )}
 
-                                                            <button type="submit" className={`bg-blue-500 rounded-sm py-2 px-5 text-white ${!updatedPassword.confirmPassword || updatedPassword.newPassword !== updatedPassword.confirmPassword ? "cursor-not-allowed" : ""}`} disabled={!updatedPassword.confirmPassword || updatedPassword.newPassword !== updatedPassword.confirmPassword} onClick={handlePasswordClick}>
-                                                                Change Password
-                                                            </button>
+                                                        <button type="submit" className={`bg-blue-500 rounded-sm py-2 px-5 text-white ${!updatedPassword.confirmPassword || updatedPassword.newPassword !== updatedPassword.confirmPassword ? "cursor-not-allowed" : ""}`} disabled={!updatedPassword.confirmPassword || updatedPassword.newPassword !== updatedPassword.confirmPassword} onClick={handlePasswordClick}>
+                                                            Change Password
+                                                        </button>
 
                                                     </form>
                                                 </div>
@@ -560,7 +582,7 @@ const VendorDashboard = () => {
 
                                     </div>
                                 )}
-                                {selectedField === "allListings" && <AllListings />}
+                                {selectedField === "allListings" && <AllListings businesses={businesses} />}
                                 {selectedField === "addListing" && <AddListing />}
                                 {selectedField === "reviews" && <Reviews />}
                                 {selectedField === "leads" && <Leads />}
