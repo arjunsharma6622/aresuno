@@ -26,7 +26,7 @@ function Main() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   const isSignpuPage = location.pathname === '/signup';
-  const isVendorDashboard = location.pathname === '/vendor/dashboard';
+  const isVendorDashboard = location.pathname === '/vendor/dashboard/';
   const userType = useSelector((state) => state.user.userType);
   const navigate = useNavigate()
 
@@ -44,11 +44,11 @@ function Main() {
           <Route path='/service' element={<ServiceListing />} />
 
           {userType === "vendor" && (
-            <Route path="/vendor/dashboard" element={<VendorDashboard />} />
+            <Route path="/vendor/dashboard/" element={<VendorDashboard />} />
           )}
 
           {userType === "user" && (
-            <Route path="/user/dashboard" element={<UserDashboard />} />
+            <Route path="/user/dashboard/" element={<UserDashboard />} />
           )}
 
 

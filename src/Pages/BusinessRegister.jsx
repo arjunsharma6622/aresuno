@@ -6,6 +6,7 @@ import PlacesAutocomplete, {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiChevronDown } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
 
 const BusinessRegister = () => {
     const navigate = useNavigate();
@@ -79,12 +80,15 @@ const BusinessRegister = () => {
                     },
                 }
             );
+            toast.success("Business Registered");
+            window.location.reload();
 
-            navigate("/vendor/dashboard");
+            // navigate("/vendor/dashboard");
 
             console.log(res.data);
         } catch (error) {
             console.error("Error", error);
+            toast.error("Business Registration Failed");
         }
     };
 
@@ -322,6 +326,7 @@ const BusinessRegister = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

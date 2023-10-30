@@ -120,7 +120,7 @@ const AllListings = ({ businesses }) => {
             <div className="mb-6">
                 <span>Total Businesses : {businesses.length}</span>
             </div>
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-3 gap-6">
                 {businesses.map((business) => (
                     <div key={business._id} className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded">
                         <span className="font-semibold text-xl underline">{business.name}</span>
