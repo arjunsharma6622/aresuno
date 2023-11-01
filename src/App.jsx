@@ -26,7 +26,7 @@ function Main() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   const isSignpuPage = location.pathname === '/signup';
-  const isVendorDashboard = location.pathname === '/vendor/dashboard/';
+  const isVendorDashboard = location.pathname.match(/\/vendor\/dashboard/);
   const userType = useSelector((state) => state.user.userType);
   const navigate = useNavigate()
 

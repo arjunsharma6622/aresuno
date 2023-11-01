@@ -21,7 +21,7 @@ const Header = () => {
             </div>
 
 
-{user.name == "" &&
+            {user.name == "" &&
                 <div className='flex gap-6'>
 
                     <div className="text-blue-600 text-base">
@@ -34,20 +34,23 @@ const Header = () => {
 
                 </div>
 
-}
+            }
 
-{ !user.name == "" &&
+            {!user.name == "" &&
 
 
                 <div className='flex gap-6'>
 
-                    <div className="text-blue-600 text-base">
-                        <Link to={`/${user.userType}/dashboard`}>{user.name}</Link>
+                    <div className="text-blue-600 text-base ">
+                        <Link to={`/${user.userType}/dashboard/`} className='flex items-center gap-2 cursor-pointer'>                        
+                        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" className='w-6 h-6' />
+
+                            {user.name}</Link>
                     </div>
-                    <div className="text-blue-600 text-base cursor-pointer">
+                    <div className="text-red-600 text-base cursor-pointer">
                         <span onClick={async () => {
-                            localStorage.removeItem("token")  
-                            dispatch(userLogout())                         
+                            localStorage.removeItem("token")
+                            dispatch(userLogout())
                             navigate("/")
                         }}>
                             Logout</span>
@@ -55,7 +58,7 @@ const Header = () => {
 
                 </div>
 
-                    }
+            }
 
 
 

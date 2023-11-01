@@ -26,9 +26,10 @@ import {
     AiOutlineUser,
 } from "react-icons/ai";
 import BusinessEdit from "../../BusinessEdit";
-import { FiEdit, FiExternalLink, FiEye, FiEyeOff, FiLink, FiLock, FiX } from "react-icons/fi";
+import { FiDelete, FiEdit, FiExternalLink, FiEye, FiEyeOff, FiLink, FiLock, FiTrash2, FiX } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const Overview = ({ businesses, data }) => {
     return (
@@ -113,33 +114,99 @@ const Subscriptions = () => {
     );
 };
 
-const AllListings = ({ businesses }) => {
-    return (
-        <div className="">
-            <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
-            <div className="mb-6">
-                <span>Total Businesses : {businesses.length}</span>
-            </div>
-            <div className="grid grid-cols-3 gap-6">
-                {businesses.map((business) => (
-                    <div key={business._id} className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded">
-                        <span className="font-semibold text-xl underline">{business.name}</span>
-                        <div className="flex gap-2 flex-col">
-                            <span>Category : {business.mainCategory}</span>
-                            <span>Phone : {business.phone}</span>
-                            <Link to={`/business/${business._id}`} className="flex gap-2 items-center justify-start text-blue-500">
-                                <span>View</span>
-                                <FiExternalLink className="w-4 h-4" />
-                            </Link>
+// const AllListings = ({ businesses }) => {
+//     const [isModalOpen, setIsModalOpen] = useState(false);
+//     return (
+//         <div className="">
+//             <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
+//             <div className="mb-6">
+//                 <span>Total Businesses : {businesses.length}</span>
+//             </div>
+//             <div className="grid grid-cols-3 gap-6">
+//                 {businesses.map((business) => (
+//                     <div key={business._id} className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded">
+//                         <span className="font-semibold text-xl underline">{business.name}</span>
+//                         <div className="flex gap-2 flex-col">
+//                             <span>Category : {business.mainCategory}</span>
+//                             <span>Phone : {business.phone}</span>
+//                             <Link to={`/business/${business._id}`} className="flex gap-2 items-center justify-start text-blue-500">
+//                                 <span>View</span>
+//                                 <FiExternalLink className="w-4 h-4" />
+//                             </Link>
 
-                        </div>
-                    </div>
-                ))
-                }
-            </div>
+//                             <div className="flex gap-2 items-center text-red-600" onClick={() => { setIsModalOpen(true) }}>
+//                                 <span>Delete</span>
+//                                 <FiTrash2 className="w-4 h-4" />
+//                             </div>
+
+//                         </div>
+
+
+//                         {isModalOpen && (
+//                             <Modal />
+//                         )}
+
+
+
+//                     </div>
+//                 ))
+//                 }
+//             </div>
+//         </div>
+//     );
+// };
+
+
+
+const AllListings = ({ businesses }) => {
+    const [selectedBusiness, setSelectedBusiness] = useState(null);
+  
+    return (
+      <div className="">
+        <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
+        <div className="mb-6">
+          <span>Total Businesses : {businesses.length}</span>
         </div>
+        <div className="grid grid-cols-3 gap-6">
+          {businesses.map((business) => (
+            <div
+              key={business._id}
+              className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded"
+            >
+              <span className="font-semibold text-xl underline">{business.name}</span>
+              <div className="flex gap-2 flex-col">
+                <span>Category : {business.mainCategory}</span>
+                <span>Phone : {business.phone}</span>
+                <Link
+                  to={`/business/${business._id}`}
+                  className="flex gap-2 items-center justify-start text-blue-500"
+                >
+                  <span>View</span>
+                  <FiExternalLink className="w-4 h-4" />
+                </Link>
+  
+                <div
+                  className="flex gap-2 items-center text-red-600 cursor-pointer"
+                  onClick={() => setSelectedBusiness(business)}
+                >
+                  <span>Delete</span>
+                  <FiTrash2 className="w-4 h-4" />
+                </div>
+              </div>
+  
+              {selectedBusiness && selectedBusiness._id === business._id && (
+                <Modal
+                  business={selectedBusiness}
+                  onClose={() => setSelectedBusiness(null)}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
     );
-};
+  };
+
 
 const AddListing = () => {
     return (
