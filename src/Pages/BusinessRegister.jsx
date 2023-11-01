@@ -104,17 +104,22 @@ const BusinessRegister = () => {
 
                     {step === 1 && (
                         <div className="mt-8 space-y-6">
+                            <h2 className="text-2xl">Enter Business Address</h2>
+
                             <div>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={businessDetails.name}
-                                    onChange={handleBusinessDetailsChange}
-                                    placeholder="Business Name"
-                                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                />
+                                <div className="flex flex-col">
+                                    <label htmlFor="">Business Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={businessDetails.name}
+                                        onChange={handleBusinessDetailsChange}
+                                        placeholder="Business Name"
+                                        className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    />
+                                </div>
                             </div>
-                            <div className="relative">
+                            {/* <div className="relative">
                                 <select
                                     id=""
                                     type="text"
@@ -130,7 +135,7 @@ const BusinessRegister = () => {
                                 <div>
                                     <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="flex mt-8 justify-start gap-4">
                                 <div className="flex items-center space-x-2">
@@ -168,52 +173,133 @@ const BusinessRegister = () => {
                                     </label>
                                 </div>
                             </div>
+
+
+                            <div className="flex flex-col">
+                                <label htmlFor="">Category</label>
+
+                                <div className="relative mt-2">
+
+                                    <select
+                                        name="subCategory"
+                                        value={businessDetails.subCategory}
+                                        onChange={handleBusinessDetailsChange}
+                                        className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-transparent focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    >
+                                        <option value="" disabled>
+                                            Select Main Category
+                                        </option>
+                                        <option value="Category1">Category 1</option>
+                                        <option value="Category2">Category 2</option>
+                                        <option value="Category3">Category 3</option>
+                                        {/* Add more options as needed */}
+                                    </select>
+
+                                    <div>
+                                        <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div className="flex flex-col">
+                                <label htmlFor="">Category</label>
+
+                                <div className="relative mt-2">
+
+                                    <select
+                                        name="mainCategory"
+                                        value={businessDetails.mainCategory}
+                                        onChange={handleBusinessDetailsChange}
+                                        className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-transparent focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                    >
+                                        <option value="" disabled>
+                                            Select Main Category
+                                        </option>
+                                        <option value="Category1">Category 1</option>
+                                        <option value="Category2">Category 2</option>
+                                        <option value="Category3">Category 3</option>
+                                        {/* Add more options as needed */}
+                                    </select>
+
+                                    <div>
+                                        <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                            <div className="mt-8 space-y-6">
+                                <h2 className="text-2xl">Enter Business Address</h2>
+
+                                <div className="flex flex-col">
+                                    <label htmlFor="">Address</label>
+                                    <input type="text" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text" />
+                                </div>
+
+                                <div className="flex flex-col">
+                                    <label htmlFor="">Address Line 2 <span className="text-gray-500 font-light text-sm">(optional)</span></label>
+                                    <input type="text" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text" />
+                                </div>
+
+
+
+                                <div className="flex">
+
+                                    <div className="flex flex-col">
+                                        <label htmlFor="" className="">City</label>
+                                        <input type="text" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                                    </div>
+
+                                    <div className="flex flex-col">
+                                        <label htmlFor="" className="">Zip Code</label>
+                                        <input type="text" className="mt-2 ml-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )}
 
                     {step === 2 && (
                         <div className="mt-8 space-y-6">
-                            <div className="relative">
-                                <select
-                                    name="mainCategory"
-                                    value={businessDetails.mainCategory}
-                                    onChange={handleBusinessDetailsChange}
-                                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-transparent focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                >
-                                    <option value="" disabled>
-                                        Select Main Category
-                                    </option>
-                                    <option value="Category1">Category 1</option>
-                                    <option value="Category2">Category 2</option>
-                                    <option value="Category3">Category 3</option>
-                                    {/* Add more options as needed */}
-                                </select>
+                            <h2 className="text-2xl">Enter Business Address</h2>
 
-                                <div>
-                                    <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
-                                </div>
-
+                            <div className="flex flex-col">
+                                <label htmlFor="">Address</label>
+                                <input type="text" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text" />
                             </div>
 
-                            <div className="relative">
-                                <select
-                                    name="subCategory"
-                                    value={businessDetails.subCategory}
-                                    onChange={handleBusinessDetailsChange}
-                                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 bg-transparent  text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                >
-                                    <option value="" disabled>
-                                        Select Sub Category
-                                    </option>
-                                    <option value="SubCategory1">Sub Category 1</option>
-                                    <option value="SubCategory2">Sub Category 2</option>
-                                    <option value="SubCategory3">Sub Category 3</option>
-                                    {/* Add more options as needed */}
-                                </select>
-                                <div>
-                                    <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                            <div className="flex flex-col">
+                                <label htmlFor="">Address Line 2 <span className="text-gray-500 font-light text-sm">(optional)</span></label>
+                                <input type="text" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text" />
+                            </div>
+
+
+
+                            <div className="flex">
+
+                                <div className="flex flex-col">
+                                    <label htmlFor="" className="">City</label>
+                                    <input type="text" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                                </div>
+
+                                <div className="flex flex-col">
+                                    <label htmlFor="" className="">Zip Code</label>
+                                    <input type="text" className="mt-2 ml-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
                                 </div>
                             </div>
+
+
 
 
 
@@ -283,7 +369,7 @@ const BusinessRegister = () => {
                 </div>
 
 
-                <div className="flex items-end justify-between">
+                <div className="flex items-end justify-between mt-4">
                     <div className="text-xs">
                         <p>Step {step} out of 3</p>
                     </div>
@@ -296,7 +382,7 @@ const BusinessRegister = () => {
                             >
 
 
-                                    <FiArrowLeft className=" text-white w-4 h-4 mr-2" />
+                                <FiArrowLeft className=" text-white w-4 h-4 mr-2" />
 
                                 Back
                             </button>

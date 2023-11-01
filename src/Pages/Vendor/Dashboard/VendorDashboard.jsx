@@ -114,49 +114,6 @@ const Subscriptions = () => {
     );
 };
 
-// const AllListings = ({ businesses }) => {
-//     const [isModalOpen, setIsModalOpen] = useState(false);
-//     return (
-//         <div className="">
-//             <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
-//             <div className="mb-6">
-//                 <span>Total Businesses : {businesses.length}</span>
-//             </div>
-//             <div className="grid grid-cols-3 gap-6">
-//                 {businesses.map((business) => (
-//                     <div key={business._id} className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded">
-//                         <span className="font-semibold text-xl underline">{business.name}</span>
-//                         <div className="flex gap-2 flex-col">
-//                             <span>Category : {business.mainCategory}</span>
-//                             <span>Phone : {business.phone}</span>
-//                             <Link to={`/business/${business._id}`} className="flex gap-2 items-center justify-start text-blue-500">
-//                                 <span>View</span>
-//                                 <FiExternalLink className="w-4 h-4" />
-//                             </Link>
-
-//                             <div className="flex gap-2 items-center text-red-600" onClick={() => { setIsModalOpen(true) }}>
-//                                 <span>Delete</span>
-//                                 <FiTrash2 className="w-4 h-4" />
-//                             </div>
-
-//                         </div>
-
-
-//                         {isModalOpen && (
-//                             <Modal />
-//                         )}
-
-
-
-//                     </div>
-//                 ))
-//                 }
-//             </div>
-//         </div>
-//     );
-// };
-
-
 
 const AllListings = ({ businesses }) => {
     const [selectedBusiness, setSelectedBusiness] = useState(null);
@@ -211,7 +168,6 @@ const AllListings = ({ businesses }) => {
 const AddListing = () => {
     return (
         <div>
-            {/* <h1>AddListing</h1> */}
             <BusinessRegister />
         </div>
     );
@@ -296,7 +252,7 @@ const VendorDashboard = () => {
             amt: 1700,
         },
     ];
-    const [selectedField, setSelectedField] = useState("dashboard");
+    const [selectedField, setSelectedField] = useState("addListing");
     const [edit, setEdit] = useState(true);
     const [updatedPassword, setUpdatedPassword] = useState({
         newPassword: "",
