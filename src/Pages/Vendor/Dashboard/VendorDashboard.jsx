@@ -448,7 +448,7 @@ const VendorDashboard = () => {
                                 <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-32 mb-4"></div>
                                 <span className="sr-only">Loading...</span>
                             </div>
-                        ) : businesses.length > 0 ? (
+                        ) : (
                             <div className="">
                                 {selectedField === "dashboard" && (
                                     <Overview businesses={businesses} data={data} />
@@ -610,10 +610,6 @@ const VendorDashboard = () => {
                                 {selectedField === "reviews" && <Reviews />}
                                 {selectedField === "leads" && <Leads />}
                                 {selectedField === "subscriptions" && <Subscriptions />}
-                            </div>
-                        ) : (
-                            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 min-h-screen">
-                                <BusinessRegister />
                             </div>
                         )}
                     </div>

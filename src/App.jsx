@@ -27,13 +27,14 @@ function Main() {
   const isLoginPage = location.pathname === '/login';
   const isSignpuPage = location.pathname === '/signup';
   const isVendorDashboard = location.pathname.match(/\/vendor\/dashboard/);
+  const isOnboarding = location.pathname.match(/\/vendor\/onboarding/);
   const userType = useSelector((state) => state.user.userType);
   const navigate = useNavigate()
 
 
   return (
     <>
-      {!isLoginPage && !isSignpuPage && !isVendorDashboard && <Header />}
+      {!isLoginPage && !isSignpuPage && !isVendorDashboard && !isOnboarding && <Header />}
       <div className='app'>
         <Routes>
           <Route path='/' element={<Hero />} />
@@ -52,6 +53,9 @@ function Main() {
           )}
 
 
+<Route path="/vendor/onboarding/" element={<BusinessRegister />} />
+
+
 
           <Route path={'/business/:id'} element={<Business />} />
 
@@ -60,7 +64,7 @@ function Main() {
           <Route path='/business/register' element={<BusinessRegister />} />
         </Routes>
       </div>
-      {!isLoginPage && !isSignpuPage && !isVendorDashboard && <Footer />}
+      {!isLoginPage && !isSignpuPage && !isVendorDashboard && !isOnboarding && <Footer />}
     </>
   );
 }

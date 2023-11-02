@@ -51,7 +51,7 @@ const Register = () => {
       setIsLoading(false);
 
       if (role === "vendor") {
-        navigate(`/vendor/dashboard`);
+        navigate(`/vendor/onboarding`);
       } else {
         navigate(`/user/dashboard`);
       }
