@@ -6,21 +6,15 @@ import PlacesAutocomplete, {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
-    FiArrowLeft,
-    FiArrowRight,
     FiChevronDown,
+    FiClock,
     FiFacebook,
     FiGlobe,
-    FiInfo,
     FiInstagram,
-    FiMail,
-    FiTwitch,
     FiTwitter,
-    FiX,
     FiYoutube,
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import { FaQuestion } from "react-icons/fa6";
 import { ToastContainer, toast } from "react-toastify";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
@@ -49,13 +43,13 @@ const BusinessRegister = () => {
     const [selectedModesOfPayment, setSelectedModesOfPayment] = useState([]);
 
     const paymentModes = [
+        "UPI",
         "Cash",
         "Credit Card",
         "Debit Card",
         "Net Banking",
-        "UPI",
-        "Wallet",
         "EMI",
+        "Wallet",
         "American Express"
     ]
 
@@ -500,7 +494,7 @@ const BusinessRegister = () => {
 
                                     <span
                                         className={`px-4 py-2 border rounded-lg cursor-pointer  ${selectedModesOfPayment.includes(mode)
-                                                ? "border-blue-500 text-blue-500"
+                                                ? "border-blue-500 text-blue-600"
                                                 : "border-gray-300"
                                             }`}
                                         onClick={() => {
@@ -515,6 +509,21 @@ const BusinessRegister = () => {
 
                             </div>
                         </div>
+
+                        <hr className="border-1 border-gray-300" />
+
+                        <div className="mt-6 mb-6">
+                        <div className="flex items-center gap-2">
+                                <FiClock className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">Business Hours</h2>
+                            </div>
+
+                            <div className="mt-6">
+
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
