@@ -13,6 +13,7 @@ import { Business } from './Pages/Business';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ServiceListing from './Pages/Service';
+import BusinessOnboarding from './Pages/BusinessOnboarding';
 
 function App() {
   return (
@@ -53,7 +54,7 @@ function Main() {
           )}
 
 
-<Route path="/vendor/onboarding/" element={<BusinessRegister />} />
+<Route path="/vendor/onboarding/" element={<BusinessOnboarding />} />
 
 
 

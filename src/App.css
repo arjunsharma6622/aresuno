@@ -107,3 +107,14 @@ body {
 .swiper-pagination-bullet {
   background: #ffffff;
 }
+
+
+
+
+
+
+.react-international-phone-input-container .react-international-phone-country-selector-button {
+  padding: 0px 8px;
+  height: 100%;
+  background-color: white;
+}
