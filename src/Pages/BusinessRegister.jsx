@@ -128,31 +128,27 @@ const BusinessRegister = () => {
         }));
     };
 
+
+
     const timeOptions = [
-        "00:00",
-        "01:00",
-        "02:00",
-        "03:00",
-        "04:00",
-        "05:00",
-        "06:00",
-        "07:00",
-        "08:00",
-        "09:00",
-        "10:00",
-        "11:00",
-        "12:00",
-        "13:00",
-        "14:00",
-        "15:00",
-        "16:00",
-        "17:00",
-        "18:00",
-        "19:00",
-        "20:00",
-        "21:00",
-        "22:00",
-        "23:00",
+        "6:00 AM",
+        "7:00 AM",
+        "8:00 AM",
+        "9:00 AM",
+        "10:00 AM",
+        "11:00 AM",
+        "12:00 PM",
+        "1:00 PM",
+        "2:00 PM",
+        "3:00 PM",
+        "4:00 PM",
+        "5:00 PM",
+        "6:00 PM",
+        "7:00 PM",
+        "8:00 PM",
+        "9:00 PM",
+        "10:00 PM",
+        "11:00 PM",
     ];
 
     // Implement complete functionality
@@ -599,8 +595,8 @@ const BusinessRegister = () => {
                                 {paymentModes.map((mode, index) => (
                                     <span
                                         className={`px-4 py-2 border rounded-lg cursor-pointer  ${selectedModesOfPayment.includes(mode)
-                                                ? "border-blue-500 text-blue-600"
-                                                : "border-gray-300"
+                                            ? "border-blue-500 text-blue-600"
+                                            : "border-gray-300"
                                             }`}
                                         onClick={() => {
                                             handlModeOfPaymentClick(mode);
@@ -626,28 +622,28 @@ const BusinessRegister = () => {
                                         <div className="flex flex-col items-start gap-4 mt-4" key={day}>
 
                                             <div className="flex gap-4 justify-start items-center">
-                                            <input
-                                                type="checkbox"
-                                                id={day}
-                                                name={day}
-                                                className="form-checkbox accent-slate-600 h-5 w-5 text-blue-500"
-                                                checked={businessDetails.businessHours[index].isOpen}
-                                                onChange={(e) => handleBusinessHoursChange(index, e.target.checked)}
-                                            />
-                                            <label
-                                                htmlFor={day}
-                                                className="block text-base text-gray-700"
-                                            >
-                                                {day}
-                                            </label>
+                                                <input
+                                                    type="checkbox"
+                                                    id={day}
+                                                    name={day}
+                                                    className="form-checkbox accent-slate-600 h-5 w-5 text-blue-500"
+                                                    checked={businessDetails.businessHours[index].isOpen}
+                                                    onChange={(e) => handleBusinessHoursChange(index, e.target.checked)}
+                                                />
+                                                <label
+                                                    htmlFor={day}
+                                                    className="block text-base text-gray-700"
+                                                >
+                                                    {day}
+                                                </label>
 
                                             </div>
                                             {businessDetails.businessHours[index].isOpen && (
-                                                <div className="flex gap-4">
+                                                <div className="flex gap-4 items-center">
 
                                                     <div className="relative">
                                                     <select
-                                                        className=" appearance-none w-32 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                        className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
                                                         value={businessDetails.businessHours[index].from}
                                                         onChange={(e) => handleBusinessHoursFromChange(index, e.target.value)}
                                                     >
@@ -656,17 +652,19 @@ const BusinessRegister = () => {
                                                                 {time}
                                                             </option>
                                                         ))}
-
                                                     </select>
 
-                                                    <span className="absolute top-1/2 right-4 transform -translate-y-1/2 pointer-events-none text-black z-10">AM</span>
+                                                    <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
 
                                                     </div>
 
 
+
                                                     <span className="text-gray-600">to</span>
+
+                                                    <div className="relative">
                                                     <select
-                                                        className="appearance-none w-32 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                                        className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
                                                         value={businessDetails.businessHours[index].to}
                                                         onChange={(e) => handleBusinessHoursToChange(index, e.target.value)}
                                                     >
@@ -676,6 +674,10 @@ const BusinessRegister = () => {
                                                             </option>
                                                         ))}
                                                     </select>
+
+                                                    <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
+
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
