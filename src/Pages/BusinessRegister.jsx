@@ -30,6 +30,18 @@ import { MdPayment } from "react-icons/md";
 const BusinessRegister = () => {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
+
+    // const [businessDetails, setBusinessDetails] = useState({
+    //     name: "",
+    //     type: "",
+    //     mainCategory: "",
+    //     subCategory: "",
+    //     address: "",
+    //     phone: "",
+    //     timing: "",
+    //     businessHours : []
+    // });
+
     const [businessDetails, setBusinessDetails] = useState({
         name: "",
         type: "",
@@ -38,7 +50,21 @@ const BusinessRegister = () => {
         address: "",
         phone: "",
         timing: "",
+        businessHours: [
+            { day: "Monday", from: "", to: "", isOpen: false },
+            { day: "Tuesday", from: "", to: "", isOpen: false },
+            { day: "Wednesday", from: "", to: "", isOpen: false },
+            { day: "Thursday", from: "", to: "", isOpen: false },
+            { day: "Friday", from: "", to: "", isOpen: false },
+            { day: "Saturday", from: "", to: "", isOpen: false },
+            { day: "Sunday", from: "", to: "", isOpen: false },
+        ],
     });
+
+
+    console.log(businessDetails.businessHours)
+
+
     const [phoneNumber, setPhoneNumber] = useState();
     const [selectedModesOfPayment, setSelectedModesOfPayment] = useState([]);
 
@@ -50,8 +76,90 @@ const BusinessRegister = () => {
         "Net Banking",
         "EMI",
         "Wallet",
-        "American Express"
-    ]
+        "American Express",
+    ];
+    const daysOfWeek = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ];
+
+    //   const handleBusinessHoursChange = (index, isChecked) => {
+    //     const updatedBusinessHours = [...businessDetails.businessHours];
+    //     updatedBusinessHours[index].isOpen = isChecked;
+    //     setBusinessDetails((prev) => ({
+    //       ...prev,
+    //       businessHours: updatedBusinessHours,
+    //     }));
+
+    //     console.log(businessDetails.businessHours);
+    //   };
+
+
+    const handleBusinessHoursChange = (index, isChecked) => {
+        const updatedBusinessHours = [...businessDetails.businessHours];
+        updatedBusinessHours[index].isOpen = isChecked;
+        if (!isChecked) {
+            updatedBusinessHours[index].from = "";
+            updatedBusinessHours[index].to = "";
+        }
+        setBusinessDetails((prev) => ({ ...prev, businessHours: updatedBusinessHours }));
+    };
+
+    const handleBusinessHoursFromChange = (index, value) => {
+        const updatedBusinessHours = [...businessDetails.businessHours];
+        updatedBusinessHours[index].from = value;
+        setBusinessDetails((prev) => ({
+            ...prev,
+            businessHours: updatedBusinessHours,
+        }));
+    };
+
+    const handleBusinessHoursToChange = (index, value) => {
+        const updatedBusinessHours = [...businessDetails.businessHours];
+        updatedBusinessHours[index].to = value;
+        setBusinessDetails((prev) => ({
+            ...prev,
+            businessHours: updatedBusinessHours,
+        }));
+    };
+
+    const timeOptions = [
+        "00:00",
+        "01:00",
+        "02:00",
+        "03:00",
+        "04:00",
+        "05:00",
+        "06:00",
+        "07:00",
+        "08:00",
+        "09:00",
+        "10:00",
+        "11:00",
+        "12:00",
+        "13:00",
+        "14:00",
+        "15:00",
+        "16:00",
+        "17:00",
+        "18:00",
+        "19:00",
+        "20:00",
+        "21:00",
+        "22:00",
+        "23:00",
+    ];
+
+    // Implement complete functionality
+    // Make sure to use the above functions as needed
+    // Add any additional logic or UI changes here
+    // Remember to update the state using setBusinessDetails appropriately
+    // You can refer to the existing code for examples on how to update the state
 
     const handlePhoneChange = (value) => {
         setPhoneNumber(value);
@@ -61,7 +169,6 @@ const BusinessRegister = () => {
         if (!selectedModesOfPayment.includes(option)) {
             setSelectedModesOfPayment([...selectedModesOfPayment, option]);
         }
-
     };
 
     const handleAddressSelect = async (address) => {
@@ -489,9 +596,7 @@ const BusinessRegister = () => {
                             </div>
 
                             <div className="flex flex-wrap gap-4 mt-6">
-
                                 {paymentModes.map((mode, index) => (
-
                                     <span
                                         className={`px-4 py-2 border rounded-lg cursor-pointer  ${selectedModesOfPayment.includes(mode)
                                                 ? "border-blue-500 text-blue-600"
@@ -503,27 +608,82 @@ const BusinessRegister = () => {
                                     >
                                         {mode}
                                     </span>
-
                                 ))}
-
-
                             </div>
                         </div>
 
                         <hr className="border-1 border-gray-300" />
 
                         <div className="mt-6 mb-6">
-                        <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2">
                                 <FiClock className="w-6 h-6" />
                                 <h2 className="text-xl font-semibold">Business Hours</h2>
                             </div>
 
                             <div className="mt-6">
+                                <div className="flex flex-col">
+                                    {daysOfWeek.map((day, index) => (
+                                        <div className="flex flex-col items-start gap-4 mt-4" key={day}>
 
+                                            <div className="flex gap-4 justify-start items-center">
+                                            <input
+                                                type="checkbox"
+                                                id={day}
+                                                name={day}
+                                                className="form-checkbox accent-slate-600 h-5 w-5 text-blue-500"
+                                                checked={businessDetails.businessHours[index].isOpen}
+                                                onChange={(e) => handleBusinessHoursChange(index, e.target.checked)}
+                                            />
+                                            <label
+                                                htmlFor={day}
+                                                className="block text-base text-gray-700"
+                                            >
+                                                {day}
+                                            </label>
+
+                                            </div>
+                                            {businessDetails.businessHours[index].isOpen && (
+                                                <div className="flex gap-4">
+
+                                                    <div className="relative">
+                                                    <select
+                                                        className=" appearance-none w-32 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                        value={businessDetails.businessHours[index].from}
+                                                        onChange={(e) => handleBusinessHoursFromChange(index, e.target.value)}
+                                                    >
+                                                        {timeOptions.map((time) => (
+                                                            <option key={time} value={time}>
+                                                                {time}
+                                                            </option>
+                                                        ))}
+
+                                                    </select>
+
+                                                    <span className="absolute top-1/2 right-4 transform -translate-y-1/2 pointer-events-none text-black z-10">AM</span>
+
+                                                    </div>
+
+
+                                                    <span className="text-gray-600">to</span>
+                                                    <select
+                                                        className="appearance-none w-32 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                                        value={businessDetails.businessHours[index].to}
+                                                        onChange={(e) => handleBusinessHoursToChange(index, e.target.value)}
+                                                    >
+                                                        {timeOptions.map((time) => (
+                                                            <option key={time} value={time}>
+                                                                {time}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
+
                         </div>
-
-
                     </div>
                 </div>
             </div>
