@@ -131,22 +131,22 @@ const BusinessRegister = () => {
 
 
     const timeOptions = [
-        "6:00 AM",
-        "7:00 AM",
-        "8:00 AM",
-        "9:00 AM",
+        "06:00 AM",
+        "07:00 AM",
+        "08:00 AM",
+        "09:00 AM",
         "10:00 AM",
         "11:00 AM",
         "12:00 PM",
-        "1:00 PM",
-        "2:00 PM",
-        "3:00 PM",
-        "4:00 PM",
-        "5:00 PM",
-        "6:00 PM",
-        "7:00 PM",
-        "8:00 PM",
-        "9:00 PM",
+        "01:00 PM",
+        "02:00 PM",
+        "03:00 PM",
+        "04:00 PM",
+        "05:00 PM",
+        "06:00 PM",
+        "07:00 PM",
+        "08:00 PM",
+        "09:00 PM",
         "10:00 PM",
         "11:00 PM",
     ];
@@ -642,19 +642,21 @@ const BusinessRegister = () => {
                                                 <div className="flex gap-4 items-center">
 
                                                     <div className="relative">
-                                                    <select
-                                                        className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
-                                                        value={businessDetails.businessHours[index].from}
-                                                        onChange={(e) => handleBusinessHoursFromChange(index, e.target.value)}
-                                                    >
-                                                        {timeOptions.map((time) => (
-                                                            <option key={time} value={time}>
-                                                                {time}
-                                                            </option>
-                                                        ))}
-                                                    </select>
+                                                        <select
+                                                            className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                                            value={businessDetails.businessHours[index].from}
+                                                            onChange={(e) => handleBusinessHoursFromChange(index, e.target.value)}
+                                                        >
+                                                            <option value="" disabled defaultChecked>-</option>
 
-                                                    <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
+                                                            {timeOptions.map((time) => (
+                                                                <option key={time} value={time}>
+                                                                    {time}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+
+                                                        <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
 
                                                     </div>
 
@@ -663,19 +665,31 @@ const BusinessRegister = () => {
                                                     <span className="text-gray-600">to</span>
 
                                                     <div className="relative">
-                                                    <select
-                                                        className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
-                                                        value={businessDetails.businessHours[index].to}
-                                                        onChange={(e) => handleBusinessHoursToChange(index, e.target.value)}
-                                                    >
-                                                        {timeOptions.map((time) => (
+                                                        <select
+                                                            className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                                            value={businessDetails.businessHours[index].to}
+                                                            onChange={(e) => handleBusinessHoursToChange(index, e.target.value)}
+                                                        >
+                                                            {/* {timeOptions.map((time) => (
                                                             <option key={time} value={time}>
                                                                 {time}
                                                             </option>
-                                                        ))}
-                                                    </select>
+                                                        ))} */}
 
-                                                    <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
+
+                                                            <option value="" disabled defaultChecked>-</option>
+
+
+                                                            {timeOptions
+                                                                .filter((time) => new Date(`01/01/2000 ${time}`) > new Date(`01/01/2000 ${businessDetails.businessHours[index].from}`))
+                                                                .map((time) => (
+                                                                    <option key={time} value={time}>
+                                                                        {time}
+                                                                    </option>
+                                                                ))}
+                                                        </select>
+
+                                                        <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
 
                                                     </div>
                                                 </div>
