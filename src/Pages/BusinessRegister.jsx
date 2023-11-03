@@ -617,16 +617,16 @@ const BusinessRegister = () => {
                             </div>
 
                             <div className="mt-6">
-                                <div className="flex flex-col">
+                                <div className="flex flex-col gap-4">
                                     {daysOfWeek.map((day, index) => (
-                                        <div className="flex flex-col items-start gap-4 mt-4" key={day}>
+                                        <div className="flex flex-col items-start gap-4" key={day}>
 
-                                            <div className="flex gap-4 justify-start items-center">
+                                            <div className="flex gap-6 justify-start items-center">
                                                 <input
                                                     type="checkbox"
                                                     id={day}
                                                     name={day}
-                                                    className="form-checkbox accent-slate-600 h-5 w-5 text-blue-500"
+                                                    className="form-checkbox accent-green-600 h-5 w-5 text-blue-500"
                                                     checked={businessDetails.businessHours[index].isOpen}
                                                     onChange={(e) => handleBusinessHoursChange(index, e.target.checked)}
                                                 />
