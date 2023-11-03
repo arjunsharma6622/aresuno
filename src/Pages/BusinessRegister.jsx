@@ -10,8 +10,11 @@ import {
     FiClock,
     FiFacebook,
     FiGlobe,
+    FiImage,
     FiInstagram,
+    FiPlus,
     FiTwitter,
+    FiX,
     FiYoutube,
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
@@ -88,17 +91,6 @@ const BusinessRegister = () => {
         "Sunday",
     ];
 
-    //   const handleBusinessHoursChange = (index, isChecked) => {
-    //     const updatedBusinessHours = [...businessDetails.businessHours];
-    //     updatedBusinessHours[index].isOpen = isChecked;
-    //     setBusinessDetails((prev) => ({
-    //       ...prev,
-    //       businessHours: updatedBusinessHours,
-    //     }));
-
-    //     console.log(businessDetails.businessHours);
-    //   };
-
 
     const handleBusinessHoursChange = (index, isChecked) => {
         const updatedBusinessHours = [...businessDetails.businessHours];
@@ -129,6 +121,21 @@ const BusinessRegister = () => {
     };
 
 
+    const [images, setImages] = useState([]);
+
+    console.log(images)
+
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        files.forEach((file) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImages((prevImages) => [...prevImages, reader.result]);
+            };
+            reader.readAsDataURL(file);
+        });
+    };
+
 
     const timeOptions = [
         "06:00 AM",
@@ -151,11 +158,6 @@ const BusinessRegister = () => {
         "11:00 PM",
     ];
 
-    // Implement complete functionality
-    // Make sure to use the above functions as needed
-    // Add any additional logic or UI changes here
-    // Remember to update the state using setBusinessDetails appropriately
-    // You can refer to the existing code for examples on how to update the state
 
     const handlePhoneChange = (value) => {
         setPhoneNumber(value);
@@ -610,6 +612,9 @@ const BusinessRegister = () => {
 
                         <hr className="border-1 border-gray-300" />
 
+
+                        {/* Business Hours */}
+
                         <div className="mt-6 mb-6">
                             <div className="flex items-center gap-2">
                                 <FiClock className="w-6 h-6" />
@@ -700,6 +705,65 @@ const BusinessRegister = () => {
                             </div>
 
                         </div>
+
+
+                        <hr className="border-1 border-gray-300" />
+
+
+                        {/* photos upload with cloudinary */}
+
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <FiImage className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">Gallery Images</h2>
+                            </div>
+
+                            <div className="mt-6">
+
+                                <div className="flex flex-col items-start">
+
+                                    <label htmlFor="image" className="cursor-pointer mt-2 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <input
+                                            type="file"
+                                            id="image"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                            multiple
+                                            className=" py-2 px-4 bg-gray-200 text-gray-700 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            style={{ display: "none" }}
+                                        />
+                                        {images.length > 0 ? "Add Another" : "Add Image"}
+                                    </label>
+                                    {/* <button onClick={() => document.getElementById("image").click()} className="mt-2 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        Add Another Image
+                                    </button> */}
+
+
+                                    <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
+                                        {images.map((image, index) => (
+                                            <div className="relative rounded-xl w-full">
+                                                <img key={index} src={image} alt={`Selected Image ${index}`} className="object-cover h-full rounded-xl" />
+                                                <FiX
+                                                    className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+                                                    onClick={() => {
+                                                        setImages((prev) => prev.filter((_, i) => i !== index));
+                                                    }}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+
+
+
+
                     </div>
                 </div>
             </div>
