@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { BiDollar, BiSolidBusiness } from "react-icons/bi";
-import { BsPeopleFill } from "react-icons/bs";
+import { BsPeopleFill, BsStarFill } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import {
     MdOutlineLeaderboard,
@@ -26,7 +26,7 @@ import {
     AiOutlineUser,
 } from "react-icons/ai";
 import BusinessEdit from "../../BusinessEdit";
-import { FiDelete, FiEdit, FiExternalLink, FiEye, FiEyeOff, FiLink, FiLock, FiTrash2, FiX } from "react-icons/fi";
+import { FiDelete, FiEdit, FiExternalLink, FiEye, FiEyeOff, FiLink, FiLock, FiStar, FiTrash2, FiX } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
@@ -90,10 +90,49 @@ const Overview = ({ businesses, data }) => {
     );
 };
 
-const Reviews = () => {
+const Reviews = ({ businesses }) => {
     return (
         <div>
-            <h1>Reviews</h1>
+            {businesses.map((business) => (
+                <div className="bg-white rounded-xl">
+
+                    <table className="w-full">
+                        <thead className="">
+                            <tr className="bg-gray-300">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Review</th>
+                            </tr>
+                        </thead>
+
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            {business.ratingsReviews.map((ratingReview, index) => (
+                                <tr key={index}>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex gap-2 items-center">
+                                            <img src={ratingReview.user.profileImg ? ratingReview.user.profileImg : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="" className="w-5 h-5 rounded-full"/>
+                                        {ratingReview.user.name}
+                                        </div>
+                                        </td>
+
+                                        <td className="px-6 py-4 whitespace-nowrap">{business.name}</td>
+
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex gap-2 items-center">
+                                        {ratingReview.rating} 
+                                        <BsStarFill className="text-gray-500" />
+                                        </div>
+                                        </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{ratingReview.review}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                </div>
+            ))}
+
         </div>
     );
 };
@@ -117,52 +156,52 @@ const Subscriptions = () => {
 
 const AllListings = ({ businesses }) => {
     const [selectedBusiness, setSelectedBusiness] = useState(null);
-  
+
     return (
-      <div className="">
-        <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
-        <div className="mb-6">
-          <span>Total Businesses : {businesses.length}</span>
-        </div>
-        <div className="grid grid-cols-3 gap-6">
-          {businesses.map((business) => (
-            <div
-              key={business._id}
-              className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded"
-            >
-              <span className="font-semibold text-xl underline">{business.name}</span>
-              <div className="flex gap-2 flex-col">
-                <span>Category : {business.mainCategory}</span>
-                <span>Phone : {business.phone}</span>
-                <Link
-                  to={`/business/${business._id}`}
-                  className="flex gap-2 items-center justify-start text-blue-500"
-                >
-                  <span>View</span>
-                  <FiExternalLink className="w-4 h-4" />
-                </Link>
-  
-                <div
-                  className="flex gap-2 items-center text-red-600 cursor-pointer"
-                  onClick={() => setSelectedBusiness(business)}
-                >
-                  <span>Delete</span>
-                  <FiTrash2 className="w-4 h-4" />
-                </div>
-              </div>
-  
-              {selectedBusiness && selectedBusiness._id === business._id && (
-                <Modal
-                  business={selectedBusiness}
-                  onClose={() => setSelectedBusiness(null)}
-                />
-              )}
+        <div className="">
+            <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
+            <div className="mb-6">
+                <span>Total Businesses : {businesses.length}</span>
             </div>
-          ))}
+            <div className="grid grid-cols-3 gap-6">
+                {businesses.map((business) => (
+                    <div
+                        key={business._id}
+                        className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded"
+                    >
+                        <span className="font-semibold text-xl underline">{business.name}</span>
+                        <div className="flex gap-2 flex-col">
+                            <span>Category : {business.mainCategory}</span>
+                            <span>Phone : {business.phone}</span>
+                            <Link
+                                to={`/business/${business._id}`}
+                                className="flex gap-2 items-center justify-start text-blue-500"
+                            >
+                                <span>View</span>
+                                <FiExternalLink className="w-4 h-4" />
+                            </Link>
+
+                            <div
+                                className="flex gap-2 items-center text-red-600 cursor-pointer"
+                                onClick={() => setSelectedBusiness(business)}
+                            >
+                                <span>Delete</span>
+                                <FiTrash2 className="w-4 h-4" />
+                            </div>
+                        </div>
+
+                        {selectedBusiness && selectedBusiness._id === business._id && (
+                            <Modal
+                                business={selectedBusiness}
+                                onClose={() => setSelectedBusiness(null)}
+                            />
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
-      </div>
     );
-  };
+};
 
 
 const AddListing = () => {
@@ -607,7 +646,7 @@ const VendorDashboard = () => {
                                 )}
                                 {selectedField === "allListings" && <AllListings businesses={businesses} />}
                                 {selectedField === "addListing" && <AddListing />}
-                                {selectedField === "reviews" && <Reviews />}
+                                {selectedField === "reviews" && <Reviews businesses={businesses} />}
                                 {selectedField === "leads" && <Leads />}
                                 {selectedField === "subscriptions" && <Subscriptions />}
                             </div>
