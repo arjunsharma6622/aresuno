@@ -5,6 +5,7 @@ import { BsPeopleFill, BsStarFill } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import {
     MdOutlineLeaderboard,
+    MdOutlinePostAdd,
     MdOutlineReviews,
     MdReviews,
 } from "react-icons/md";
@@ -139,6 +140,14 @@ const Reviews = ({ businesses }) => {
         </div>
     );
 };
+
+const Posts = () => {
+    return (
+        <div>
+            <h1>Posts</h1>
+        </div>
+    );
+}
 
 const Leads = () => {
     return (
@@ -294,7 +303,7 @@ const VendorDashboard = () => {
             amt: 1700,
         },
     ];
-    const [selectedField, setSelectedField] = useState("addListing");
+    const [selectedField, setSelectedField] = useState("dashboard");
     const [edit, setEdit] = useState(true);
     const [updatedPassword, setUpdatedPassword] = useState({
         newPassword: "",
@@ -443,6 +452,16 @@ const VendorDashboard = () => {
                         >
                             <AiOutlineAppstoreAdd className="w-6 h-6 " />
                             <span className="">Add New Listing</span>
+                        </div>
+                        <div
+                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "posts"
+                                ? "text-blue-500"
+                                : "text-gray-700"
+                                }`}
+                            onClick={() => handleSelectedField("posts")}
+                        >
+                            <MdOutlinePostAdd className="w-6 h-6 " />
+                            <span className="">Posts</span>
                         </div>
                         <div
                             className={`flex items-center cursor-pointer gap-2 ${selectedField === "reviews" ? "text-blue-500" : "text-gray-700"
@@ -650,6 +669,7 @@ const VendorDashboard = () => {
                                 {selectedField === "allListings" && <AllListings businesses={businesses} />}
                                 {selectedField === "addListing" && <AddListing />}
                                 {selectedField === "reviews" && <Reviews businesses={businesses} />}
+                                {selectedField === "posts" && <Posts />}
                                 {selectedField === "leads" && <Leads />}
                                 {selectedField === "subscriptions" && <Subscriptions />}
                             </div>

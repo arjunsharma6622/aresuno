@@ -24,7 +24,7 @@ import {
     AiOutlineAppstoreAdd,
     AiOutlineUser,
 } from "react-icons/ai";
-import { FiDelete, FiEdit, FiExternalLink, FiEye, FiEyeOff, FiLink, FiLock, FiStar, FiTrash2, FiX } from "react-icons/fi";
+import { FiDelete, FiEdit, FiExternalLink, FiEye, FiEyeOff, FiLink, FiLock, FiStar, FiTrash2, FiUsers, FiX } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
@@ -96,88 +96,136 @@ const AllBusiness = ({ businesses }) => {
         </div>
     );
 };
+const AllUsers = ({users}) => {
+
+    const handleDelete = async (id) => {
+        try {
+            
+            const res = await axios.delete(`http://localhost:8000/api/user/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            // toast.success(res.data.message);
+            window.location.reload();
+        }
+        catch (err) {
+            // toast.error(err.response.data.message);
+            console.log(err)
+        }
+    }
+
+
+
+    return (
+        <div>
+                <div className="bg-white rounded-xl">
+
+                    <table className="w-full text-sm table-auto">
+                        <thead className="">
+                            <tr className="bg-gray-300">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                            </tr>
+                        </thead>
+
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            {users.map((user, index) => (
+                                <tr key={index}>
+                                    <td className="px-6 py-4 whitespace-nowrap">{index+1}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {user.name}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
+                                    {/* <td className="px-6 py-4 whitespace-nowrap">{user.type}</td> */}
+                                    <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)}/>
+                                    </td>
+
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                </div>
+
+        </div>
+    );
+};
+const AllVendors = ({users}) => {
+
+    const handleDelete = async (id) => {
+        try {
+            
+            const res = await axios.delete(`http://localhost:8000/api/vendor/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            // toast.success(res.data.message);
+            window.location.reload();
+        }
+        catch (err) {
+            // toast.error(err.response.data.message);
+            console.log(err)
+        }
+    }
+
+
+
+    return (
+        <div>
+                <div className="bg-white rounded-xl">
+
+                    <table className="w-full text-sm table-auto">
+                        <thead className="">
+                            <tr className="bg-gray-300">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                            </tr>
+                        </thead>
+
+                        <tbody className="bg-white divide-y divide-gray-200">
+                            {users.map((user, index) => (
+                                <tr key={index}>
+                                    <td className="px-6 py-4 whitespace-nowrap">{index+1}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {user.name}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
+                                    {/* <td className="px-6 py-4 whitespace-nowrap">{user.type}</td> */}
+                                    <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)}/>
+                                    </td>
+
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                </div>
+
+        </div>
+    );
+};
 
 
 
 const AdminDashboard = () => {
-    const [user, setUser] = useState({});
-    const [userEdit, setUserEdit] = useState({});
+
+    const [users, setUsers] = useState([]);
+    const [vendors, setVendors] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [loading, setLoading] = useState(true);
-    const data = [
-        {
-            name: "Jan",
-            Leads: 4000,
-            pv: 2400,
-            amt: 2400,
-        },
-        {
-            name: "Feb",
-            Leads: 3000,
-            pv: 1398,
-            amt: 2210,
-        },
-        {
-            name: "Mar",
-            Leads: 2000,
-            pv: 9800,
-            amt: 2290,
-        },
-        {
-            name: "Apr",
-            Leads: 2780,
-            pv: 3908,
-            amt: 2000,
-        },
-        {
-            name: "May",
-            Leads: 1890,
-            pv: 4800,
-            amt: 2181,
-        },
-        {
-            name: "Jun",
-            Leads: 2390,
-            pv: 3800,
-            amt: 2500,
-        },
-        {
-            name: "Jul",
-            Leads: 3490,
-            pv: 4300,
-            amt: 1900,
-        },
-        {
-            name: "Aug",
-            Leads: 2490,
-            pv: 4300,
-            amt: 1700,
-        },
-        {
-            name: "Sep",
-            Leads: 1490,
-            pv: 1300,
-            amt: 1000,
-        },
-        {
-            name: "Oct",
-            Leads: 2490,
-            pv: 4300,
-            amt: 1700,
-        },
-        {
-            name: "Nov",
-            Leads: 2790,
-            pv: 4300,
-            amt: 1700,
-        },
-        {
-            name: "Dec",
-            Leads: 3490,
-            pv: 4300,
-            amt: 1700,
-        },
-    ];
+
     const [selectedField, setSelectedField] = useState("allBusinesses");
 
 
@@ -202,9 +250,35 @@ const AdminDashboard = () => {
             console.log(err);
         }
     };
+    const fetchUsersData = async () => {
+        try {
+            setLoading(true);
+
+            const resUsers = await axios.get(
+                "https://aresuno-server.vercel.app/api/user/all-users");
+            const resVendors = await axios.get(
+                "https://aresuno-server.vercel.app/api/vendor/all-vendors",
+            )
+            const users = resUsers.data
+            const vendors = resVendors.data
+
+            setUsers(users);
+
+            console.log(users);
+
+
+            setVendors(vendors);
+            console.log(vendors)
+
+            setLoading(false);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     useEffect(() => {
         fetchBusinessesData();
+        fetchUsersData();
     }, []);
 
     return (
@@ -229,6 +303,35 @@ const AdminDashboard = () => {
 
 
                     </div>
+
+                    <div className="text-sm flex flex-col gap-6 w-full">
+                        <div
+                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "allUsers"
+                                ? "text-blue-500"
+                                : "text-gray-700"
+                                }`}
+                            onClick={() => handleSelectedField("allUsers")}
+                        >
+                            <FiUsers className="w-6 h-6" />
+                            <span className="">All Users</span>
+                        </div>
+
+                    </div>
+
+
+                    <div className="text-sm flex flex-col gap-6 w-full">
+                        <div
+                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "allVendors"
+                                ? "text-blue-500"
+                                : "text-gray-700"
+                                }`}
+                            onClick={() => handleSelectedField("allVendors")}
+                        >
+                            <FiUsers className="w-6 h-6" />
+                            <span className="">All Vendors</span>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div className="w-full">
@@ -251,6 +354,8 @@ const AdminDashboard = () => {
                         ) : (
                             <div className="">
                                 {selectedField === "allBusinesses" && <AllBusiness businesses={businesses} />}
+                                {selectedField === "allUsers" && <AllUsers users={users} />}
+                                {selectedField === "allVendors" && <AllVendors users={vendors} />}
                             </div>
                         )}
                     </div>
