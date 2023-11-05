@@ -59,11 +59,11 @@ const AllBusiness = ({ businesses }) => {
                         <thead className="">
                             <tr className="bg-gray-300">
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owned by</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Main Category</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">email</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
                             </tr>
                         </thead>
@@ -72,7 +72,12 @@ const AllBusiness = ({ businesses }) => {
                             {businesses.map((business, index) => (
                                 <tr key={index}>
                                     <td className="px-6 py-4 whitespace-nowrap">{index+1}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{business.name}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="flex gap-2 items-center">
+                                        {business.name}
+                                        <Link to={`/business/${business._id}`}><FiExternalLink className="text-blue-500 w-4 h-4 cursor-pointer"/></Link>
+                                        </div>
+                                    </td>
                                     <td className="px-6 py-4 whitespace-nowrap">{business.vendorName}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{business.type}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{business.mainCategory}</td>

@@ -14,6 +14,7 @@ import {
     FiStar,
     FiTwitter,
     FiUploadCloud,
+    FiYoutube,
 } from "react-icons/fi";
 import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
 import { PiCalendarCheckLight } from "react-icons/pi";
@@ -121,7 +122,12 @@ export const Business = () => {
         },
         {
             link: "facebook",
-            icon: <FiFacebook className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
+            icon: <FiFacebook
+            className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
+        },
+        {
+            link: "youtube",
+            icon: <FiYoutube className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
         }
     ]
 

@@ -424,7 +424,7 @@ const BusinessRegister = () => {
                 vendorName: vendorName
             }));
 
-            const updatedBusinessDetails = { ...businessDetails, vendorId: vendorId };
+            const updatedBusinessDetails = { ...businessDetails, vendorId: vendorId, vendorName: vendorName };
             console.log(updatedBusinessDetails);
 
             const res = await axios.post(
