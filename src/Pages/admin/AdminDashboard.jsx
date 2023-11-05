@@ -101,7 +101,7 @@ const AllUsers = ({users}) => {
     const handleDelete = async (id) => {
         try {
             
-            const res = await axios.delete(`http://localhost:8000/api/user/${id}`, {
+            const res = await axios.delete(`https://aresuno-server.vercel.app/api/user/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -161,7 +161,7 @@ const AllVendors = ({users}) => {
     const handleDelete = async (id) => {
         try {
             
-            const res = await axios.delete(`http://localhost:8000/api/vendor/${id}`, {
+            const res = await axios.delete(`https://aresuno-server.vercel.app/api/vendor/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -226,7 +226,7 @@ const AdminDashboard = () => {
     const [businesses, setBusinesses] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [selectedField, setSelectedField] = useState("allBusinesses");
+    const [selectedField, setSelectedField] = useState("allVendors");
 
 
     const handleSelectedField = (field) => {
