@@ -415,11 +415,13 @@ const BusinessRegister = () => {
                 }
             );
             const vendorId = vendorRes.data._id;
+            const vendorName = vendorRes.data.name;
             console.log(vendorId);
 
             setBusinessDetails((prev) => ({
                 ...prev,
                 vendorId: vendorId,
+                vendorName: vendorName
             }));
 
             const updatedBusinessDetails = { ...businessDetails, vendorId: vendorId };

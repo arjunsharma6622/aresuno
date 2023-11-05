@@ -14,6 +14,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ServiceListing from './Pages/Service';
 import BusinessOnboarding from './Pages/BusinessOnboarding';
+import AdminDashboard from './Pages/admin/AdminDashboard';
 
 function App() {
   return (
@@ -29,13 +30,14 @@ function Main() {
   const isSignpuPage = location.pathname === '/signup';
   const isVendorDashboard = location.pathname.match(/\/vendor\/dashboard/);
   const isOnboarding = location.pathname.match(/\/vendor\/onboarding/);
+  const isAdminPage = location.pathname.match(/\/admin/);
   const userType = useSelector((state) => state.user.userType);
   const navigate = useNavigate()
 
 
   return (
     <>
-      {!isLoginPage && !isSignpuPage && !isVendorDashboard && !isOnboarding && <Header />}
+      {!isLoginPage && !isSignpuPage && !isVendorDashboard && !isOnboarding && !isAdminPage && <Header />}
       <div className='app'>
         <Routes>
           <Route path='/' element={<Hero />} />
@@ -59,13 +61,14 @@ function Main() {
 
 
           <Route path={'/business/:id'} element={<Business />} />
+          <Route path={'/admin'} element={<AdminDashboard />} />
 
           <Route path='/contact' element={<h1>Contact</h1>} />
 
           <Route path='/business/register' element={<BusinessRegister />} />
         </Routes>
       </div>
-      {!isLoginPage && !isSignpuPage && !isVendorDashboard && !isOnboarding && <Footer />}
+      {!isLoginPage && !isSignpuPage && !isVendorDashboard && !isOnboarding && !isAdminPage && <Footer />}
     </>
   );
 }
