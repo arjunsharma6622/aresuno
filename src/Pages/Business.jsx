@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import {
     FiArrowRight,
+    FiFacebook,
     FiFileText,
     FiHelpCircle,
     FiImage,
     FiInbox,
+    FiInstagram,
     FiMail,
     FiMessageSquare,
     FiNavigation,
     FiPhone,
     FiStar,
+    FiTwitter,
     FiUploadCloud,
 } from "react-icons/fi";
 import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
-import { PiCalendarCheckLight, PiShareFatBold } from "react-icons/pi";
+import { PiCalendarCheckLight } from "react-icons/pi";
 import { CgWebsite } from "react-icons/cg";
 import { BiCheckShield } from "react-icons/bi";
 import axios from "axios";
@@ -31,6 +34,7 @@ import { useParams } from "react-router-dom";
 export const Business = () => {
     const [business, setBusiness] = useState({});
     const [selectedStars, setSelectedStars] = useState(4);
+    const [review, setReview] = useState("");
     const [hoveredStars, setHoveredStars] = useState(0);
     const { id } = useParams();
 
@@ -41,6 +45,11 @@ export const Business = () => {
         "https://img.freepik.com/free-photo/group-diverse-people-having-business-meeting_53876-25060.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1697155200&semt=ais",
     ];
 
+
+    console.log({
+        rating : selectedStars,
+        review : review
+    })
 
     const handleStarHover = (index) => {
         setHoveredStars(index + 1);
@@ -53,6 +62,30 @@ export const Business = () => {
     const handleStarClick = (index) => {
         setSelectedStars(index + 1);
     };
+
+    const handleRating = async (e) => {
+        e.preventDefault();
+        try {
+            const token = localStorage.getItem("token");
+            const res = await axios.patch(
+                // `http://localhost:8000/api/business/${id}/rating`,
+                `https://aresuno-server.vercel.app/api/business/${id}/rating`,
+                { rating: selectedStars, review : review },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+        }
+
+    };
+
+
+
     useEffect(() => {
         fetchBusiness();
     }, []);
@@ -67,6 +100,30 @@ export const Business = () => {
             console.log(e);
         }
     };
+
+    const businessLinks = [
+        {
+            link: "website",
+            icon: <CgWebsite className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            ,
+        },
+        {
+            link: "instagram",
+            icon: <FiInstagram className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
+        },
+        {
+            link: "whatsapp",
+            icon: <AiOutlineWhatsApp className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
+        },
+        {
+            link: "twitter",
+            icon: <FiTwitter className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
+        },
+        {
+            link: "facebook",
+            icon: <FiFacebook className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
+        }
+    ]
 
     return (
         <div className="bg-white flex flex-col gap-6 justify-center w-full px-6 mt-10">
@@ -88,7 +145,7 @@ export const Business = () => {
                                         className="mySwiper rounded-xl"
                                     >
                                         {slides.map((slide, index) => (
-                                            <SwiperSlide className="rounded-xl">
+                                            <SwiperSlide className="rounded-xl" key={index}>
                                                 <img src={slide} alt="" className="rounded-xl" />
                                             </SwiperSlide>
                                         ))}
@@ -106,7 +163,7 @@ export const Business = () => {
                                     {/* <span className="text-gray-700 text-lg">{business.mainCategory}</span> */}
 
                                     <span className="text-gray-800 text-base font-medium">
-                                        Packers and movers
+                                        {business.mainCategory}
                                     </span>
 
                                     <div className="flex items-center text-xs">
@@ -156,32 +213,25 @@ export const Business = () => {
 
 
                                 <div className="w-full flex items-center justify-start gap-4">
-                                    <div
-                                        className="cursor-pointer relative bg-[#E9F5FE] rounded-full h-9 w-9"
-                                        style={{ border: "2px solid #C9E0F2" }}
-                                    >
-                                        <CgWebsite className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                                    </div>
-                                    <div
-                                        className="cursor-pointer relative bg-[#E9F5FE] rounded-full h-9 w-9"
-                                        style={{ border: "2px solid #C9E0F2" }}
-                                    >
-                                        <FiMail className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                                    </div>
 
-                                    <div
-                                        className="cursor-pointer relative bg-[#E9F5FE] rounded-full h-9 w-9"
-                                        style={{ border: "2px solid #C9E0F2" }}
-                                    >
-                                        <AiOutlineWhatsApp className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                                    </div>
+                                    {businessLinks.map((item, index) => {
 
-                                    <div
-                                        className="cursor-pointer relative bg-[#E9F5FE] rounded-full h-9 w-9"
-                                        style={{ border: "2px solid #C9E0F2" }}
-                                    >
-                                        <PiShareFatBold className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                                    </div>
+                                        return (
+
+                                            business.socialLinks?.[item.link] &&
+                                            <a href={business.socialLinks?.[item.link]}>
+                                                <div
+                                                    key={index}
+                                                    className="cursor-pointer relative bg-[#E9F5FE] rounded-full h-9 w-9"
+                                                    style={{ border: "2px solid #C9E0F2" }}
+                                                >
+                                                    {item.icon}
+                                                </div>
+                                            </a>
+
+
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </div>
@@ -191,15 +241,15 @@ export const Business = () => {
                 <div className="flex flex-[3] flex-col gap-4 justify-center items-center">
                     <div className="w-full">
                         <div className="flex items-start gap-3">
-                            <PiCalendarCheckLight className="text-gray-800 w-10 h-10 mt-1" strokeWidth={0.1}/>
-                        
-                        <div>
-                            {/* <p>We are open on</p> */}
-                            <p className=" ">
-                                Monday - Sunday
-                            </p>
-                            <p>9:00 AM to 10:00 PM</p>
-                        </div>
+                            <PiCalendarCheckLight className="text-gray-800 w-10 h-10 mt-1" strokeWidth={0.1} />
+
+                            <div>
+                                {/* <p>We are open on</p> */}
+                                <p className=" ">
+                                    Monday - Sunday
+                                </p>
+                                <p>9:00 AM to 10:00 PM</p>
+                            </div>
                         </div>
                     </div>
 
@@ -207,7 +257,7 @@ export const Business = () => {
                         <button className="w-full flex items-center justify-center gap-2 p-2 rounded-full border border-solid border-blue-600">
                             <FiPhone className="text-blue-600 w-6 h-6" />
                             <span className="text-blue-600 font-semibold">
-                                <a href="tel:1234567890">Call Now</a>
+                                <a href={`tel:${business?.phone}`}>Call Now</a>
                             </span>
                         </button>
                         <button className="w-full flex items-center justify-center gap-2 p-2 rounded-full bg-blue-600">
@@ -265,20 +315,11 @@ export const Business = () => {
                                         <p className="text-base font-medium mb-1 mt-2">We accept</p>
 
                                         <div className="flex flex-wrap gap-2">
-                                            <div className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
-                                                <span className="text-gray-800 text-sm">Cash</span>
-                                            </div>
-                                            <div className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
-                                                <p className="text-gray-800 text-sm">Card</p>
-                                            </div>
-                                            <div className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
-                                                <p className="text-gray-800 text-sm">UPI</p>
-                                            </div>
-                                            <div className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
-                                                <p className="text-gray-800 text-sm">
-                                                    American Express
-                                                </p>
-                                            </div>
+                                            {business.modeOfPayment?.map((payment, index) => (
+                                                <div key={index} className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1">
+                                                    <span className="text-gray-800 text-sm">{payment}</span>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -375,7 +416,7 @@ export const Business = () => {
                         </div>
 
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.945429788256!2d77.26983317550078!3d28.631397575665424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd437d9b5153%3A0x96a56befc2cfe09d!2sARESUNO%20INFO%20INDIA%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1698030034459!5m2!1sen!2sin"
+                            src={business.iframe}
                             width="100%"
                             height="400"
                             allowFullScreen=""
@@ -584,30 +625,18 @@ export const Business = () => {
                             </h2>
                         </div>
 
-                        <Accordion
-                            question={
-                                "1. Will Agra Packers and Movers in Kahrai transport my belongings inside itself?"
-                            }
-                            content={
-                                "Clothes and other movable items are removed and packed separately in boxes. This also makes them lighter to carry furniture away."
-                            }
-                        />
-                        <Accordion
-                            question={
-                                "2. Should I pre-pack everything for them to carry away to the transport facility?"
-                            }
-                            content={
-                                "No, you do not need to pre-pack things. But, if you wish to be better prepared, you can do that too."
-                            }
-                        />
-                        <Accordion
-                            question={
-                                "3. Can I call them directly on the day of shifting or do I need an earlier appointment?"
-                            }
-                            content={
-                                "Personnel from the company needs to visit your home to assess the weight and capacity of your belongings so they can plan to bring adequate supplies and transport them accordingly. Agra Packers and Movers are available during Monday:- Open 24 Hrs, Tuesday: - Open 24 Hrs, Wednesday:- Open 24 Hrs, thu:- Open 24 Hrs, Friday:- Open 24 Hrs, Saturday:- Open 24 Hrs, Sunday:- Open 24 Hrs. So, schedule a house call accordingly."
-                            }
-                        />
+                        {business.faqs?.map((faq, index) => (
+                            <Accordion
+                                question={
+                                    `${index + 1} ${faq.question}`
+                                }
+                                content={
+                                    faq.answer
+                                }
+                                key={index}
+                            />
+                        ))}
+
                     </div>
                 </div>
 
@@ -673,8 +702,9 @@ export const Business = () => {
                                     placeholder="This is a very good ..."
                                     rows="10"
                                     className=" focus:outline-none w-full h-24 bg-gray-100 rounded-md px-4 py-2 resize-none"
+                                    onChange={(e) => setReview(e.target.value)}
                                 ></textarea>
-                                <button className="bg-blue-600 text-white w-full h-10 rounded-md">
+                                <button className="bg-blue-600 text-white w-full h-10 rounded-md" onClick={handleRating}>
                                     Rate
                                 </button>
                             </div>
