@@ -1,796 +1,933 @@
 import React, { useState } from "react";
 import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
+    geocodeByAddress,
+    getLatLng,
 } from "react-places-autocomplete";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
-  FiChevronDown,
-  FiClock,
-  FiFacebook,
-  FiGlobe,
-  FiImage,
-  FiInstagram,
-  FiPlus,
-  FiTwitter,
-  FiUploadCloud,
-  FiX,
-  FiYoutube,
+    FiChevronDown,
+    FiClock,
+    FiFacebook,
+    FiGlobe,
+    FiImage,
+    FiInstagram,
+    FiTrash2,
+    FiTwitter,
+    FiUploadCloud,
+    FiX,
+    FiYoutube,
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import {
-  BiCategory,
-  BiDetail,
-  BiLink,
-  BiNavigation,
-  BiQuestionMark,
+    BiCategory,
+    BiDetail,
+    BiLink,
+    BiNavigation,
+    BiQuestionMark,
 } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
 
+
 const BusinessRegister = () => {
-  const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+    const navigate = useNavigate();
 
-  // const [businessDetails, setBusinessDetails] = useState({
-  //     name: "",
-  //     type: "",
-  //     mainCategory: "",
-  //     subCategory: "",
-  //     address: "",
-  //     phone: "",
-  //     timing: "",
-  //     businessHours : []
-  // });
-
-  const [businessDetails, setBusinessDetails] = useState({
-    name: "",
-    type: "",
-    mainCategory: "",
-    subCategory: "",
-    address: "",
-    phone: "",
-    timing: "",
-    businessHours: [
-      { day: "Monday", from: "", to: "", isOpen: false },
-      { day: "Tuesday", from: "", to: "", isOpen: false },
-      { day: "Wednesday", from: "", to: "", isOpen: false },
-      { day: "Thursday", from: "", to: "", isOpen: false },
-      { day: "Friday", from: "", to: "", isOpen: false },
-      { day: "Saturday", from: "", to: "", isOpen: false },
-      { day: "Sunday", from: "", to: "", isOpen: false },
-    ],
-  });
-
-  console.log(businessDetails.businessHours);
-
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [selectedModesOfPayment, setSelectedModesOfPayment] = useState([]);
-
-  const paymentModes = [
-    "UPI",
-    "Cash",
-    "Credit Card",
-    "Debit Card",
-    "Net Banking",
-    "EMI",
-    "Wallet",
-    "American Express",
-  ];
-  const daysOfWeek = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
-
-  const handleBusinessHoursChange = (index, isChecked) => {
-    const updatedBusinessHours = [...businessDetails.businessHours];
-    updatedBusinessHours[index].isOpen = isChecked;
-    if (!isChecked) {
-      updatedBusinessHours[index].from = "";
-      updatedBusinessHours[index].to = "";
-    }
-    setBusinessDetails((prev) => ({
-      ...prev,
-      businessHours: updatedBusinessHours,
-    }));
-  };
-
-  const handleBusinessHoursFromChange = (index, value) => {
-    const updatedBusinessHours = [...businessDetails.businessHours];
-    updatedBusinessHours[index].from = value;
-    setBusinessDetails((prev) => ({
-      ...prev,
-      businessHours: updatedBusinessHours,
-    }));
-  };
-
-  const handleBusinessHoursToChange = (index, value) => {
-    const updatedBusinessHours = [...businessDetails.businessHours];
-    updatedBusinessHours[index].to = value;
-    setBusinessDetails((prev) => ({
-      ...prev,
-      businessHours: updatedBusinessHours,
-    }));
-  };
-
-  const [images, setImages] = useState([]);
-
-  console.log(images);
-
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImages((prevImages) => [...prevImages, reader.result]);
-      };
-      reader.readAsDataURL(file);
+    const [businessDetails, setBusinessDetails] = useState({
+        name: "",
+        type: "",
+        phone: "",
+        email: "",
+        mainCategory: "",
+        subCategory: "",
+        address: "",
+        phone: "",
+        timing: [
+            { day: "Monday", from: "", to: "", isOpen: false },
+            { day: "Tuesday", from: "", to: "", isOpen: false },
+            { day: "Wednesday", from: "", to: "", isOpen: false },
+            { day: "Thursday", from: "", to: "", isOpen: false },
+            { day: "Friday", from: "", to: "", isOpen: false },
+            { day: "Saturday", from: "", to: "", isOpen: false },
+            { day: "Sunday", from: "", to: "", isOpen: false },
+        ],
+        faqs: [{
+            question: "",
+            answer: ""
+        }],
+        socialLinks: {
+            website: "",
+            instagram: "",
+            whatsapp: "",
+            twitter: "",
+            facebook: "",
+            youtube: "",
+        },
+        modeOfPayment: [],
     });
-  };
 
-  const handlePhotosUpload = (e) => {
-    e.preventDefault();
-  };
+    console.log(businessDetails);
 
-  const timeOptions = [
-    "06:00 AM",
-    "07:00 AM",
-    "08:00 AM",
-    "09:00 AM",
-    "10:00 AM",
-    "11:00 AM",
-    "12:00 PM",
-    "01:00 PM",
-    "02:00 PM",
-    "03:00 PM",
-    "04:00 PM",
-    "05:00 PM",
-    "06:00 PM",
-    "07:00 PM",
-    "08:00 PM",
-    "09:00 PM",
-    "10:00 PM",
-    "11:00 PM",
-  ];
+    const handleBusinessDetailsChange = (e) => {
+        const { name, value } = e.target;
+        setBusinessDetails((prev) => ({ ...prev, [name]: value }));
+    };
 
-  const handlePhoneChange = (value) => {
-    setPhoneNumber(value);
-  };
 
-  const handlModeOfPaymentClick = (option) => {
-    if (!selectedModesOfPayment.includes(option)) {
-      setSelectedModesOfPayment([...selectedModesOfPayment, option]);
-    }
-  };
+    // handle faqs
+    const handleFaqChange = (index, type, value) => {
+        const updatedFaqs = [...businessDetails.faqs];
+        updatedFaqs[index][type] = value;
+        setBusinessDetails({ ...businessDetails, faqs: updatedFaqs });
+    };
 
-  const handleAddressSelect = async (address) => {
-    try {
-      const results = await geocodeByAddress(address);
-      const latLng = await getLatLng(results[0]);
-      setBusinessDetails((prev) => ({
-        ...prev,
-        address: address,
-        coordinates: [latLng.lng, latLng.lat],
-      }));
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
+    const handleAddFaq = () => {
+        const newFaqs = [...businessDetails.faqs, { question: '', answer: '' }];
+        setBusinessDetails({ ...businessDetails, faqs: newFaqs });
+    };
 
-  const handleBusinessDetailsChange = (e) => {
-    const { name, value } = e.target;
-    setBusinessDetails((prev) => ({ ...prev, [name]: value }));
-  };
+    const handleRemoveFaq = index => {
+        const updatedFaqs = businessDetails.faqs.filter((_, i) => i !== index);
+        setBusinessDetails({ ...businessDetails, faqs: updatedFaqs });
+    };
 
-  const handleNextStep = () => {
-    setStep(step + 1);
-  };
 
-  const handlePreviousStep = () => {
-    setStep(step - 1);
-  };
+    // handle categories
+    const mainCategories = [
+        "Food & Beverage",
+        "Health & Wellness",
+        "Fashion & Clothing",
+        "Home & Decor",
+        "Automotive",
+        "Technology",
+        "Beauty & Personal Care",
+        "Sports & Fitness",
+        "Travel & Tourism",
+        "Education & Learning",
+    ];
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem("token");
-      const vendorRes = await axios.get(
-        "https://aresuno-server.vercel.app/api/vendor/",
+    const subCategories = {
+        "Food & Beverage": [
+            "Restaurants",
+            "Cafes",
+            "Bakeries",
+            "Bars",
+            "Fast Food",
+        ],
+        "Health & Wellness": [
+            "Gyms",
+            "Yoga Studios",
+            "Spas",
+            "Nutritionists",
+            "Fitness Classes",
+        ],
+        "Fashion & Clothing": [
+            "Clothing Stores",
+            "Shoe Stores",
+            "Jewelry Stores",
+            "Boutiques",
+            "Accessories",
+        ],
+        "Home & Decor": [
+            "Furniture Stores",
+            "Home Improvement",
+            "Appliances",
+            "Interior Design",
+            "Home Accessories",
+        ],
+        "Automotive": [
+            "Car Dealerships",
+            "Auto Repair",
+            "Car Rental",
+            "Motorcycle Dealerships",
+            "Tire Shops",
+        ],
+        "Technology": [
+            "Electronics Stores",
+            "Computer Repair",
+            "Gadgets",
+            "Software Development",
+            "IT Services",
+        ],
+        "Beauty & Personal Care": [
+            "Hair Salons",
+            "Spas",
+            "Nail Salons",
+            "Barber Shops",
+            "Beauty Supply",
+        ],
+        "Sports & Fitness": [
+            "Sporting Goods",
+            "Fitness Centers",
+            "Sports Clubs",
+            "Outdoor Activities",
+            "Yoga Studios",
+        ],
+        "Travel & Tourism": [
+            "Hotels",
+            "Travel Agencies",
+            "Tourist Attractions",
+            "Airline Companies",
+            "Car Rental",
+        ],
+        "Education & Learning": [
+            "Schools",
+            "Tutoring Centers",
+            "Colleges",
+            "Language Schools",
+            "Online Courses",
+        ],
+    };
+
+
+    // handle phone number
+    const handlePhoneChange = (value) => {
+        setBusinessDetails((prev) => ({
+            ...prev,
+            phone: value,
+        }));
+
+    };
+
+
+    //   handle social links
+    const socialLinks = [
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const vendorId = vendorRes.data._id;
-      console.log(vendorId);
-
-      setBusinessDetails((prev) => ({
-        ...prev,
-        vendorId: vendorId,
-      }));
-
-      const updatedBusinessDetails = { ...businessDetails, vendorId: vendorId };
-      console.log(updatedBusinessDetails);
-
-      const res = await axios.post(
-        "https://aresuno-server.vercel.app/api/business/register",
-        updatedBusinessDetails,
+            name: "website",
+            icon: (
+                <FiGlobe className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+            ),
+        },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            name: "instagram",
+            icon: (
+                <FiInstagram className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+            ),
+        },
+        {
+            name: "whatsapp",
+            icon: (
+                <FaWhatsapp className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+            ),
+        },
+        {
+            name: "twitter",
+            icon: (
+                <FiTwitter className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+            ),
+        },
+        {
+            name: "facebook",
+            icon: (
+                <FiFacebook className="z-10 h-6 w-6 absolute right-2 top-1/2 transform -translate-y-1/2" />
+            ),
+        },
+        {
+            name: "youtube",
+            icon: (
+                <FiYoutube className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+            ),
+        },
+    ];
+
+    const handleSocialLinksChange = (e) => {
+        const { name, value } = e.target;
+        setBusinessDetails((prev) => ({
+            ...prev,
+            socialLinks: {
+                ...prev.socialLinks,
+                [name]: value,
+            },
+        }));
+    };
+
+
+    //   handle business timings
+    const daysOfWeek = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ];
+
+    const timeOptions = [
+        "06:00 AM",
+        "07:00 AM",
+        "08:00 AM",
+        "09:00 AM",
+        "10:00 AM",
+        "11:00 AM",
+        "12:00 PM",
+        "01:00 PM",
+        "02:00 PM",
+        "03:00 PM",
+        "04:00 PM",
+        "05:00 PM",
+        "06:00 PM",
+        "07:00 PM",
+        "08:00 PM",
+        "09:00 PM",
+        "10:00 PM",
+        "11:00 PM",
+    ];
+
+    const handleBusinessHoursChange = (index, isChecked) => {
+        const updatedBusinessHours = [...businessDetails.timing];
+        updatedBusinessHours[index].isOpen = isChecked;
+        if (!isChecked) {
+            updatedBusinessHours[index].from = "";
+            updatedBusinessHours[index].to = "";
         }
-      );
-      toast.success("Business Registered");
-      window.location.reload();
+        setBusinessDetails((prev) => ({
+            ...prev,
+            timing: updatedBusinessHours,
+        }));
+    };
 
-      // navigate("/vendor/dashboard");
+    const handleBusinessHoursFromChange = (index, value) => {
+        const updatedBusinessHours = [...businessDetails.timing];
+        updatedBusinessHours[index].from = value;
+        setBusinessDetails((prev) => ({
+            ...prev,
+            timing: updatedBusinessHours,
+        }));
+    };
 
-      console.log(res.data);
-    } catch (error) {
-      console.error("Error", error);
-      toast.error("Business Registration Failed");
-    }
-  };
+    const handleBusinessHoursToChange = (index, value) => {
+        const updatedBusinessHours = [...businessDetails.timing];
+        updatedBusinessHours[index].to = value;
+        setBusinessDetails((prev) => ({
+            ...prev,
+            timing: updatedBusinessHours,
+        }));
+    };
 
-  return (
-    <div className="  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className=" w-full justify-between flex flex-col">
-        <div className="flex flex-col">
-          <div className="flex flex-col gap-6">
-            {/* BUSINESS DETAILS */}
-            <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiDetail className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">
-                  Enter basic business details
-                </h2>
-              </div>
-              <div className="flex flex-col gap-4 mt-6">
-                <div className="flex w-full gap-3">
-                  {/* BUSINESS NAME */}
-                  <div className="flex flex-col w-full">
-                    <label htmlFor="">Business Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={businessDetails.name}
-                      onChange={handleBusinessDetailsChange}
-                      className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    />
-                  </div>
 
-                  {/* BUSINESS EMAIL */}
-                  <div className="flex flex-col w-full">
-                    <label htmlFor="">Mail Id</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={businessDetails.number}
-                      onChange={handleBusinessDetailsChange}
-                      className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    />
-                  </div>
-                </div>
+    //   handle image gallery
+    const [images, setImages] = useState([]);
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        files.forEach((file) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImages((prevImages) => [...prevImages, reader.result]);
+            };
+            reader.readAsDataURL(file);
+        });
+    };
 
-                <div className="flex w-full gap-3">
-                  {/* PHONE NUMBER */}
-                  <div className="flex flex-col w-full">
-                    <label htmlFor="phone">Phone Number</label>
-                    <PhoneInput
-                      international
-                      defaultCountry="in"
-                      value={phoneNumber}
-                      onChange={handlePhoneChange}
-                      className="mt-2 appearance-none rounded-md w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      style={{
-                        width: "100%",
-                        height: "39px",
-                        padding: "0px",
-                        border: "none",
-                      }}
-                      inputStyle={{
-                        width: "100%",
-                        height: "100%",
-                      }}
-                      countrySelectorStyleProps={{
-                        width: "100%",
-                        height: "100%",
-                      }}
-                      dialCodePreviewStyleProps={{
-                        width: "100%",
-                        height: "100%",
-                      }}
-                    />
-                  </div>
+    console.log(images)
 
-                  {/* BUSINESS TYPE */}
-                  <div className="flex flex-col w-full">
-                    <label htmlFor="">Business Type</label>
+    const handleImagesUpload = async () => {
 
-                    <div className="flex items-center justify-center mt-2 h-full">
-                      <div className="relative w-full">
-                        <select
-                          name="type"
-                          value={businessDetails.type}
-                          className="appearance-none rounded-md relative block w-full px-3 py-2 h-full border  border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
-                        >
-                          <option value="" disabled className="">
-                            -
-                          </option>
-                          <option value="Category1">Category 1</option>
-                          <option value="Category2">Category 2</option>
-                          <option value="Category3">Category 3</option>
-                          {/* Add more options as needed */}
-                        </select>
 
-                        <div>
-                          <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+        const promises = images.map(async (image) => {
+            const imageRef = storage.ref().child(`images/${image.name}`);
+            await imageRef.put(image);
+            const url = await imageRef.getDownloadURL();
+            return url;
+        });
+
+        const urls = await Promise.all(promises);
+        console.log(urls);
+
+    };
+
+
+    // handle mode of payment
+    const paymentModes = [
+        "UPI",
+        "Cash",
+        "Credit Card",
+        "Debit Card",
+        "Net Banking",
+        "EMI",
+        "Wallet",
+        "American Express",
+    ];
+
+    const handlModeOfPaymentClick = (option) => {
+        setBusinessDetails((prev) => ({
+            ...prev,
+            modeOfPayment: [...prev.modeOfPayment, option],
+        }));
+    };
+
+
+    // handle address
+    const handleAddressSelect = async (address) => {
+        try {
+            const results = await geocodeByAddress(address);
+            const latLng = await getLatLng(results[0]);
+            setBusinessDetails((prev) => ({
+                ...prev,
+                address: address,
+                coordinates: [latLng.lng, latLng.lat],
+            }));
+        } catch (error) {
+            console.error("Error", error);
+        }
+    };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const token = localStorage.getItem("token");
+            const vendorRes = await axios.get(
+                "https://aresuno-server.vercel.app/api/vendor/",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            const vendorId = vendorRes.data._id;
+            console.log(vendorId);
+
+            setBusinessDetails((prev) => ({
+                ...prev,
+                vendorId: vendorId,
+            }));
+
+            const updatedBusinessDetails = { ...businessDetails, vendorId: vendorId };
+            console.log(updatedBusinessDetails);
+
+            const res = await axios.post(
+                "https://aresuno-server.vercel.app/api/business/register",
+                updatedBusinessDetails,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            toast.success("Business Registered");
+            window.location.reload();
+
+            navigate("/vendor/dashboard");
+
+            console.log(res.data);
+        } catch (error) {
+            console.error("Error", error);
+            toast.error("Business Registration Failed");
+        }
+    };
+
+    return (
+        <div className="  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div className=" w-full justify-between flex flex-col">
+                <div className="flex flex-col">
+                    <div className="flex flex-col gap-6">
+                        {/* BUSINESS DETAILS */}
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <BiDetail className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">
+                                    Enter basic business details
+                                </h2>
+                            </div>
+                            <div className="flex flex-col gap-4 mt-6">
+                                <div className="flex w-full gap-3">
+                                    {/* BUSINESS NAME */}
+                                    <div className="flex flex-col w-full">
+                                        <label htmlFor="">Business Name</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={businessDetails.name}
+                                            onChange={handleBusinessDetailsChange}
+                                            className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        />
+                                    </div>
+
+                                    {/* BUSINESS TYPE */}
+                                    <div className="flex flex-col w-full">
+                                        <label htmlFor="">Business Type</label>
+
+                                        <div className="flex items-center justify-center mt-2 h-full">
+                                            <div className="relative w-full">
+                                                <select
+                                                    name="type"
+                                                    value={businessDetails.type}
+                                                    className="appearance-none rounded-md relative block w-full px-3 py-2 h-full border  border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                                    onChange={handleBusinessDetailsChange}
+                                                >
+                                                    <option value="" disabled className="">
+                                                        -
+                                                    </option>
+                                                    <option value="service">Service</option>
+                                                    <option value="manufacturing">Manufacturing</option>
+                                                </select>
+
+                                                <div>
+                                                    <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex w-full gap-3">
+                                    {/* PHONE NUMBER */}
+                                    <div className="flex flex-col w-full">
+                                        <label htmlFor="phone">Phone Number</label>
+                                        <PhoneInput
+                                            international
+                                            defaultCountry="in"
+                                            value={businessDetails.phone}
+                                            onChange={handlePhoneChange}
+                                            className="mt-2 appearance-none rounded-md w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            style={{
+                                                width: "100%",
+                                                height: "39px",
+                                                padding: "0px",
+                                                border: "none",
+                                            }}
+                                            inputStyle={{
+                                                width: "100%",
+                                                height: "100%",
+                                            }}
+                                            countrySelectorStyleProps={{
+                                                width: "100%",
+                                                height: "100%",
+                                            }}
+                                            dialCodePreviewStyleProps={{
+                                                width: "100%",
+                                                height: "100%",
+                                            }}
+                                        />
+                                    </div>
+
+                                    {/* BUSINESS EMAIL */}
+                                    <div className="flex flex-col w-full">
+                                        <label htmlFor="">Mail Id</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={businessDetails.number}
+                                            onChange={handleBusinessDetailsChange}
+                                            className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <hr className="border-1 border-gray-300" />
+                        <hr className="border-1 border-gray-300" />
 
-            {/* BUSINESS CATEGORY */}
-            <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiCategory className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">
-                  Select you business category
-                </h2>
-              </div>
-              <div className="flex gap-4 mt-6 w-full">
-                {/* CATEGORY */}
-                <div className="flex flex-col w-full">
-                  <label htmlFor="">Category</label>
+                        {/* BUSINESS CATEGORY # */}
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <BiCategory className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">
+                                    Select you business category
+                                </h2>
+                            </div>
+                            <div className="flex gap-4 mt-6 w-full">
+                                {/* CATEGORY */}
+                                <div className="flex flex-col w-full">
+                                    <label htmlFor="">Category</label>
 
-                  <div className="relative mt-2">
-                    <select
-                      name="subCategory"
-                      value={businessDetails.subCategory}
-                      onChange={handleBusinessDetailsChange}
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border  border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    >
-                      <option value="" disabled className="text-red">
-                        -
-                      </option>
-                      <option value="Category1">Category 1</option>
-                      <option value="Category2">Category 2</option>
-                      <option value="Category3">Category 3</option>
-                      {/* Add more options as needed */}
-                    </select>
+                                    <div className="relative mt-2">
+                                        <select
+                                            name="mainCategory"
+                                            value={businessDetails.mainCategory}
+                                            onChange={handleBusinessDetailsChange}
+                                            className="appearance-none rounded-md relative block w-full px-3 py-2 border  border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        >
+                                            <option value="" disabled className="text-red">
+                                                -
+                                            </option>
+                                            {mainCategories.map((category) => (
+                                                <option key={category} value={category}>
+                                                    {category}
+                                                </option>
+                                            ))}
+                                        </select>
 
-                    <div>
-                      <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
-                    </div>
-                  </div>
-                </div>
+                                        <div>
+                                            <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                        </div>
+                                    </div>
+                                </div>
 
-                {/* SUB CATEGORY */}
-                <div className="flex flex-col w-full">
-                  <label htmlFor="">Sub Category</label>
+                                {/* SUB CATEGORY */}
+                                <div className="flex flex-col w-full">
+                                    <label htmlFor="">Sub Category</label>
 
-                  <div className="relative mt-2">
-                    <select
-                      name="mainCategory"
-                      value={businessDetails.mainCategory}
-                      onChange={handleBusinessDetailsChange}
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    >
-                      <option value="" disabled>
-                        -
-                      </option>
-                      <option value="Category1">Category 1</option>
-                      <option value="Category2">Category 2</option>
-                      <option value="Category3">Category 3</option>
-                      {/* Add more options as needed */}
-                    </select>
+                                    <div className="relative mt-2">
+                                        <select
+                                            name="subCategory"
+                                            value={businessDetails.subCategory}
+                                            onChange={handleBusinessDetailsChange}
+                                            className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        >
+                                            <option value="" disabled defaultChecked>
+                                                -
+                                            </option>
+                                            {businessDetails.mainCategory &&
+                                                subCategories[businessDetails.mainCategory].map((category) => (
+                                                    <option key={category} value={category}>
+                                                        {category}
+                                                    </option>
+                                                ))
+                                            }
+                                        </select>
 
-                    <div>
-                      <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                                        <div>
+                                            <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            <hr className="border-1 border-gray-300" />
+                        <hr className="border-1 border-gray-300" />
 
-            {/* BUSINESS ADDRESS */}
-            <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiNavigation className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Add business address</h2>
-              </div>
-              <div className="flex flex-col gap-4 mt-6">
-                <div className="flex flex-col">
-                  <label htmlFor="">Address</label>
-                  <input
-                    type="text"
-                    className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
-                  />
-                </div>
+                        {/* BUSINESS ADDRESS */}
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <BiNavigation className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">Add business address</h2>
+                            </div>
+                            <div className="flex flex-col gap-4 mt-6">
+                                <div className="flex flex-col">
+                                    <label htmlFor="">Address</label>
+                                    <input
+                                        type="text"
+                                        className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
+                                    />
+                                </div>
 
-                <div className="flex flex-col">
-                  <label htmlFor="">
-                    Address Line 2{" "}
-                    <span className="text-gray-500 font-light text-sm">
-                      (optional)
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
-                  />
-                </div>
+                                <div className="flex flex-col">
+                                    <label htmlFor="">
+                                        Address Line 2{" "}
+                                        <span className="text-gray-500 font-light text-sm">
+                                            (optional)
+                                        </span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
+                                    />
+                                </div>
 
-                <div className="flex">
-                  <div className="flex flex-col">
-                    <label htmlFor="" className="">
-                      City
-                    </label>
-                    <input
-                      type="text"
-                      className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    />
-                  </div>
+                                <div className="flex">
+                                    <div className="flex flex-col">
+                                        <label htmlFor="" className="">
+                                            City
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        />
+                                    </div>
 
-                  <div className="flex flex-col">
-                    <label htmlFor="" className="">
-                      Zip Code
-                    </label>
-                    <input
-                      type="text"
-                      className="mt-2 ml-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+                                    <div className="flex flex-col">
+                                        <label htmlFor="" className="">
+                                            Zip Code
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="mt-2 ml-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            <hr className="border-1 border-gray-300" />
+                        <hr className="border-1 border-gray-300" />
 
-            {/* BUSINESS LINKS */}
-            <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiLink className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Add social links</h2>
-              </div>
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                <div className="flex flex-col">
-                  <label className="flex gap-2 items-center mb-2">
-                    Website Link
-                  </label>
+                        {/* BUSINESS LINKS # */}
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <BiLink className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">Add social links</h2>
+                            </div>
 
-                  <div className="relative">
-                    <input
-                      type="text"
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
-                    />
-                    <FiGlobe className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <label className="flex gap-2 items-center mb-2">
-                    Instagram
-                  </label>
+                            <div className="grid grid-cols-2 gap-4 mt-6">
+                                {/* website link */}
 
-                  <div className="relative">
-                    <input
-                      type="text"
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
-                    />
-                    <FiInstagram className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <label className="flex gap-2 items-center mb-2">
-                    WhatsApp
-                  </label>
+                                {socialLinks.map((link, index) => (
+                                    <div className="flex flex-col" key={index}>
+                                        <label className="flex gap-2 items-center mb-2 capitalize">
+                                            {link.name} Link
+                                        </label>
 
-                  <div className="relative">
-                    <input
-                      type="text"
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
-                    />
-                    <FaWhatsapp className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <label className="flex gap-2 items-center mb-2">
-                    Twitter
-                  </label>
-
-                  <div className="relative">
-                    <input
-                      type="text"
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
-                    />
-                    <FiTwitter className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <label className="flex gap-2 items-center mb-2">
-                    Facebook
-                  </label>
-
-                  <div className="relative">
-                    <input
-                      type="text"
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
-                    />
-                    <FiFacebook className="z-10 h-6 w-6 absolute right-2 top-1/2 transform -translate-y-1/2" />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <label className="flex gap-2 items-center mb-2">
-                    Youtube
-                  </label>
-
-                  <div className="relative">
-                    <input
-                      type="text"
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
-                    />
-                    <FiYoutube className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <hr className="border-1 border-gray-300" />
-
-            {/* Business Faqs */}
-            <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiQuestionMark className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Add FAQ's</h2>
-              </div>
-              <div className="grid grid-cols-1 gap-4 mt-6">
-                <div>
-                  <label className="block text-gray-700">Question</label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="question"
-                      id="question"
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <label className="block text-gray-700 mt-4">Answer</label>
-                  <div className="mt-2">
-                    <textarea
-                      id="answer"
-                      name="answer"
-                      rows={2}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      defaultValue={""}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <hr className="border-1 border-gray-300" />
-
-            {/* Mode of Payment */}
-            <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <MdPayment className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Mode of Payment</h2>
-              </div>
-
-              <div className="flex flex-wrap gap-4 mt-6">
-                {paymentModes.map((mode, index) => (
-                  <span
-                    className={`px-4 py-2 border rounded-lg cursor-pointer  ${
-                      selectedModesOfPayment.includes(mode)
-                        ? "border-blue-500 text-blue-600"
-                        : "border-gray-300"
-                    }`}
-                    onClick={() => {
-                      handlModeOfPaymentClick(mode);
-                    }}
-                  >
-                    {mode}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <hr className="border-1 border-gray-300" />
-
-            {/* Business Hours */}
-
-            <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <FiClock className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Business Hours</h2>
-              </div>
-
-              <div className="mt-6">
-                <div className="flex flex-col gap-4">
-                  {daysOfWeek.map((day, index) => (
-                    <div className="flex flex-col items-start gap-4" key={day}>
-                      <div className="flex gap-6 justify-start items-center">
-                        <input
-                          type="checkbox"
-                          id={day}
-                          name={day}
-                          className="form-checkbox accent-green-600 h-5 w-5 text-blue-500"
-                          checked={businessDetails.businessHours[index].isOpen}
-                          onChange={(e) =>
-                            handleBusinessHoursChange(index, e.target.checked)
-                          }
-                        />
-                        <label
-                          htmlFor={day}
-                          className="block text-base text-gray-700"
-                        >
-                          {day}
-                        </label>
-                      </div>
-                      {businessDetails.businessHours[index].isOpen && (
-                        <div className="flex gap-4 items-center">
-                          <div className="relative">
-                            <select
-                              className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
-                              value={businessDetails.businessHours[index].from}
-                              onChange={(e) =>
-                                handleBusinessHoursFromChange(
-                                  index,
-                                  e.target.value
-                                )
-                              }
-                            >
-                              <option value="" disabled defaultChecked>
-                                -
-                              </option>
-
-                              {timeOptions.map((time) => (
-                                <option key={time} value={time}>
-                                  {time}
-                                </option>
-                              ))}
-                            </select>
-
-                            <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
-                          </div>
-
-                          <span className="text-gray-600">to</span>
-
-                          <div className="relative">
-                            <select
-                              className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
-                              value={businessDetails.businessHours[index].to}
-                              onChange={(e) =>
-                                handleBusinessHoursToChange(
-                                  index,
-                                  e.target.value
-                                )
-                              }
-                            >
-                              {/* {timeOptions.map((time) => (
-                                                            <option key={time} value={time}>
-                                                                {time}
-                                                            </option>
-                                                        ))} */}
-
-                              <option value="" disabled defaultChecked>
-                                -
-                              </option>
-
-                              {timeOptions
-                                .filter(
-                                  (time) =>
-                                    new Date(`01/01/2000 ${time}`) >
-                                    new Date(
-                                      `01/01/2000 ${businessDetails.businessHours[index].from}`
-                                    )
-                                )
-                                .map((time) => (
-                                  <option key={time} value={time}>
-                                    {time}
-                                  </option>
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
+                                                name={link.name}
+                                                onChange={handleSocialLinksChange}
+                                            />
+                                            {link.icon}
+                                        </div>
+                                    </div>
                                 ))}
-                            </select>
-
-                            <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
-                          </div>
+                            </div>
                         </div>
-                      )}
+
+                        <hr className="border-1 border-gray-300" />
+
+                        {/* Business Faqs # */}
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <BiQuestionMark className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">Add FAQ's</h2>
+                            </div>
+                            <div className="grid grid-cols-1 gap-8 mt-6">
+                                {businessDetails.faqs.map((faq, index) => (
+                                    <div key={index}>
+                                        <div>
+                                            <div className=" flex justify-start gap-4 items-center mb-2">
+                                                <span className="font-medium text-lg">Faq {index + 1}</span>
+                                                <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => handleRemoveFaq(index)}
+                                                />
+                                            </div>
+                                            <label className="block text-gray-700">Question</label>
+                                            <div className="mt-2">
+                                                <input
+                                                    type="text"
+                                                    value={faq.question}
+                                                    onChange={e => handleFaqChange(index, 'question', e.target.value)}
+                                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label className="block text-gray-700 mt-2">Answer</label>
+                                            <div className="mt-2">
+                                                <textarea
+                                                    value={faq.answer}
+                                                    onChange={e => handleFaqChange(index, 'answer', e.target.value)}
+                                                    rows={2}
+                                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                />
+                                            </div>
+                                        </div>
+                                        {/* <button
+              onClick={() => handleRemoveFaq(index)}
+              className="mt-2 py-1 px-2 bg-red-500 text-white rounded-md shadow focus:outline-none focus:ring-2 focus:ring-red-500"
+            >
+              Cancel
+            </button> */}
+                                    </div>
+                                ))}
+                                <button
+                                    onClick={handleAddFaq}
+                                    className=" py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
+                                >
+                                    Add FAQ
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr className="border-1 border-gray-300" />
+
+                        {/* Mode of Payment # */}
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <MdPayment className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">Mode of Payment</h2>
+                            </div>
+
+                            <div className="flex flex-wrap gap-4 mt-6">
+                                {paymentModes.map((mode, index) => (
+                                    <span
+                                        className={`px-4 py-2 border rounded-lg cursor-pointer  ${businessDetails.modeOfPayment.includes(mode)
+                                                ? "border-blue-500 text-blue-600"
+                                                : "border-gray-300"
+                                            }`}
+                                        onClick={() => {
+                                            handlModeOfPaymentClick(mode);
+                                        }}
+                                        key={index}
+                                    >
+                                        {mode}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <hr className="border-1 border-gray-300" />
+
+                        {/* Business Hours # */}
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <FiClock className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">Business Hours</h2>
+                            </div>
+
+                            <div className="mt-6">
+                                <div className="flex flex-col gap-4">
+                                    {daysOfWeek.map((day, index) => (
+                                        <div className="flex flex-col items-start gap-4" key={day}>
+                                            <div className="flex gap-6 justify-start items-center">
+                                                <input
+                                                    type="checkbox"
+                                                    id={day}
+                                                    name={day}
+                                                    className="form-checkbox accent-green-600 h-5 w-5 text-blue-500"
+                                                    checked={businessDetails.timing[index].isOpen}
+                                                    onChange={(e) =>
+                                                        handleBusinessHoursChange(index, e.target.checked)
+                                                    }
+                                                />
+                                                <label
+                                                    htmlFor={day}
+                                                    className="block text-base text-gray-700"
+                                                >
+                                                    {day}
+                                                </label>
+                                            </div>
+                                            {businessDetails.timing[index].isOpen && (
+                                                <div className="flex gap-4 items-center">
+                                                    <div className="relative">
+                                                        <select
+                                                            className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                                            value={businessDetails.timing[index].from}
+                                                            onChange={(e) =>
+                                                                handleBusinessHoursFromChange(
+                                                                    index,
+                                                                    e.target.value
+                                                                )
+                                                            }
+                                                        >
+                                                            <option value="" disabled defaultChecked>
+                                                                -
+                                                            </option>
+
+                                                            {timeOptions.map((time) => (
+                                                                <option key={time} value={time}>
+                                                                    {time}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+
+                                                        <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
+                                                    </div>
+
+                                                    <span className="text-gray-600">to</span>
+
+                                                    <div className="relative">
+                                                        <select
+                                                            className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                                            value={businessDetails.timing[index].to}
+                                                            onChange={(e) =>
+                                                                handleBusinessHoursToChange(
+                                                                    index,
+                                                                    e.target.value
+                                                                )
+                                                            }
+                                                        >
+                                                            <option value="" disabled defaultChecked>
+                                                                -
+                                                            </option>
+
+                                                            {timeOptions
+                                                                .filter(
+                                                                    (time) =>
+                                                                        new Date(`01/01/2000 ${time}`) >
+                                                                        new Date(
+                                                                            `01/01/2000 ${businessDetails.timing[index].from}`
+                                                                        )
+                                                                )
+                                                                .map((time) => (
+                                                                    <option key={time} value={time}>
+                                                                        {time}
+                                                                    </option>
+                                                                ))}
+                                                        </select>
+
+                                                        <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr className="border-1 border-gray-300" />
+
+                        {/* photos upload with cloudinary */}
+
+                        <div className="mt-6 mb-6">
+                            <div className="flex items-center gap-2">
+                                <FiImage className="w-6 h-6" />
+                                <h2 className="text-xl font-semibold">Gallery Images</h2>
+                            </div>
+
+                            <div className="mt-6">
+                                <div className="flex flex-col items-start">
+                                    {images.length > 0 && (
+                                        <span>{images.length} Images Added</span>
+                                    )}
+
+                                    <label
+                                        htmlFor="image"
+                                        className="cursor-pointer mt-2 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        <input
+                                            type="file"
+                                            id="image"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                            multiple
+                                            className=" py-2 px-4 bg-gray-200 text-gray-700 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            style={{ display: "none" }}
+                                        />
+                                        {images.length > 0 ? "Add Another" : "Add Image"}
+                                    </label>
+
+                                    <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
+                                        {images.map((image, index) => (
+                                            <div className="relative rounded-xl w-full" key={index}>
+                                                <img
+                                                    key={index}
+                                                    src={image}
+                                                    alt={`Selected Image ${index}`}
+                                                    className="object-cover h-full rounded-xl"
+                                                />
+                                                <FiX
+                                                    className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+                                                    onClick={() => {
+                                                        setImages((prev) =>
+                                                            prev.filter((_, i) => i !== index)
+                                                        );
+                                                    }}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {images.length > 0 && (
+                                        <button className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleImagesUpload}>
+                                            <FiUploadCloud className="w-6 h-6" />
+                                            Upload All Images
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
 
-            <hr className="border-1 border-gray-300" />
-
-            {/* photos upload with cloudinary */}
-
-            <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <FiImage className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Gallery Images</h2>
-              </div>
-
-              <div className="mt-6">
-                <div className="flex flex-col items-start">
-                  {images.length > 0 && (
-                    <span>{images.length} Images Added</span>
-                  )}
-
-                  <label
-                    htmlFor="image"
-                    className="cursor-pointer mt-2 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      multiple
-                      className=" py-2 px-4 bg-gray-200 text-gray-700 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      style={{ display: "none" }}
-                    />
-                    {images.length > 0 ? "Add Another" : "Add Image"}
-                  </label>
-                  {/* <button onClick={() => document.getElementById("image").click()} className="mt-2 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                        Add Another Image
-                                    </button> */}
-
-                  <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
-                    {images.map((image, index) => (
-                      <div className="relative rounded-xl w-full">
-                        <img
-                          key={index}
-                          src={image}
-                          alt={`Selected Image ${index}`}
-                          className="object-cover h-full rounded-xl"
-                        />
-                        <FiX
-                          className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
-                          onClick={() => {
-                            setImages((prev) =>
-                              prev.filter((_, i) => i !== index)
-                            );
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  {images.length > 0 && (
-                    <button className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
-                      <FiUploadCloud className="w-6 h-6" />
-                      Upload All Images
+                    <button type="submit" className="mt-6 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleSubmit}>
+                        Register Business
                     </button>
-                  )}
                 </div>
-              </div>
             </div>
-          </div>
+            <ToastContainer />
         </div>
-      </div>
-      <ToastContainer />
-    </div>
-  );
+    );
 };
 
 export default BusinessRegister;
