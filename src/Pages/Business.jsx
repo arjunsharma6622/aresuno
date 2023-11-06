@@ -48,8 +48,8 @@ export const Business = () => {
 
 
     console.log({
-        rating : selectedStars,
-        review : review
+        rating: selectedStars,
+        review: review
     })
 
     const handleStarHover = (index) => {
@@ -71,7 +71,7 @@ export const Business = () => {
             const res = await axios.patch(
                 // `http://localhost:8000/api/business/${id}/rating`,
                 `https://aresuno-server.vercel.app/api/business/${id}/rating`,
-                { rating: selectedStars, review : review },
+                { rating: selectedStars, review: review },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -123,7 +123,7 @@ export const Business = () => {
         {
             link: "facebook",
             icon: <FiFacebook
-            className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
+                className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />,
         },
         {
             link: "youtube",
@@ -439,61 +439,40 @@ export const Business = () => {
                         </div>
 
                         <div className="grid grid-cols-1 gap-8 mt-8">
-                            <div className="max-w-full gap-4 flex items-start">
-                                <div className="flex-[3]">
-                                    <img
-                                        className="w-full rounded-xl object-cover"
-                                        alt="Image"
-                                        src="https://img.freepik.com/premium-vector/happy-diwali-festival-wishing-post-design-with-red-background-template_593190-96.jpg"
-                                    />
-                                </div>
+                            {
+                                business.posts?.map((post, index) => (
+                                    <div className="max-w-full gap-4 flex items-start">
+                                        <div className="flex-[3]">
+                                            <img
+                                                className="w-full rounded-xl object-cover"
+                                                alt="Image"
+                                                src={post.image ? post.image : "https://img.freepik.com/premium-vector/happy-diwali-festival-wishing-post-design-with-red-background-template_593190-96.jpg"}
+                                            />
+                                        </div>
 
-                                <div className="flex-[10]">
-                                    <p className="text-sm text-gray-600">
-                                        #Car #Detailing and #ceramic #Coating #Services is
-                                        significant as it gives the #brand a new look to your
-                                        #vehicle. The shine stays as long as your vehicle. So, Grap
-                                        the opportunity within your budget by availing the best
-                                        services from Onyxaa Noida. Inquire Or Whatsapp For Rates.
-                                    </p>
-                                    <div className="mt-2 text-blue-600">
-                                        #autodetailing&nbsp;&nbsp;#detailing&nbsp;&nbsp;#cardetailing&nbsp;&nbsp;#carcare&nbsp;&nbsp;#paintprote
+                                        <div className="flex-[10]">
+                                            <p className="text-sm text-gray-600">
+                                                {post.description}
+                                            </p>
+                                            <div className="mt-2 text-blue-600">
+                                                #autodetailing&nbsp;&nbsp;#detailing&nbsp;&nbsp;#cardetailing&nbsp;&nbsp;#carcare&nbsp;&nbsp;#paintprote
+                                            </div>
+                                            <div className="mt-2 text-gray-500">{
+                                                new Date(post.createdAt).toLocaleDateString('en-US', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric'
+                                                })
+                                            }</div>
+                                            <div className="flex items-center mt-2 text-green-600">
+                                                <span className="font-semibold">VIEW MORE</span>
+                                                <FiArrowRight className="ml-1 w-5 h-5" strokeWidth={2} />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="mt-2 text-gray-500">29 august, 2023</div>
-                                    <div className="flex items-center mt-2 text-green-600">
-                                        <span className="font-semibold">VIEW MORE</span>
-                                        <FiArrowRight className="ml-1 w-5 h-5" strokeWidth={2} />
-                                    </div>
-                                </div>
-                            </div>
+                                ))
+                            }
 
-                            <div className="max-w-full gap-4 flex items-start">
-                                <div className="flex-[3]">
-                                    <img
-                                        className="w-full rounded-xl object-cover"
-                                        alt="Image"
-                                        src="https://img.freepik.com/premium-vector/happy-diwali-festival-wishing-post-design-with-red-background-template_593190-96.jpg"
-                                    />
-                                </div>
-
-                                <div className="flex-[10] flex flex-col h-full">
-                                    <p className="text-sm text-gray-600">
-                                        #Car #Detailing and #ceramic #Coating #Services is
-                                        significant as it gives the #brand a new look to your
-                                        #vehicle. The shine stays as long as your vehicle. So, Grap
-                                        the opportunity within your budget by availing the best
-                                        services from Onyxaa Noida. Inquire Or Whatsapp For Rates.
-                                    </p>
-                                    <div className="mt-2 text-blue-600">
-                                        #autodetailing&nbsp;&nbsp;#detailing&nbsp;&nbsp;#cardetailing&nbsp;&nbsp;#carcare&nbsp;&nbsp;#paintprote
-                                    </div>
-                                    <div className="mt-2 text-gray-500">29 august, 2023</div>
-                                    <div className="flex items-center mt-2 text-green-600">
-                                        <span className="font-semibold">VIEW MORE</span>
-                                        <FiArrowRight className="ml-1 w-5 h-5" strokeWidth={2} />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -513,111 +492,53 @@ export const Business = () => {
                                 <p className="text-black text-base">Overall 50 Ratings</p>
                             </div>
                             <div className="flex flex-col gap-4">
-                                <div className="flex items-start gap-4">
-                                    <div>
-                                        <img
-                                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                            alt=""
-                                            className=" w-20 rounded-full"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col gap-2">
-                                        <div className="">
-                                            <span>Arjun Sharma</span>
-                                            <div className="flex gap-4 mt-1">
-                                                <div className="flex items-center">
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-gray-300" />
+
+                                {
+                                    business.ratingsReviews?.map((ratingReview, index) => (
+                                        <div className="flex items-start gap-4">
+                                            <div>
+                                                <img
+                                                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                                                    alt=""
+                                                    className="w-9 h-9 rounded-full"
+                                                />
+                                            </div>
+                                            <div className="flex flex-col gap-2">
+                                                <div className="">
+                                                    <span>{ratingReview.user.name}</span>
+                                                    <div className="flex gap-4 mt-1">
+                                                        <div className="flex items-center">
+                                                            {/* <AiFillStar className="text-yellow-500" />
+                                                        <AiFillStar className="text-yellow-500" />
+                                                        <AiFillStar className="text-yellow-500" />
+                                                        <AiFillStar className="text-yellow-500" /> */}
+                                                            {/* {ratingReview.rating} */}
+
+                                                            {[...Array(ratingReview.rating)].map((_, index) => (
+                                                                <AiFillStar key={index} className="text-yellow-500" />
+                                                            ))}
+                                                            {[...Array(5-ratingReview.rating)].map((_, index) => (
+                                                            <AiFillStar className="text-gray-300" />
+                                                            ))}
+
+                                                        </div>
+                                                        <div className="text-gray-500 text-xs mr-4">
+                                                            2 days ago
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="text-gray-500 text-xs mr-4">
-                                                    2 days ago
+                                                <div>
+                                                    <p className=" font-normal text-sm">
+                                                        {ratingReview.review}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <p className=" font-normal text-sm">
-                                                Had a very great experience with them. They were very
-                                                efficient and fast in their highly recommend them.
-                                                ThanksHad a very great experience with them. They were
-                                                very efficient and fast in their highly recommend them.
-                                                Thanks
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-4">
-                                    <div>
-                                        <img
-                                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                            alt=""
-                                            className=" w-20 rounded-full"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col gap-2">
-                                        <div className="">
-                                            <span>Arjun Sharma</span>
-                                            <div className="flex gap-4 mt-1">
-                                                <div className="flex items-center">
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-gray-300" />
-                                                </div>
-                                                <div className="text-gray-500 text-xs mr-4">
-                                                    2 days ago
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <p className=" font-normal text-sm">
-                                                Had a very great experience with them. They were very
-                                                efficient and fast in their highly recommend them.
-                                                ThanksHad a very great experience with them. They were
-                                                very efficient and fast in their highly recommend them.
-                                                Thanks
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-4">
-                                    <div>
-                                        <img
-                                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                            alt=""
-                                            className=" w-20 rounded-full"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col gap-2">
-                                        <div className="">
-                                            <span>Arjun Sharma</span>
-                                            <div className="flex gap-4 mt-1">
-                                                <div className="flex items-center">
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-yellow-500" />
-                                                    <AiFillStar className="text-gray-300" />
-                                                </div>
-                                                <div className="text-gray-500 text-xs mr-4">
-                                                    2 days ago
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <p className=" font-normal text-sm">
-                                                Had a very great experience with them. They were very
-                                                efficient and fast in their highly recommend them.
-                                                ThanksHad a very great experience with them. They were
-                                                very efficient and fast in their highly recommend them.
-                                                Thanks
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                    ))
+                                }
+
+
+
                             </div>
                         </div>
                     </div>
