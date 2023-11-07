@@ -17,6 +17,7 @@ import {
     FiTwitter,
     FiUploadCloud,
     FiX,
+    FiXCircle,
     FiYoutube,
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
@@ -50,6 +51,7 @@ const BusinessRegister = () => {
         type: "",
         phone: "",
         email: "",
+        description: "",
         mainCategory: "",
         subCategory: "",
         address: "",
@@ -76,7 +78,8 @@ const BusinessRegister = () => {
             youtube: "",
         },
         modeOfPayment: [],
-        iframe: ""
+        iframe: "",
+        services : []
     });
 
     const handleIframeChange = (e) => {
@@ -104,6 +107,30 @@ const BusinessRegister = () => {
         }
 
 
+    }
+
+
+    const [service, setService] = useState("");
+
+    const handleServicesChange = (e) => {
+        setService(e.target.value);
+    }
+
+    const addService = () => {
+        if(service === "") return;
+        setBusinessDetails({
+            ...businessDetails,
+            services: [...businessDetails.services, service]
+        })
+        setService("");
+    }
+
+    const removeService = (index) => {
+        const updatedServices = businessDetails.services.filter((_, i) => i !== index);
+        setBusinessDetails({
+            ...businessDetails,
+            services: updatedServices
+        })
     }
 
     console.log(businessDetails);
@@ -388,11 +415,18 @@ const BusinessRegister = () => {
     ];
 
     const handlModeOfPaymentClick = (option) => {
-        setBusinessDetails((prev) => ({
+        if (businessDetails.modeOfPayment.includes(option)) {
+          setBusinessDetails((prev) => ({
+            ...prev,
+            modeOfPayment: prev.modeOfPayment.filter((item) => item !== option),
+          }));
+        } else {
+          setBusinessDetails((prev) => ({
             ...prev,
             modeOfPayment: [...prev.modeOfPayment, option],
-        }));
-    };
+          }));
+        }
+      };
 
 
     // handle address
@@ -456,6 +490,7 @@ const BusinessRegister = () => {
             toast.error("Business Registration Failed");
         }
     };
+
 
     return (
         <div className="  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -554,6 +589,34 @@ const BusinessRegister = () => {
                                         />
                                     </div>
                                 </div>
+
+                                    <div className="flex flex-col w-full">
+                                        <label>About your business</label>
+                                        <textarea name="description" value={businessDetails.description} id="" cols="30" rows="4" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" onChange={handleBusinessDetailsChange}></textarea>
+                                    </div>
+                                    <div className="flex flex-col w-full">
+                                            <label>What services you offer</label>
+                                            <div className="flex items-center gap-4 mt-2">
+                                                <input 
+                                                    type="text" 
+                                                    name="service" 
+                                                    value={service}
+                                                    id="" 
+                                                    className="flex-[8] appearance-none rounded-md relative block w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                                    onChange={handleServicesChange}
+                                                />
+                                                <button className="rounded-md bg-blue-500 text-white px-8 py-2 flex-[4]" onClick={addService}>Add</button>
+                                            </div>
+
+                                            <div className="mt-6 flex flex-wrap gap-4 w-full">
+                                                {businessDetails.services.map((service, index) => (
+                                                    <div className="relative flex items-center gap-4 mt-2">
+                                                        <span className="px-4 py-2 border rounded-lg">{service}</span>
+                                                        <FiXCircle className="bg-red-100 rounded-full text-red-500 absolute cursor-pointer -top-2 -right-2 w-5 h-5" onClick={() => removeService(index)}/>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                    </div>
                             </div>
                         </div>
 
@@ -1034,5 +1097,6 @@ const BusinessRegister = () => {
                 </div>
                 );
 };
+
 
                 export default BusinessRegister;

@@ -15,6 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ServiceListing from './Pages/Service';
 import BusinessOnboarding from './Pages/BusinessOnboarding';
 import AdminDashboard from './Pages/admin/AdminDashboard';
+import BusinessEdit from './Pages/BusinessEdit';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function Main() {
 
 
           <Route path={'/business/:id'} element={<Business />} />
+          <Route path={'/business/edit/:id'} element={<BusinessEdit />} />
           <Route path={'/admin'} element={<AdminDashboard />} />
 
           <Route path='/contact' element={<h1>Contact</h1>} />

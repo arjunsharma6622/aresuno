@@ -19,7 +19,7 @@ import {
 import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
 import { PiCalendarCheckLight } from "react-icons/pi";
 import { CgWebsite } from "react-icons/cg";
-import { BiCheckShield } from "react-icons/bi";
+import { BiCheckShield, BiStar } from "react-icons/bi";
 import axios from "axios";
 import Accordion from "../Accordion";
 
@@ -487,9 +487,13 @@ export const Business = () => {
                         <div className="grid grid-cols-1 gap-8 mt-8">
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
-                                    <div className="text-white text-lg font-semibold">4.3</div>
+                                    <div className="text-white text-lg flex items-center font-semibold">{
+                                        business.ratingsReviews?.reduce((acc, item) => acc + item.rating, 0) / business.ratingsReviews?.length
+                                    }
+                                        <AiFillStar className="text-white w-4 h-4" />
+                                    </div>
                                 </div>
-                                <p className="text-black text-base">Overall 50 Ratings</p>
+                                <p className="text-black text-base">Total {business.ratingsReviews?.length} people rated</p>
                             </div>
                             <div className="flex flex-col gap-4">
 

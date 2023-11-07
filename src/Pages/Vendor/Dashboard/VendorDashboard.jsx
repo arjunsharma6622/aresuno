@@ -26,10 +26,10 @@ import {
   AiOutlineAppstoreAdd,
   AiOutlineUser,
 } from "react-icons/ai";
-import BusinessEdit from "../../BusinessEdit";
 import {
   FiDelete,
   FiEdit,
+  FiEdit2,
   FiExternalLink,
   FiEye,
   FiEyeOff,
@@ -208,11 +208,11 @@ const Posts = ({ posts, businesses }) => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {
-                        new Date(post.createdAt).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        })
+                    new Date(post.createdAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })
 
                   }
                 </td>
@@ -262,16 +262,34 @@ const AllListings = ({ businesses }) => {
             <span className="font-semibold text-xl underline">
               {business.name}
             </span>
-            <div className="flex gap-2 flex-col">
+            <div className="flex gap-2 flex-col text-sm">
               <span>Category : {business.mainCategory}</span>
               <span>Phone : {business.phone}</span>
-              <Link
-                to={`/business/${business._id}`}
-                className="flex gap-2 items-center justify-start text-blue-500"
-              >
-                <span>View</span>
-                <FiExternalLink className="w-4 h-4" />
-              </Link>
+              <span>Created on : {new Date(business.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              <span>Last Update : {new Date(business.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </div>
+
+
+
+              <div className="flex items-center justify-between">
+
+                <Link
+                  to={`/business/${business._id}`}
+                  className="flex gap-2 items-center justify-start text-blue-500"
+                >
+                  <span>View</span>
+                  <FiExternalLink className="w-4 h-4" />
+                </Link>
+
+
+                <Link
+                  to={`/business/edit/${business._id}`}
+                  className="flex gap-2 items-center justify-start text-gray-500"
+                >
+                  <span>Edit</span>
+                  <FiEdit2 className="w-4 h-4" />
+                </Link>
+
 
               <div
                 className="flex gap-2 items-center text-red-600 cursor-pointer"
@@ -280,7 +298,10 @@ const AllListings = ({ businesses }) => {
                 <span>Delete</span>
                 <FiTrash2 className="w-4 h-4" />
               </div>
-            </div>
+
+              </div>
+
+
 
             {selectedBusiness && selectedBusiness._id === business._id && (
               <Modal
@@ -502,11 +523,10 @@ const VendorDashboard = () => {
 
           <div className="text-sm flex flex-col gap-6 w-full">
             <div
-              className={`flex items-center cursor-pointer gap-2 ${
-                selectedField === "dashboard"
-                  ? "text-blue-500"
-                  : "text-gray-700"
-              }`}
+              className={`flex items-center cursor-pointer gap-2 ${selectedField === "dashboard"
+                ? "text-blue-500"
+                : "text-gray-700"
+                }`}
               onClick={() => handleSelectedField("dashboard")}
             >
               <LuLayoutDashboard className="w-6 h-6" />
@@ -514,9 +534,8 @@ const VendorDashboard = () => {
             </div>
 
             <div
-              className={`flex items-center cursor-pointer gap-2 ${
-                selectedField === "profile" ? "text-blue-500" : "text-gray-700"
-              }`}
+              className={`flex items-center cursor-pointer gap-2 ${selectedField === "profile" ? "text-blue-500" : "text-gray-700"
+                }`}
               onClick={() => handleSelectedField("profile")}
             >
               <AiOutlineUser className="w-6 h-6 " />
@@ -524,60 +543,54 @@ const VendorDashboard = () => {
             </div>
 
             <div
-              className={`flex items-center cursor-pointer gap-2 ${
-                selectedField === "allListings"
-                  ? "text-blue-500"
-                  : "text-gray-700"
-              }`}
+              className={`flex items-center cursor-pointer gap-2 ${selectedField === "allListings"
+                ? "text-blue-500"
+                : "text-gray-700"
+                }`}
               onClick={() => handleSelectedField("allListings")}
             >
               <AiOutlineAppstore className="w-6 h-6 " />
               <span className="">All Listing</span>
             </div>
             <div
-              className={`flex items-center cursor-pointer gap-2 ${
-                selectedField === "addListing"
-                  ? "text-blue-500"
-                  : "text-gray-700"
-              }`}
+              className={`flex items-center cursor-pointer gap-2 ${selectedField === "addListing"
+                ? "text-blue-500"
+                : "text-gray-700"
+                }`}
               onClick={() => handleSelectedField("addListing")}
             >
               <AiOutlineAppstoreAdd className="w-6 h-6 " />
               <span className="">Add New Listing</span>
             </div>
             <div
-              className={`flex items-center cursor-pointer gap-2 ${
-                selectedField === "posts" ? "text-blue-500" : "text-gray-700"
-              }`}
+              className={`flex items-center cursor-pointer gap-2 ${selectedField === "posts" ? "text-blue-500" : "text-gray-700"
+                }`}
               onClick={() => handleSelectedField("posts")}
             >
               <MdOutlinePostAdd className="w-6 h-6 " />
               <span className="">Posts</span>
             </div>
             <div
-              className={`flex items-center cursor-pointer gap-2 ${
-                selectedField === "reviews" ? "text-blue-500" : "text-gray-700"
-              }`}
+              className={`flex items-center cursor-pointer gap-2 ${selectedField === "reviews" ? "text-blue-500" : "text-gray-700"
+                }`}
               onClick={() => handleSelectedField("reviews")}
             >
               <MdOutlineReviews className="w-6 h-6 " />
               <span className="">Reviews</span>
             </div>
             <div
-              className={`flex items-center cursor-pointer gap-2 ${
-                selectedField === "leads" ? "text-blue-500" : "text-gray-700"
-              }`}
+              className={`flex items-center cursor-pointer gap-2 ${selectedField === "leads" ? "text-blue-500" : "text-gray-700"
+                }`}
               onClick={() => handleSelectedField("leads")}
             >
               <MdOutlineLeaderboard className="w-6 h-6 " />
               <span className="">Leads</span>
             </div>
             <div
-              className={`flex items-center cursor-pointer gap-2 ${
-                selectedField === "subscriptions"
-                  ? "text-blue-500"
-                  : "text-gray-700"
-              }`}
+              className={`flex items-center cursor-pointer gap-2 ${selectedField === "subscriptions"
+                ? "text-blue-500"
+                : "text-gray-700"
+                }`}
               onClick={() => handleSelectedField("subscriptions")}
             >
               <BiDollar className="w-6 h-6 text-gray-700" />
@@ -731,7 +744,7 @@ const VendorDashboard = () => {
 
                             {updatedPassword.confirmPassword &&
                               (updatedPassword.newPassword !==
-                              updatedPassword.confirmPassword ? (
+                                updatedPassword.confirmPassword ? (
                                 <p className="text-red-500 text-xs italic">
                                   Passwords do not match
                                 </p>
@@ -743,17 +756,16 @@ const VendorDashboard = () => {
 
                             <button
                               type="submit"
-                              className={`bg-blue-500 rounded-sm py-2 px-5 text-white ${
-                                !updatedPassword.confirmPassword ||
+                              className={`bg-blue-500 rounded-sm py-2 px-5 text-white ${!updatedPassword.confirmPassword ||
                                 updatedPassword.newPassword !==
-                                  updatedPassword.confirmPassword
-                                  ? "cursor-not-allowed"
-                                  : ""
-                              }`}
+                                updatedPassword.confirmPassword
+                                ? "cursor-not-allowed"
+                                : ""
+                                }`}
                               disabled={
                                 !updatedPassword.confirmPassword ||
                                 updatedPassword.newPassword !==
-                                  updatedPassword.confirmPassword
+                                updatedPassword.confirmPassword
                               }
                               onClick={handlePasswordClick}
                             >
