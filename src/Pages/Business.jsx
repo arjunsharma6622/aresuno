@@ -38,6 +38,10 @@ export const Business = () => {
     const [review, setReview] = useState("");
     const [hoveredStars, setHoveredStars] = useState(0);
     const { id } = useParams();
+    const avgRating = business.ratingsReviews?.reduce((acc, item) => acc + (item.rating || 0), 0) / business.ratingsReviews?.length;
+    const roundedAvgRating = Number.isNaN(avgRating) ? 0 : Math.round(avgRating);
+    console.log(roundedAvgRating);
+
 
     const slides = [
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHfp2-v0_mvOp5W9vUBpNKVMH4A-3M7oRidg&usqp=CAU",
@@ -186,19 +190,19 @@ export const Business = () => {
 
                                 <div className="flex items-center gap-2">
                                     <span className="text-black text-lg font-bold">{
-                                        business.ratingsReviews? business.ratingsReviews.reduce((acc, item) => acc + item.rating, 0) / business.ratingsReviews?.length : "-"
+                                        avgRating ? avgRating : "-"
                                     }</span>
 
-                                    {business.ratingsReviews?.map((ratingReview, index) => (
-                                        <div key={index} className="flex items-center">
-                                            {[...Array(ratingReview.rating)].map((_, index) => (
-                                                <AiFillStar key={index} className="text-yellow-500" />
-                                            ))}
-                                            {[...Array(5 - ratingReview.rating)].map((_, index) => (
-                                                <AiFillStar key={index} className="text-gray-300" />
-                                            ))}
-                                        </div>
-                                    ))}
+                                    <div className="flex items-center">
+                                        {[...Array(Math.round(roundedAvgRating))].map((_, index) => (
+                                            <AiFillStar key={index} className="text-yellow-500" />
+                                        ))}
+                                        {[...Array(5 - Math.round(roundedAvgRating))].map((_, index) => (
+                                            <AiFillStar key={index} className="text-gray-300" />
+                                        ))}
+                                    </div>
+
+
                                 </div>
 
 

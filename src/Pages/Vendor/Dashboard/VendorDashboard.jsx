@@ -165,62 +165,68 @@ const Posts = ({ posts, businesses }) => {
   return (
     <div>
       <h1 className="text-2xl font-semibold mb-6">
-        You have {posts.length} Posts
+        You have {posts.length === 0 ? "No" : posts.length} Posts
       </h1>
+      { posts.length === 0 ? (
+      <div className="">
+        <button>Add Post</button>
+      </div>
+      ) : (
+        <table className="w-full table-auto">
+          <thead className="">
+            <tr className="bg-gray-300">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                PostId
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Posted In
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Image
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Description
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Created
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Delete
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200 text-sm">
+            {businesses.map((business, topindex) =>
+              business.posts.map((post, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4 whitespace-nowrap">{post._id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{business.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {post.image ? post.image : "No Image"}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {post.description}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {
+                      new Date(post.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })
 
-      <table className="w-full table-auto">
-        <thead className="">
-          <tr className="bg-gray-300">
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              PostId
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Posted In
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Image
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Description
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Created
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Delete
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200 text-sm">
-          {businesses.map((business, topindex) =>
-            business.posts.map((post, index) => (
-              <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap">{post._id}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{business.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {post.image ? post.image : "No Image"}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {post.description}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {
-                    new Date(post.createdAt).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })
-
-                  }
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" />
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+                    }
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" />
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      )
+      }
     </div>
   );
 };
@@ -264,28 +270,28 @@ const AllListings = ({ businesses }) => {
               <span>Phone : {business.phone}</span>
               <span>Created on : {new Date(business.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               <span>Last Update : {new Date(business.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-              </div>
+            </div>
 
 
 
-              <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between">
 
-                <Link
-                  to={`/business/${business._id}`}
-                  className="flex gap-2 items-center justify-start text-blue-500"
-                >
-                  <span>View</span>
-                  <FiExternalLink className="w-4 h-4" />
-                </Link>
+              <Link
+                to={`/business/${business._id}`}
+                className="flex gap-2 items-center justify-start text-blue-500"
+              >
+                <span>View</span>
+                <FiExternalLink className="w-4 h-4" />
+              </Link>
 
 
-                <Link
-                  to={`/business/edit/${business._id}`}
-                  className="flex gap-2 items-center justify-start text-gray-500"
-                >
-                  <span>Edit</span>
-                  <FiEdit2 className="w-4 h-4" />
-                </Link>
+              <Link
+                to={`/business/edit/${business._id}`}
+                className="flex gap-2 items-center justify-start text-gray-500"
+              >
+                <span>Edit</span>
+                <FiEdit2 className="w-4 h-4" />
+              </Link>
 
 
               <div
@@ -296,7 +302,7 @@ const AllListings = ({ businesses }) => {
                 <FiTrash2 className="w-4 h-4" />
               </div>
 
-              </div>
+            </div>
 
 
 
@@ -507,7 +513,7 @@ const VendorDashboard = () => {
 
   return (
     <div className="flex h-screen">
-      <Sidebar user={user} handleSelectedField={(selectedField) => handleSelectedField(selectedField)} selectedField={selectedField}/>
+      <Sidebar user={user} handleSelectedField={(selectedField) => handleSelectedField(selectedField)} selectedField={selectedField} />
 
       <div className="flex-[10] bg-gray-100 p-10 overflow-y-scroll">
         <div className="flex flex-col w-full justify-center">
