@@ -47,11 +47,6 @@ export const Business = () => {
     ];
 
 
-    console.log({
-        rating: selectedStars,
-        review: review
-    })
-
     const handleStarHover = (index) => {
         setHoveredStars(index + 1);
     };
@@ -204,16 +199,20 @@ export const Business = () => {
                                 </div>
 
                                 <div className="flex items-center gap-2">
-                                    <span className="text-black text-lg font-bold">4.4</span>
+                                    <span className="text-black text-lg font-bold">{
+                                        business.ratingsReviews? business.ratingsReviews.reduce((acc, item) => acc + item.rating, 0) / business.ratingsReviews?.length : "-"
+                                    }</span>
 
-                                    <div className="flex items-center">
-                                        <AiFillStar className="text-yellow-500 w-5 h-5" />
-                                        <AiFillStar className="text-yellow-500 w-5 h-5" />
-                                        <AiFillStar className="text-yellow-500 w-5 h-5" />
-                                        <AiFillStar className="text-yellow-500 w-5 h-5" />
-                                        <AiFillStar className="text-yellow-500 w-5 h-5" />
-                                    </div>
-                                    {/* <span className="text-gray-600 text-sm">50 Ratings</span> */}
+                                    {business.ratingsReviews?.map((ratingReview, index) => (
+                                        <div key={index} className="flex items-center">
+                                            {[...Array(ratingReview.rating)].map((_, index) => (
+                                                <AiFillStar key={index} className="text-yellow-500" />
+                                            ))}
+                                            {[...Array(5 - ratingReview.rating)].map((_, index) => (
+                                                <AiFillStar key={index} className="text-gray-300" />
+                                            ))}
+                                        </div>
+                                    ))}
                                 </div>
 
 
@@ -289,32 +288,22 @@ export const Business = () => {
                             </div>
                             <p className="mt-2 text-gray-700 text-base">
                                 <span>
-                                    Royal Packers and movers excellent Pan India Home Moving &amp;
-                                    Packing Services. Royal promises the best prices, dedicated
-                                    Move Consultants, authorized Service Partners and Tension Free
-                                    Shifting for its customers.
+                                    {business.description}
                                 </span>
-                                <span className="text-blue-600"> #HomeMovingkaSaathi</span>
-                                <span className="text-gray-700">&nbsp;</span>
-                                <span className="text-blue-600">#SmartHomeMoving</span>
                             </p>
 
                             <div className="flex justify-start items-center">
                                 <div className="flex flex-col justify-start items-start">
                                     <div>
                                         <p className="text-base font-medium mb-1 mt-2">We offer</p>
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <FiArrowRight className="text-gray-800 w-5 h-5" />
-                                            <p className="text-gray-800">Logistic Services</p>
-                                        </div>
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <FiArrowRight className="text-gray-800 w-5 h-5" />
-                                            <p className="text-gray-800">Packers and Movers</p>
-                                        </div>
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <FiArrowRight className="text-gray-800 w-5 h-5" />
-                                            <p className="text-gray-800">Transportation</p>
-                                        </div>
+                                        {business.services?.map((service, index) => (
+                                            <div key={index} className="flex items-center gap-2 mb-2">
+                                                <FiArrowRight className="text-gray-800 w-5 h-5" />
+                                                <p className="text-gray-800">{service}</p>
+                                            </div>
+                                        ))}
+
+
                                     </div>
 
                                     <div className="">
@@ -512,17 +501,11 @@ export const Business = () => {
                                                     <span>{ratingReview.user.name}</span>
                                                     <div className="flex gap-4 mt-1">
                                                         <div className="flex items-center">
-                                                            {/* <AiFillStar className="text-yellow-500" />
-                                                        <AiFillStar className="text-yellow-500" />
-                                                        <AiFillStar className="text-yellow-500" />
-                                                        <AiFillStar className="text-yellow-500" /> */}
-                                                            {/* {ratingReview.rating} */}
-
                                                             {[...Array(ratingReview.rating)].map((_, index) => (
                                                                 <AiFillStar key={index} className="text-yellow-500" />
                                                             ))}
-                                                            {[...Array(5-ratingReview.rating)].map((_, index) => (
-                                                            <AiFillStar className="text-gray-300" />
+                                                            {[...Array(5 - ratingReview.rating)].map((_, index) => (
+                                                                <AiFillStar className="text-gray-300" />
                                                             ))}
 
                                                         </div>
