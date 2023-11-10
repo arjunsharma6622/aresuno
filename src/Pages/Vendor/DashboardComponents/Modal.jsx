@@ -7,18 +7,20 @@ export default function Modal({ business, onClose }) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    try{
-        setIsDeleting(true); 
-        const res = await axios.delete(`https://aresuno-server.vercel.app/api/business/${business._id}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        })
-        console.log(res)
-        onClose();
-    }
-    catch(err){
-        console.log(err.response.data)
+    try {
+      setIsDeleting(true);
+      const res = await axios.delete(
+        `https://aresuno-server.vercel.app/api/business/${business._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(res);
+      onClose();
+    } catch (err) {
+      console.log(err.response.data);
     }
   };
 
@@ -39,10 +41,14 @@ export default function Modal({ business, onClose }) {
               </div>
             </div>
             <div className="mt-4 text-center">
-              <h3 className="text-lg font-medium">Delete <span className="font-bold underline"> {business.name}</span> Business</h3>
+              <h3 className="text-lg font-medium">
+                Delete{" "}
+                <span className="font-bold underline"> {business.name}</span>{" "}
+                Business
+              </h3>
               <p className="text-sm text-gray-500 mt-2">
-                Are you sure you want to delete this business? All of your
-                data will be permanently removed. This action cannot be undone.
+                Are you sure you want to delete this business? All of your data
+                will be permanently removed. This action cannot be undone.
               </p>
             </div>
             <div className="flex justify-center mt-6">
