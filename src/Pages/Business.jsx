@@ -161,14 +161,11 @@ export const Business = () => {
                             <div className="flex-[8] flex flex-col justify-between items-start h-[200px]">
                                 <div className="text-black text-3xl flex-col font-semibold flex justify-start items-start">
                                     <span>{business.name}</span>
-                                    {/* <span className="text-gray-700 text-lg">{business.mainCategory}</span> */}
-
                                     <span className="text-gray-800 text-base font-medium">
                                         {business.mainCategory}
                                     </span>
 
                                     <div className="flex items-center text-xs">
-                                        {/* <BiMap className="text-blue-500 w-5 h-5" /> */}
                                         <span className="text-gray-600 text-xs font-normal">
                                             Hyderabad, Hitech city
                                         </span>
@@ -177,17 +174,6 @@ export const Business = () => {
 
                                 </div>
 
-
-
-
-                                {/* <div className="flex items-center gap-2">
-                                    <div className="relative bg-[#E9F5FE] rounded-full h-9 w-9" style={{ border: "2px solid #C9E0F2" }}>
-                                        <PiShareFatBold className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                                    </div>
-                                    <div className="relative bg-[#E9F5FE] rounded-full h-9 w-9" style={{ border: "2px solid #C9E0F2" }}>
-                                        <BiLike className="text-[#1467E5] h-6 w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                                    </div>
-                                </div> */}
 
                                 <div className="flex items-center gap-2">
                                     <span className="text-gray-600 text-sm bg-gray-200 py-[2px] px-2 font-semibold rounded-full">
@@ -411,7 +397,7 @@ export const Business = () => {
                         </div>
 
                         <iframe
-                            src={business.iframe}
+                            src={business.iframe?.extractedLink}
                             width="100%"
                             height="400"
                             allowFullScreen=""

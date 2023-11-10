@@ -9,6 +9,7 @@ import {
   FiChevronDown,
   FiClock,
   FiCode,
+  FiEdit2,
   FiFacebook,
   FiGlobe,
   FiImage,
@@ -79,7 +80,10 @@ const BusinessEdit = () => {
       youtube: "",
     },
     modeOfPayment: [],
-    iframe: "",
+    iframe: {
+      embedLink: "",
+      extractedLink: ""
+    },
     services: []
   });
 
@@ -94,18 +98,14 @@ const BusinessEdit = () => {
         return null;
       }
     }
-    const src = extractSrcLink(value);
-    if (src) {
-      setBusinessDetails((prev) => ({
-        ...prev,
-        iframe: src,
-      }));
-    } else {
-      setBusinessDetails((prev) => ({
-        ...prev,
-        iframe: "",
-      }));
-    }
+    const extractedLink = extractSrcLink(value);
+    setBusinessDetails((prev) => ({
+      ...prev,
+      iframe: {
+        embedLink: value,
+        extractedLink: extractedLink,
+      },
+    }))
 
 
   }
@@ -133,8 +133,6 @@ const BusinessEdit = () => {
       services: updatedServices
     })
   }
-
-  console.log(businessDetails);
 
   const handleBusinessDetailsChange = (e) => {
     const { name, value } = e.target;
@@ -492,6 +490,17 @@ const BusinessEdit = () => {
     }
   };
 
+  const [basicBusinessDetailsUpdate, setBasicBusinessDetailsUpdate] = useState(true)
+  const [businessCategoryUpdate, setBusinessCategoryUpdate] = useState(true)
+  const [businessSocialLinksUpdate, setBusinessSocialLinksUpdate] = useState(true)
+  const [businessFaqUpdate, setBusinessFaqUpdate] = useState(true)
+  const [businessModeOfPaymentUpdate, setBusinessModeOfPaymentUpdate] = useState(true)
+  const [businessIframeUpdate, setBusinessIframeUpdate] = useState(true)
+  const [businessTimingsUpdate, setBusinessTimingsUpdate] = useState(true)
+
+  console.log(businessDetails)
+
+
 
   useEffect(() => {
     const fetchBusinessDetails = async () => {
@@ -518,19 +527,50 @@ const BusinessEdit = () => {
 
   }, [])
 
+  
+
+  const handleUpdate = async () => {
+      try{
+
+        console.log(id)
+
+        const res = await axios.put(`https://aresuno-server.vercel.app/api/business/${id}`, businessDetails)
+        console.log(res)
+        toast.success("Business Details Updated")
+
+      }
+      catch(err){
+        console.log(err)
+        toast.error("Business Update Failed")
+      }
+  }
+
+
+
 
   return (
-    <div className="  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8">
+    
+    <div className="  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8 mx-44">
+      
       <div className=" w-full justify-between flex flex-col">
         <div className="flex flex-col">
           <div className="flex flex-col gap-6">
             {/* BUSINESS DETAILS */}
             <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiDetail className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">
-                  Basic business details
-                </h2>
+
+              <div className="flex justify-between">
+                <div className="flex items-center gap-2">
+                  <BiDetail className="w-6 h-6" />
+                  <h2 className="text-xl font-semibold">
+                    Basic business details
+                  </h2>
+                </div>
+                {
+                  basicBusinessDetailsUpdate ?
+                    <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBasicBusinessDetailsUpdate(false)} />
+                    :
+                    <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBasicBusinessDetailsUpdate(true)} />
+                }
               </div>
               <div className="flex flex-col gap-4 mt-6">
                 <div className="flex w-full gap-3">
@@ -543,6 +583,7 @@ const BusinessEdit = () => {
                       value={businessDetails.name}
                       onChange={handleBusinessDetailsChange}
                       className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      disabled={basicBusinessDetailsUpdate}
                     />
                   </div>
 
@@ -557,6 +598,7 @@ const BusinessEdit = () => {
                           value={businessDetails.type}
                           className="appearance-none rounded-md relative block w-full px-3 py-2 h-full border  border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
                           onChange={handleBusinessDetailsChange}
+                          disabled={basicBusinessDetailsUpdate}
                         >
                           <option value="" disabled className="">
                             -
@@ -601,6 +643,7 @@ const BusinessEdit = () => {
                         width: "100%",
                         height: "100%",
                       }}
+                      disabled={basicBusinessDetailsUpdate}
                     />
                   </div>
 
@@ -615,33 +658,42 @@ const BusinessEdit = () => {
                       value={businessDetails.email}
                       onChange={handleBusinessDetailsChange}
                       className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      disabled={basicBusinessDetailsUpdate}
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col w-full">
                   <label>About your business</label>
-                  <textarea name="description" value={businessDetails.description} id="" cols="30" rows="4" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" onChange={handleBusinessDetailsChange}></textarea>
+                  <textarea name="description" value={businessDetails.description} id="" cols="30" rows="4" className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" onChange={handleBusinessDetailsChange}
+                    disabled={basicBusinessDetailsUpdate}
+                  ></textarea>
                 </div>
                 <div className="flex flex-col w-full">
                   <label>What services you offer</label>
-                  <div className="flex items-center gap-4 mt-2">
-                    <input
-                      type="text"
-                      name="service"
-                      value={service}
-                      id=""
-                      className="flex-[8] appearance-none rounded-md relative block w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      onChange={handleServicesChange}
-                    />
-                    <button className="rounded-md bg-blue-500 text-white px-8 py-2 flex-[4]" onClick={addService}>Add</button>
-                  </div>
+                  {!basicBusinessDetailsUpdate &&
+                    <div className="flex items-center gap-4 mt-2">
+                      <input
+                        type="text"
+                        name="service"
+                        value={service}
+                        id=""
+                        className="flex-[8] appearance-none rounded-md relative block w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                        onChange={handleServicesChange}
+                        disabled={basicBusinessDetailsUpdate}
+                      />
+                      <button className="rounded-md bg-blue-500 text-white px-8 py-2 flex-[4]" onClick={addService}>Add</button>
+                    </div>
+                  }
 
                   <div className="mt-6 flex flex-wrap gap-4 w-full">
                     {businessDetails.services.map((service, index) => (
                       <div key={index} className="relative flex items-center gap-4 mt-2">
                         <span className="px-4 py-2 border rounded-lg">{service}</span>
-                        <FiXCircle className="bg-red-100 rounded-full text-red-500 absolute cursor-pointer -top-2 -right-2 w-5 h-5" onClick={() => removeService(index)} />
+                        {
+                          !basicBusinessDetailsUpdate &&
+                          <FiXCircle className="bg-red-100 rounded-full text-red-500 absolute cursor-pointer -top-2 -right-2 w-5 h-5" onClick={() => removeService(index)} />
+                        }
                       </div>
                     ))}
                   </div>
@@ -653,12 +705,21 @@ const BusinessEdit = () => {
 
             {/* BUSINESS CATEGORY # */}
             <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiCategory className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">
-                  Select you business category
-                </h2>
+              <div className="flex justify-between">
+                <div className="flex items-center gap-2">
+                  <BiCategory className="w-6 h-6" />
+                  <h2 className="text-xl font-semibold">
+                    Select you business category
+                  </h2>
+                </div>
+                {
+                  businessCategoryUpdate ?
+                    <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessCategoryUpdate(false)} />
+                    :
+                    <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessCategoryUpdate(true)} />
+                }
               </div>
+
               <div className="flex gap-4 mt-6 w-full">
                 {/* CATEGORY */}
                 <div className="flex flex-col w-full">
@@ -670,6 +731,7 @@ const BusinessEdit = () => {
                       value={businessDetails.mainCategory}
                       onChange={handleBusinessDetailsChange}
                       className="appearance-none rounded-md relative block w-full px-3 py-2 border  border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      disabled={businessCategoryUpdate}
                     >
                       <option value="" disabled className="text-red">
                         -
@@ -697,6 +759,7 @@ const BusinessEdit = () => {
                       value={businessDetails.subCategory}
                       onChange={handleBusinessDetailsChange}
                       className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      disabled={businessCategoryUpdate}
                     >
                       <option value="" disabled defaultChecked>
                         -
@@ -726,13 +789,12 @@ const BusinessEdit = () => {
                 <BiNavigation className="w-6 h-6" />
                 <h2 className="text-xl font-semibold">Add business address</h2>
               </div>
+
+
+
               <div className="flex flex-col gap-4 mt-6">
                 <div className="flex flex-col">
                   <label htmlFor="">Address</label>
-                  {/* <input
-                                        type="text"
-                                        className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
-                                    /> */}
 
                   <PlacesAutocomplete
                     value={address}
@@ -809,10 +871,20 @@ const BusinessEdit = () => {
 
             <hr className="border-1 border-gray-300" />
 
+
+            {/* GOOGLE MAPS */}
             <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <FiCode className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Enter google maps iframe HTML link</h2>
+              <div className="flex justify-between">
+                <div className="flex items-center gap-2">
+                  <FiCode className="w-6 h-6" />
+                  <h2 className="text-xl font-semibold">Enter google maps iframe HTML link</h2>
+                </div>
+                {
+                    businessIframeUpdate ?
+                      <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessIframeUpdate(false)} />
+                      :
+                      <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessIframeUpdate(true)} />
+                  }
               </div>
 
               <div className="mt-6">
@@ -821,7 +893,8 @@ const BusinessEdit = () => {
                   placeholder="Enter google maps iframe HTML link"
                   name="iframe"
                   onChange={handleIframeChange}
-                  value={businessDetails.iframe}
+                  value={businessDetails.iframe.embedLink}
+                  disabled={businessIframeUpdate}
                 />
               </div>
             </div>
@@ -832,10 +905,19 @@ const BusinessEdit = () => {
 
             {/* BUSINESS LINKS # */}
             <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiLink className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Add social links</h2>
+              <div className="flex justify-between">
+                <div className="flex items-center gap-2">
+                  <BiLink className="w-6 h-6" />
+                  <h2 className="text-xl font-semibold">Add social links</h2>
+                </div>
+                {
+                  businessSocialLinksUpdate ?
+                    <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessSocialLinksUpdate(false)} />
+                    :
+                    <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessSocialLinksUpdate(true)} />
+                }
               </div>
+
 
               <div className="grid grid-cols-2 gap-4 mt-6">
                 {/* website link */}
@@ -853,6 +935,7 @@ const BusinessEdit = () => {
                         name={link.name}
                         onChange={handleSocialLinksChange}
                         value={businessDetails.socialLinks[link.name]}
+                        disabled={businessSocialLinksUpdate}
                       />
                       {link.icon}
                     </div>
@@ -865,9 +948,17 @@ const BusinessEdit = () => {
 
             {/* Business Faqs # */}
             <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <BiQuestionMark className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Add FAQ's</h2>
+              <div className="flex justify-between">
+                <div className="flex items-center gap-2">
+                  <BiQuestionMark className="w-6 h-6" />
+                  <h2 className="text-xl font-semibold">Add FAQ's</h2>
+                </div>
+                {
+                  businessFaqUpdate ?
+                    <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessFaqUpdate(false)} />
+                    :
+                    <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessFaqUpdate(true)} />
+                }
               </div>
               <div className="grid grid-cols-1 gap-8 mt-6">
                 {businessDetails.faqs.map((faq, index) => (
@@ -875,8 +966,11 @@ const BusinessEdit = () => {
                     <div>
                       <div className=" flex justify-start gap-4 items-center mb-2">
                         <span className="font-medium text-lg">Faq {index + 1}</span>
-                        <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => handleRemoveFaq(index)}
-                        />
+                        {!businessFaqUpdate &&
+
+                          <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => handleRemoveFaq(index)}
+                          />
+                        }
                       </div>
                       <label className="block text-gray-700">Question</label>
                       <div className="mt-2">
@@ -885,6 +979,7 @@ const BusinessEdit = () => {
                           value={faq.question}
                           onChange={e => handleFaqChange(index, 'question', e.target.value)}
                           className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          disabled={businessFaqUpdate}
                         />
                       </div>
                     </div>
@@ -896,20 +991,16 @@ const BusinessEdit = () => {
                           onChange={e => handleFaqChange(index, 'answer', e.target.value)}
                           rows={2}
                           className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          disabled={businessFaqUpdate}
                         />
                       </div>
                     </div>
-                    {/* <button
-              onClick={() => handleRemoveFaq(index)}
-              className="mt-2 py-1 px-2 bg-red-500 text-white rounded-md shadow focus:outline-none focus:ring-2 focus:ring-red-500"
-            >
-              Cancel
-            </button> */}
                   </div>
                 ))}
                 <button
                   onClick={handleAddFaq}
                   className=" py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
+                  disabled={businessFaqUpdate}
                 >
                   Add FAQ
                 </button>
@@ -920,22 +1011,32 @@ const BusinessEdit = () => {
 
             {/* Mode of Payment # */}
             <div className="mt-6 mb-6">
+              <div className="flex justify-between">
               <div className="flex items-center gap-2">
                 <MdPayment className="w-6 h-6" />
                 <h2 className="text-xl font-semibold">Mode of Payment</h2>
+              </div>
+              {
+                  businessModeOfPaymentUpdate ?
+                    <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessModeOfPaymentUpdate(false)} />
+                    :
+                    <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessModeOfPaymentUpdate(true)} />
+                }
               </div>
 
               <div className="flex flex-wrap gap-4 mt-6">
                 {paymentModes.map((mode, index) => (
                   <span
-                    className={`px-4 py-2 border rounded-lg cursor-pointer  ${businessDetails.modeOfPayment.includes(mode)
+                    className={`px-4 py-2 border rounded-lg  ${businessDetails.modeOfPayment.includes(mode)
                       ? "border-blue-500 text-blue-600"
                       : "border-gray-300"
-                      }`}
-                    onClick={() => {
+                      } ${!businessModeOfPaymentUpdate && "cursor-pointer"}`}
+                     onClick={() => {
+                      !businessModeOfPaymentUpdate && 
                       handlModeOfPaymentClick(mode);
                     }}
                     key={index}
+                    
                   >
                     {mode}
                   </span>
@@ -947,9 +1048,17 @@ const BusinessEdit = () => {
 
             {/* Business Hours # */}
             <div className="mt-6 mb-6">
+              <div className="flex justify-between">
               <div className="flex items-center gap-2">
                 <FiClock className="w-6 h-6" />
                 <h2 className="text-xl font-semibold">Business Hours</h2>
+              </div>
+              {
+                  businessTimingsUpdate ?
+                    <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessTimingsUpdate(false)} />
+                    :
+                    <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessTimingsUpdate(true)} />
+                }
               </div>
 
               <div className="mt-6">
@@ -966,6 +1075,7 @@ const BusinessEdit = () => {
                           onChange={(e) =>
                             handleBusinessHoursChange(index, e.target.checked)
                           }
+                          disabled={businessTimingsUpdate}
                         />
                         <label
                           htmlFor={day}
@@ -986,6 +1096,7 @@ const BusinessEdit = () => {
                                   e.target.value
                                 )
                               }
+                              disabled={businessTimingsUpdate}
                             >
                               <option value="" disabled defaultChecked>
                                 -
@@ -1013,6 +1124,7 @@ const BusinessEdit = () => {
                                   e.target.value
                                 )
                               }
+                              disabled={businessTimingsUpdate}
                             >
                               <option value="" disabled defaultChecked>
                                 -
@@ -1107,8 +1219,8 @@ const BusinessEdit = () => {
             </div>
           </div>
 
-          <button type="submit" className="mt-6 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleSubmit}>
-            Register Business
+          <button type="submit" className="mt-6 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleUpdate}>
+            Save Business
           </button>
         </div>
       </div>

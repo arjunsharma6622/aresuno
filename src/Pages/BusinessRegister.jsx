@@ -78,36 +78,35 @@ const BusinessRegister = () => {
             youtube: "",
         },
         modeOfPayment: [],
-        iframe: "",
+        iframe: {
+            embedLink: "",
+            extractedLink: ""
+          },
         services : []
     });
 
     const handleIframeChange = (e) => {
         const { value } = e.target;
         function extractSrcLink(iframeTag) {
-            const srcRegex = /src="(.*?)"/;
-            const match = iframeTag.match(srcRegex);
-            if (match) {
-                return match[1];
-            } else {
-                return null;
-            }
+          const srcRegex = /src="(.*?)"/;
+          const match = iframeTag.match(srcRegex);
+          if (match) {
+            return match[1];
+          } else {
+            return null;
+          }
         }
-        const src = extractSrcLink(value);
-        if (src) {
-            setBusinessDetails((prev) => ({
-                ...prev,
-                iframe: src,
-            }));
-        } else {
-            setBusinessDetails((prev) => ({
-                ...prev,
-                iframe: "",
-            }));
-        }
-
-
-    }
+        const extractedLink = extractSrcLink(value);
+        setBusinessDetails((prev) => ({
+          ...prev,
+          iframe: {
+            embedLink: value,
+            extractedLink: extractedLink,
+          },
+        }))
+    
+    
+      }
 
 
     const [service, setService] = useState("");
