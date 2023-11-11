@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   AiOutlineAppstore,
   AiOutlineAppstoreAdd,
@@ -13,6 +14,8 @@ import {
 } from "react-icons/md";
 
 const Sidebar = ({ user, handleSelectedField, selectedField }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex-[2] overflow-y-auto border-r border-gray-300 p-10 flex flex-col justify-between items-start">
       <div className="flex flex-col gap-10 w-full">
@@ -108,7 +111,13 @@ const Sidebar = ({ user, handleSelectedField, selectedField }) => {
       </div>
 
       <div className="w-full">
-        <button className="w-full px-4 py-1 border text-red-500 border-red-500">
+        <button
+          className="w-full px-4 py-1 border text-red-500 border-red-500"
+          onClick={() => {
+            localStorage.removeItem("token");
+            navigate("/");
+          }}
+        >
           Logout
         </button>
       </div>
