@@ -12,9 +12,12 @@ import {
   MdOutlinePostAdd,
   MdOutlineReviews,
 } from "react-icons/md";
+import { userLogout } from "../../../userSlice";
+import { useDispatch } from "react-redux";
 
 const Sidebar = ({ user, handleSelectedField, selectedField }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div className="flex-[2] overflow-y-auto border-r border-gray-300 p-10 flex flex-col justify-between items-start">
@@ -115,6 +118,7 @@ const Sidebar = ({ user, handleSelectedField, selectedField }) => {
           className="w-full px-4 py-1 border text-red-500 border-red-500"
           onClick={() => {
             localStorage.removeItem("token");
+            dispatch(userLogout());
             navigate("/");
           }}
         >

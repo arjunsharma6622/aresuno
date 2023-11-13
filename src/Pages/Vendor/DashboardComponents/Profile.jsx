@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FiEdit, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
+import { BsFillCameraFill } from "react-icons/bs";
+import { FiCamera, FiEdit, FiEdit2, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
 
 const Profile = ({ user }) => {
   const [userEdit, setUserEdit] = useState(user);
@@ -65,11 +66,19 @@ const Profile = ({ user }) => {
 
   return (
     <div className="w-full flex justify-center items-center flex-col gap-10">
-      <img
-        src="https://picsum.photos/200"
-        alt=""
-        className="rounded-full w-28 h-28"
-      />
+
+      <div className="relative">
+        <img
+          src="https://picsum.photos/200"
+          alt=""
+          className="rounded-full w-32 h-32"
+        />
+        <div className="absolute bottom-1 -right-1 cursor-pointer">
+        <div className="p-5 bg-blue-500 rounded-full w-7 h-7 relative">
+          <BsFillCameraFill className="text-white w-5 h-5 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"/>
+        </div>
+        </div>
+      </div>
 
       <div className="flex w-full flex-col items-center justify-between gap-8">
         <div className="w-1/2">

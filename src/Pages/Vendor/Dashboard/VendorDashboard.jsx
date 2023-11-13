@@ -67,7 +67,7 @@ const VendorDashboard = () => {
 
       <div className="flex-[10] bg-gray-100 p-10 overflow-y-scroll">
         <div className="flex flex-col w-full justify-center">
-          <div className="">
+          {/* <div className="">
             {loading ? (
               <div role="status" className="max-w-sm animate-pulse">
                 <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-32 mb-4"></div>
@@ -97,7 +97,29 @@ const VendorDashboard = () => {
                 {selectedField === "subscriptions" && <Subscriptions />}
               </div>
             )}
-          </div>
+          </div> */}
+
+
+<div className="">
+                {selectedField === "dashboard" && (
+                  <Overview businesses={businesses}/>
+                )}
+                {selectedField === "profile" && (
+                  <Profile user={user}/>
+                )}
+                {selectedField === "allListings" && (
+                  <AllListings businesses={businesses} />
+                )}
+                {selectedField === "addListing" && <AddListing />}
+                {selectedField === "reviews" && (
+                  <Reviews businesses={businesses} />
+                )}
+                {selectedField === "posts" && (
+                  <Posts posts={allPosts} businesses={businesses} />
+                )}
+                {selectedField === "leads" && <Leads />}
+                {selectedField === "subscriptions" && <Subscriptions />}
+              </div>
         </div>
       </div>
       <ToastContainer />
