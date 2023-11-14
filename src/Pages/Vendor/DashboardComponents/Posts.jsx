@@ -1,9 +1,16 @@
-import React from "react";
-import { FiTrash2 } from "react-icons/fi";
+import React, { useState } from "react";
+import { FiEdit, FiEdit2, FiEdit3, FiTrash2 } from "react-icons/fi";
+import ModalEdit from "./ModalEdit";
+import SeeMore from "./SeeMore";
 
 const Posts = ({ posts, businesses }) => {
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
   return (
     <div>
+      {showEditModal && (
+        <ModalEdit onClose={() => setShowEditModal(false)} post={selectedPost} />
+      )}
       <h1 className="text-2xl font-semibold mb-6">
         You have {posts.length === 0 ? "No" : posts.length} Posts
       </h1>
@@ -12,11 +19,11 @@ const Posts = ({ posts, businesses }) => {
           <button>Add Post</button>
         </div>
       ) : (
-        <table className="w-full table-auto">
+        <table className="w-full table-cell">
           <thead className="">
             <tr className="bg-gray-300">
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                PostId
+                Post Id
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Posted In
@@ -31,7 +38,10 @@ const Posts = ({ posts, businesses }) => {
                 Created
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Delete
+                Last update
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
               </th>
             </tr>
           </thead>
@@ -44,20 +54,34 @@ const Posts = ({ posts, businesses }) => {
                     {business.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {post.image ? post.image : "No Image"}
+                    {post.image ? post.image : "-"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {post.description}
+                    {/* {post.description} */}
+                    <SeeMore text={post.description} maxWords={3}/>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {new Date(post.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
-                      month: "long",
+                      month: "short",
                       day: "numeric",
                     })}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" />
+                    {new Date(post.updatedAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center gap-4">
+                      <FiEdit3 className="text-gray-600 w-5 h-5 cursor-pointer" onClick={() => {
+                        setSelectedPost({...post, businessName : business.name});
+                        setShowEditModal(true)
+                      }} />
+                      <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" />
+                    </div>
                   </td>
                 </tr>
               ))

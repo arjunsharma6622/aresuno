@@ -16,6 +16,8 @@ import { LuImagePlus } from "react-icons/lu";
 import { FiChevronDown, FiExternalLink, FiLink, FiLink2, FiX, FiXCircle } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import SeeMore from "./SeeMore";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Overview = ({ businesses }) => {
 
@@ -31,8 +33,18 @@ const Overview = ({ businesses }) => {
     setImage(URL.createObjectURL(selectedImage));
   };
 
-  const handlePost = () => {
+  const handlePost = async () => {
     // Add logic to handle the post button click
+    try{
+      const res = await axios.post("https://aresuno-server.vercel.app/api/post/create", post);
+      console.log(res.data)
+      toast.success("Post Created");
+
+      
+    }catch(err){
+      console.log(err);
+    }
+    
   };
 
   const handleImageSubmit = () => {
@@ -53,7 +65,7 @@ const Overview = ({ businesses }) => {
 
       <SeeMore
         text={"This is a test post and it is really long. This post contains one image on the left side, and about post on the right side and there we have business name"}
-        hiddenText={"this is the other part of the test post and i am writing this to test the see more feature of this post"}
+        maxWords={30}
       />
 
     </div>
