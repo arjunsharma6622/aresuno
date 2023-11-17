@@ -22,8 +22,9 @@ import { toast } from "react-toastify";
 const Overview = ({ businesses }) => {
 
   const [image, setImage] = useState(null);
+  const [imageToShow, setImageToShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [post, setPost] = useState({
     image: "",
     description: "",
@@ -32,6 +33,7 @@ const Overview = ({ businesses }) => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    setImageToShow(URL.createObjectURL(file));
     setImage(file);
   };
 
@@ -42,6 +44,8 @@ const Overview = ({ businesses }) => {
 
       const imageData = new FormData();
       imageData.append("file", image);
+      imageData.append("upload_preset", "ml_default");
+
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
@@ -50,29 +54,33 @@ const Overview = ({ businesses }) => {
 
       console.log(uploadResponse.data);
       const imageUrl = uploadResponse.data.secure_url;
-      setImageUrl(imageUrl);
-
-      setIsLoading(false);
+      // setImageUrl(imageUrl);
+      // console.log("The image url is" + imageUrl)
+      return imageUrl
     } catch (err) {
       console.error("Error uploading image to Cloudinary:", err);
       setIsLoading(false);
     }
   };
 
+  console.log("The image url is" + imageUrl)
+
+
+
+
   const handlePost = async () => {
     try {
-      await handleImage();
+      const imageUrl = await handleImage();
+      console.log("The image url is" + imageUrl)
 
-      console.log(imageUrl);
-
-      const updatedPost = {
-        ...post,
-        image: imageUrl,
-      };
 
       const createPostResponse = await axios.post(
         "https://aresuno-server.vercel.app/api/post/create",
-        updatedPost
+        {
+          image: imageUrl,
+          description: post.description,
+          businessId: post.businessId,
+        }
       );
 
       console.log(createPostResponse.data);
@@ -185,7 +193,7 @@ const Overview = ({ businesses }) => {
 
               {image && (
                 <div className="relative">
-                  <img src={image} alt="Selected Image" className=" rounded" />
+                  <img src={imageToShow} alt="Selected Image" className=" rounded" />
                   <FiXCircle className="w-6 h-6 absolute top-2 right-2 cursor-pointer bg-red-200 rounded-full text-red-500 " onClick={() => setImage(null)} />
                 </div>
               )}
