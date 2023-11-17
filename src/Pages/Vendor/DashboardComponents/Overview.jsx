@@ -46,12 +46,6 @@ const Overview = ({ businesses }) => {
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
         imageData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer 666148117135513`,
-          },
-        }
       );
 
       console.log(uploadResponse.data);
