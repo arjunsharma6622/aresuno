@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiImageAdd, BiRupee, BiSolidBusiness } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { MdReviews } from "react-icons/md";
@@ -22,6 +22,8 @@ import { toast } from "react-toastify";
 const Overview = ({ businesses }) => {
 
   const [image, setImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
   const [post, setPost] = useState({
     image: "",
     description: "",
@@ -29,48 +31,89 @@ const Overview = ({ businesses }) => {
   });
 
   const handleImageChange = (event) => {
-    const selectedImage = event.target.files[0];
-    setImage(URL.createObjectURL(selectedImage));
+    const file = event.target.files[0];
+    setImage(file);
+  };
+
+
+  const handleImage = async () => {
+    try {
+      setIsLoading(true);
+
+      const imageData = new FormData();
+      imageData.append("file", image);
+
+      const uploadResponse = await axios.post(
+        "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+        imageData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer 666148117135513`,
+          },
+        }
+      );
+
+      console.log(uploadResponse.data);
+      const imageUrl = uploadResponse.data.secure_url;
+      setImageUrl(imageUrl);
+
+      setIsLoading(false);
+    } catch (err) {
+      console.error("Error uploading image to Cloudinary:", err);
+      setIsLoading(false);
+    }
   };
 
   const handlePost = async () => {
-    // Add logic to handle the post button click
-    try{
-      const res = await axios.post("https://aresuno-server.vercel.app/api/post/create", post);
-      console.log(res.data)
-      toast.success("Post Created");
+    try {
+      await handleImage();
 
-      
-    }catch(err){
-      console.log(err);
+      console.log(imageUrl);
+
+      const updatedPost = {
+        ...post,
+        image: imageUrl,
+      };
+
+      const createPostResponse = await axios.post(
+        "https://aresuno-server.vercel.app/api/post/create",
+        updatedPost
+      );
+
+      console.log(createPostResponse.data);
+      toast.success("Post Created");
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+      setIsLoading(false);
     }
-    
   };
 
-  const handleImageSubmit = () => {
 
-  }
 
+  
 
   const RecentPosts = () => (
     <div className="flex justify-center gap-4">
-    <div className="">
-      <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" className="w-32 h-32 aspect-auto object-cover rounded-lg" />
-    </div>
-    <div className="flex-[8] flex flex-col justify-start gap-2">
-      <div className="flex gap-2 items-center">
-        <span className="text-base font-semibold">Form Fix</span>
-        <span className="text-xs">27, Aug 2023</span>
+      <div className="">
+        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" className="w-32 h-32 aspect-auto object-cover rounded-lg" />
+      </div>
+      <div className="flex-[8] flex flex-col justify-start gap-2">
+        <div className="flex gap-2 items-center">
+          <span className="text-base font-semibold">Form Fix</span>
+          <span className="text-xs">27, Aug 2023</span>
+        </div>
+
+        <SeeMore
+          text={"This is a test post and it is really long. This post contains one image on the left side, and about post on the right side and there we have business name"}
+          maxWords={30}
+        />
+
       </div>
 
-      <SeeMore
-        text={"This is a test post and it is really long. This post contains one image on the left side, and about post on the right side and there we have business name"}
-        maxWords={30}
-      />
-
     </div>
-
-  </div>
   )
 
 
@@ -210,7 +253,18 @@ const Overview = ({ businesses }) => {
                 onClick={handlePost}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300 w-full"
               >
-                Post
+                {isLoading ? (
+                  <div
+                    className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    role="status"
+                  >
+                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                      Loading...
+                    </span>
+                  </div>
+                ) : (
+                  "Post"
+                )}
               </button>
             </div>
           </div>
@@ -221,23 +275,23 @@ const Overview = ({ businesses }) => {
 
             <h2 className="mb-4 text-base font-semibold">Recent Posts</h2>
 
-<div className="relative">
-            <div className=" flex flex-col gap-4 overflow-y-auto h-[400px]">
+            <div className="relative">
+              <div className=" flex flex-col gap-4 overflow-y-auto h-[400px]">
 
 
-                      <RecentPosts />
-                      <RecentPosts />
-                      <RecentPosts />
-                      <RecentPosts />
-                      <RecentPosts />
+                <RecentPosts />
+                <RecentPosts />
+                <RecentPosts />
+                <RecentPosts />
+                <RecentPosts />
 
-              <div className="flex items-center gap-2 mb-6 cursor-pointer text-blue-500">
-                <span>View all</span>
-                <FiExternalLink />
+                <div className="flex items-center gap-2 mb-6 cursor-pointer text-blue-500">
+                  <span>View all</span>
+                  <FiExternalLink />
+                </div>
+
               </div>
-
-            </div>
-            <div className="gradient-overlay-bottom"></div>
+              <div className="gradient-overlay-bottom"></div>
 
             </div>
 
