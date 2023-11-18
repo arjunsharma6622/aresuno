@@ -24,7 +24,7 @@ const Sidebar = ({ user, handleSelectedField, selectedField }) => {
       <div className="flex flex-col gap-10 w-full">
         <div className="flex items-center gap-4">
           <img
-            src="https://picsum.photos/200"
+            src={user.image ? user.image : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
             alt=""
             className="rounded-full w-10 h-10"
           />

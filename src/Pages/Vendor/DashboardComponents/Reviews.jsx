@@ -32,8 +32,8 @@ const Reviews = ({ businesses }) => {
                     <div className="flex gap-2 items-center">
                       <img
                         src={
-                          ratingReview.user.profileImg ||
-                          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                          ratingReview.user.image ||
+                          "https://i.pravatar.cc/300"
                         }
                         alt=""
                         className="w-5 h-5 rounded-full"

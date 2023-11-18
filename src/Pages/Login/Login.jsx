@@ -37,7 +37,7 @@ const Login = () => {
       localStorage.setItem("token", token);
 
       dispatch(
-        userLogin({ name: res.data.user.name, userType: res.data.userType })
+        userLogin({ name: res.data.user.name, userType: res.data.userType, image : res.data.user.image })
       );
 
       console.log(res.data);

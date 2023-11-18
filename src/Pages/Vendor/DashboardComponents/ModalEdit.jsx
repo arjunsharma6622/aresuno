@@ -47,7 +47,7 @@ export default function ModalEdit({ onClose, post }) {
     <div>
       {open && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm">
-          <div className="bg-white p-6 rounded-lg w-[40%]">
+          <div className="bg-white p-6 rounded-lg w-[45%]">
             <div className="flex items-center gap-4 justify-center">
             <div className="h-12 w-12 flex items-center justify-center rounded-full bg-gray-100">
                 <FiEdit3 className="h-6 w-6 text-gray-600" />
@@ -59,7 +59,7 @@ export default function ModalEdit({ onClose, post }) {
 
               <div className="mt-8 text-center w-full flex gap-4 justify-start">
                 <div className="flex-[4]">
-                  <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" className="w-full h-[200px] aspect-auto object-cover rounded-lg" />
+                  <img src={post.image} alt="" className="w-full object-cover rounded-lg" />
                 </div>
 
                 <div className="flex flex-[8] flex-col gap-2 items-start w-full">

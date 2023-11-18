@@ -102,7 +102,7 @@ const VendorDashboard = () => {
 
 <div className="">
                 {selectedField === "dashboard" && (
-                  <Overview businesses={businesses}/>
+                  <Overview businesses={businesses} posts={allPosts}/>
                 )}
                 {selectedField === "profile" && (
                   <Profile user={user}/>

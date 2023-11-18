@@ -1,8 +1,13 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { BsFillCameraFill } from "react-icons/bs";
 import { FiCamera, FiEdit, FiEdit2, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 const Profile = ({ user }) => {
+  const [image, setImage] = useState(null);
+  const [imageToShow, setImageToShow] = useState(false);
+  const [isImageUploading, setIsImageUploading] = useState(false);
   const [userEdit, setUserEdit] = useState(user);
   const [edit, setEdit] = useState(true);
   const [updatedPassword, setUpdatedPassword] = useState({
@@ -44,12 +49,63 @@ const Profile = ({ user }) => {
     setUpdatedPassword({ ...updatedPassword, [e.target.name]: e.target.value });
   };
 
+  const handleImage = async () => {
+    try{
+      setIsImageUploading(true);
+      const imageData = new FormData();
+      imageData.append("file", image);
+      imageData.append("upload_preset", "ml_default");
+      imageData.append("folder", "aresuno/vendors");
+      const res = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", imageData);
+      console.log(res.data);
+      const imageUrl = res.data.secure_url;
+      return imageUrl;
+
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
+
+  const handleImageUpload = async (e) => {
+    e.preventDefault();
+    const imageUrl = await handleImage();
+
+    try{
+      const res = await axios.patch(
+        "https://aresuno-server.vercel.app/api/vendor/",
+        {
+          image: imageUrl
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(res.data);
+      toast.success("Profile Image Updated");
+      setIsImageUploading(false);
+    }
+    catch(err){
+      console.log(err);
+      toast.error("Error uploading image");
+    }
+
+  }
+
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
+
+
+
     try {
       const res = await axios.patch(
         "https://aresuno-server.vercel.app/api/vendor/",
-        { name: userEdit.name },
+        {
+          name: userEdit.name
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -64,26 +120,53 @@ const Profile = ({ user }) => {
     }
   };
 
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setImageToShow(URL.createObjectURL(file));
+  }
+
   return (
     <div className="w-full flex justify-center items-center flex-col gap-10">
 
-      <div className="relative">
+      <div className="relative flex items-center flex-col">
         <img
-          src="https://picsum.photos/200"
+          src={user.image&&!image ? user.image : image ? imageToShow : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
           alt=""
-          className="rounded-full w-32 h-32"
+          className="rounded-full w-32 h-32 object-cover"
         />
+        {image ? 
+
+          <div className="flex gap-2 mt-4">
+            <button onClick={handleImageUpload} className="bg-blue-500 rounded-sm py-2 px-4 text-white">{isImageUploading ? "Uploading..." : "Upload"}</button>
+            <button onClick={() => {setImage(null); setImageToShow(null)}} className="bg-red-500 rounded-sm py-2 px-4 text-white">Cancel</button>
+          </div>
+         :
         <div className="absolute bottom-1 -right-1 cursor-pointer">
-        <div className="p-5 bg-blue-500 rounded-full w-7 h-7 relative">
-          <BsFillCameraFill className="text-white w-5 h-5 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"/>
+        <label htmlFor="profileImage">
+
+        <div className="p-5 bg-blue-500 cursor-pointer rounded-full w-7 h-7 relative">
+          
+          <input 
+          type="file" 
+          id="profileImage" 
+          className="opacity-0 absolute inset-0 w-full h-full cursor-pointer" 
+          accept="image/*"
+          onChange={handleImageChange}
+          style={{ display: "none" }}
+          />
+          <BsFillCameraFill className="text-white cursor-pointer w-5 h-5 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"/>
         </div>
+        </label>
+
         </div>
+}
       </div>
 
       <div className="flex w-full flex-col items-center justify-between gap-8">
         <div className="w-1/2">
           <div className="flex justify-between items-center">
-            <h2 className="text-lg font-medium">Update Business Details</h2>
+            <h2 className="text-lg font-medium">Update Your Details</h2>
             {edit ? (
               <FiEdit
                 className="text-gray-500 cursor-pointer w-6 h-6"

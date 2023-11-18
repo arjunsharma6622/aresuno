@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiImageAdd, BiRupee, BiSolidBusiness } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { MdReviews } from "react-icons/md";
@@ -19,7 +19,7 @@ import SeeMore from "./SeeMore";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Overview = ({ businesses }) => {
+const Overview = ({ businesses, posts }) => {
 
   const [image, setImage] = useState(null);
   const [imageToShow, setImageToShow] = useState(false);
@@ -45,6 +45,7 @@ const Overview = ({ businesses }) => {
       const imageData = new FormData();
       imageData.append("file", image);
       imageData.append("upload_preset", "ml_default");
+      imageData.append("folder", "aresuno/posts"); // Add this line
 
 
       const uploadResponse = await axios.post(
@@ -54,8 +55,6 @@ const Overview = ({ businesses }) => {
 
       console.log(uploadResponse.data);
       const imageUrl = uploadResponse.data.secure_url;
-      // setImageUrl(imageUrl);
-      // console.log("The image url is" + imageUrl)
       return imageUrl
     } catch (err) {
       console.error("Error uploading image to Cloudinary:", err);
@@ -86,6 +85,13 @@ const Overview = ({ businesses }) => {
       console.log(createPostResponse.data);
       toast.success("Post Created");
       setIsLoading(false);
+      setPost({
+        image: "",
+        description: "",
+        businessId: "",
+      })
+      setImageUrl("");
+      setImage(null);
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong");
@@ -95,21 +101,27 @@ const Overview = ({ businesses }) => {
 
 
 
-  
 
-  const RecentPosts = () => (
+
+  const RecentPosts = ({ post, businessName }) => (
     <div className="flex justify-center gap-4">
       <div className="">
-        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" className="w-32 h-32 aspect-auto object-cover rounded-lg" />
+        <img src={post.image} alt="" className="w-32 h-32 aspect-auto object-cover rounded-lg" />
       </div>
       <div className="flex-[8] flex flex-col justify-start gap-2">
         <div className="flex gap-2 items-center">
-          <span className="text-base font-semibold">Form Fix</span>
-          <span className="text-xs">27, Aug 2023</span>
+          <span className="text-base font-semibold">{businessName}</span>
+          <span className="text-xs">{
+            new Date(post.createdAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })
+          }</span>
         </div>
 
         <SeeMore
-          text={"This is a test post and it is really long. This post contains one image on the left side, and about post on the right side and there we have business name"}
+          text={post.description}
           maxWords={30}
         />
 
@@ -280,12 +292,13 @@ const Overview = ({ businesses }) => {
             <div className="relative">
               <div className=" flex flex-col gap-4 overflow-y-auto h-[400px]">
 
+                {posts.map((post) => {
+                  const businessName = businesses.find(business => business._id === post.businessId).name;
+                  return (
+                    <RecentPosts post={post} businessName={businessName} />
 
-                <RecentPosts />
-                <RecentPosts />
-                <RecentPosts />
-                <RecentPosts />
-                <RecentPosts />
+                  )
+                })}
 
                 <div className="flex items-center gap-2 mb-6 cursor-pointer text-blue-500">
                   <span>View all</span>
