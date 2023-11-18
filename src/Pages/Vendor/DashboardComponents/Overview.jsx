@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { BiImageAdd, BiRupee, BiSolidBusiness } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { MdReviews } from "react-icons/md";
@@ -18,11 +18,16 @@ import { Link } from "react-router-dom";
 import SeeMore from "./SeeMore";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Cropper from 'react-easy-crop'
+import { getCroppedImg } from "./getCroppedImage";
+// import getcropppe from 'react-easy-crop/utils'
+
 
 const Overview = ({ businesses, posts }) => {
 
+
   const [image, setImage] = useState(null);
-  const [imageToShow, setImageToShow] = useState(false);
+  const [imageToShow, setImageToShow] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [post, setPost] = useState({
@@ -30,6 +35,31 @@ const Overview = ({ businesses, posts }) => {
     description: "",
     businessId: "",
   });
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
+
+  // const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    
+  //   console.log(croppedArea, croppedAreaPixels)
+  // }, [])
+
+
+  const onCropComplete = useCallback(async (croppedArea, croppedAreaPixels) => {
+    try {
+      const croppedImageBlob = await getCroppedImg(imageToShow, croppedAreaPixels);
+      console.log(croppedImageBlob);
+  
+      // Use the cropped image blob as needed (e.g., upload to server)
+    } catch (error) {
+      console.error('Error getting cropped image:', error);
+    }
+  }, [image]);
+
+
+
+
+
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -204,11 +234,34 @@ const Overview = ({ businesses, posts }) => {
             <div className="flex flex-col gap-4 mb-4 bg-white p-4 py-6 rounded-lg">
 
               {image && (
-                <div className="relative">
-                  <img src={imageToShow} alt="Selected Image" className=" rounded" />
-                  <FiXCircle className="w-6 h-6 absolute top-2 right-2 cursor-pointer bg-red-200 rounded-full text-red-500 " onClick={() => setImage(null)} />
+
+                <div>
+
+                  <div className="relative">
+                    {/* <img src={imageToShow} alt="Selected Image" className=" rounded" /> */}
+
+                    <FiXCircle className="w-6 h-6 z-20 absolute top-2 right-2 cursor-pointer bg-red-200 rounded-full text-red-500 " onClick={() => setImage(null)} />
+                  
+
+                  <div className="flex justify-center w-full h-64">
+                    <Cropper
+                      image={imageToShow}
+                      crop={crop}
+                      zoom={zoom}
+                      aspect={1 / 1}
+                      onCropChange={setCrop}
+                      onCropComplete={onCropComplete}
+                      onZoomChange={setZoom}
+                    />
+                  </div>
+
+                  </div>
+
                 </div>
               )}
+
+
+
 
 
 

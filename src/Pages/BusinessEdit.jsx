@@ -84,7 +84,8 @@ const BusinessEdit = () => {
       embedLink: "",
       extractedLink: ""
     },
-    services: []
+    services: [],
+    images : []
   });
 
   const handleIframeChange = (e) => {
@@ -374,31 +375,66 @@ const BusinessEdit = () => {
 
   //   handle image gallery
   const [images, setImages] = useState([]);
+  const [imagesToShow, setImagesToShow] = useState([]);
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     files.forEach((file) => {
       const reader = new FileReader();
+      setImages((prevImages) => [...prevImages, file]);
       reader.onloadend = () => {
-        setImages((prevImages) => [...prevImages, reader.result]);
+        setImagesToShow((prevImages) => [...prevImages, reader.result]);
       };
       reader.readAsDataURL(file);
     });
   };
 
-  const handleImagesUpload = async () => {
+  console.log("The images are", images)
+  console.log("The images to show are", imagesToShow)
 
 
-    const promises = images.map(async (image) => {
-      const imageRef = storage.ref().child(`images/${image.name}`);
-      await imageRef.put(image);
-      const url = await imageRef.getDownloadURL();
-      return url;
-    });
+  const handleImagesUpload = async (e) => {
+    e.preventDefault();
 
-    const urls = await Promise.all(promises);
-    console.log(urls);
+    try{
+      const imageData = new FormData();
 
-  };
+      images.forEach(async (image, index) => {
+        imageData.append(`file`, image)
+        imageData.append("folder", `aresuno/businessImages/${id}/gallery`)
+        imageData.append("upload_preset", "ml_default");
+  
+        const uploadResponse = await axios.post(
+          "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+          imageData,
+        );
+
+
+        console.log(uploadResponse.secure_url)
+        setBusinessDetails((prev) => ({
+          ...prev,
+          images: [...prev.images, uploadResponse.secure_url],
+        }));
+      })
+
+
+
+      // console.log(uploadResponse.data);
+      // const imageUrls = uploadResponse.data.resources.map((resource) => resource.secure_url);
+      // return imageUrls;
+    }
+    catch(err){
+      console.error("Error uploading images to Cloudinary:", err);
+      setIsLoading(false);  
+    }
+    
+
+    
+  }
+
+  console.log(businessDetails)
+
+  
+
 
 
   // handle mode of payment
@@ -1188,7 +1224,7 @@ const BusinessEdit = () => {
                   </label>
 
                   <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
-                    {images.map((image, index) => (
+                    {imagesToShow.map((image, index) => (
                       <div className="relative rounded-xl w-full" key={index}>
                         <img
                           key={index}
@@ -1200,6 +1236,9 @@ const BusinessEdit = () => {
                           className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
                           onClick={() => {
                             setImages((prev) =>
+                              prev.filter((_, i) => i !== index)
+                            );
+                            setImagesToShow((prev) =>
                               prev.filter((_, i) => i !== index)
                             );
                           }}

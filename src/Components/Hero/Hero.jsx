@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import BusinessCard from '../../Pages/BusinessCard'
 import axios from 'axios'
 import BusinessCardSkeleton from './BusinessCardSkeleton'
+import HomeHero from './HomeHero'
 
 
 const Hero = () => {
@@ -60,6 +61,8 @@ const Hero = () => {
 
 
             </div>
+
+            <HomeHero />
         </div>
     )
 }
