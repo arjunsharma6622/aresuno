@@ -13,7 +13,7 @@ const Header = () => {
     console.log(user)
 
     return (
-        <div className="w-full h-20 border-b border-gray-300 flex items-center justify-between px-10">
+        <div className="w-full h-20 flex items-center justify-between px-10">
             <div className="text-blue-600 text-4xl font-semibold">
                 <Link to="/">Aresuno</Link>
             </div>

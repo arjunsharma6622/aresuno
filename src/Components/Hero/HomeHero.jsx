@@ -3,14 +3,14 @@ import React from "react";
 function HomeHero(props) {
   return (
     <div className="bg-white flex flex-col">
-      <div className="justify-center items-center self-stretch flex w-full flex-col px-5 py-5 border-b-zinc-300 border-b border-solid max-md:max-w-full">
+      <div className="justify-center items-center self-stretch flex w-full flex-col px-5 max-md:max-w-full">
  
       </div>
       <div className="flex-col overflow-hidden self-stretch relative flex min-h-[576px] w-full items-center px-5 py-12 max-md:max-w-full">
         <img
           loading="lazy"
           srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
+          className="absolute h-full w-full object-cover object-center inset-0"
         />
         <div className="relative flex w-full max-w-[1195px] flex-col mt-12 mb-10 max-md:max-w-full max-md:my-10">
           <div className="text-white text-4xl font-bold leading-[60px] tracking-wider self-center whitespace-nowrap max-md:max-w-full">

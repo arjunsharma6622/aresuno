@@ -31,7 +31,10 @@ const Hero = () => {
     }
 
     return (
-        <div className=' flex flex-col items-center justify-center text-3xl mt-8'>
+        <div className=' flex flex-col items-center justify-center text-3xl'>
+
+<HomeHero />
+
             <h1>Find the service you want</h1>
 
 
@@ -62,7 +65,6 @@ const Hero = () => {
 
             </div>
 
-            <HomeHero />
         </div>
     )
 }

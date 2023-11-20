@@ -85,8 +85,10 @@ const BusinessEdit = () => {
       extractedLink: ""
     },
     services: [],
-    images : []
+    photosGallery: []
   });
+
+
 
   const handleIframeChange = (e) => {
     const { value } = e.target;
@@ -388,32 +390,34 @@ const BusinessEdit = () => {
     });
   };
 
-  console.log("The images are", images)
-  console.log("The images to show are", imagesToShow)
+  // console.log("The images are", images)
+  // console.log("The images to show are", imagesToShow)
 
 
   const handleImagesUpload = async (e) => {
     e.preventDefault();
 
-    try{
+    try {
       const imageData = new FormData();
 
       images.forEach(async (image, index) => {
         imageData.append(`file`, image)
         imageData.append("folder", `aresuno/businessImages/${id}/gallery`)
         imageData.append("upload_preset", "ml_default");
-  
+
         const uploadResponse = await axios.post(
           "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
           imageData,
         );
 
 
-        console.log(uploadResponse.secure_url)
+        console.log(uploadResponse.data.secure_url)
         setBusinessDetails((prev) => ({
           ...prev,
-          images: [...prev.images, uploadResponse.secure_url],
+          photosGallery: [...prev.photosGallery, uploadResponse.data.secure_url],
         }));
+
+        // console.log("This is the business details", businessDetails)
       })
 
 
@@ -422,18 +426,18 @@ const BusinessEdit = () => {
       // const imageUrls = uploadResponse.data.resources.map((resource) => resource.secure_url);
       // return imageUrls;
     }
-    catch(err){
+    catch (err) {
       console.error("Error uploading images to Cloudinary:", err);
-      setIsLoading(false);  
+      setIsLoading(false);
     }
-    
 
-    
+
+
   }
 
   console.log(businessDetails)
 
-  
+
 
 
 
@@ -533,6 +537,7 @@ const BusinessEdit = () => {
   const [businessModeOfPaymentUpdate, setBusinessModeOfPaymentUpdate] = useState(true)
   const [businessIframeUpdate, setBusinessIframeUpdate] = useState(true)
   const [businessTimingsUpdate, setBusinessTimingsUpdate] = useState(true)
+  const [businessImagesUpdate, setBusinessImagesUpdate] = useState(true)
 
   console.log(businessDetails)
 
@@ -563,31 +568,31 @@ const BusinessEdit = () => {
 
   }, [])
 
-  
+
 
   const handleUpdate = async () => {
-      try{
+    try {
 
-        console.log(id)
+      console.log(id)
 
-        const res = await axios.put(`https://aresuno-server.vercel.app/api/business/${id}`, businessDetails)
-        console.log(res)
-        toast.success("Business Details Updated")
+      const res = await axios.put(`https://aresuno-server.vercel.app/api/business/${id}`, businessDetails)
+      console.log(res)
+      toast.success("Business Details Updated")
 
-      }
-      catch(err){
-        console.log(err)
-        toast.error("Business Update Failed")
-      }
+    }
+    catch (err) {
+      console.log(err)
+      toast.error("Business Update Failed")
+    }
   }
 
 
 
 
   return (
-    
+
     <div className="  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8 mx-44">
-      
+
       <div className=" w-full justify-between flex flex-col">
         <div className="flex flex-col">
           <div className="flex flex-col gap-6">
@@ -916,11 +921,11 @@ const BusinessEdit = () => {
                   <h2 className="text-xl font-semibold">Enter google maps iframe HTML link</h2>
                 </div>
                 {
-                    businessIframeUpdate ?
-                      <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessIframeUpdate(false)} />
-                      :
-                      <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessIframeUpdate(true)} />
-                  }
+                  businessIframeUpdate ?
+                    <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessIframeUpdate(false)} />
+                    :
+                    <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessIframeUpdate(true)} />
+                }
               </div>
 
               <div className="mt-6">
@@ -1048,11 +1053,11 @@ const BusinessEdit = () => {
             {/* Mode of Payment # */}
             <div className="mt-6 mb-6">
               <div className="flex justify-between">
-              <div className="flex items-center gap-2">
-                <MdPayment className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Mode of Payment</h2>
-              </div>
-              {
+                <div className="flex items-center gap-2">
+                  <MdPayment className="w-6 h-6" />
+                  <h2 className="text-xl font-semibold">Mode of Payment</h2>
+                </div>
+                {
                   businessModeOfPaymentUpdate ?
                     <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessModeOfPaymentUpdate(false)} />
                     :
@@ -1067,12 +1072,12 @@ const BusinessEdit = () => {
                       ? "border-blue-500 text-blue-600"
                       : "border-gray-300"
                       } ${!businessModeOfPaymentUpdate && "cursor-pointer"}`}
-                     onClick={() => {
-                      !businessModeOfPaymentUpdate && 
-                      handlModeOfPaymentClick(mode);
+                    onClick={() => {
+                      !businessModeOfPaymentUpdate &&
+                        handlModeOfPaymentClick(mode);
                     }}
                     key={index}
-                    
+
                   >
                     {mode}
                   </span>
@@ -1085,11 +1090,11 @@ const BusinessEdit = () => {
             {/* Business Hours # */}
             <div className="mt-6 mb-6">
               <div className="flex justify-between">
-              <div className="flex items-center gap-2">
-                <FiClock className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Business Hours</h2>
-              </div>
-              {
+                <div className="flex items-center gap-2">
+                  <FiClock className="w-6 h-6" />
+                  <h2 className="text-xl font-semibold">Business Hours</h2>
+                </div>
+                {
                   businessTimingsUpdate ?
                     <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessTimingsUpdate(false)} />
                     :
@@ -1196,9 +1201,20 @@ const BusinessEdit = () => {
             {/* photos upload with cloudinary */}
 
             <div className="mt-6 mb-6">
-              <div className="flex items-center gap-2">
-                <FiImage className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Gallery Images</h2>
+
+              <div className="flex justify-between">
+                <div className="flex items-center gap-2">
+                  <FiImage className="w-6 h-6" />
+                  <h2 className="text-xl font-semibold">Gallery Images</h2>
+                </div>
+
+                {
+                  businessImagesUpdate ?
+                    <FiEdit2 className="cursor-pointer w-5 h-5" onClick={() => setBusinessImagesUpdate(false)} />
+                    :
+                    <FiX className="cursor-pointer w-5 h-5 text-red-500" onClick={() => setBusinessImagesUpdate(true)} />
+                }
+
               </div>
 
               <div className="mt-6">
@@ -1207,45 +1223,88 @@ const BusinessEdit = () => {
                     <span>{images.length} Images Added</span>
                   )}
 
-                  <label
-                    htmlFor="image"
-                    className="cursor-pointer mt-2 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      multiple
-                      className=" py-2 px-4 bg-gray-200 text-gray-700 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      style={{ display: "none" }}
-                    />
-                    {images.length > 0 ? "Add Another" : "Add Image"}
-                  </label>
+
+
 
                   <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
-                    {imagesToShow.map((image, index) => (
-                      <div className="relative rounded-xl w-full" key={index}>
-                        <img
-                          key={index}
-                          src={image}
-                          alt={`Selected Image ${index}`}
-                          className="object-cover h-full rounded-xl"
-                        />
-                        <FiX
-                          className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
-                          onClick={() => {
-                            setImages((prev) =>
-                              prev.filter((_, i) => i !== index)
-                            );
-                            setImagesToShow((prev) =>
-                              prev.filter((_, i) => i !== index)
-                            );
-                          }}
-                        />
-                      </div>
-                    ))}
+                    {
+                      businessDetails.photosGallery.map((image, index) => (
+                        <div className="relative rounded-xl w-full" key={index}>
+                          <img
+                            key={index}
+                            src={image}
+                            alt={`Selected Image ${index}`}
+                            className="object-cover h-full rounded-xl"
+                          />
+
+                          {!businessImagesUpdate &&
+                            <FiX
+                              className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+                              onClick={() => {
+                                setImages((prev) =>
+                                  prev.filter((_, i) => i !== index)
+                                );
+                                setImagesToShow((prev) =>
+                                  prev.filter((_, i) => i !== index)
+                                );
+                              }}
+                            />
+                          }
+
+
+                        </div>
+                      ))
+                    }
+                    {images &&
+                      imagesToShow.map((image, index) => (
+                        <div className="relative rounded-xl w-full" key={index}>
+                          <img
+                            key={index}
+                            src={image}
+                            alt={`Selected Image ${index}`}
+                            className="object-cover h-full rounded-xl"
+                          />
+                          <FiX
+                            className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+                            onClick={() => {
+                              setImages((prev) =>
+                                prev.filter((_, i) => i !== index)
+                              );
+                              setImagesToShow((prev) =>
+                                prev.filter((_, i) => i !== index)
+                              );
+                            }}
+                          />
+                        </div>
+                      ))
+
+                    }
+
+
+
+
                   </div>
+
+
+                  {!businessImagesUpdate &&
+
+                    <label
+                      htmlFor="image"
+                      className="cursor-pointer mt-2 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        multiple
+                        className=" py-2 px-4 bg-gray-200 text-gray-700 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        style={{ display: "none" }}
+                      />
+                      {images.length > 0 ? "Add Another" : "Add Image"}
+                    </label>
+
+                  }
 
                   {images.length > 0 && (
                     <button className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleImagesUpload}>
