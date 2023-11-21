@@ -1,7 +1,16 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { FiCrosshair, FiHardDrive, FiNavigation } from "react-icons/fi";
 
 function HomeHero(props) {
+
+
+  const [banner, setBanner] = useState({image : ""});
+
+
+
+
+
   const mainCategories = [
     "Food & Beverage",
     "Health & Wellness",
@@ -35,6 +44,25 @@ function HomeHero(props) {
 
 
   ]
+
+  const fetchBanner = async () => {
+    try{
+        const res = await axios.get("http://localhost:8000/api/banner")
+        console.log(res.data[0].image)
+        setBanner(res.data[0])
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+useEffect(() => {
+    fetchBanner()
+}, [])
+
+
+
+
   return (
     <div className="bg-white flex flex-col">
       <div className="justify-center items-center self-stretch flex w-full flex-col px-5 max-md:max-w-full">
@@ -43,7 +71,7 @@ function HomeHero(props) {
       <div className="flex-col overflow-hidden self-stretch relative flex min-h-[576px] w-full items-center px-5 py-12 max-md:max-w-full">
         <img
           loading="lazy"
-          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/aa55cdf7-3d59-498c-9364-d7fe67095116?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
+          src={banner.image}
           className="absolute h-full w-full object-cover object-center inset-0"
         />
         <div className="relative flex w-full max-w-[1195px] flex-col mt-12 mb-10 max-md:max-w-full max-md:my-10">
@@ -76,7 +104,7 @@ function HomeHero(props) {
           <div className="flex items-center justify-center flex-wrap gap-5 mt-10">
             {
               mainCategories.map((category, index) => (
-                <div className="text-white text-center text-base font-semibold bg-blue-600 px-5 py-2 rounded-full">
+                <div key={index} className="text-white text-center text-base font-semibold bg-blue-600 px-5 py-2 rounded-full">
                   {category}
                 </div>
               ))

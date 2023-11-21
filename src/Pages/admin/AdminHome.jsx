@@ -194,7 +194,7 @@
 
 
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiEdit2, FiPlus, FiUpload, FiUploadCloud, FiX } from 'react-icons/fi';
 
 const CategoryInput = ({ onRemove, onImageChange, onUpdateCategory }) => {
@@ -274,9 +274,29 @@ const CategoryInput = ({ onRemove, onImageChange, onUpdateCategory }) => {
 };
 
 const AdminHome = () => {
+    const [banner, setBanner] = useState({ image: "" });
     const [categories, setCategories] = useState([{ name: '', image: null }]);
     const [bannerImage, setBannerImage] = useState(null);
     const [bannerImageToShow, setBannerImageToShow] = useState(null);
+
+
+    const fetchBanner = async () => {
+        try {
+            const res = await axios.get("http://localhost:8000/api/banner")
+            const bannerUrl = res.data[0].image
+            console.log(bannerUrl)
+            // setBannerImage(bannerUrl)
+            // setBannerImageToShow(bannerUrl)
+            setBanner(res.data[0])
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        fetchBanner()
+    }, [])
 
     const handleBannerImageChange = (e) => {
         const file = e.target.files[0];
@@ -303,7 +323,7 @@ const AdminHome = () => {
     };
 
     const handleBannerUpload = async () => {
-        try{
+        try {
             const imageData = new FormData()
             imageData.append('file', bannerImage)
             imageData.append("upload_preset", "ml_default")
@@ -317,17 +337,39 @@ const AdminHome = () => {
 
             return bannerImageUrl
         }
-        catch(err){
+        catch (err) {
             console.log(err)
         }
 
 
     }
 
+
+    console.log(banner._id)
+
     const handleBannerSubmit = async () => {
 
         const bannerImageUrl = await handleBannerUpload()
         console.log(bannerImageUrl)
+
+        try {
+            const bannerData = {
+                image: bannerImageUrl
+            }
+
+            if (banner.image) {
+                const res = await axios.put(`http://localhost:8000/api/banner/${banner._id}`, {image: bannerImageUrl})
+                console.log(res.data)
+            }
+            else {
+                const res = await axios.post("http://localhost:8000/api/banner/add", bannerData)
+                console.log(res.data)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     console.log(bannerImage)
@@ -344,7 +386,7 @@ const AdminHome = () => {
                 {!bannerImage && (
                     <label
                         htmlFor="bannerImage"
-                        className="flex flex-col gap-3 cursor-pointer text-white bg-blue-500 w-fit py-3 px-4 rounded-xl"
+                        className="flex flex-col gap-3 cursor-pointer text-white bg-blue-500 w-fit py-3 px-4 rounded-xl mb-6"
                     >
                         <div className="flex items-center gap-2">
                             <FiPlus className="w-6 h-6" />
@@ -359,9 +401,9 @@ const AdminHome = () => {
                         />
                     </label>
                 )}
-                {bannerImage &&
+                {banner.image &&
                     <div className='relative'>
-                        <img src={bannerImageToShow} alt=""
+                        <img src={bannerImageToShow ? bannerImageToShow : banner.image} alt=""
                             className="w-full h-auto object-cover aspect-[16/8] rounded-xl"
                         />
                         <div className='gradient-overlay-top rounded-xl'></div>
@@ -369,18 +411,22 @@ const AdminHome = () => {
                             <div className='cursor-pointer p-3 rounded-full bg-white'>
                                 <label htmlFor="bannerImageEdit" className='cursor-pointer'>
                                     <FiEdit2 className='text-2xl' />
-                                    <input type="file" id="bannerImageEdit" className='hidden' onChange={handleBannerImageChange}/>
+                                    <input type="file" id="bannerImageEdit" className='hidden' onChange={handleBannerImageChange} />
                                 </label>
                             </div>
 
-                            <div className='cursor-pointer p-3 rounded-full bg-white text-red-500' onClick={() => { setBannerImage(null); setBannerImageToShow(null) }}>
-                                <FiX className='text-2xl'/>
-                            </div>
+
+                            {bannerImage &&
+                                <div className='cursor-pointer p-3 rounded-full bg-white text-red-500' onClick={() => { setBannerImage(null); setBannerImageToShow(null) }}>
+                                    <FiX className='text-2xl' />
+                                </div>}
                         </div>
                     </div>
+
+
                 }
 
-                { bannerImage &&
+                {bannerImage &&
 
                     <button className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleBannerSubmit}>
                         <FiUploadCloud className="w-6 h-6" />
