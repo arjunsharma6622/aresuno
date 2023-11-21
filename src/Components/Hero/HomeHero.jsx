@@ -1,10 +1,44 @@
 import React from "react";
+import { FiCrosshair, FiHardDrive, FiNavigation } from "react-icons/fi";
 
 function HomeHero(props) {
+  const mainCategories = [
+    "Food & Beverage",
+    "Health & Wellness",
+    "Fashion & Clothing",
+    "Home & Decor",
+    "Automotive",
+    "Technology",
+    "Beauty & Personal Care",
+    "Sports & Fitness",
+    "Travel & Tourism",
+    "Education & Learning",
+  ]
+
+  const services = [
+    {
+      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
+      name: "Cleaning Service",
+      totalServices: "10",
+
+    },
+    {
+      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
+      name: "Washing Service",
+      totalServices: "10",
+    },
+    {
+      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
+      name: "Washing Service",
+      totalServices: "10",
+    }
+
+
+  ]
   return (
     <div className="bg-white flex flex-col">
       <div className="justify-center items-center self-stretch flex w-full flex-col px-5 max-md:max-w-full">
- 
+
       </div>
       <div className="flex-col overflow-hidden self-stretch relative flex min-h-[576px] w-full items-center px-5 py-12 max-md:max-w-full">
         <img
@@ -20,81 +54,35 @@ function HomeHero(props) {
             Search from 1000+ Services
           </div>
           <div className="bg-white self-stretch flex w-full items-center justify-between gap-5 mt-20 pl-11 pr-6 py-3 rounded-[60px] max-md:max-w-full max-md:flex-wrap max-md:mt-10 max-md:px-5">
-            <div className="flex items-stretch gap-5 my-auto">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/954d5432-db85-442a-8f54-5032e2138a2e?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                className="aspect-square object-contain object-center w-[30px] overflow-hidden shrink-0 max-w-full"
-              />
-              <div className="text-stone-500 text-lg leading-7 tracking-wide grow whitespace-nowrap mt-2 self-start">
-                What are you looking for?
-              </div>
+
+            <div className="w-full flex px-5 py-3 rounded-full items-center gap-5">
+              <FiHardDrive />
+              <input className="text-stone-500 focus:outline-none text-base" placeholder="What are you looking for?
+"/>
             </div>
-            <div className="self-stretch flex items-stretch justify-between gap-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/baa2eb3c-49fc-4929-ae53-03628729bc9b?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                className="aspect-[0.04] object-contain object-center w-0.5 stroke-[2px] stroke-stone-500 overflow-hidden shrink-0 max-w-full"
-              />
-              <div className="items-stretch self-center flex gap-5 my-auto">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba40d504-ea0d-4280-a215-e2e83426d53e?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                  className="aspect-square object-contain object-center w-[30px] overflow-hidden shrink-0 max-w-full"
-                />
-                <div className="text-stone-500 text-lg leading-7 tracking-wide grow whitespace-nowrap self-start">
-                  Your Location
-                </div>
-              </div>
+            <div className="w-full flex px-5 py-3 rounded-full items-center gap-5">
+              <FiNavigation />
+              <input className="text-stone-500 focus:outline-none text-base" placeholder="Your location
+"/>
+              <FiCrosshair className="w-6 h-6 text-gray-500" />
             </div>
-            <div className="self-stretch flex items-center justify-between gap-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/5a6a871c-22fb-4a21-aed6-2d26ca1d300f?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full my-auto"
-              />
-              <div className="text-white text-lg font-semibold leading-7 tracking-wide whitespace-nowrap justify-center items-center bg-blue-600 self-stretch grow px-5 py-5 rounded-[40px]">
+
+            <div className="flex items-center">
+              <button className="text-base py-4 text-white rounded-full px-10 bg-blue-600">
                 Search
-              </div>
+              </button>
             </div>
           </div>
-          <div className="justify-between items-stretch self-center flex w-full max-w-[1120px] gap-5 mt-12 max-md:max-w-full max-md:flex-wrap max-md:justify-center max-md:mt-10">
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Car Repair Services
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              AC Repairs
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Packers and Movers
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Interior Designers
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Photographer
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Photographer
-            </div>
+          <div className="flex items-center justify-center flex-wrap gap-5 mt-10">
+            {
+              mainCategories.map((category, index) => (
+                <div className="text-white text-center text-base font-semibold bg-blue-600 px-5 py-2 rounded-full">
+                  {category}
+                </div>
+              ))
+            }
           </div>
-          <div className="items-stretch self-center flex w-full max-w-[1051px] justify-between gap-5 mt-7 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Wedding Card Printing
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Event Organizers
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Nutritionitists & Dieticians
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              Banquet Halls
-            </div>
-            <div className="text-white text-base font-semibold leading-6 tracking-wide whitespace-nowrap justify-center items-stretch bg-blue-600 grow px-5 py-2 rounded-[31px]">
-              CA for Business
-            </div>
-          </div>
+
         </div>
       </div>
       <div className="text-black text-center text-xl font-semibold leading-8 self-center whitespace-nowrap mt-24 max-md:mt-10">
@@ -110,98 +98,46 @@ function HomeHero(props) {
       <div className="self-center w-full max-w-[1314px] mt-16 max-md:max-w-full max-md:mt-10">
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
           <div className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
-            <div className="justify-center items-center border flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
+            <div className="justify-center items-center flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
               <div className="text-black text-xl font-semibold leading-8 tracking-wide whitespace-nowrap">
                 HOME SERVICES
               </div>
-              <div className="self-stretch mt-10 max-md:max-w-full">
-                <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                  <div className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col shadow-sm overflow-hidden relative flex aspect-[1.5235294117647058] w-full items-stretch">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
-                        />
-                        <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
-                          <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
-                            30 Services
+              <div className="w-full self-stretch mt-10 max-md:max-w-full">
+                <div className="grid grid-cols-2 w-full gap-4 gap-y-7">
+
+
+
+                  {services.map((service, index) => (
+                    <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
+                      <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
+                        <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch">
+                          <img
+                            loading="lazy"
+                            srcSet={service.image}
+                          />
+                          <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
+                            {service.totalServices} Services
                           </div>
                         </div>
-                      </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        Cleaning Service
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-stretch w-6/12 ml-5 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col shadow-sm overflow-hidden relative flex aspect-[1.5235294117647058] w-full items-stretch">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
-                        />
-                        <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
-                          <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
-                            30 Services
-                          </div>
+                        <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
+                          {service.name}
                         </div>
                       </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        Repair Service
-                      </div>
                     </div>
-                  </div>
+
+                  ))}
+
+
+
+
+
                 </div>
               </div>
-              <div className="self-stretch mt-11 max-md:max-w-full max-md:mt-10">
-                <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                  <div className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col shadow-sm overflow-hidden relative flex aspect-[1.5235294117647058] w-full items-stretch">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/0d2744f2-9e2a-42d0-8190-274e3f8565d5?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/0d2744f2-9e2a-42d0-8190-274e3f8565d5?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0d2744f2-9e2a-42d0-8190-274e3f8565d5?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/0d2744f2-9e2a-42d0-8190-274e3f8565d5?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/0d2744f2-9e2a-42d0-8190-274e3f8565d5?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0d2744f2-9e2a-42d0-8190-274e3f8565d5?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/0d2744f2-9e2a-42d0-8190-274e3f8565d5?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/0d2744f2-9e2a-42d0-8190-274e3f8565d5?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
-                        />
-                        <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
-                          <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
-                            30 Services
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        Decor Service
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-stretch w-6/12 ml-5 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col shadow-sm overflow-hidden relative flex aspect-[1.5235294117647058] w-full items-stretch">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/976dacb9-78cf-4a35-a010-1fc6a8eceafe?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/976dacb9-78cf-4a35-a010-1fc6a8eceafe?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/976dacb9-78cf-4a35-a010-1fc6a8eceafe?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/976dacb9-78cf-4a35-a010-1fc6a8eceafe?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/976dacb9-78cf-4a35-a010-1fc6a8eceafe?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/976dacb9-78cf-4a35-a010-1fc6a8eceafe?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/976dacb9-78cf-4a35-a010-1fc6a8eceafe?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/976dacb9-78cf-4a35-a010-1fc6a8eceafe?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
-                        />
-                        <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
-                          <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
-                            30 Services
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        Gardening Service
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
           <div className="flex flex-col items-stretch w-6/12 ml-5 max-md:w-full max-md:ml-0">
-            <div className="justify-center items-center border flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
+            <div className="justify-center items-center flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
               <div className="text-black text-xl font-semibold leading-8 tracking-wide whitespace-nowrap">
                 HEALTH & WELLNESS
               </div>
@@ -213,7 +149,7 @@ function HomeHero(props) {
                         <img
                           loading="lazy"
                           srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
+                          className="absolute  h-full w-full object-cover object-center inset-0"
                         />
                         <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
                           <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
@@ -232,7 +168,7 @@ function HomeHero(props) {
                         <img
                           loading="lazy"
                           srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
+                          className="absolute  h-full w-full object-cover object-center inset-0"
                         />
                         <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
                           <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
@@ -255,7 +191,7 @@ function HomeHero(props) {
                         <img
                           loading="lazy"
                           srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
+                          className="absolute  h-full w-full object-cover object-center inset-0"
                         />
                         <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
                           <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
@@ -274,7 +210,7 @@ function HomeHero(props) {
                         <img
                           loading="lazy"
                           srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute z-[-1] h-full w-full object-cover object-center inset-0"
+                          className="absolute  h-full w-full object-cover object-center inset-0"
                         />
                         <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
                           <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">

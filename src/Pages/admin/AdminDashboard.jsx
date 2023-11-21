@@ -24,9 +24,10 @@ import {
     AiOutlineAppstoreAdd,
     AiOutlineUser,
 } from "react-icons/ai";
-import { FiDelete, FiEdit, FiExternalLink, FiEye, FiEyeOff, FiLink, FiLock, FiStar, FiTrash2, FiUsers, FiX } from "react-icons/fi";
+import { FiDelete, FiEdit, FiExternalLink, FiEye, FiEyeOff, FiHome, FiLink, FiLock, FiStar, FiTrash2, FiUsers, FiX } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import AdminHome from "./AdminHome";
 
 
 
@@ -226,7 +227,7 @@ const AdminDashboard = () => {
     const [businesses, setBusinesses] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [selectedField, setSelectedField] = useState("allVendors");
+    const [selectedField, setSelectedField] = useState("adminHome");
 
 
     const handleSelectedField = (field) => {
@@ -287,6 +288,21 @@ const AdminDashboard = () => {
                 <div className="flex flex-col gap-10 w-full">
                     <div className="flex items-center gap-4">
                         <h2 className="text-2xl font-semibold">ARESUNO ADMIN</h2>
+                    </div>
+
+                    <div className="text-sm flex flex-col gap-6 w-full">
+                        <div
+                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "adminHome"
+                                ? "text-blue-500"
+                                : "text-gray-700"
+                                }`}
+                            onClick={() => handleSelectedField("adminHome")}
+                        >
+                            <FiHome className="w-6 h-6" />
+                            <span className="">Home</span>
+                        </div>
+
+
                     </div>
 
                     <div className="text-sm flex flex-col gap-6 w-full">
@@ -356,6 +372,7 @@ const AdminDashboard = () => {
                                 {selectedField === "allBusinesses" && <AllBusiness businesses={businesses} />}
                                 {selectedField === "allUsers" && <AllUsers users={users} />}
                                 {selectedField === "allVendors" && <AllVendors users={vendors} />}
+                                {selectedField === "adminHome" && <AdminHome />}
                             </div>
                         )}
                     </div>
