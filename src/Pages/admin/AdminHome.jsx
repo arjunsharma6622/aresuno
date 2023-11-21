@@ -282,7 +282,7 @@ const AdminHome = () => {
 
     const fetchBanner = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/banner")
+            const res = await axios.get("https://aresuno-server.vercel.app/api/banner")
             const bannerUrl = res.data[0].image
             console.log(bannerUrl)
             // setBannerImage(bannerUrl)
@@ -358,11 +358,11 @@ const AdminHome = () => {
             }
 
             if (banner.image) {
-                const res = await axios.put(`http://localhost:8000/api/banner/${banner._id}`, {image: bannerImageUrl})
+                const res = await axios.put(`https://aresuno-server.vercel.app/api/banner/${banner._id}`, {image: bannerImageUrl})
                 console.log(res.data)
             }
             else {
-                const res = await axios.post("http://localhost:8000/api/banner/add", bannerData)
+                const res = await axios.post("https://aresuno-server.vercel.app/api/banner/add", bannerData)
                 console.log(res.data)
             }
 

@@ -47,7 +47,7 @@ function HomeHero(props) {
 
   const fetchBanner = async () => {
     try{
-        const res = await axios.get("http://localhost:8000/api/banner")
+        const res = await axios.get("https://aresuno-server.vercel.app/api/banner")
         console.log(res.data[0].image)
         setBanner(res.data[0])
     }
