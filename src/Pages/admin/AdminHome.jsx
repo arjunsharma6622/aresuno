@@ -193,6 +193,7 @@
 
 
 
+import axios from 'axios';
 import React, { useState } from 'react';
 import { FiEdit2, FiPlus, FiUpload, FiUploadCloud, FiX } from 'react-icons/fi';
 
@@ -301,8 +302,32 @@ const AdminHome = () => {
         );
     };
 
-    const handleBannerUpload = () => {
+    const handleBannerUpload = async () => {
+        try{
+            const imageData = new FormData()
+            imageData.append('file', bannerImage)
+            imageData.append("upload_preset", "ml_default")
+            imageData.append("folder", "aresuno/banner")
 
+            const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", imageData)
+
+            console.log(uploadResponse.data.secure_url)
+
+            const bannerImageUrl = uploadResponse.data.secure_url
+
+            return bannerImageUrl
+        }
+        catch(err){
+            console.log(err)
+        }
+
+
+    }
+
+    const handleBannerSubmit = async () => {
+
+        const bannerImageUrl = await handleBannerUpload()
+        console.log(bannerImageUrl)
     }
 
     console.log(bannerImage)
@@ -357,7 +382,7 @@ const AdminHome = () => {
 
                 { bannerImage &&
 
-                    <button className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleBannerUpload}>
+                    <button className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleBannerSubmit}>
                         <FiUploadCloud className="w-6 h-6" />
                         Upload Banner
                     </button>
