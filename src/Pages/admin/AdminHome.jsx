@@ -3,23 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { FiEdit2, FiImage, FiPlus, FiUpload, FiUploadCloud, FiX } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-const CategoryInput = ({ onRemove, onImageChange, onUpdateCategory }) => {
+const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => {
     const [category, setCategory] = useState({ name: '', image: null });
     const [imageToShow, setImageToShow] = useState(null);
-
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         const imageUrl = URL.createObjectURL(file);
         setCategory((prevCategory) => ({ ...prevCategory, image: file }));
         setImageToShow(imageUrl);
-        onImageChange({ ...category, image: file });
+        onImageChange(index, file);
     };
 
     const handleCategoryNameChange = (e) => {
         const categoryName = e.target.value;
         setCategory((prevCategory) => ({ ...prevCategory, name: categoryName }));
-        onUpdateCategory(categoryName);
+        onUpdateCategory(index, categoryName);
     };
 
     return (
@@ -90,6 +89,8 @@ const AdminHome = () => {
 
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isCategoryLoading, setIsCategoryLoading] = useState(false);
+
 
 
 
@@ -135,8 +136,20 @@ const AdminHome = () => {
         );
     };
 
+
+    const updateCategoryName = (index, name) => {
+        setCategories((prevCategories) =>
+            prevCategories.map((cat, i) =>
+                i === index ? { ...cat, name: name } : cat
+            )
+        );
+    };
+
+
     const handleBannerUpload = async () => {
         try {
+
+
             const imageData = new FormData()
             imageData.append('file', bannerImage)
             imageData.append("upload_preset", "ml_default")
@@ -167,6 +180,8 @@ const AdminHome = () => {
         const bannerImageUrl = await handleBannerUpload()
         console.log(bannerImageUrl)
 
+
+
         try {
             const bannerData = {
                 image: bannerImageUrl
@@ -192,14 +207,144 @@ const AdminHome = () => {
         }
     }
 
-    console.log(bannerImage)
 
 
     console.log(categories)
 
+    // const uploadAllCategoryImages = async () => {
 
-    const handleAddCategories = () => {
+    //     try{
+    //         categories.forEach(async (category) => {
+
+    //             console.log(category.image)
+
+
+    //             const imageData = new FormData()
+    //             imageData.append('file', category)    
+    //             imageData.append("upload_preset", "ml_default")
+    //             imageData.append("folder", "aresuno/category")
+
+    //             const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", imageData)
+    //             const imageUrl = uploadResponse.data.secure_url
+    //             setCategories((prevCategories) =>
+    //                 prevCategories.map((cat) =>
+    //                     cat.name === category.name ? { ...cat, image: imageUrl } : cat
+    //                 )
+    //             );
+
+    //         })
+    //     }
+    //     catch(err){
+    //         console.log(err)
+    //     }
+
+    // }
+
+
+    // const uploadAllCategoryImages = async () => {
+    //     setIsCategoryLoading(true)
+
+    //     var imgUrls = []
+
+    //     try {
+    //         const uploadPromises = categories.map(async (category) => {
+    //             if (category.image) {
+    //                 const img = category.image
+    //                 const imageData = new FormData();
+    //                 imageData.append('file', img);
+    //                 imageData.append('upload_preset', 'ml_default');
+    //                 imageData.append('folder', 'aresuno/category');
+
+    //                 const uploadResponse = await axios.post(
+    //                     'https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload',
+    //                     imageData
+    //                 );
+
+    //                 const imageUrl = uploadResponse.data.secure_url;
+    //                 return { ...category, image: imageUrl };
+    //             }
+    //             return category;
+    //         });
+
+    //         const updatedCategories = await Promise.all(uploadPromises);
+
+    //         setCategories(updatedCategories);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // };
+
+
+    const uploadAllCategoryImages = async () => {
+        setIsCategoryLoading(true);
+    
+        var imgUrls = [];
+    
+        try {
+            const uploadPromises = categories.map(async (category) => {
+                if (category.image) {
+                    const img = category.image;
+                    const imageData = new FormData();
+                    imageData.append('file', img);
+                    imageData.append('upload_preset', 'ml_default');
+                    imageData.append('folder', 'aresuno/category');
+    
+                    const uploadResponse = await axios.post(
+                        'https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload',
+                        imageData
+                    );
+    
+                    const imageUrl = uploadResponse.data.secure_url;
+                    imgUrls.push(imageUrl);
+                    return { ...category, image: imageUrl };
+                }
+                return category;
+            });
+    
+            await Promise.all(uploadPromises);
+    
+            return imgUrls; // Return the array of image URLs
+        } catch (err) {
+            console.log(err);
+            return []; // Return an empty array in case of an error
+        } finally {
+            setIsCategoryLoading(false);
+        }
+    };
+    
+
+
+    const handleAddCategories = async () => {
+
+        const imgUrls = await uploadAllCategoryImages()
+
         
+        console.log(imgUrls)
+
+        try {
+
+            const updatedCategories = categories.map((category, index) => {
+                return { ...category, image: imgUrls[index] };
+            })
+
+            const res = await axios.post("http://localhost:8000/api/category/add", updatedCategories)
+            console.log(res.data)
+            toast.success("Categories added successfully")
+
+            setIsCategoryLoading(false)
+            setCategories([])
+
+
+        }
+        catch (err) {
+            setIsCategoryLoading(false)
+
+            console.log(err)
+            toast.error("Categories add failed")
+
+        }
+
+
     }
     return (
         <div className='flex flex-col gap-4'>
@@ -295,9 +440,10 @@ const AdminHome = () => {
                         {categories.map((category, index) => (
                             <CategoryInput
                                 key={index}
+                                index={index}
                                 onRemove={() => removeCategory(index)}
-                                onImageChange={(image) => updateCategory(index, { image })}
-                                onUpdateCategory={(name) => updateCategory(index, { name })}
+                                onImageChange={(index, image) => updateCategory(index, { image })}
+                                onUpdateCategory={(index, name) => updateCategoryName(index, name)}
                             />
                         ))}
                         <button
@@ -309,7 +455,22 @@ const AdminHome = () => {
                     </div>
 
                     <button className="mt-6 text-center  w-full py-2 px-4 bg-blue-500 flex items-center justify-center gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleAddCategories}>
-                        Add all categories
+                        {
+                            isCategoryLoading &&
+                            <div
+                                class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                role="status"
+                            >
+                                <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                    Loading...
+                                </span>
+                            </div>
+
+                        }
+
+                        {
+                            isCategoryLoading ? "Uploading..." : "Upload Categories"
+                        }
                     </button>
                 </div>
 
