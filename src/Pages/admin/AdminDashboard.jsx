@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { BiDollar, BiSolidBusiness } from "react-icons/bi";
+import { BiCategory, BiDollar, BiSolidBusiness } from "react-icons/bi";
 import { BsPeopleFill, BsStarFill } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import {
@@ -220,6 +220,39 @@ const AllVendors = ({users}) => {
 
 
 
+
+
+const AllCategories = ({categories}) => {
+ 
+
+    return (
+        <div>
+
+<h1 className="text-2xl font-medium">All the categories present</h1>
+
+                <div className="mt-6 rounded-xl grid grid-cols-3 gap-4">
+
+
+                    {categories.map((category, index) => (
+                        <div key={index} className="bg-white border rounded-xl p-5 py-6 relative justify-start flex gap-10 items-center">
+                            <div className="w-24 h-24">
+                                <img src={category.image} alt="" className="w-full h-full object-cover"/>
+                            </div>
+                            <div>
+                                <h1 className="text-lg font-medium">{category.name}</h1>
+                            </div>
+                            
+                        </div>
+                        ))}
+
+                </div>
+
+        </div>
+    );
+};
+
+
+
 const AdminDashboard = () => {
 
     const [users, setUsers] = useState([]);
@@ -277,9 +310,23 @@ const AdminDashboard = () => {
         }
     }
 
+    const [categories, setCategories] = useState([]);
+
+    const fetchAllCategories = async () => {
+        try{
+            const res = await axios.get("https://aresuno-server.vercel.app/api/category/")
+            const categories = res.data
+            setCategories(categories)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
     useEffect(() => {
         fetchBusinessesData();
         fetchUsersData();
+        fetchAllCategories()
     }, []);
 
     return (
@@ -348,6 +395,21 @@ const AdminDashboard = () => {
                         </div>
 
                     </div>
+
+
+                    <div className="text-sm flex flex-col gap-6 w-full">
+                        <div
+                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "allCategories"
+                                ? "text-blue-500"
+                                : "text-gray-700"
+                                }`}
+                            onClick={() => handleSelectedField("allCategories")}
+                        >
+                            <BiCategory className="w-6 h-6" />
+                            <span className="">All Categories</span>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div className="w-full">
@@ -373,6 +435,7 @@ const AdminDashboard = () => {
                                 {selectedField === "allUsers" && <AllUsers users={users} />}
                                 {selectedField === "allVendors" && <AllVendors users={vendors} />}
                                 {selectedField === "adminHome" && <AdminHome />}
+                                {selectedField === "allCategories" && <AllCategories categories={categories}/>}
                             </div>
                         )}
                     </div>
