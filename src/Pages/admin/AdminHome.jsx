@@ -327,7 +327,7 @@ const AdminHome = () => {
                 return { ...category, image: imgUrls[index] };
             })
 
-            const res = await axios.post("http://localhost:8000/api/category/add", updatedCategories)
+            const res = await axios.post("https://aresuno-server.vercel.app/api/category/add", updatedCategories)
             console.log(res.data)
             toast.success("Categories added successfully")
 
