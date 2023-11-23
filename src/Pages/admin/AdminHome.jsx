@@ -1,205 +1,12 @@
-// import React, { useState } from 'react'
-// import { FiPlus, FiX } from 'react-icons/fi';
-
-// const AdminHome = () => {
-//     const [image, setImage] = useState(null);
-//     const [imageToShow, setImageToShow] = useState(null);
-//     const handleImageChange = (e) => {
-//         const file = e.target.files[0];
-//         setImage(file);
-//         setImageToShow(URL.createObjectURL(file))
-//     }
-
-//     return (
-//         <div>
-
-//             <div className="">
-//                 <h2 className="text-2xl font-semibold mb-6">Banner</h2>
-
-//                 <div>
-
-//                 </div>
-//             </div>
-
-//             <div className="w-1/2">
-//                 <h2 className="text-2xl font-semibold mb-6">Categories</h2>
-
-//                 <div className='flex flex-col gap-5'>
-
-//                     <label htmlFor="" className='flex flex-col gap-3'>
-//                         Category Name
-//                         <input type="text" className='border py-1 px-4 focus:outline-none' />
-//                     </label>
-
-// { !image &&
-//                     <label htmlFor="categoryImage" className='flex flex-col gap-3 cursor-pointer text-white bg-blue-500 w-fit py-3 px-4 rounded-xl'>
-//                         <div className='flex items-center gap-2'>
-//                         <FiPlus className='w-6 h-6'/>
-//                         Add Image
-//                         </div>
-//                         <input type="file" id='categoryImage' multiple={false} className='hidden' onChange={handleImageChange} />
-//                     </label>
-
-// }
-
-//                     {
-//                         image && (
-//                             <div className='relative w-64'>
-//                                 <img src={imageToShow} alt="" className='' />
-//                                 <FiX
-//                                     className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
-//                                     onClick={() => {
-//                                         setImage(null);
-//                                         setImageToShow(null);
-//                                     }}
-//                                 />
-//                             </div>
-//                         )
-//                     }
-
-
-//                     <button className='bg-blue-600 rounded-xl text-white w-full py-2 px-5'>Add anoter</button>
-
-//                 </div>
-//             </div>
-
-//         </div>
-//     )
-// }
-
-// export default AdminHome
-
-
-
-
-
-// import React, { useState } from 'react';
-// import { FiPlus, FiX } from 'react-icons/fi';
-
-// const CategoryInput = ({ onRemove, onImageChange }) => {
-//   const [categoryName, setCategoryName] = useState('');
-//   const [image, setImage] = useState(null);
-//   const [imageToShow, setImageToShow] = useState(null);
-
-//   const handleImageChange = (e) => {
-//     const file = e.target.files[0];
-//     setImage(file);
-//     setImageToShow(URL.createObjectURL(file));
-//     onImageChange(file);
-//   };
-
-//   return (
-//     <div className="flex flex-col gap-5">
-//       <div className="flex items-center justify-between">
-//         <label htmlFor="" className="flex flex-col gap-3">
-//           Category Name
-//           <input
-//             type="text"
-//             value={categoryName}
-//             onChange={(e) => setCategoryName(e.target.value)}
-//             className="border py-1 px-4 focus:outline-none"
-//           />
-//         </label>
-//         {onRemove && (
-//           <button
-//             onClick={onRemove}
-//             className="text-red-500 hover:text-red-700 focus:outline-none"
-//           >
-//             Remove
-//           </button>
-//         )}
-//       </div>
-
-//       {!image && (
-//         <label
-//           htmlFor="categoryImage"
-//           className="flex flex-col gap-3 cursor-pointer text-white bg-blue-500 w-fit py-3 px-4 rounded-xl"
-//         >
-//           <div className="flex items-center gap-2">
-//             <FiPlus className="w-6 h-6" />
-//             Add Image
-//           </div>
-//           <input
-//             type="file"
-//             id="categoryImage"
-//             multiple={false}
-//             className="hidden"
-//             onChange={handleImageChange}
-//           />
-//         </label>
-//       )}
-
-//       {image && (
-//         <div className="relative w-64">
-//           <img src={imageToShow} alt="" className="" />
-//           <FiX
-//             className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
-//             onClick={() => {
-//               setImage(null);
-//               setImageToShow(null);
-//             }}
-//           />
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// const AdminHome = () => {
-//   const [categories, setCategories] = useState([{ id: 1 }]);
-
-//   const addCategory = () => {
-//     const newCategory = { id: Date.now() };
-//     setCategories((prevCategories) => [...prevCategories, newCategory]);
-//   };
-
-//   const removeCategory = (categoryId) => {
-//     setCategories((prevCategories) => prevCategories.filter((cat) => cat.id !== categoryId));
-//   };
-
-//   return (
-//     <div>
-//       {/* ... (Your existing code) ... */}
-
-//       <div className="w-1/2">
-//         <h2 className="text-2xl font-semibold mb-6">Categories</h2>
-
-//         <div className="flex flex-col gap-5">
-//           {categories.map((category, index) => (
-//             <CategoryInput
-//               key={category.id}
-//               onRemove={() => removeCategory(category.id)}
-//               onImageChange={(file) => {
-//                 // Handle image change here if needed
-//               }}
-//             />
-//           ))}
-//           <button
-//             onClick={addCategory}
-//             className="bg-blue-600 rounded-xl text-white w-full py-2 px-5"
-//           >
-//             Add Another
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminHome;
-
-
-
-
-
-
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { FiEdit2, FiPlus, FiUpload, FiUploadCloud, FiX } from 'react-icons/fi';
+import { FiEdit2, FiImage, FiPlus, FiUpload, FiUploadCloud, FiX } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 const CategoryInput = ({ onRemove, onImageChange, onUpdateCategory }) => {
     const [category, setCategory] = useState({ name: '', image: null });
     const [imageToShow, setImageToShow] = useState(null);
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -216,7 +23,7 @@ const CategoryInput = ({ onRemove, onImageChange, onUpdateCategory }) => {
     };
 
     return (
-        <div className="flex flex-col gap-5">
+        <div className="border rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
             <div className="flex items-center justify-between">
                 <label htmlFor="" className="flex flex-col gap-3">
                     Category Name
@@ -224,27 +31,19 @@ const CategoryInput = ({ onRemove, onImageChange, onUpdateCategory }) => {
                         type="text"
                         value={category.name}
                         onChange={handleCategoryNameChange}
-                        className="border py-1 px-4 focus:outline-none"
+                        className="border rounded-sm py-2 px-6 focus:outline-none"
                     />
                 </label>
-                {onRemove && (
-                    <button
-                        onClick={onRemove}
-                        className="text-red-500 hover:text-red-700 focus:outline-none"
-                    >
-                        Remove
-                    </button>
-                )}
+
             </div>
 
             {!category.image && (
                 <label
                     htmlFor="categoryImage"
-                    className="flex flex-col gap-3 cursor-pointer text-white bg-blue-500 w-fit py-3 px-4 rounded-xl"
+                    className="flex mb-2 flex-col gap-3 cursor-pointer text-gray-500"
                 >
                     <div className="flex items-center gap-2">
-                        <FiPlus className="w-6 h-6" />
-                        Add Image
+                        <FiImage className="w-6 h-6" />
                     </div>
                     <input
                         type="file"
@@ -257,17 +56,27 @@ const CategoryInput = ({ onRemove, onImageChange, onUpdateCategory }) => {
             )}
 
             {category.image && (
-                <div className="relative w-32">
-                    <img src={imageToShow} alt="" className="w-32 h-32 object-cover rounded-xl" />
-                    <FiX
-                        className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+                <div className="relative">
+                    <img src={imageToShow} alt="" className=" w-20 h-20 object-cover rounded-xl" />
+                    {/* <FiEdit2
+                        className="absolute -top-2 -right-2 w-6 h-6 text-black  cursor-pointer"
                         onClick={() => {
                             setCategory((prevCategory) => ({ ...prevCategory, image: null }));
                             setImageToShow(null);
                             onImageChange({ ...category, image: null });
                         }}
-                    />
+                    /> */}
                 </div>
+            )}
+
+
+            {onRemove && (
+                <button
+                    onClick={onRemove}
+                    className="text-red-500 hover:text-red-700 absolute top-3 right-3 focus:outline-none"
+                >
+                    <FiX className="w-5 h-5" />
+                </button>
             )}
         </div>
     );
@@ -278,6 +87,10 @@ const AdminHome = () => {
     const [categories, setCategories] = useState([{ name: '', image: null }]);
     const [bannerImage, setBannerImage] = useState(null);
     const [bannerImageToShow, setBannerImageToShow] = useState(null);
+
+
+    const [isLoading, setIsLoading] = useState(false);
+
 
 
     const fetchBanner = async () => {
@@ -341,13 +154,15 @@ const AdminHome = () => {
             console.log(err)
         }
 
-
     }
 
 
     console.log(banner._id)
 
     const handleBannerSubmit = async () => {
+
+        setIsLoading(true)
+
 
         const bannerImageUrl = await handleBannerUpload()
         console.log(bannerImageUrl)
@@ -358,7 +173,7 @@ const AdminHome = () => {
             }
 
             if (banner.image) {
-                const res = await axios.put(`https://aresuno-server.vercel.app/api/banner/${banner._id}`, {image: bannerImageUrl})
+                const res = await axios.put(`https://aresuno-server.vercel.app/api/banner/${banner._id}`, { image: bannerImageUrl })
                 console.log(res.data)
             }
             else {
@@ -366,9 +181,14 @@ const AdminHome = () => {
                 console.log(res.data)
             }
 
+            setIsLoading(false)
+            toast.success("Banner uploaded successfully")
+
         }
         catch (err) {
             console.log(err)
+            setIsLoading(false)
+            toast.error("Banner upload failed")
         }
     }
 
@@ -376,6 +196,11 @@ const AdminHome = () => {
 
 
     console.log(categories)
+
+
+    const handleAddCategories = () => {
+        
+    }
     return (
         <div className='flex flex-col gap-4'>
 
@@ -383,7 +208,9 @@ const AdminHome = () => {
 
             <div className=" bg-white p-6 rounded-xl">
                 <h2 className="text-2xl font-semibold mb-6">Banner</h2>
-                {!bannerImage && (
+
+
+                {(!bannerImage && !banner.image) && (
                     <label
                         htmlFor="bannerImage"
                         className="flex flex-col gap-3 cursor-pointer text-white bg-blue-500 w-fit py-3 px-4 rounded-xl mb-6"
@@ -401,7 +228,10 @@ const AdminHome = () => {
                         />
                     </label>
                 )}
-                {banner.image &&
+
+
+
+                {(banner.image || bannerImage) &&
                     <div className='relative'>
                         <img src={bannerImageToShow ? bannerImageToShow : banner.image} alt=""
                             className="w-full h-auto object-cover aspect-[16/8] rounded-xl"
@@ -428,9 +258,24 @@ const AdminHome = () => {
 
                 {bannerImage &&
 
-                    <button className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleBannerSubmit}>
-                        <FiUploadCloud className="w-6 h-6" />
-                        Upload Banner
+                    <button className="mt-2 py-2 px-4 bg-blue-500 flex items-center gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleBannerSubmit}>
+                        {
+                            isLoading ?
+                                <div
+                                    class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                    role="status"
+                                >
+                                    <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                        Loading...
+                                    </span>
+                                </div> : <FiUploadCloud className="w-6 h-6" />
+
+                        }
+
+                        {
+                            isLoading ? "Uploading..." : "Upload Banner"
+                        }
+
                     </button>
 
                 }
@@ -443,7 +288,7 @@ const AdminHome = () => {
 
             <div className='flex gap-6'>
 
-                <div className="w-1/2 bg-white p-5 rounded-xl">
+                <div className="w-[70%] bg-white p-5 rounded-xl">
                     <h2 className="text-2xl font-semibold mb-6">Categories</h2>
 
                     <div className="flex flex-col gap-5">
@@ -457,11 +302,15 @@ const AdminHome = () => {
                         ))}
                         <button
                             onClick={addCategory}
-                            className="bg-blue-600 rounded-xl text-white w-full py-2 px-5"
+                            className="bg-blue-600 rounded-xl text-white w-fit py-2 px-5"
                         >
                             Add {categories.length > 0 ? 'Another' : 'New'}
                         </button>
                     </div>
+
+                    <button className="mt-6 text-center  w-full py-2 px-4 bg-blue-500 flex items-center justify-center gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500" onClick={handleAddCategories}>
+                        Add all categories
+                    </button>
                 </div>
 
                 <div className="w-1/2 bg-white p-5 rounded-xl">

@@ -13,7 +13,7 @@ const Header = () => {
     console.log(user)
 
     return (
-        <div className="w-full h-20 flex items-center justify-between px-10">
+        <div className="w-full h-16 flex items-center justify-between px-10">
             <div className="text-blue-600 text-4xl font-semibold">
                 <Link to="/">Aresuno</Link>
             </div>
@@ -37,11 +37,11 @@ const Header = () => {
             {!user.name == "" &&
 
 
-                <div className='flex gap-6'>
+                <div className='flex gap-6 items-center'>
 
-                    <div className="text-blue-600 text-base ">
+                    <div className=" text-base ">
                         <Link to={`/${user.userType}/dashboard/`} className='flex items-center gap-2 cursor-pointer'>                        
-                        <img src={user.image ? user.image : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="" className='w-6 h-6 rounded-full object-cover' />
+                        <img src={user.image ? user.image : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="" className='w-8 h-8 rounded-full object-cover' />
 
                             {user.name}</Link>
                     </div>

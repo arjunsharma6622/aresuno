@@ -65,16 +65,22 @@ useEffect(() => {
 
   return (
     <div className="bg-white flex flex-col">
+
       <div className="justify-center items-center self-stretch flex w-full flex-col px-5 max-md:max-w-full">
 
       </div>
-      <div className="flex-col overflow-hidden self-stretch relative flex min-h-[576px] w-full items-center px-5 py-12 max-md:max-w-full">
+
+
+
+      <div className="relative flex-col overflow-hidden self-stretch flex min-h-[576px] w-full items-center px-5 py-12 max-md:max-w-full">
+
+        <div className="gradient-overlay-top h-48 z[-1]"></div>
         <img
           loading="lazy"
           src={banner.image}
           className="absolute h-full w-full object-cover object-center inset-0"
         />
-        <div className="relative flex w-full max-w-[1195px] flex-col mt-12 mb-10 max-md:max-w-full max-md:my-10">
+        <div className="relative z-[10] flex w-full max-w-[1195px] flex-col mt-12 mb-10 max-md:max-w-full max-md:my-10">
           <div className="text-white text-4xl font-bold leading-[60px] tracking-wider self-center whitespace-nowrap max-md:max-w-full">
             India’s Largest Service Provider
           </div>
