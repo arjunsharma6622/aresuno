@@ -28,6 +28,7 @@ import { FiDelete, FiEdit, FiEdit2, FiExternalLink, FiEye, FiEyeOff, FiHome, FiL
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import AdminHome from "./AdminHome";
+import DeleteModal from "./DeleteModal";
 
 
 
@@ -224,6 +225,20 @@ const AllVendors = ({ users }) => {
 
 const AllCategories = ({ categories }) => {
 
+    // const handleDeleteCategory = async (id) => {
+    //     try{
+    //         const res = await axios.delete(`http://localhost:8000/api/category/${id}`);
+    //         console.log(res.data)
+    //         toast.success("Category Deleted")
+    //     }
+    //     catch(err){
+    //         console.log(err)
+    //         toast.error("Problem deleting category")
+    //     }
+    // }
+
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
 
     return (
         <div>
@@ -246,9 +261,13 @@ const AllCategories = ({ categories }) => {
 
 
                         <div className="flex justify-end gap-5">
-                        <FiEdit2 className="w-5 h-5 text-gray-500 cursor-pointer"/>
-
-                            <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer"/>
+                            {/* <FiEdit2 className="w-5 h-5 text-gray-500 cursor-pointer" /> */}
+                            <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => setSelectedCategory(category)} />
+                            {
+                                selectedCategory && selectedCategory._id === category._id && (
+                                    <DeleteModal category={selectedCategory} onClose={() => setSelectedCategory(null)} />
+                                )
+                            }
                         </div>
 
 
