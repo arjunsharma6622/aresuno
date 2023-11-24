@@ -81,7 +81,7 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
     );
 };
 
-const AdminHome = () => {
+const AdminHome = ({categoriesData}) => {
     const [banner, setBanner] = useState({ image: "" });
     const [categories, setCategories] = useState([{ name: '', image: null }]);
     const [bannerImage, setBannerImage] = useState(null);
@@ -210,70 +210,6 @@ const AdminHome = () => {
 
 
     console.log(categories)
-
-    // const uploadAllCategoryImages = async () => {
-
-    //     try{
-    //         categories.forEach(async (category) => {
-
-    //             console.log(category.image)
-
-
-    //             const imageData = new FormData()
-    //             imageData.append('file', category)    
-    //             imageData.append("upload_preset", "ml_default")
-    //             imageData.append("folder", "aresuno/category")
-
-    //             const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", imageData)
-    //             const imageUrl = uploadResponse.data.secure_url
-    //             setCategories((prevCategories) =>
-    //                 prevCategories.map((cat) =>
-    //                     cat.name === category.name ? { ...cat, image: imageUrl } : cat
-    //                 )
-    //             );
-
-    //         })
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //     }
-
-    // }
-
-
-    // const uploadAllCategoryImages = async () => {
-    //     setIsCategoryLoading(true)
-
-    //     var imgUrls = []
-
-    //     try {
-    //         const uploadPromises = categories.map(async (category) => {
-    //             if (category.image) {
-    //                 const img = category.image
-    //                 const imageData = new FormData();
-    //                 imageData.append('file', img);
-    //                 imageData.append('upload_preset', 'ml_default');
-    //                 imageData.append('folder', 'aresuno/category');
-
-    //                 const uploadResponse = await axios.post(
-    //                     'https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload',
-    //                     imageData
-    //                 );
-
-    //                 const imageUrl = uploadResponse.data.secure_url;
-    //                 return { ...category, image: imageUrl };
-    //             }
-    //             return category;
-    //         });
-
-    //         const updatedCategories = await Promise.all(uploadPromises);
-
-    //         setCategories(updatedCategories);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
-
 
     const uploadAllCategoryImages = async () => {
         setIsCategoryLoading(true);
@@ -431,10 +367,11 @@ const AdminHome = () => {
 
 
 
-            <div className='flex gap-6'>
+<div className='bg-white'>
+            <div className='flex gap-4'>
 
                 <div className="w-[70%] bg-white p-5 rounded-xl">
-                    <h2 className="text-2xl font-semibold mb-6">Categories</h2>
+                <h2 className="text-2xl font-semibold mb-6">Add Categories</h2>
 
                     <div className="flex flex-col gap-5">
                         {categories.map((category, index) => (
@@ -475,8 +412,27 @@ const AdminHome = () => {
                 </div>
 
                 <div className="w-1/2 bg-white p-5 rounded-xl">
-                    <h2 className="text-2xl font-semibold mb-6">-</h2>
+                    <h2 className="text-2xl font-semibold mb-6">Recently added</h2>
+                    <div className='flex flex-col gap-4'>
+                        {categoriesData.slice(-3).reverse().map((category, index) => (
+                            <div key={index} className='flex gap-4 items-center'>
+                                <div className='w-20 h-20'>
+                                    <img src={category.image} alt="" className='w-full h-full object-cover rounded-lg' />
+                                </div>
+                                <div>
+                                    <h3 className='font-medium'>{category.name}</h3>
+                                </div>
+                            </div>
+                            ))
+                            }
+
+
+                            {
+                                
+                            }
+                    </div>
                 </div>
+            </div>
             </div>
 
 

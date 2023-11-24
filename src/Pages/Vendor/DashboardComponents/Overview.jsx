@@ -337,7 +337,6 @@ const Overview = ({ businesses, posts }) => {
           </div>
 
 
-
           <div className="flex-[6] w-full rounded">
 
             <h2 className="mb-4 text-base font-semibold">Recent Posts</h2>
@@ -364,8 +363,6 @@ const Overview = ({ businesses, posts }) => {
             </div>
 
           </div>
-
-
 
 
         </div>

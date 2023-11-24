@@ -24,7 +24,7 @@ import {
     AiOutlineAppstoreAdd,
     AiOutlineUser,
 } from "react-icons/ai";
-import { FiDelete, FiEdit, FiExternalLink, FiEye, FiEyeOff, FiHome, FiLink, FiLock, FiStar, FiTrash2, FiUsers, FiX } from "react-icons/fi";
+import { FiDelete, FiEdit, FiEdit2, FiExternalLink, FiEye, FiEyeOff, FiHome, FiLink, FiLock, FiStar, FiTrash2, FiUsers, FiX } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import AdminHome from "./AdminHome";
@@ -35,7 +35,7 @@ const AllBusiness = ({ businesses }) => {
 
     const handleDelete = async (id) => {
         try {
-            
+
             const res = await axios.delete(`https://aresuno-server.vercel.app/api/business/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -54,54 +54,54 @@ const AllBusiness = ({ businesses }) => {
 
     return (
         <div>
-                <div className="bg-white rounded-xl">
+            <div className="bg-white rounded-xl">
 
-                    <table className="w-full text-sm table-auto">
-                        <thead className="">
-                            <tr className="bg-gray-300">
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owned by</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
-                            </tr>
-                        </thead>
+                <table className="w-full text-sm table-auto">
+                    <thead className="">
+                        <tr className="bg-gray-300">
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owned by</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                        </tr>
+                    </thead>
 
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            {businesses.map((business, index) => (
-                                <tr key={index}>
-                                    <td className="px-6 py-4 whitespace-nowrap">{index+1}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="flex gap-2 items-center">
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {businesses.map((business, index) => (
+                            <tr key={index}>
+                                <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="flex gap-2 items-center">
                                         {business.name}
-                                        <Link to={`/business/${business._id}`}><FiExternalLink className="text-blue-500 w-4 h-4 cursor-pointer"/></Link>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{business.vendorName}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{business.type}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{business.mainCategory}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{business.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(business._id)}/>
-                                    </td>
+                                        <Link to={`/business/${business._id}`}><FiExternalLink className="text-blue-500 w-4 h-4 cursor-pointer" /></Link>
+                                    </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">{business.vendorName}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{business.type}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{business.mainCategory}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{business.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(business._id)} />
+                                </td>
 
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
-                </div>
+            </div>
 
         </div>
     );
 };
-const AllUsers = ({users}) => {
+const AllUsers = ({ users }) => {
 
     const handleDelete = async (id) => {
         try {
-            
+
             const res = await axios.delete(`https://aresuno-server.vercel.app/api/user/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -120,48 +120,48 @@ const AllUsers = ({users}) => {
 
     return (
         <div>
-                <div className="bg-white rounded-xl">
+            <div className="bg-white rounded-xl">
 
-                    <table className="w-full text-sm table-auto">
-                        <thead className="">
-                            <tr className="bg-gray-300">
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                <table className="w-full text-sm table-auto">
+                    <thead className="">
+                        <tr className="bg-gray-300">
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                        </tr>
+                    </thead>
+
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {users.map((user, index) => (
+                            <tr key={index}>
+                                <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {user.name}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
+                                {/* <td className="px-6 py-4 whitespace-nowrap">{user.type}</td> */}
+                                <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)} />
+                                </td>
+
                             </tr>
-                        </thead>
+                        ))}
+                    </tbody>
+                </table>
 
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            {users.map((user, index) => (
-                                <tr key={index}>
-                                    <td className="px-6 py-4 whitespace-nowrap">{index+1}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        {user.name}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
-                                    {/* <td className="px-6 py-4 whitespace-nowrap">{user.type}</td> */}
-                                    <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)}/>
-                                    </td>
-
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-
-                </div>
+            </div>
 
         </div>
     );
 };
-const AllVendors = ({users}) => {
+const AllVendors = ({ users }) => {
 
     const handleDelete = async (id) => {
         try {
-            
+
             const res = await axios.delete(`https://aresuno-server.vercel.app/api/vendor/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -180,39 +180,39 @@ const AllVendors = ({users}) => {
 
     return (
         <div>
-                <div className="bg-white rounded-xl">
+            <div className="bg-white rounded-xl">
 
-                    <table className="w-full text-sm table-auto">
-                        <thead className="">
-                            <tr className="bg-gray-300">
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                <table className="w-full text-sm table-auto">
+                    <thead className="">
+                        <tr className="bg-gray-300">
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                        </tr>
+                    </thead>
+
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {users.map((user, index) => (
+                            <tr key={index}>
+                                <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {user.name}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
+                                {/* <td className="px-6 py-4 whitespace-nowrap">{user.type}</td> */}
+                                <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)} />
+                                </td>
+
                             </tr>
-                        </thead>
+                        ))}
+                    </tbody>
+                </table>
 
-                        <tbody className="bg-white divide-y divide-gray-200">
-                            {users.map((user, index) => (
-                                <tr key={index}>
-                                    <td className="px-6 py-4 whitespace-nowrap">{index+1}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        {user.name}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
-                                    {/* <td className="px-6 py-4 whitespace-nowrap">{user.type}</td> */}
-                                    <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)}/>
-                                    </td>
-
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-
-                </div>
+            </div>
 
         </div>
     );
@@ -222,30 +222,40 @@ const AllVendors = ({users}) => {
 
 
 
-const AllCategories = ({categories}) => {
- 
+const AllCategories = ({ categories }) => {
+
 
     return (
         <div>
 
-<h1 className="text-2xl font-medium">All the categories present</h1>
+            <h1 className="text-2xl font-medium">All the categories present</h1>
 
-                <div className="mt-6 rounded-xl grid grid-cols-3 gap-4">
+            <div className="mt-6 rounded-xl grid grid-cols-3 gap-4">
 
 
-                    {categories.map((category, index) => (
-                        <div key={index} className="bg-white border rounded-xl p-5 py-6 relative justify-start flex gap-10 items-center">
+                {[...categories].reverse().map((category, index) => (
+                    <div key={index} className="bg-white relative border rounded-xl p-5 py-6">
+                        <div className="justify-start flex gap-10 items-center">
                             <div className="w-24 h-24">
-                                <img src={category.image} alt="" className="w-full h-full object-cover"/>
+                                <img src={category.image} alt="" className="rounded-lg w-full h-full object-cover" />
                             </div>
                             <div>
                                 <h1 className="text-lg font-medium">{category.name}</h1>
                             </div>
-                            
                         </div>
-                        ))}
 
-                </div>
+
+                        <div className="flex justify-end gap-5">
+                        <FiEdit2 className="w-5 h-5 text-gray-500 cursor-pointer"/>
+
+                            <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer"/>
+                        </div>
+
+
+                    </div>
+                ))}
+
+            </div>
 
         </div>
     );
@@ -313,12 +323,12 @@ const AdminDashboard = () => {
     const [categories, setCategories] = useState([]);
 
     const fetchAllCategories = async () => {
-        try{
+        try {
             const res = await axios.get("https://aresuno-server.vercel.app/api/category/")
             const categories = res.data
             setCategories(categories)
         }
-        catch(err){
+        catch (err) {
             console.log(err)
         }
     }
@@ -434,8 +444,8 @@ const AdminDashboard = () => {
                                 {selectedField === "allBusinesses" && <AllBusiness businesses={businesses} />}
                                 {selectedField === "allUsers" && <AllUsers users={users} />}
                                 {selectedField === "allVendors" && <AllVendors users={vendors} />}
-                                {selectedField === "adminHome" && <AdminHome />}
-                                {selectedField === "allCategories" && <AllCategories categories={categories}/>}
+                                {selectedField === "adminHome" && <AdminHome categoriesData={categories} />}
+                                {selectedField === "allCategories" && <AllCategories categories={categories} />}
                             </div>
                         )}
                     </div>
