@@ -252,7 +252,7 @@ const AllCategories = ({ categories }) => {
                     <div key={index} className="bg-white relative border rounded-xl p-5 py-6">
                         <div className="justify-start flex gap-10 items-center">
                             <div className="w-24 h-24">
-                                <img src={category.image} alt="" className="rounded-lg w-full h-full object-cover" />
+                                <img src={category.image?.url} alt={category.image?.altTag} className="rounded-lg w-full h-full object-cover" />
                             </div>
                             <div>
                                 <h1 className="text-lg font-medium">{category.name}</h1>

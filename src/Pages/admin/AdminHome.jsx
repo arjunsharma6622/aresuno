@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { FiEdit2, FiImage, FiPlus, FiUpload, FiUploadCloud, FiX } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => {
-    const [category, setCategory] = useState({ name: '', image: {url : null, altTag : ""} });
+const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory, onUpdateCategoryImageAltTag, onCategoryTitleChange }) => {
+    const [category, setCategory] = useState({ title : '', name: '', image: { url: null, altTag: "" } });
     const [imageToShow, setImageToShow] = useState(null);
 
     const handleImageChange = (e) => {
@@ -15,11 +15,23 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
         onImageChange(index, file);
     };
 
+    const onUpdateCategoryImageAltTagHandler = (e) => {
+        const altTag = e.target.value;
+        setCategory((prevCategory) => ({ ...prevCategory, image: { ...prevCategory.image, altTag } }));
+        onUpdateCategoryImageAltTag(index, altTag);
+    }
+
     const handleCategoryNameChange = (e) => {
         const categoryName = e.target.value;
         setCategory((prevCategory) => ({ ...prevCategory, name: categoryName }));
         onUpdateCategory(index, categoryName);
     };
+
+    const handleCategoryTitleChange = (e) => {
+        const categoryTitle = e.target.value;
+        setCategory((prevCategory) => ({ ...prevCategory, title: categoryTitle }));
+        onCategoryTitleChange(index, categoryTitle);
+    }
 
     const categoryTitles = [
         "Education & Training",
@@ -32,7 +44,9 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
         "Beauty & Spa",
         "Daily Needs",
         "Doctor Appointment"
-    ]
+    ];
+
+    console.log(category)
 
     return (
         <div className="border rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
@@ -44,7 +58,7 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
                     </label>
 
 
-                    <select name="" id="" className='w-full bg-white rounded-sm border py-2 px-2'>
+                    <select name="" id="" className='w-full bg-white rounded-sm border py-2 px-2' onChange={handleCategoryTitleChange}>
                         <option value="" defaultChecked>-</option>
                         {
                             categoryTitles.map((title, index) => (
@@ -74,7 +88,7 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
                     <input
                         type="text"
                         value={category.image.altTag}
-                        onChange={(e) => setCategory((prevCategory) => ({ ...prevCategory, image: { ...prevCategory.image, altTag: e.target.value } }))}
+                        onChange={onUpdateCategoryImageAltTagHandler}
                         className="border rounded-sm py-2 px-6 focus:outline-none"
                     />
                 </label>
@@ -121,8 +135,8 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
 };
 
 const AdminHome = ({categoriesData}) => {
-    const [banner, setBanner] = useState({ image: "" });
-    const [categories, setCategories] = useState([{ name: '', image: null }]);
+    const [banner, setBanner] = useState({ image: { url: "" } });
+    const [categories, setCategories] = useState([{ title : '', name: '', image: { url: null, altTag: "" } }]);
     const [bannerImage, setBannerImage] = useState(null);
     const [bannerImageToShow, setBannerImageToShow] = useState(null);
 
@@ -217,7 +231,6 @@ const AdminHome = ({categoriesData}) => {
 
 
         const bannerImageUrl = await handleBannerUpload()
-        console.log(bannerImageUrl)
 
 
 
@@ -248,13 +261,13 @@ const AdminHome = ({categoriesData}) => {
 
 
 
+    console.log('categories')
     console.log(categories)
-
     const uploadAllCategoryImages = async () => {
         setIsCategoryLoading(true);
-    
+
         var imgUrls = [];
-    
+
         try {
             const uploadPromises = categories.map(async (category) => {
                 if (category.image.url) {
@@ -263,21 +276,21 @@ const AdminHome = ({categoriesData}) => {
                     imageData.append('file', img);
                     imageData.append('upload_preset', 'ml_default');
                     imageData.append('folder', 'aresuno/category');
-    
+
                     const uploadResponse = await axios.post(
                         'https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload',
                         imageData
                     );
-    
+
                     const imageUrl = uploadResponse.data.secure_url;
                     imgUrls.push(imageUrl);
-                    return { ...category, image: { ...category.image, url: imageUrl } };
+                    return { ...category, image: { url: imageUrl, altTag: category.image.altTag } };
                 }
                 return category;
             });
-    
+
             await Promise.all(uploadPromises);
-    
+
             return imgUrls; // Return the array of image URLs
         } catch (err) {
             console.log(err);
@@ -286,41 +299,30 @@ const AdminHome = ({categoriesData}) => {
             setIsCategoryLoading(false);
         }
     };
-    
-
 
     const handleAddCategories = async () => {
-
-        const imgUrls = await uploadAllCategoryImages()
-
-        
-        console.log(imgUrls)
+        const imgUrls = await uploadAllCategoryImages();
 
         try {
-
             const updatedCategories = categories.map((category, index) => {
-                return { ...category, image: { url: imgUrls[index], altTag: category.image.altTag }};
-            })
+                return { ...category, image: { url: imgUrls[index], altTag: category.image.altTag } };
+            });
 
-            const res = await axios.post("https://aresuno-server.vercel.app/api/category/add", updatedCategories)
-            console.log(res.data)
-            toast.success("Categories added successfully")
+            const res = await axios.post("https://aresuno-server.vercel.app/api/category/add", updatedCategories);
+            console.log(res.data);
+            toast.success("Categories added successfully");
 
-            setIsCategoryLoading(false)
-            setCategories([])
+            setIsCategoryLoading(false);
+            setCategories([]);
 
+        } catch (err) {
+            setIsCategoryLoading(false);
 
-        }
-        catch (err) {
-            setIsCategoryLoading(false)
-
-            console.log(err)
-            toast.error("Categories add failed")
+            console.log(err);
+            toast.error("Categories add failed");
 
         }
-
-
-    }
+    };
     return (
         <div className='flex flex-col gap-4'>
 
@@ -418,8 +420,11 @@ const AdminHome = ({categoriesData}) => {
                                 key={index}
                                 index={index}
                                 onRemove={() => removeCategory(index)}
-                                onImageChange={(index, image) => updateCategory(index, { image })}
+                                onImageChange={(index, image) => updateCategory(index, {image : {...category.image, url : image}}) }
                                 onUpdateCategory={(index, name) => updateCategoryName(index, name)}
+                                onUpdateCategoryImageAltTag={(index, altTag) => updateCategory(index, { image: { ...category.image, altTag } })}
+                                onCategoryTitleChange={(index, title) => updateCategory(index, { title })}
+                                
                             />
                         ))}
                         <button
@@ -456,7 +461,7 @@ const AdminHome = ({categoriesData}) => {
                         {categoriesData.slice(-3).reverse().map((category, index) => (
                             <div key={index} className='flex gap-4 items-center'>
                                 <div className='w-20 h-20'>
-                                    <img src={category.image} alt="" className='w-full h-full object-cover rounded-lg' />
+                                    <img src={category.image?.url} alt={category.image?.altTag} className='w-full h-full object-cover rounded-lg' />
                                 </div>
                                 <div>
                                     <h3 className='font-medium'>{category.name}</h3>
