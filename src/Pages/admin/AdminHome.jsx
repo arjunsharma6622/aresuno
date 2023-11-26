@@ -4,13 +4,13 @@ import { FiEdit2, FiImage, FiPlus, FiUpload, FiUploadCloud, FiX } from 'react-ic
 import { toast } from 'react-toastify';
 
 const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => {
-    const [category, setCategory] = useState({ name: '', image: null });
+    const [category, setCategory] = useState({ name: '', image: {url : null, altTag : ""} });
     const [imageToShow, setImageToShow] = useState(null);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         const imageUrl = URL.createObjectURL(file);
-        setCategory((prevCategory) => ({ ...prevCategory, image: file }));
+        setCategory((prevCategory) => ({ ...prevCategory, image: { ...prevCategory.image, url: file } }));
         setImageToShow(imageUrl);
         onImageChange(index, file);
     };
@@ -21,8 +21,40 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
         onUpdateCategory(index, categoryName);
     };
 
+    const categoryTitles = [
+        "Education & Training",
+        "Home Services",
+        "Business Services",
+        "Properties",
+        "IT Training",
+        "Health & Wellness",
+        "Repair and Service",
+        "Beauty & Spa",
+        "Daily Needs",
+        "Doctor Appointment"
+    ]
+
     return (
         <div className="border rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
+
+            <div className='flex flex-col gap-5'>
+            <div className="flex items-start gap-3 flex-col justify-between w-full">
+                <label htmlFor="" className="flex flex-col gap-3">
+                    Category Title
+                    </label>
+
+
+                    <select name="" id="" className='w-full bg-white rounded-sm border py-2 px-2'>
+                        <option value="" defaultChecked>-</option>
+                        {
+                            categoryTitles.map((title, index) => (
+                                <option key={index} value={title}>{title}</option>
+                            ))
+                        }
+                    </select>
+
+            </div>
+
             <div className="flex items-center justify-between">
                 <label htmlFor="" className="flex flex-col gap-3">
                     Category Name
@@ -36,7 +68,22 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
 
             </div>
 
-            {!category.image && (
+            <div className="flex items-center justify-between">
+                <label htmlFor="" className="flex flex-col gap-3">
+                    Describe your image (helps in SEO)
+                    <input
+                        type="text"
+                        value={category.image.altTag}
+                        onChange={(e) => setCategory((prevCategory) => ({ ...prevCategory, image: { ...prevCategory.image, altTag: e.target.value } }))}
+                        className="border rounded-sm py-2 px-6 focus:outline-none"
+                    />
+                </label>
+
+            </div>
+
+            </div>
+
+            {!category.image.url && (
                 <label
                     htmlFor="categoryImage"
                     className="flex mb-2 flex-col gap-3 cursor-pointer text-gray-500"
@@ -54,17 +101,9 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory }) => 
                 </label>
             )}
 
-            {category.image && (
+            {category.image.url && (
                 <div className="relative">
                     <img src={imageToShow} alt="" className=" w-20 h-20 object-cover rounded-xl" />
-                    {/* <FiEdit2
-                        className="absolute -top-2 -right-2 w-6 h-6 text-black  cursor-pointer"
-                        onClick={() => {
-                            setCategory((prevCategory) => ({ ...prevCategory, image: null }));
-                            setImageToShow(null);
-                            onImageChange({ ...category, image: null });
-                        }}
-                    /> */}
                 </div>
             )}
 
@@ -218,8 +257,8 @@ const AdminHome = ({categoriesData}) => {
     
         try {
             const uploadPromises = categories.map(async (category) => {
-                if (category.image) {
-                    const img = category.image;
+                if (category.image.url) {
+                    const img = category.image.url;
                     const imageData = new FormData();
                     imageData.append('file', img);
                     imageData.append('upload_preset', 'ml_default');
@@ -232,7 +271,7 @@ const AdminHome = ({categoriesData}) => {
     
                     const imageUrl = uploadResponse.data.secure_url;
                     imgUrls.push(imageUrl);
-                    return { ...category, image: imageUrl };
+                    return { ...category, image: { ...category.image, url: imageUrl } };
                 }
                 return category;
             });
@@ -260,7 +299,7 @@ const AdminHome = ({categoriesData}) => {
         try {
 
             const updatedCategories = categories.map((category, index) => {
-                return { ...category, image: imgUrls[index] };
+                return { ...category, image: { url: imgUrls[index], altTag: category.image.altTag }};
             })
 
             const res = await axios.post("https://aresuno-server.vercel.app/api/category/add", updatedCategories)
