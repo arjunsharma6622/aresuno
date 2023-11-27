@@ -3,17 +3,17 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function DeleteModal({ category, onClose }) {
+export default function DeleteModal({ categoryId, subCategory, onClose }) {
   const [open, setOpen] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  console.log("The cat is" + category.name)
+  console.log("The cat is" + subCategory.name)
 
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
       const res = await axios.delete(
-        `https://aresuno-server.vercel.app/api/category/${category._id}`,
+        `https://aresuno-server.vercel.app/api/category/deletesubcategory/${categoryId}/${subCategory._id}`,
       );
       console.log(res);
       toast.success("Category Deleted");
@@ -43,7 +43,7 @@ export default function DeleteModal({ category, onClose }) {
             <div className="mt-4 text-center">
               <h3 className="text-lg font-medium">
                 Delete{" "}
-                <span className="font-bold underline"> {category.name}</span>{" "}
+                <span className="font-bold underline"> {subCategory.name}</span>{" "}
                 Category
               </h3>
               <p className="text-sm text-gray-500 mt-2">

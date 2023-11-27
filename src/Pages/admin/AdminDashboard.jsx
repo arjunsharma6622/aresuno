@@ -238,45 +238,107 @@ const AllCategories = ({ categories }) => {
     // }
 
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+
+
+    const groupedCategories = {};
+    categories.forEach((category) => {
+      if (category.title) {
+        if (!groupedCategories[category.title]) {
+          groupedCategories[category.title] = [];
+        }
+        groupedCategories[category.title].push(category);
+      }
+    });
 
 
     return (
-        <div>
 
-            <h1 className="text-2xl font-medium">All the categories present</h1>
+        <div className="flex flex-col gap-10">
 
-            <div className="mt-6 rounded-xl grid grid-cols-3 gap-4">
+            <div>
+                <h1 className="text-2xl font-medium mb-5">Main Categories</h1>
 
-
-                {[...categories].reverse().map((category, index) => (
-                    <div key={index} className="bg-white relative border rounded-xl p-5 py-6">
-                        <div className="justify-start flex gap-10 items-center">
-                            <div className="w-24 h-24">
-                                <img src={category.image?.url} alt={category.image?.altTag} className="rounded-lg w-full h-full object-cover" />
-                            </div>
-                            <div>
-                                <h1 className="text-lg font-medium">{category.name}</h1>
-                            </div>
-                        </div>
+                {
 
 
-                        <div className="flex justify-end gap-5">
-                            {/* <FiEdit2 className="w-5 h-5 text-gray-500 cursor-pointer" /> */}
-                            <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => setSelectedCategory(category)} />
+                    <table>
+                        <thead>
+
+                            <tr className="bg-gray-300">
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sub Cat..</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody className="bg-white divide-y divide-gray-200">
+
                             {
-                                selectedCategory && selectedCategory._id === category._id && (
-                                    <DeleteModal category={selectedCategory} onClose={() => setSelectedCategory(null)} />
-                                )
+                                categories.map((category, index) => (
+                                    <tr key={index}>
+                                        <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{category.title}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{category.subcategories.length !== 0 ? category.subcategories.length : "no"}</td>                                        
+                                    </tr>
+                                ))
                             }
-                        </div>
+
+                        </tbody>
 
 
-                    </div>
-                ))}
+
+
+                    </table>
+                }
+
 
             </div>
+        <div>
+        <h1 className="text-2xl font-medium mb-5">Sub Categories</h1>
+  
+        {categories.map((category, index) => (
 
-        </div>
+            category.subcategories.length > 0 &&
+
+            
+          <div key={index} className="mb-8">
+            {category.title && <h2 className="text-lg font-semibold mt-4 mb-2">{category.title}</h2>}
+  
+            <div className="mt-2 rounded-xl grid grid-cols-3 gap-4">
+              {category.subcategories.map((subCategory, index) => (
+                <div key={index} className="bg-white relative border rounded-xl p-5 py-6">
+                  <div className="justify-start flex gap-10 items-center">
+                    <div className="w-24 h-24">
+                      <img src={subCategory.image?.url} alt={subCategory.image?.altTag} className="rounded-lg w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <h2 className="text-sm font-base">{subCategory.name}</h2>
+                    </div>
+                  </div>
+  
+                  <div className="flex justify-end gap-5">
+                    <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => setSelectedCategory(subCategory)} />
+                    {selectedCategory && selectedCategory._id === subCategory._id && (
+                      <DeleteModal categoryId={category._id} subCategory={selectedCategory} onClose={() => setSelectedCategory(null)} />
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+
+
+
+                    
+
+
+
+        ))}
+      </div>
+      </div>
     );
 };
 

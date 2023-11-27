@@ -26,7 +26,7 @@ const Sidebar = ({ user, handleSelectedField, selectedField }) => {
           <img
             src={user.image ? user.image : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
             alt=""
-            className="rounded-full w-10 h-10"
+            className="rounded-full w-10 h-10 object-cover"
           />
           <h2 className="text-2xl font-semibold">{user.name}</h2>
         </div>

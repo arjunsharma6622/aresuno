@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { FiEdit2, FiImage, FiPlus, FiUpload, FiUploadCloud, FiX } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory, onUpdateCategoryImageAltTag, onCategoryTitleChange }) => {
-    const [category, setCategory] = useState({ title : '', name: '', image: { url: null, altTag: "" } });
+const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory, onUpdateCategoryImageAltTag, onCategoryIdChange }) => {
+    const [category, setCategory] = useState({ categoryId : '', name: '', image: { url: null, altTag: "" } });
     const [imageToShow, setImageToShow] = useState(null);
 
     const handleImageChange = (e) => {
@@ -27,24 +27,36 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory, onUpd
         onUpdateCategory(index, categoryName);
     };
 
-    const handleCategoryTitleChange = (e) => {
-        const categoryTitle = e.target.value;
-        setCategory((prevCategory) => ({ ...prevCategory, title: categoryTitle }));
-        onCategoryTitleChange(index, categoryTitle);
+    const handleCategoryIdChange = (e) => {
+        const categoryId = e.target.value;
+        setCategory((prevCategory) => ({ ...prevCategory, categoryId: categoryId }));
+        onCategoryIdChange(index, categoryId);
     }
 
-    const categoryTitles = [
-        "Education & Training",
-        "Home Services",
-        "Business Services",
-        "Properties",
-        "IT Training",
-        "Health & Wellness",
-        "Repair and Service",
-        "Beauty & Spa",
-        "Daily Needs",
-        "Doctor Appointment"
-    ];
+    const [categoryTitles, setCategoryTitles] = useState([])
+    const fetchCategoryTitles = async () => {
+        try {
+            const res = await axios.get("https://aresuno-server.vercel.app/api/category/")
+            console.log(res.data)
+        // Extract title and _id fields and create a new array
+        const extractedTitles = res.data.map((category) => ({
+            title: category.title,
+            _id: category._id,
+        }));
+
+        setCategoryTitles(extractedTitles);
+
+        }
+        catch (err) {
+            
+            console.log(err)
+        }
+
+    }
+
+    useEffect(() => {
+        fetchCategoryTitles()
+    }, [])
 
     console.log(category)
 
@@ -58,11 +70,11 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory, onUpd
                     </label>
 
 
-                    <select name="" id="" className='w-full bg-white rounded-sm border py-2 px-2' onChange={handleCategoryTitleChange}>
+                    <select name="" id="" className='w-full bg-white rounded-sm border py-2 px-2' onChange={handleCategoryIdChange}>
                         <option value="" defaultChecked>-</option>
                         {
-                            categoryTitles.map((title, index) => (
-                                <option key={index} value={title}>{title}</option>
+                            categoryTitles.map((category, index) => (
+                                <option key={index} value={category._id}>{category.title}</option>
                             ))
                         }
                     </select>
@@ -136,13 +148,16 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory, onUpd
 
 const AdminHome = ({categoriesData}) => {
     const [banner, setBanner] = useState({ image: { url: "" } });
-    const [categories, setCategories] = useState([{ title : '', name: '', image: { url: null, altTag: "" } }]);
+    const [categories, setCategories] = useState([{ categoryId : '', name: '', image: { url: null, altTag: "" } }]);
     const [bannerImage, setBannerImage] = useState(null);
     const [bannerImageToShow, setBannerImageToShow] = useState(null);
 
 
     const [isLoading, setIsLoading] = useState(false);
     const [isCategoryLoading, setIsCategoryLoading] = useState(false);
+
+
+    const [newCategoryTitle, setNewCategoryTitle] = useState('');
 
 
 
@@ -308,7 +323,7 @@ const AdminHome = ({categoriesData}) => {
                 return { ...category, image: { url: imgUrls[index], altTag: category.image.altTag } };
             });
 
-            const res = await axios.post("https://aresuno-server.vercel.app/api/category/add", updatedCategories);
+            const res = await axios.post("https://aresuno-server.vercel.app/api/category/addsubcategories", updatedCategories);
             console.log(res.data);
             toast.success("Categories added successfully");
 
@@ -323,6 +338,27 @@ const AdminHome = ({categoriesData}) => {
 
         }
     };
+
+
+
+    const createNewCategory = async () => {
+        try{
+            const res = await axios.post("https://aresuno-server.vercel.app/api/category/add", { title: newCategoryTitle })
+            console.log(res.data)
+            toast.success("Category created successfully")
+            setNewCategoryTitle('')
+        }
+        catch(err){
+            console.log(err)
+            toast.error("Problem creating category")
+            setNewCategoryTitle('')
+            
+        }
+
+    }
+
+
+
     return (
         <div className='flex flex-col gap-4'>
 
@@ -408,11 +444,55 @@ const AdminHome = ({categoriesData}) => {
 
 
 
-<div className='bg-white'>
+<div className='bg-white rounded-xl'>
             <div className='flex gap-4'>
 
+
+            <div className="w-1/2 bg-white p-5 rounded-xl">
+                    <h2 className="text-2xl font-semibold mb-6">Create Main category</h2>
+                    {/* <div className='flex flex-col gap-4'>
+                        {categoriesData.slice(-3).reverse().map((category, index) => (
+                            <div key={index} className='flex gap-4 items-center'>
+                                <div className='w-20 h-20'>
+                                    <img src={category.image?.url} alt={category.image?.altTag} className='w-full h-full object-cover rounded-lg' />
+                                </div>
+                                <div>
+                                    <h3 className='font-medium'>{category.name}</h3>
+                                </div>
+                            </div>
+                            ))
+                            }
+                    </div> */}
+
+                    <div className="flex flex-col gap-5">
+                        <input
+                            type="text"
+                            placeholder="Category Title"
+                            className="border border-gray-300 p-3 rounded-xl focus:outline-none"
+                            value={newCategoryTitle}
+                            onChange={(e) => setNewCategoryTitle(e.target.value)}
+                        />
+
+                        <div className="flex items-center gap-3">
+
+                            <button
+                                onClick={createNewCategory}
+                                className="bg-blue-600 rounded-xl text-white w-fit py-2 px-5"
+                            >Create</button>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+                </div>
+
                 <div className="w-[70%] bg-white p-5 rounded-xl">
-                <h2 className="text-2xl font-semibold mb-6">Add Categories</h2>
+                <h2 className="text-2xl font-semibold mb-6">Add sub categories</h2>
 
                     <div className="flex flex-col gap-5">
                         {categories.map((category, index) => (
@@ -423,7 +503,7 @@ const AdminHome = ({categoriesData}) => {
                                 onImageChange={(index, image) => updateCategory(index, {image : {...category.image, url : image}}) }
                                 onUpdateCategory={(index, name) => updateCategoryName(index, name)}
                                 onUpdateCategoryImageAltTag={(index, altTag) => updateCategory(index, { image: { ...category.image, altTag } })}
-                                onCategoryTitleChange={(index, title) => updateCategory(index, { title })}
+                                onCategoryIdChange={(index, categoryId) => updateCategory(index, { categoryId })}
                                 
                             />
                         ))}
@@ -455,27 +535,7 @@ const AdminHome = ({categoriesData}) => {
                     </button>
                 </div>
 
-                <div className="w-1/2 bg-white p-5 rounded-xl">
-                    <h2 className="text-2xl font-semibold mb-6">Recently added</h2>
-                    <div className='flex flex-col gap-4'>
-                        {categoriesData.slice(-3).reverse().map((category, index) => (
-                            <div key={index} className='flex gap-4 items-center'>
-                                <div className='w-20 h-20'>
-                                    <img src={category.image?.url} alt={category.image?.altTag} className='w-full h-full object-cover rounded-lg' />
-                                </div>
-                                <div>
-                                    <h3 className='font-medium'>{category.name}</h3>
-                                </div>
-                            </div>
-                            ))
-                            }
 
-
-                            {
-                                
-                            }
-                    </div>
-                </div>
             </div>
             </div>
 
