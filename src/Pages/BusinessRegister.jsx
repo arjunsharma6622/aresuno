@@ -160,22 +160,29 @@ const BusinessRegister = () => {
 
 
     // handle categories
-    // const mainCategories = [
-    //     "Food & Beverage",
-    //     "Health & Wellness",
-    //     "Fashion & Clothing",
-    //     "Home & Decor",
-    //     "Automotive",
-    //     "Technology",
-    //     "Beauty & Personal Care",
-    //     "Sports & Fitness",
-    //     "Travel & Tourism",
-    //     "Education & Learning",
-    // ];
+    const mainCategories = [
+        "Food & Beverage",
+        "Health & Wellness",
+        "Fashion & Clothing",
+        "Home & Decor",
+        "Automotive",
+        "Technology",
+        "Beauty & Personal Care",
+        "Sports & Fitness",
+        "Travel & Tourism",
+        "Education & Learning",
+    ];
 
-    const categories = useSelector((state) => state.categories)
+    // const categories = useSelector((state) => state.categories)
 
-    const mainCategories = categories.map((category) => category.title)
+    // const mainCategories = categories.map((category) => category.title)
+
+    // const subCategories = categories.map((category) => {
+    //     const subCategory = category.subCategories
+    //     const subCategoryList = 
+    // })
+
+
 
     const subCategories = {
         "Food & Beverage": [
