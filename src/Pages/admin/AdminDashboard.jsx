@@ -29,7 +29,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import AdminHome from "./AdminHome";
 import DeleteModal from "./DeleteModal";
-
+import { useDispatch, useSelector } from "react-redux";
+import {setAllCategories} from "../../categoriesSlice"
 
 
 const AllBusiness = ({ businesses }) => {
@@ -223,22 +224,11 @@ const AllVendors = ({ users }) => {
 
 
 
-const AllCategories = ({ categories }) => {
+const AllCategories = () => {
 
-    // const handleDeleteCategory = async (id) => {
-    //     try{
-    //         const res = await axios.delete(`http://localhost:8000/api/category/${id}`);
-    //         console.log(res.data)
-    //         toast.success("Category Deleted")
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //         toast.error("Problem deleting category")
-    //     }
-    // }
+    const categories = useSelector(state => state.categories)
 
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedMainCategory, setSelectedMainCategory] = useState(null);
 
 
     const groupedCategories = {};
@@ -350,6 +340,7 @@ const AdminDashboard = () => {
     const [vendors, setVendors] = useState([]);
     const [businesses, setBusinesses] = useState([]);
     const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch()
 
     const [selectedField, setSelectedField] = useState("adminHome");
 
@@ -408,6 +399,7 @@ const AdminDashboard = () => {
             const res = await axios.get("https://aresuno-server.vercel.app/api/category/")
             const categories = res.data
             setCategories(categories)
+            dispatch(setAllCategories(categories))
         }
         catch (err) {
             console.log(err)

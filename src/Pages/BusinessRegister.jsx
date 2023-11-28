@@ -32,6 +32,7 @@ import {
     BiQuestionMark,
 } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 
 const BusinessRegister = () => {
@@ -159,18 +160,22 @@ const BusinessRegister = () => {
 
 
     // handle categories
-    const mainCategories = [
-        "Food & Beverage",
-        "Health & Wellness",
-        "Fashion & Clothing",
-        "Home & Decor",
-        "Automotive",
-        "Technology",
-        "Beauty & Personal Care",
-        "Sports & Fitness",
-        "Travel & Tourism",
-        "Education & Learning",
-    ];
+    // const mainCategories = [
+    //     "Food & Beverage",
+    //     "Health & Wellness",
+    //     "Fashion & Clothing",
+    //     "Home & Decor",
+    //     "Automotive",
+    //     "Technology",
+    //     "Beauty & Personal Care",
+    //     "Sports & Fitness",
+    //     "Travel & Tourism",
+    //     "Education & Learning",
+    // ];
+
+    const categories = useSelector((state) => state.categories)
+
+    const mainCategories = categories.map((category) => category.title)
 
     const subCategories = {
         "Food & Beverage": [

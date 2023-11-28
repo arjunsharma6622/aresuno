@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FiCrosshair, FiHardDrive, FiNavigation } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 function HomeHero(props) {
 
@@ -24,26 +25,29 @@ function HomeHero(props) {
     "Education & Learning",
   ]
 
-  const services = [
-    {
-      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
-      name: "Cleaning Service",
-      totalServices: "10",
+  // const services = [
+  //   {
+  //     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
+  //     name: "Cleaning Service",
+  //     totalServices: "10",
 
-    },
-    {
-      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
-      name: "Washing Service",
-      totalServices: "10",
-    },
-    {
-      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
-      name: "Washing Service",
-      totalServices: "10",
-    }
+  //   },
+  //   {
+  //     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
+  //     name: "Washing Service",
+  //     totalServices: "10",
+  //   },
+  //   {
+  //     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
+  //     name: "Washing Service",
+  //     totalServices: "10",
+  //   }
 
 
-  ]
+  // ]
+
+  const categories = useSelector(state => state.categories)
+  console.log(categories)
 
   const fetchBanner = async () => {
     try{
@@ -109,9 +113,9 @@ useEffect(() => {
           </div>
           <div className="flex items-center justify-center flex-wrap gap-5 mt-10">
             {
-              mainCategories.map((category, index) => (
+              categories.map((category, index) => (
                 <div key={index} className="text-white text-center text-base font-semibold bg-blue-600 px-5 py-2 rounded-full">
-                  {category}
+                  {category.title}
                 </div>
               ))
             }
@@ -131,17 +135,22 @@ useEffect(() => {
       </div>
       <div className="self-center w-full max-w-[1314px] mt-16 max-md:max-w-full max-md:mt-10">
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+
+
+        {
+                    categories.map((category, index) => (
+
           <div className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
             <div className="justify-center items-center flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
-              <div className="text-black text-xl font-semibold leading-8 tracking-wide whitespace-nowrap">
-                HOME SERVICES
+              <div className="text-black text-xl font-semibold uppercase leading-8 tracking-wide whitespace-nowrap">
+                {category.title}
               </div>
               <div className="w-full self-stretch mt-10 max-md:max-w-full">
                 <div className="grid grid-cols-2 w-full gap-4 gap-y-7">
 
 
 
-                  {services.map((service, index) => (
+                  {/* {categories.map((service, index) => (
                     <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
                       <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
                         <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch">
@@ -159,7 +168,34 @@ useEffect(() => {
                       </div>
                     </div>
 
-                  ))}
+                  ))} */}
+
+
+
+                        {category.subcategories.map((subCategory, index) => (
+                    <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
+                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
+                      <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch rounded-lg">
+                        <img
+                          loading="lazy"
+                          src={subCategory.image.url}
+                          alt={subCategory.image.altTag}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
+                          {20} Services
+                        </div>
+                      </div>
+                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
+                        {subCategory.name}
+                      </div>
+                    </div>
+                  </div>
+                        ))}
+
+
+
+                   
 
 
 
@@ -170,97 +206,10 @@ useEffect(() => {
 
             </div>
           </div>
-          <div className="flex flex-col items-stretch w-6/12 ml-5 max-md:w-full max-md:ml-0">
-            <div className="justify-center items-center flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
-              <div className="text-black text-xl font-semibold leading-8 tracking-wide whitespace-nowrap">
-                HEALTH & WELLNESS
-              </div>
-              <div className="self-stretch mt-10 max-md:max-w-full">
-                <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                  <div className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col shadow-sm overflow-hidden relative flex aspect-[1.5235294117647058] w-full items-stretch">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/5437e93a-572d-4697-93cb-bb61ed63bf98?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute  h-full w-full object-cover object-center inset-0"
-                        />
-                        <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
-                          <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
-                            30 Services
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        Gym
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-stretch w-6/12 ml-5 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col shadow-sm overflow-hidden relative flex aspect-[1.5235294117647058] w-full items-stretch">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/2e6d4d08-9947-4549-9d4c-980d9ea22c73?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute  h-full w-full object-cover object-center inset-0"
-                        />
-                        <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
-                          <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
-                            30 Services
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        Beauty Parlours
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="self-stretch mt-11 max-md:max-w-full max-md:mt-10">
-                <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                  <div className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col shadow-sm overflow-hidden relative flex aspect-[1.5235294117647058] w-full items-stretch">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/36414c2c-5606-46cc-ac95-b161317ba0ad?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute  h-full w-full object-cover object-center inset-0"
-                        />
-                        <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
-                          <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
-                            30 Services
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        Ayurvedic Medicines
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-stretch w-6/12 ml-5 max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col shadow-sm overflow-hidden relative flex aspect-[1.5235294117647058] w-full items-stretch">
-                        <img
-                          loading="lazy"
-                          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/bd8cecf9-be99-4751-a5cc-9416c15dd144?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
-                          className="absolute  h-full w-full object-cover object-center inset-0"
-                        />
-                        <div className="relative flex flex-col pt-12 pb-2 px-5 rounded-xl">
-                          <div className="text-neutral-700 text-xs font-medium leading-4 tracking-normal whitespace-nowrap justify-center items-stretch bg-neutral-200 bg-opacity-80 w-[79px] max-w-full mt-24 p-2 rounded-md max-md:mr-0 max-md:mt-10">
-                            30 Services
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        Nutritionists
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+))
+}
+
         </div>
       </div>
       <div className="text-black text-center text-xl font-semibold leading-8 self-center whitespace-nowrap mt-44 max-md:mt-10">
