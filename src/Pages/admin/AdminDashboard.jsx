@@ -392,24 +392,13 @@ const AdminDashboard = () => {
         }
     }
 
-    const [categories, setCategories] = useState([]);
 
-    const fetchAllCategories = async () => {
-        try {
-            const res = await axios.get("https://aresuno-server.vercel.app/api/category/")
-            const categories = res.data
-            setCategories(categories)
-            dispatch(setAllCategories(categories))
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
+
 
     useEffect(() => {
         fetchBusinessesData();
         fetchUsersData();
-        fetchAllCategories()
+        // fetchAllCategories()
     }, []);
 
     return (
@@ -517,8 +506,8 @@ const AdminDashboard = () => {
                                 {selectedField === "allBusinesses" && <AllBusiness businesses={businesses} />}
                                 {selectedField === "allUsers" && <AllUsers users={users} />}
                                 {selectedField === "allVendors" && <AllVendors users={vendors} />}
-                                {selectedField === "adminHome" && <AdminHome categoriesData={categories} />}
-                                {selectedField === "allCategories" && <AllCategories categories={categories} />}
+                                {selectedField === "adminHome" && <AdminHome/>}
+                                {selectedField === "allCategories" && <AllCategories />}
                             </div>
                         )}
                     </div>

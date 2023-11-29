@@ -1,12 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FiCrosshair, FiHardDrive, FiNavigation } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setAllCategories } from "../../categoriesSlice";
+import { getBanner } from "../../bannerSlice";
 
 function HomeHero(props) {
 
+  const dispatch = useDispatch();
 
-  const [banner, setBanner] = useState({image : ""});
+
+  const [banner, setBanner] = useState({ image: "" });
 
 
 
@@ -46,24 +50,30 @@ function HomeHero(props) {
 
   // ]
 
-  const categories = useSelector(state => state.categories)
-  console.log(categories)
+  const bannerUrl = useSelector(state => state.banner.url)
+
 
   const fetchBanner = async () => {
-    try{
-        const res = await axios.get("https://aresuno-server.vercel.app/api/banner")
-        console.log(res.data[0].image)
-        setBanner(res.data[0])
+    try {
+      const res = await axios.get("https://aresuno-server.vercel.app/api/banner")
+      console.log(res.data[0].image)
+      setBanner(res.data[0])
+      dispatch(getBanner(res.data[0].image))
     }
-    catch(err){
-        console.log(err)
+    catch (err) {
+      console.log(err)
     }
-}
+  }
 
-useEffect(() => {
+  useEffect(() => {
     fetchBanner()
-}, [])
+  }, [])
 
+
+
+
+  const categories = useSelector(state => state.categories)
+  console.log(categories)
 
 
 
@@ -81,7 +91,7 @@ useEffect(() => {
         <div className="gradient-overlay-top h-48 z[-1]"></div>
         <img
           loading="lazy"
-          src={banner.image}
+          src={bannerUrl}
           className="absolute h-full w-full object-cover object-center inset-0"
         />
         <div className="relative z-[10] flex w-full max-w-[1195px] flex-col mt-12 mb-10 max-md:max-w-full max-md:my-10">
@@ -137,78 +147,54 @@ useEffect(() => {
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
 
 
-        {
-                    categories.map((category, index) => (
+          {
+            categories.map((category, index) => (
 
-          <div className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
-            <div className="justify-center items-center flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
-              <div className="text-black text-xl font-semibold uppercase leading-8 tracking-wide whitespace-nowrap">
-                {category.title}
-              </div>
-              <div className="w-full self-stretch mt-10 max-md:max-w-full">
-                <div className="grid grid-cols-2 w-full gap-4 gap-y-7">
+              <div key={index} className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0">
+                <div className="justify-center items-center flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
+                  <div className="text-black text-xl font-semibold uppercase leading-8 tracking-wide whitespace-nowrap">
+                    {category.title}
+                  </div>
+                  <div className="w-full self-stretch mt-10 max-md:max-w-full">
+                    <div className="grid grid-cols-2 w-full gap-4 gap-y-7">
 
-
-
-                  {/* {categories.map((service, index) => (
-                    <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
-                      <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                        <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch">
-                          <img
-                            loading="lazy"
-                            srcSet={service.image}
-                          />
-                          <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
-                            {service.totalServices} Services
+                      {category.subcategories.map((subCategory, index) => (
+                        <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
+                          <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
+                            <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch rounded-lg">
+                              <img
+                                loading="lazy"
+                                src={subCategory.image.url}
+                                alt={subCategory.image.altTag}
+                                className="w-full h-full object-cover"
+                              />
+                              <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
+                                {20} Services
+                              </div>
+                            </div>
+                            <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
+                              {subCategory.name}
+                            </div>
                           </div>
                         </div>
-                        <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                          {service.name}
-                        </div>
-                      </div>
-                    </div>
-
-                  ))} */}
+                      ))}
 
 
 
-                        {category.subcategories.map((subCategory, index) => (
-                    <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
-                    <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
-                      <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch rounded-lg">
-                        <img
-                          loading="lazy"
-                          src={subCategory.image.url}
-                          alt={subCategory.image.altTag}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
-                          {20} Services
-                        </div>
-                      </div>
-                      <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
-                        {subCategory.name}
-                      </div>
+
+
+
+
+
+
                     </div>
                   </div>
-                        ))}
-
-
-
-                   
-
-
-
-
 
                 </div>
               </div>
 
-            </div>
-          </div>
-
-))
-}
+            ))
+          }
 
         </div>
       </div>

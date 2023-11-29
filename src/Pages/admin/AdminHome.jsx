@@ -162,6 +162,7 @@ const AdminHome = ({categoriesData}) => {
 
 
 
+
     const fetchBanner = async () => {
         try {
             const res = await axios.get("https://aresuno-server.vercel.app/api/banner")

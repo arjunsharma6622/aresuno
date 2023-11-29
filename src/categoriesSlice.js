@@ -6,7 +6,7 @@ export const categoriesSlice = createSlice({
         {
             _id: "",
             title: "",
-            subCategories: [
+            subcategories: [
                 {
                     _id: "",
                     name: "",
@@ -18,44 +18,10 @@ export const categoriesSlice = createSlice({
             ]
         }
     ],
-    // reducers: {
-    //     setAllCategories: (state, action) => {
-    //         state.categories = action.payload
-    //     },
-    //     addCategory: (state, action) => {
-    //         state.categories.push(action.payload)
-    //     },
-    //     updateCategory: (state, action) => {
-    //         const index = state.categories.findIndex(category => category._id === action.payload._id)
-    //         state.categories[index] = action.payload
-
-    //     },
-    //     deleteCategory: (state, action) => {
-    //         const index = state.categories.findIndex(category => category._id === action.payload)
-    //         state.categories.splice(index, 1)
-    //     },
-    //     addSubCategory: (state, action) => {
-    //         const index = state.categories.findIndex(category => category._id === action.payload.categoryId)
-    //         state.categories[index].subCategories.push(action.payload.subCategory)
-    //     },
-    //     updateSubCategory: (state, action) => {
-    //         const categoryIndex = state.categories.findIndex(category => category._id === action.payload.categoryId)
-    //         const subCategoryIndex = state.categories[categoryIndex].subCategories.findIndex(subCategory => subCategory._id === action.payload.subCategoryId)
-    //         state.categories[categoryIndex].subCategories[subCategoryIndex] = action.payload.subCategory
-    //     },
-    //     deleteSubCategory: (state, action) => {
-    //         const categoryIndex = state.categories.findIndex(category => category._id === action.payload.categoryId)
-    //         const subCategoryIndex = state.categories[categoryIndex].subCategories.findIndex(subCategory => subCategory._id === action.payload.subCategoryId)
-    //         state.categories[categoryIndex].subCategories.splice(subCategoryIndex, 1)
-    //     },
-
-    // }
-
-
 
     reducers: {
-        setAllCategories: (state, action) => {
-            return action.payload; // Assuming action.payload is an array of categories
+        setAllCategories: (state, action) => {            
+            return action.payload;
         },
         addCategory: (state, action) => {
             state.push(action.payload);

@@ -4,12 +4,14 @@ import businessReducer from "./businessSlice"
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import categoriesReducer from "./categoriesSlice"
+import bannerReducer from "./bannerSlice"
 
 
 const rootReducer = combineReducers({
     user: userReducer,
     business: businessReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer,
+    banner : bannerReducer
 })
 
 const persistConfig = {

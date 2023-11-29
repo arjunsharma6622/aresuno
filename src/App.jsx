@@ -8,7 +8,7 @@ import VendorDashboard from './Pages/Vendor/Dashboard/VendorDashboard';
 import UserDashboard from './Pages/User/Dashboard/UserDashboard';
 import Login from './Pages/Login/Login';
 import BusinessRegister from './Pages/BusinessRegister';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Business } from './Pages/Business';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,8 +16,14 @@ import ServiceListing from './Pages/Service';
 import BusinessOnboarding from './Pages/BusinessOnboarding';
 import AdminDashboard from './Pages/admin/AdminDashboard';
 import BusinessEdit from './Pages/BusinessEdit';
+import axios from 'axios';
+import {setAllCategories} from "./categoriesSlice"
+import { useEffect } from 'react';
 
 function App() {
+
+
+
   return (
     <BrowserRouter>
       <Main />
@@ -34,6 +40,27 @@ function Main() {
   const isAdminPage = location.pathname.match(/\/admin/);
   const userType = useSelector((state) => state.user.userType);
   const navigate = useNavigate()
+
+
+
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchAllCategories = async () => {
+      try {
+        const res = await axios.get("https://aresuno-server.vercel.app/api/category/");
+        dispatch(setAllCategories(res.data));
+        console.log('Categories fetched:', res.data);
+
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
+
+    fetchAllCategories();
+  }, [dispatch]);
+
 
 
   return (
