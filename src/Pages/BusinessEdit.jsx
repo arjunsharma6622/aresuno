@@ -33,6 +33,7 @@ import {
   BiQuestionMark,
 } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 
 const BusinessEdit = () => {
@@ -161,93 +162,31 @@ const BusinessEdit = () => {
   };
 
 
-  // handle categories
-  const mainCategories = [
-    "Food & Beverage",
-    "Health & Wellness",
-    "Fashion & Clothing",
-    "Home & Decor",
-    "Automotive",
-    "Technology",
-    "Beauty & Personal Care",
-    "Sports & Fitness",
-    "Travel & Tourism",
-    "Education & Learning",
-  ];
+  const categories = useSelector((state) => state.categories)
 
-  const subCategories = {
-    "Food & Beverage": [
-      "Restaurants",
-      "Cafes",
-      "Bakeries",
-      "Bars",
-      "Fast Food",
-    ],
-    "Health & Wellness": [
-      "Gyms",
-      "Yoga Studios",
-      "Spas",
-      "Nutritionists",
-      "Fitness Classes",
-    ],
-    "Fashion & Clothing": [
-      "Clothing Stores",
-      "Shoe Stores",
-      "Jewelry Stores",
-      "Boutiques",
-      "Accessories",
-    ],
-    "Home & Decor": [
-      "Furniture Stores",
-      "Home Improvement",
-      "Appliances",
-      "Interior Design",
-      "Home Accessories",
-    ],
-    "Automotive": [
-      "Car Dealerships",
-      "Auto Repair",
-      "Car Rental",
-      "Motorcycle Dealerships",
-      "Tire Shops",
-    ],
-    "Technology": [
-      "Electronics Stores",
-      "Computer Repair",
-      "Gadgets",
-      "Software Development",
-      "IT Services",
-    ],
-    "Beauty & Personal Care": [
-      "Hair Salons",
-      "Spas",
-      "Nail Salons",
-      "Barber Shops",
-      "Beauty Supply",
-    ],
-    "Sports & Fitness": [
-      "Sporting Goods",
-      "Fitness Centers",
-      "Sports Clubs",
-      "Outdoor Activities",
-      "Yoga Studios",
-    ],
-    "Travel & Tourism": [
-      "Hotels",
-      "Travel Agencies",
-      "Tourist Attractions",
-      "Airline Companies",
-      "Car Rental",
-    ],
-    "Education & Learning": [
-      "Schools",
-      "Tutoring Centers",
-      "Colleges",
-      "Language Schools",
-      "Online Courses",
-    ],
-  };
+  const mainCategories = categories.map((category) => {
+      const mainCategory = {
+          _id: category._id,
+          name: category.title
+      }
+      return mainCategory
+  })
+  console.log('main categories', mainCategories)
 
+
+  const subCategories = {};
+
+  categories.forEach((category) => {
+      subCategories[category.title] = category.subcategories.map((subCategory) => ({
+          _id: subCategory._id,
+          name: subCategory.name,
+      }));
+  });
+
+  // console.log('sub categories', subCategories);
+
+
+  console.log('sub categories', subCategories)
 
   // handle phone number
   const handlePhoneChange = (value) => {
@@ -778,8 +717,8 @@ const BusinessEdit = () => {
                         -
                       </option>
                       {mainCategories.map((category) => (
-                        <option key={category} value={category}>
-                          {category}
+                        <option key={category.name} value={category._id}>
+                          {category.name}
                         </option>
                       ))}
                     </select>
@@ -806,9 +745,9 @@ const BusinessEdit = () => {
                         -
                       </option>
                       {businessDetails.mainCategory &&
-                        subCategories[businessDetails.mainCategory].map((category) => (
-                          <option key={category} value={category}>
-                            {category}
+                        subCategories[mainCategories.find(category => category._id === businessDetails.mainCategory)?.name].map((category) => (
+                          <option key={category.name} value={category._id}>
+                            {category.name}
                           </option>
                         ))
                       }

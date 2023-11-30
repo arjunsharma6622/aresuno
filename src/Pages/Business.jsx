@@ -190,7 +190,7 @@ export const Business = () => {
 
                                 <div className="flex items-center gap-2">
                                     <span className="text-black text-lg font-bold">{
-                                        avgRating ? avgRating : "-"
+                                        avgRating ? avgRating.toFixed(1) : "-"
                                     }</span>
 
                                     <div className="flex items-center">
@@ -500,7 +500,7 @@ export const Business = () => {
 
                                                         </div>
                                                         <div className="text-gray-500 text-xs mr-4">
-                                                            2 days ago
+                                                            {new Date(ratingReview.createdAt).toDateString()} days ago
                                                         </div>
                                                     </div>
                                                 </div>

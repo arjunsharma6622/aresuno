@@ -2,53 +2,20 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FiCrosshair, FiHardDrive, FiNavigation } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { setAllCategories } from "../../categoriesSlice";
 import { getBanner } from "../../bannerSlice";
+import { Link } from "react-router-dom";
 
 function HomeHero(props) {
 
   const dispatch = useDispatch();
 
+  const categories = useSelector(state => state.categories)
+  console.log(categories)
+
 
   const [banner, setBanner] = useState({ image: "" });
 
 
-
-
-
-  const mainCategories = [
-    "Food & Beverage",
-    "Health & Wellness",
-    "Fashion & Clothing",
-    "Home & Decor",
-    "Automotive",
-    "Technology",
-    "Beauty & Personal Care",
-    "Sports & Fitness",
-    "Travel & Tourism",
-    "Education & Learning",
-  ]
-
-  // const services = [
-  //   {
-  //     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/dfd75959-5196-48fc-a25d-b718a4520635?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
-  //     name: "Cleaning Service",
-  //     totalServices: "10",
-
-  //   },
-  //   {
-  //     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
-  //     name: "Washing Service",
-  //     totalServices: "10",
-  //   },
-  //   {
-  //     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b2fd037c-bef4-4d51-8947-4d8001f83d16?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&",
-  //     name: "Washing Service",
-  //     totalServices: "10",
-  //   }
-
-
-  // ]
 
   const bannerUrl = useSelector(state => state.banner.url)
 
@@ -68,12 +35,11 @@ function HomeHero(props) {
   useEffect(() => {
     fetchBanner()
   }, [])
+9
 
 
 
 
-  const categories = useSelector(state => state.categories)
-  console.log(categories)
 
 
 
@@ -159,6 +125,9 @@ function HomeHero(props) {
                     <div className="grid grid-cols-2 w-full gap-4 gap-y-7">
 
                       {category.subcategories.map((subCategory, index) => (
+
+                        <Link to={`/${subCategory.name.replace(/\s+/g, '-').toLowerCase()}`} key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
+
                         <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
                           <div className="justify-center items-stretch flex grow flex-col max-md:mt-10">
                             <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch rounded-lg">
@@ -169,7 +138,7 @@ function HomeHero(props) {
                                 className="w-full h-full object-cover"
                               />
                               <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
-                                {20} Services
+                                {subCategory.businesses.length} Services
                               </div>
                             </div>
                             <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
@@ -177,6 +146,9 @@ function HomeHero(props) {
                             </div>
                           </div>
                         </div>
+
+                        </Link>
+
                       ))}
 
 

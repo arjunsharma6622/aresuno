@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import BusinessCard from '../../Pages/BusinessCard'
 import axios from 'axios'
 import BusinessCardSkeleton from './BusinessCardSkeleton'
 import HomeHero from './HomeHero'
-import { useDispatch } from 'react-redux'
-import { setAllCategories } from '../../categoriesSlice'
 
 
 const Hero = () => {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-
-
 
     const [allBusinesses, setAllBusinesses] = useState([])
     const [isLoading, setIsLoading] = useState(true)

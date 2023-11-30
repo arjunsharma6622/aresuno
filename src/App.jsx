@@ -19,6 +19,7 @@ import BusinessEdit from './Pages/BusinessEdit';
 import axios from 'axios';
 import {setAllCategories} from "./categoriesSlice"
 import { useEffect } from 'react';
+import Services from './Pages/Services/Services';
 
 function App() {
 
@@ -91,6 +92,8 @@ function Main() {
           <Route path={'/business/:id'} element={<Business />} />
           <Route path={'/business/edit/:id'} element={<BusinessEdit />} />
           <Route path={'/admin'} element={<AdminDashboard />} />
+          {/* <Route path={'/:subCategoryId'} element={<Services />} /> */}
+          <Route path={'/:subCategoryName'} element={<Services />} />
 
           <Route path='/contact' element={<h1>Contact</h1>} />
 
