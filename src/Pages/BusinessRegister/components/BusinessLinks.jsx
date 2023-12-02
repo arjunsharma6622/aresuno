@@ -1,0 +1,105 @@
+import React from "react";
+import { BiLink } from "react-icons/bi";
+import { FaWhatsapp } from "react-icons/fa";
+import {
+  FiFacebook,
+  FiGlobe,
+  FiInstagram,
+  FiTwitter,
+  FiYoutube,
+} from "react-icons/fi";
+
+const socialLinks = [
+  {
+    name: "website",
+    icon: (
+      <FiGlobe className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+    ),
+  },
+  {
+    name: "instagram",
+    icon: (
+      <FiInstagram className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+    ),
+  },
+  {
+    name: "whatsapp",
+    icon: (
+      <FaWhatsapp className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+    ),
+  },
+  {
+    name: "twitter",
+    icon: (
+      <FiTwitter className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+    ),
+  },
+  {
+    name: "facebook",
+    icon: (
+      <FiFacebook className="z-10 h-6 w-6 absolute right-2 top-1/2 transform -translate-y-1/2" />
+    ),
+  },
+  {
+    name: "youtube",
+    icon: (
+      <FiYoutube className="z-10 h-5 w-5 absolute right-2 top-1/2 transform -translate-y-1/2" />
+    ),
+  },
+];
+
+const InputWithIcon = ({ name, onChange }) => {
+  const link = socialLinks.find((item) => item.name === name);
+
+  return (
+    <div className="flex flex-col" key={name}>
+      <label className="flex gap-2 items-center mb-2 capitalize">
+        {name} Link
+      </label>
+
+      <div className="relative">
+        <input
+          type="text"
+          className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
+          name={name}
+          onChange={onChange}
+        />
+        {link && link.icon}
+      </div>
+    </div>
+  );
+};
+
+const BusinessLinks = ({ businessDetails, setBusinessDetails }) => {
+  const handleSocialLinksChange = (e) => {
+    const { name, value } = e.target;
+    setBusinessDetails((prev) => ({
+      ...prev,
+      socialLinks: {
+        ...prev.socialLinks,
+        [name]: value,
+      },
+    }));
+  };
+
+  return (
+    <div className="mt-6 mb-6">
+      <div className="flex items-center gap-2">
+        <BiLink className="w-6 h-6" />
+        <h2 className="text-xl font-semibold">Add social links</h2>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mt-6">
+        {socialLinks.map((link) => (
+          <InputWithIcon
+            key={link.name}
+            name={link.name}
+            onChange={handleSocialLinksChange}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default BusinessLinks;

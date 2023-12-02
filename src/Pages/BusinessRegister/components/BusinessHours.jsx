@@ -1,0 +1,167 @@
+import React from 'react'
+import { FiChevronDown, FiClock } from 'react-icons/fi';
+
+const BusinessHours = ({businessDetails, setBusinessDetails}) => {
+    //   handle business timings
+    const daysOfWeek = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ];
+
+    const timeOptions = [
+        "06:00 AM",
+        "07:00 AM",
+        "08:00 AM",
+        "09:00 AM",
+        "10:00 AM",
+        "11:00 AM",
+        "12:00 PM",
+        "01:00 PM",
+        "02:00 PM",
+        "03:00 PM",
+        "04:00 PM",
+        "05:00 PM",
+        "06:00 PM",
+        "07:00 PM",
+        "08:00 PM",
+        "09:00 PM",
+        "10:00 PM",
+        "11:00 PM",
+    ];
+
+    const handleBusinessHoursChange = (index, isChecked) => {
+        const updatedBusinessHours = [...businessDetails.timing];
+        updatedBusinessHours[index].isOpen = isChecked;
+        if (!isChecked) {
+            updatedBusinessHours[index].from = "";
+            updatedBusinessHours[index].to = "";
+        }
+        setBusinessDetails((prev) => ({
+            ...prev,
+            timing: updatedBusinessHours,
+        }));
+    };
+
+    const handleBusinessHoursFromChange = (index, value) => {
+        const updatedBusinessHours = [...businessDetails.timing];
+        updatedBusinessHours[index].from = value;
+        setBusinessDetails((prev) => ({
+            ...prev,
+            timing: updatedBusinessHours,
+        }));
+    };
+
+    const handleBusinessHoursToChange = (index, value) => {
+        const updatedBusinessHours = [...businessDetails.timing];
+        updatedBusinessHours[index].to = value;
+        setBusinessDetails((prev) => ({
+            ...prev,
+            timing: updatedBusinessHours,
+        }));
+    };
+    return (
+        <div className="mt-6 mb-6">
+            <div className="flex items-center gap-2">
+                <FiClock className="w-6 h-6" />
+                <h2 className="text-xl font-semibold">Business Hours</h2>
+            </div>
+
+            <div className="mt-6">
+                <div className="flex flex-col gap-4">
+                    {daysOfWeek.map((day, index) => (
+                        <div className="flex flex-col items-start gap-4" key={day}>
+                            <div className="flex gap-6 justify-start items-center">
+                                <input
+                                    type="checkbox"
+                                    id={day}
+                                    name={day}
+                                    className="form-checkbox accent-green-600 h-5 w-5 text-blue-500"
+                                    checked={businessDetails.timing[index].isOpen}
+                                    onChange={(e) =>
+                                        handleBusinessHoursChange(index, e.target.checked)
+                                    }
+                                />
+                                <label
+                                    htmlFor={day}
+                                    className="block text-base text-gray-700"
+                                >
+                                    {day}
+                                </label>
+                            </div>
+                            {businessDetails.timing[index].isOpen && (
+                                <div className="flex gap-4 items-center">
+                                    <div className="relative">
+                                        <select
+                                            className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                            value={businessDetails.timing[index].from}
+                                            onChange={(e) =>
+                                                handleBusinessHoursFromChange(
+                                                    index,
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="" disabled defaultChecked>
+                                                -
+                                            </option>
+
+                                            {timeOptions.map((time) => (
+                                                <option key={time} value={time}>
+                                                    {time}
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                        <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
+                                    </div>
+
+                                    <span className="text-gray-600">to</span>
+
+                                    <div className="relative">
+                                        <select
+                                            className="appearance-none py-2 px-3 pr-10 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                                            value={businessDetails.timing[index].to}
+                                            onChange={(e) =>
+                                                handleBusinessHoursToChange(
+                                                    index,
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="" disabled defaultChecked>
+                                                -
+                                            </option>
+
+                                            {timeOptions
+                                                .filter(
+                                                    (time) =>
+                                                        new Date(`01/01/2000 ${time}`) >
+                                                        new Date(
+                                                            `01/01/2000 ${businessDetails.timing[index].from}`
+                                                        )
+                                                )
+                                                .map((time) => (
+                                                    <option key={time} value={time}>
+                                                        {time}
+                                                    </option>
+                                                ))}
+                                        </select>
+
+                                        <FiChevronDown className="w-5 h-5 pointer-events-none absolute right-3 transform -translate-y-1/2 top-1/2" />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default BusinessHours

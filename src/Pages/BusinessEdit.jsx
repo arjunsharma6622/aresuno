@@ -341,7 +341,7 @@ const BusinessEdit = () => {
 
       images.forEach(async (image, index) => {
         imageData.append(`file`, image)
-        imageData.append("folder", `aresuno/businessImages/${id}/gallery`)
+        imageData.append("folder", `aresuno/businessImages/${businessDetails.name}/gallery`)
         imageData.append("upload_preset", "ml_default");
 
         const uploadResponse = await axios.post(
