@@ -33,7 +33,7 @@ const ServiceCategories = () => {
                                     <div className="w-full self-stretch mt-10 max-md:max-w-full">
                                         <div className="grid grid-cols-2 w-full gap-4 gap-y-7">
 
-                                            {category.subcategories.map((subCategory, index) => (
+                                            {category.subcategories?.map((subCategory, index) => (
 
                                                 <Link to={`/${subCategory.name.replace(/\s+/g, '-').toLowerCase()}`} key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
 
@@ -47,7 +47,7 @@ const ServiceCategories = () => {
                                                                     className="w-full h-full object-cover"
                                                                 />
                                                                 <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
-                                                                    {subCategory.businesses.length} Services
+                                                                    {subCategory.businesses?.length} Services
                                                                 </div>
                                                             </div>
                                                             <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
