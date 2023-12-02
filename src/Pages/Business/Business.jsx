@@ -93,7 +93,8 @@ const Business = () => {
     const fetchBusiness = async () => {
         try {
             const res = await axios.get(
-                "http://localhost:8000/api/business/getBusinessByName/" + businessName
+                // "http://localhost:8000/api/business/getBusinessByName/" + businessName
+                "https://aresuno-server.vercel.app/api/business/getBusinessByName/" + businessName
             );
             setBusiness(res.data);
             console.log(res.data);
