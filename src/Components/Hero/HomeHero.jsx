@@ -138,7 +138,7 @@ function HomeHero(props) {
                                 className="w-full h-full object-cover"
                               />
                               <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
-                                {subCategory.businesses.length} Services
+                                {subCategory.businesses?.length} Services
                               </div>
                             </div>
                             <div className="text-black text-sm leading-5 tracking-wide self-center whitespace-nowrap mt-3">
