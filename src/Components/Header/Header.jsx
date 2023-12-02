@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { userLogout } from '../../userSlice';
+// import { userLogout } from '../../userSlice';
 import axios from "axios";
+import { userLogout } from '../../state/slices/userSlice';
 
 
 

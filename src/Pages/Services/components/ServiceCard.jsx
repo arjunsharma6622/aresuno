@@ -1,6 +1,7 @@
 import React from 'react'
 import { AiFillStar } from 'react-icons/ai';
-import { FiMapPin, FiMessageCircle, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
+import { FiExternalLink, FiMapPin, FiMessageCircle, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
+import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ business }) => {
 
@@ -28,6 +29,12 @@ const ServiceCard = ({ business }) => {
                             <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png" alt="" className='w-6 h-6 object-cover' />
                         </div>
                         <div className='border-l-[1.4px] border-gray-300 pl-2'>{business.name}</div>
+                        <div className='ml-2'>
+                            <Link to={`/business/${business.name.split(" ").join("-").toLowerCase()}`} className='flex items-center gap-2 text-sm text-blue-500'>
+                            <FiExternalLink className='w-4 h-4' />
+                            Visit
+                            </Link>
+                        </div>
                     </div>
 
 

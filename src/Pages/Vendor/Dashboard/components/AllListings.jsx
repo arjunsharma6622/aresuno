@@ -44,7 +44,7 @@ const AllListings = ({ businesses }) => {
 
             <div className="flex items-center justify-between">
               <Link
-                to={`/business/${business._id}`}
+                to={`/business/${business.name.split(" ").join("-").toLowerCase()}`}
                 className="flex gap-2 items-center justify-start text-blue-500"
               >
                 <span>View</span>

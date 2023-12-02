@@ -21,7 +21,7 @@ import { PiCalendarCheckLight } from "react-icons/pi";
 import { CgWebsite } from "react-icons/cg";
 import { BiCheckShield, BiStar } from "react-icons/bi";
 import axios from "axios";
-import Accordion from "../Accordion";
+import Accordion from "./components/Accordion";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -31,13 +31,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export const Business = () => {
+const Business = () => {
     const [business, setBusiness] = useState({});
     const [selectedStars, setSelectedStars] = useState(4);
     const [review, setReview] = useState("");
     const [hoveredStars, setHoveredStars] = useState(0);
-    const { id } = useParams();
+    const { businessName } = useParams();
     const avgRating = business.ratingsReviews?.reduce((acc, item) => acc + (item.rating || 0), 0) / business.ratingsReviews?.length;
     const roundedAvgRating = Number.isNaN(avgRating) ? 0 : Math.round(avgRating);
     console.log(roundedAvgRating);
@@ -69,7 +70,7 @@ export const Business = () => {
             const token = localStorage.getItem("token");
             const res = await axios.patch(
                 // `http://localhost:8000/api/business/${id}/rating`,
-                `https://aresuno-server.vercel.app/api/business/${id}/rating`,
+                `https://aresuno-server.vercel.app/api/business/${business._id}/rating`,
                 { rating: selectedStars, review: review },
                 {
                     headers: {
@@ -92,7 +93,7 @@ export const Business = () => {
     const fetchBusiness = async () => {
         try {
             const res = await axios.get(
-                "https://aresuno-server.vercel.app/api/business/" + id
+                "http://localhost:8000/api/business/getBusinessByName/" + businessName
             );
             setBusiness(res.data);
             console.log(res.data);
@@ -130,6 +131,9 @@ export const Business = () => {
         }
     ]
 
+    const categories = useSelector((state) => state.categories);
+    const subCategory = categories.flatMap((category) => category.subcategories).find((subcategory) => subcategory._id === business.subCategory);
+
     return (
         <div className="bg-white flex flex-col gap-6 justify-center w-full px-6 mt-10">
             <div className="w-full border border-solid border-gray-300 rounded-xl p-8 flex gap-4">
@@ -166,7 +170,7 @@ export const Business = () => {
                                 <div className="text-black text-3xl flex-col font-semibold flex justify-start items-start">
                                     <span>{business.name}</span>
                                     <span className="text-gray-800 text-base font-medium">
-                                        {business.mainCategory}
+                                        {subCategory?.name}
                                     </span>
 
                                     <div className="flex items-center text-xs">
@@ -214,7 +218,7 @@ export const Business = () => {
                                         return (
 
                                             business.socialLinks?.[item.link] &&
-                                            <a href={business.socialLinks?.[item.link]}>
+                                            <a key={index} href={business.socialLinks?.[item.link]}>
                                                 <div
                                                     key={index}
                                                     className="cursor-pointer relative bg-[#E9F5FE] rounded-full h-9 w-9"
@@ -420,7 +424,7 @@ export const Business = () => {
                         <div className="grid grid-cols-1 gap-8 mt-8">
                             {
                                 business.posts?.map((post, index) => (
-                                    <div className="max-w-full gap-4 flex items-start">
+                                    <div key={index} className="max-w-full gap-4 flex items-start">
                                         <div className="flex-[3]">
                                             <img
                                                 className="w-full rounded-xl object-cover"
@@ -478,7 +482,7 @@ export const Business = () => {
 
                                 {
                                     business.ratingsReviews?.map((ratingReview, index) => (
-                                        <div className="flex items-start gap-4">
+                                        <div key={index} className="flex items-start gap-4">
                                             <div>
                                                 <img
                                                     src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
@@ -495,7 +499,7 @@ export const Business = () => {
                                                                 <AiFillStar key={index} className="text-yellow-500" />
                                                             ))}
                                                             {[...Array(5 - ratingReview.rating)].map((_, index) => (
-                                                                <AiFillStar className="text-gray-300" />
+                                                                <AiFillStar key={index} className="text-gray-300" />
                                                             ))}
 
                                                         </div>
@@ -654,3 +658,7 @@ export const Business = () => {
         </div>
     );
 };
+
+
+
+export default Business;

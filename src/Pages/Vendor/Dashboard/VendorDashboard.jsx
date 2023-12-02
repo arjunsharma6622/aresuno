@@ -1,15 +1,15 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import Sidebar from "../DashboardComponents/Sidebar";
-import Overview from "../DashboardComponents/Overview";
-import Reviews from "../DashboardComponents/Reviews";
-import Posts from "../DashboardComponents/Posts";
-import Leads from "../DashboardComponents/Leads";
-import Subscriptions from "../DashboardComponents/Subscriptions";
-import AllListings from "../DashboardComponents/AllListings";
-import AddListing from "../DashboardComponents/AddListing";
-import Profile from "../DashboardComponents/Profile";
+import Sidebar from "./components/Sidebar";
+import Overview from "./components/Overview";
+import Reviews from "./components/Reviews";
+import Posts from "./components/Posts";
+import Leads from "./components/Leads";
+import Subscriptions from "./components/Subscriptions";
+import AllListings from "./components/AllListings";
+import AddListing from "./components/AddListing";
+import Profile from "./components/Profile";
 
 const VendorDashboard = () => {
   const [user, setUser] = useState({});

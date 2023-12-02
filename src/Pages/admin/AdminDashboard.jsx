@@ -30,7 +30,8 @@ import { Link } from "react-router-dom";
 import AdminHome from "./AdminHome";
 import DeleteModal from "./DeleteModal";
 import { useDispatch, useSelector } from "react-redux";
-import {setAllCategories} from "../../categoriesSlice"
+import { setAllCategories } from "../../state/slices/categoriesSlice";
+// import {setAllCategories} from "../../categoriesSlice"
 
 
 const AllBusiness = ({ businesses }) => {

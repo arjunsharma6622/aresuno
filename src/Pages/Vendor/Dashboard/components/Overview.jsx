@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { graphData } from "../../../data";
+import { graphData } from "../../../../data";
 import { LuImagePlus } from "react-icons/lu";
 import { FiChevronDown, FiExternalLink, FiLink, FiLink2, FiX, FiXCircle } from "react-icons/fi";
 import { Link } from "react-router-dom";

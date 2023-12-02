@@ -3,9 +3,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { userLogin } from "../../userSlice";
+// import { userLogin } from "../../userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiEye, FiEyeOff } from "react-icons/fi";
+import { userLogin } from "../../state/slices/userSlice";
 
 const Register = () => {
   const navigate = useNavigate();

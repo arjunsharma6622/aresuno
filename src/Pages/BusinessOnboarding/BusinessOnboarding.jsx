@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import BusinessRegister from './BusinessRegister/BusinessRegister';
+import BusinessRegister from '../BusinessRegister/BusinessRegister';
 
 const BusinessOnboarding = () => {
     const user = useSelector((state) => state.user);

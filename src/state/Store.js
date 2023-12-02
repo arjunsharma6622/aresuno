@@ -1,10 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
-import userReducer from "./userSlice"
-import businessReducer from "./businessSlice"
+import userReducer from "./slices/userSlice"
+import businessReducer from "./slices/businessSlice"
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import categoriesReducer from "./categoriesSlice"
-import bannerReducer from "./bannerSlice"
+import categoriesReducer from "./slices/categoriesSlice"
+import bannerReducer from "./slices/bannerSlice"
 
 
 const rootReducer = combineReducers({

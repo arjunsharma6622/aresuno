@@ -3,9 +3,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { userLogin } from "../../userSlice";
+// import { userLogin } from "../../userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { FiEye, FiEyeOff, FiMail } from "react-icons/fi";
+import { userLogin } from "../../state/slices/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();

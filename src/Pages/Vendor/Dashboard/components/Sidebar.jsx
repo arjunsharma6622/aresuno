@@ -12,8 +12,10 @@ import {
   MdOutlinePostAdd,
   MdOutlineReviews,
 } from "react-icons/md";
-import { userLogout } from "../../../userSlice";
+// import { userLogout } from "../../../../userSlice";
+// userLogout
 import { useDispatch } from "react-redux";
+import { userLogout } from "../../../../state/slices/userSlice";
 
 const Sidebar = ({ user, handleSelectedField, selectedField }) => {
   const navigate = useNavigate();
