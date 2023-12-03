@@ -169,7 +169,7 @@ const Profile = ({ user }) => {
       </div>
 
       <div className="flex w-full flex-col items-center justify-between gap-8">
-        <div className="w-1/2">
+        <div className="w-1/2 bg-white px-8 py-10 rounded-xl shadow-lg">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-medium">Update Your Details</h2>
             {edit ? (
@@ -195,7 +195,7 @@ const Profile = ({ user }) => {
                 type="text"
                 value={userEdit?.name || ""}
                 disabled={edit}
-                className=" border-gray-400 border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
+                className="  border border-gray-300 bg-transparent rounded-md px-4 py-3 focus:outline-none w-full"
                 onChange={handleChange}
                 name="name"
                 placeholder="Name"
@@ -204,7 +204,7 @@ const Profile = ({ user }) => {
                 type="text"
                 value={userEdit?.email || ""}
                 disabled
-                className=" border-gray-400 text-gray-400 font-light cursor-not-allowed border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
+                className=" border border-gray-300 bg-transparent rounded-md px-4 py-3 focus:outline-none w-full"
                 onChange={handleChange}
                 name="email"
                 placeholder="Email"
@@ -213,7 +213,7 @@ const Profile = ({ user }) => {
                 type="text"
                 value={userEdit?.phone || ""}
                 disabled
-                className=" border-gray-400 cursor-not-allowed border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
+                className=" border border-gray-300 bg-transparent rounded-md px-4 py-3 focus:outline-none w-full"
                 onChange={handleChange}
                 name="phone"
                 placeholder="Phone"
@@ -221,7 +221,7 @@ const Profile = ({ user }) => {
 
               <button
                 type="submit"
-                className="bg-blue-500 rounded-sm py-2 px-5 text-white"
+                className="bg-blue-500 rounded-lg py-3 px-4 text-white"
                 onClick={handleProfileUpdate}
               >
                 Update Profile
@@ -230,7 +230,7 @@ const Profile = ({ user }) => {
           </div>
         </div>
 
-        <div className="w-1/2">
+        <div className="w-1/2 bg-white p-6 py-10 rounded-xl shadow-lg">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-medium">Change Password</h2>
 
@@ -243,7 +243,7 @@ const Profile = ({ user }) => {
                 <input
                   type="password"
                   value={updatedPassword?.newPassword}
-                  className="border-gray-400 border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
+                  className="border border-gray-300 bg-transparent rounded-md px-4 py-3 focus:outline-none w-full"
                   onChange={handlePasswordChange}
                   name="newPassword"
                   placeholder="New Password"
@@ -254,7 +254,7 @@ const Profile = ({ user }) => {
                 <input
                   type={showPassword ? "text" : "password"}
                   value={updatedPassword?.confirmPassword}
-                  className="border-gray-400 border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
+                  className="border border-gray-300 bg-transparent rounded-md px-4 py-3 focus:outline-none w-full"
                   onChange={handlePasswordChange}
                   name="confirmPassword"
                   placeholder="Confirm Password"
@@ -278,18 +278,18 @@ const Profile = ({ user }) => {
               {updatedPassword?.confirmPassword &&
                 (updatedPassword?.newPassword !==
                 updatedPassword?.confirmPassword ? (
-                  <p className="text-red-500 text-xs italic">
+                  <p className="text-red-500 text-xs -mt-3">
                     Passwords do not match
                   </p>
                 ) : (
-                  <p className="text-green-500 text-xs italic">
+                  <p className="text-green-600 text-xs -mt-3">
                     Passwords Match
                   </p>
                 ))}
 
               <button
                 type="submit"
-                className={`bg-blue-500 rounded-sm py-2 px-5 text-white ${
+                className={`bg-blue-500 rounded-lg py-3 px-5 text-white ${
                   !updatedPassword?.confirmPassword ||
                   updatedPassword?.newPassword !==
                     updatedPassword?.confirmPassword
