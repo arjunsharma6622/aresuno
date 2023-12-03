@@ -5,7 +5,7 @@ const Accordion = ({ question, content }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="max-w-full">
+    <div className="max-w-full transition-all duration-300 ease-in">
       <div
         className="flex items-center justify-between gap-4 mt-4 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}

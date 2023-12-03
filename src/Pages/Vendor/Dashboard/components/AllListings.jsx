@@ -15,7 +15,7 @@ const AllListings = ({ businesses }) => {
         {businesses.map((business) => (
           <div
             key={business._id}
-            className="text-base flex flex-col gap-4 bg-white shadow-lg rounded-xl px-8 py-6"
+            className="text-base flex flex-col gap-6 bg-white shadow-lg rounded-xl px-8 py-6"
           >
             <span className="font-semibold text-xl underline">
               {business.name}

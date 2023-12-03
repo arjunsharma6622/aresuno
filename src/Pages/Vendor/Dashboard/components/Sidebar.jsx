@@ -83,7 +83,7 @@ const Sidebar = ({ user }) => {
 
   return (
     <div
-      className={` relative overflow-y-auto p-4 py-8 shadow-lg border-r flex flex-col justify-between items-start transition-all duration-[300ms] ${isSidebarCollapsed ? " w-28 p-2" : "w-64"
+      className={` relative overflow-y-auto p-4 py-8 shadow-lg border-r flex flex-col justify-between items-start transition-all duration-[300ms] ${isSidebarCollapsed ? " w-24 p-2" : " w-72"
         }`}
     >
       <div className="flex flex-col gap-8 w-full">
@@ -130,7 +130,7 @@ const Sidebar = ({ user }) => {
           {sidebarLinks.map(({ name, icon, path }, index) => (
             <Link to={path} key={index} className={`w-full rounded-md p-2 px-4 ${isActiveLink(path) ? "bg-blue-500" : ""}`} >
               <div
-                className={`flex items-center ${isSidebarCollapsed ? "justify-center" : "justify-start"} w-full} cursor-pointer gap-3 ${isActiveLink(path) ? "text-white" : "text-black-500"
+                className={`flex items-center ${isSidebarCollapsed ? "justify-center" : "justify-start"} w-full} cursor-pointer gap-3 ${isActiveLink(path) ? "text-white" : "text-gray-600"
                   }`}
               >
                 {icon}

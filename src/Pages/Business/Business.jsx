@@ -135,6 +135,28 @@ const Business = () => {
     const categories = useSelector((state) => state.categories);
     const subCategory = categories.flatMap((category) => category.subcategories).find((subcategory) => subcategory._id === business.subCategory);
 
+
+    const daysAgoFormatDate = (dateString) => {
+        const currentDate = new Date();
+        const inputDate = new Date(dateString);
+      
+        const elapsedDays = Math.round((currentDate - inputDate) / (1000 * 60 * 60 * 24));
+      
+        if (elapsedDays <= 1) {
+          return 'Today';
+        } else if (elapsedDays <= 30) {
+          return `${elapsedDays} ${elapsedDays === 1 ? 'day' : 'days'} ago`;
+        } else if (elapsedDays <= 365) {
+          const elapsedMonths = Math.round(elapsedDays / 30);
+          return `${elapsedMonths} ${elapsedMonths === 1 ? 'month' : 'months'} ago`;
+        } else {
+          const elapsedYears = Math.round(elapsedDays / 365);
+          return `${elapsedYears} ${elapsedYears === 1 ? 'year' : 'years'} ago`;
+        }
+      };
+      
+      
+
     return (
         <div className="bg-white flex flex-col gap-6 justify-center w-full px-6 mt-10">
             <div className="w-full border border-solid border-gray-300 rounded-xl p-8 flex gap-4">
@@ -505,7 +527,10 @@ const Business = () => {
 
                                                         </div>
                                                         <div className="text-gray-500 text-xs mr-4">
-                                                            {new Date(ratingReview.createdAt).toDateString()} days ago
+                                                            {/* {new Date(ratingReview.createdAt).toDateString()} days ago */}
+
+
+                                                           {daysAgoFormatDate('2022-12-03T09:22:54.444+00:00')}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -543,6 +568,7 @@ const Business = () => {
                                     faq.answer
                                 }
                                 key={index}
+                            
                             />
                         ))}
 

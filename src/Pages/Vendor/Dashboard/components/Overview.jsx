@@ -58,7 +58,7 @@ const Overview = ({ businesses, posts }) => {
         <div className={"bg-white p-8 rounded-lg shadow-lg"}>
         <ResponsiveContainer width="100%" height={350} >
           <LineChart data={graphData} className="text-sm  font-light">
-            <Line type="monotone" dataKey="Leads" stroke="#007bff" />
+            <Line type="monotone" dataKey="Leads" stroke="#007bff" strokeWidth={1.5}/>
             <CartesianGrid stroke="#ddd" strokeDasharray="5 5" />
             <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
             <YAxis />
