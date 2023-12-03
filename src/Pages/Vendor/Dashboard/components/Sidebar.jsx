@@ -66,7 +66,7 @@ const Sidebar = ({ user }) => {
 
   const isActiveLink = (path) => {
     if (path === "") {
-      return location.pathname === `/vendor/dashboard`;
+      return location.pathname === `/vendor/dashboard/` || location.pathname === `/vendor/dashboard`;
     }
     return location.pathname === `/vendor/dashboard/${path}`;
   }
