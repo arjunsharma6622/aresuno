@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   AiOutlineAppstore,
   AiOutlineAppstoreAdd,
@@ -12,106 +12,112 @@ import {
   MdOutlinePostAdd,
   MdOutlineReviews,
 } from "react-icons/md";
-// import { userLogout } from "../../../../userSlice";
-// userLogout
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../../state/slices/userSlice";
+import { FiArrowLeft, FiHome } from "react-icons/fi";
 
-const Sidebar = ({ user, handleSelectedField, selectedField }) => {
+const Sidebar = ({ user }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation()
+
+  const sidebarLinks = [
+    {
+      name: "Dashboard",
+      icon: <LuLayoutDashboard className="w-6 h-6" />,
+      path: "",
+    },
+    {
+      name: "Profile",
+      icon: <AiOutlineUser className="w-6 h-6 " />,
+      path: "profile",
+    },
+    {
+      name: "All Listings",
+      icon: <AiOutlineAppstore className="w-6 h-6 " />,
+      path: "all-listings",
+    },
+    {
+      name: "Add Listing",
+      icon: <AiOutlineAppstoreAdd className="w-6 h-6 " />,
+      path: "add-listing",
+    },
+    {
+      name: "Posts",
+      icon: <MdOutlinePostAdd className="w-6 h-6 " />,
+      path: "posts",
+    },
+    {
+      name: "Reviews",
+      icon: <MdOutlineReviews className="w-6 h-6 " />,
+      path: "reviews",
+    },
+    {
+      name: "Leads",
+      icon: <MdOutlineLeaderboard className="w-6 h-6 " />,
+      path: "leads",
+    },
+    {
+      name: "Subscriptions",
+      icon: <BiDollar className="w-6 h-6 " />,
+      path: "subscriptions",
+    },
+  ];
+
+  const isActiveLink = (path) => {
+    if (path === "") {
+      return location.pathname === `/vendor/dashboard`;
+    }
+    return location.pathname === `/vendor/dashboard/${path}`;
+  }
 
   return (
     <div className="flex-[2] overflow-y-auto border-r border-gray-300 p-10 flex flex-col justify-between items-start">
-      <div className="flex flex-col gap-10 w-full">
+      <div className="flex flex-col gap-8 w-full">
+        
+        <div className="flex flex-col items-start justify-start gap-6 w-full">
+
+      <Link to="/">
+            <div className="flex items-center cursor-pointer gap-2">
+              <FiArrowLeft className="w-5 h-5" />
+              <span className="text-base">Home</span>
+            </div>
+          </Link>
         <div className="flex items-center gap-4">
           <img
-            src={user.image ? user.image : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+            src={
+              user.image
+                ? user.image
+                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+            }
             alt=""
             className="rounded-full w-10 h-10 object-cover"
           />
           <h2 className="text-2xl font-semibold">{user.name}</h2>
         </div>
 
-        <div className="text-sm flex flex-col gap-6 w-full">
-          <div
-            className={`flex items-center cursor-pointer gap-2 ${
-              selectedField === "dashboard" ? "text-blue-500" : "text-gray-700"
-            }`}
-            onClick={() => handleSelectedField("dashboard")}
-          >
-            <LuLayoutDashboard className="w-6 h-6" />
-            <span className="">Dashboard</span>
-          </div>
+        </div>
 
-          <div
-            className={`flex items-center cursor-pointer gap-2 ${
-              selectedField === "profile" ? "text-blue-500" : "text-gray-700"
-            }`}
-            onClick={() => handleSelectedField("profile")}
-          >
-            <AiOutlineUser className="w-6 h-6 " />
-            <span className="">Profile</span>
-          </div>
 
-          <div
-            className={`flex items-center cursor-pointer gap-2 ${
-              selectedField === "allListings"
-                ? "text-blue-500"
-                : "text-gray-700"
-            }`}
-            onClick={() => handleSelectedField("allListings")}
-          >
-            <AiOutlineAppstore className="w-6 h-6 " />
-            <span className="">All Listing</span>
-          </div>
-          <div
-            className={`flex items-center cursor-pointer gap-2 ${
-              selectedField === "addListing" ? "text-blue-500" : "text-gray-700"
-            }`}
-            onClick={() => handleSelectedField("addListing")}
-          >
-            <AiOutlineAppstoreAdd className="w-6 h-6 " />
-            <span className="">Add New Listing</span>
-          </div>
-          <div
-            className={`flex items-center cursor-pointer gap-2 ${
-              selectedField === "posts" ? "text-blue-500" : "text-gray-700"
-            }`}
-            onClick={() => handleSelectedField("posts")}
-          >
-            <MdOutlinePostAdd className="w-6 h-6 " />
-            <span className="">Posts</span>
-          </div>
-          <div
-            className={`flex items-center cursor-pointer gap-2 ${
-              selectedField === "reviews" ? "text-blue-500" : "text-gray-700"
-            }`}
-            onClick={() => handleSelectedField("reviews")}
-          >
-            <MdOutlineReviews className="w-6 h-6 " />
-            <span className="">Reviews</span>
-          </div>
-          <div
-            className={`flex items-center cursor-pointer gap-2 ${
-              selectedField === "leads" ? "text-blue-500" : "text-gray-700"
-            }`}
-            onClick={() => handleSelectedField("leads")}
-          >
-            <MdOutlineLeaderboard className="w-6 h-6 " />
-            <span className="">Leads</span>
-          </div>
-          <div
-            className={`flex items-center cursor-pointer gap-2 ${
-              selectedField === "subscriptions"
-                ? "text-blue-500"
-                : "text-gray-700"
-            }`}
-            onClick={() => handleSelectedField("subscriptions")}
-          >
-            <BiDollar className="w-6 h-6 text-gray-700" />
-            <span className="">Subscriptions</span>
-          </div>
+
+
+        <hr className="w-full border-gray-300" />
+
+        <div className="text-sm flex flex-col gap-8 w-full">
+
+
+          {sidebarLinks.map(({ name, icon, path }, index) => (
+            <Link to={path} key={index}>
+              <div
+                className={`flex items-center cursor-pointer gap-2 ${
+                  isActiveLink(path) ? "text-blue-500" : "text-gray-700"
+                }`}
+              >
+                {icon}
+                <span className="">{name}</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
 

@@ -78,7 +78,7 @@ function Main() {
           <Route path="/signup" element={<Register />} />
 
           {userType === "vendor" && (
-            <Route path="/vendor/dashboard/" element={<VendorDashboard />} />
+            <Route path="/vendor/dashboard/*" element={<VendorDashboard />} />
           )}
 
           {userType === "user" && (

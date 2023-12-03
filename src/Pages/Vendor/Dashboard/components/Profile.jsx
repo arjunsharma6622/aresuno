@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsFillCameraFill } from "react-icons/bs";
 import { FiCamera, FiEdit, FiEdit2, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
@@ -8,7 +8,10 @@ const Profile = ({ user }) => {
   const [image, setImage] = useState(null);
   const [imageToShow, setImageToShow] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
-  const [userEdit, setUserEdit] = useState(user);
+  const [userEdit, setUserEdit] = useState({});
+  useEffect(() => {
+    setUserEdit(user);
+  }, [user]);
   const [edit, setEdit] = useState(true);
   const [updatedPassword, setUpdatedPassword] = useState({
     newPassword: "",
@@ -22,7 +25,7 @@ const Profile = ({ user }) => {
     try {
       const res = await axios.patch(
         "https://aresuno-server.vercel.app/api/vendor/",
-        { password: updatedPassword.newPassword },
+        { password: updatedPassword?.newPassword },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -104,8 +107,10 @@ const Profile = ({ user }) => {
       const res = await axios.patch(
         "https://aresuno-server.vercel.app/api/vendor/",
         {
-          name: userEdit.name
+          name: userEdit?.name
         },
+
+
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -188,7 +193,7 @@ const Profile = ({ user }) => {
             <form className={`flex flex-col gap-4 mt-6`}>
               <input
                 type="text"
-                value={userEdit.name}
+                value={userEdit?.name || ""}
                 disabled={edit}
                 className=" border-gray-400 border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
                 onChange={handleChange}
@@ -197,7 +202,7 @@ const Profile = ({ user }) => {
               />
               <input
                 type="text"
-                value={userEdit.email}
+                value={userEdit?.email || ""}
                 disabled
                 className=" border-gray-400 text-gray-400 font-light cursor-not-allowed border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
                 onChange={handleChange}
@@ -206,7 +211,7 @@ const Profile = ({ user }) => {
               />
               <input
                 type="text"
-                value={userEdit.phone}
+                value={userEdit?.phone || ""}
                 disabled
                 className=" border-gray-400 cursor-not-allowed border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
                 onChange={handleChange}
@@ -237,7 +242,7 @@ const Profile = ({ user }) => {
               <div>
                 <input
                   type="password"
-                  value={updatedPassword.newPassword}
+                  value={updatedPassword?.newPassword}
                   className="border-gray-400 border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
                   onChange={handlePasswordChange}
                   name="newPassword"
@@ -248,7 +253,7 @@ const Profile = ({ user }) => {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  value={updatedPassword.confirmPassword}
+                  value={updatedPassword?.confirmPassword}
                   className="border-gray-400 border-[1px] rounded-sm px-5 py-2 focus:outline-none w-full"
                   onChange={handlePasswordChange}
                   name="confirmPassword"
@@ -270,9 +275,9 @@ const Profile = ({ user }) => {
                 </div>
               </div>
 
-              {updatedPassword.confirmPassword &&
-                (updatedPassword.newPassword !==
-                updatedPassword.confirmPassword ? (
+              {updatedPassword?.confirmPassword &&
+                (updatedPassword?.newPassword !==
+                updatedPassword?.confirmPassword ? (
                   <p className="text-red-500 text-xs italic">
                     Passwords do not match
                   </p>
@@ -285,16 +290,16 @@ const Profile = ({ user }) => {
               <button
                 type="submit"
                 className={`bg-blue-500 rounded-sm py-2 px-5 text-white ${
-                  !updatedPassword.confirmPassword ||
-                  updatedPassword.newPassword !==
-                    updatedPassword.confirmPassword
+                  !updatedPassword?.confirmPassword ||
+                  updatedPassword?.newPassword !==
+                    updatedPassword?.confirmPassword
                     ? "cursor-not-allowed"
                     : ""
                 }`}
                 disabled={
-                  !updatedPassword.confirmPassword ||
-                  updatedPassword.newPassword !==
-                    updatedPassword.confirmPassword
+                  !updatedPassword?.confirmPassword ||
+                  updatedPassword?.newPassword !==
+                    updatedPassword?.confirmPassword
                 }
                 onClick={handlePasswordClick}
               >

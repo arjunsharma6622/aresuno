@@ -5,7 +5,6 @@ import Modal from "./Modal";
 
 const AllListings = ({ businesses }) => {
   const [selectedBusiness, setSelectedBusiness] = useState(null);
-
   return (
     <div className="">
       <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
