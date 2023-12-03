@@ -35,7 +35,7 @@ const Overview = ({ businesses, posts }) => {
           {Object.keys(iconMapping).map((key) => (
             <div
               key={key}
-              className="bg-white flex justify-center gap-5 py-6 items-center rounded-lg"
+              className="bg-white shadow-lg flex justify-center gap-5 py-6 items-center rounded-lg"
             >
               <div>
                 {React.createElement(iconMapping[key], {
@@ -55,8 +55,9 @@ const Overview = ({ businesses, posts }) => {
 
       <div className="">
         <h2 className="text-2xl font-semibold mb-6">Leads History</h2>
-        <ResponsiveContainer width="100%" height={350}>
-          <LineChart data={graphData} className="text-sm font-light">
+        <div className={"bg-white p-8 rounded-lg shadow-lg"}>
+        <ResponsiveContainer width="100%" height={350} >
+          <LineChart data={graphData} className="text-sm  font-light">
             <Line type="monotone" dataKey="Leads" stroke="#007bff" />
             <CartesianGrid stroke="#ddd" strokeDasharray="5 5" />
             <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
@@ -64,6 +65,7 @@ const Overview = ({ businesses, posts }) => {
             <Tooltip />
           </LineChart>
         </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

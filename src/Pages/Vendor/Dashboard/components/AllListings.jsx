@@ -15,16 +15,21 @@ const AllListings = ({ businesses }) => {
         {businesses.map((business) => (
           <div
             key={business._id}
-            className="text-base flex flex-col gap-4 border-[1.5px] border-gray-400 p-6 py-3 rounded"
+            className="text-base flex flex-col gap-4 bg-white shadow-lg rounded-xl px-8 py-6"
           >
             <span className="font-semibold text-xl underline">
               {business.name}
             </span>
             <div className="flex gap-2 flex-col text-sm">
-              <span>Category : {business.mainCategory}</span>
-              <span>Phone : {business.phone}</span>
               <span>
-                Created on :{" "}
+                <span className="font-semibold">Category : </span> {business.mainCategory}
+              </span>
+              <span>
+                <span className="font-semibold"> Phone : </span> {business.phone}
+              </span>
+              <span>
+                <span className="font-semibold">Created on : </span>
+
                 {new Date(business.createdAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -32,7 +37,8 @@ const AllListings = ({ businesses }) => {
                 })}
               </span>
               <span>
-                Last Update :{" "}
+                <span className="font-semibold">Last Update : </span>
+
                 {new Date(business.updatedAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -43,7 +49,10 @@ const AllListings = ({ businesses }) => {
 
             <div className="flex items-center justify-between">
               <Link
-                to={`/business/${business.name.split(" ").join("-").toLowerCase()}`}
+                to={`/business/${business.name
+                  .split(" ")
+                  .join("-")
+                  .toLowerCase()}`}
                 className="flex gap-2 items-center justify-start text-blue-500"
               >
                 <span>View</span>
