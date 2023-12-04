@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import Cropper from "react-easy-crop";
 import { getCroppedImg } from "./getCroppedImage";
 import { BiImageAdd } from "react-icons/bi";
+import EasyCrop from "./EasyCrop";
 
 const Posts = ({ posts, businesses }) => {
 
@@ -194,6 +195,9 @@ const Posts = ({ posts, businesses }) => {
         </div>
       )}
 
+
+
+
       <div className="">
         <h2 className="text-2xl font-semibold mb-6">Posts</h2>
 
@@ -212,7 +216,7 @@ const Posts = ({ posts, businesses }) => {
                       onClick={() => setImage(null)}
                     />
 
-                    <div className="flex justify-center w-full h-64">
+                    {/* <div className="flex justify-center w-full h-64">
                       <Cropper
                         image={imageToShow}
                         crop={crop}
@@ -222,7 +226,9 @@ const Posts = ({ posts, businesses }) => {
                         onCropComplete={onCropComplete}
                         onZoomChange={setZoom}
                       />
-                    </div>
+                    </div> */}
+
+                    <EasyCrop image={imageToShow} />
                   </div>
                 </div>
               )}
