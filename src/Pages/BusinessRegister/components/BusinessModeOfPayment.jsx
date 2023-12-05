@@ -12,6 +12,16 @@ const BusinessModeOfPayment = ({businessDetails, setBusinessDetails}) => {
         "EMI",
         "Wallet",
         "American Express",
+        "Master Card",
+        "Visa",
+        "Other",
+        "Paytm",
+        "PhonePe",
+        "Google Pay",
+        "Apple Pay",
+        "Paytm Wallet",
+        "Amazon Pay",
+        "Razorpay",
       ];
 
     const handlModeOfPaymentClick = (option) => {

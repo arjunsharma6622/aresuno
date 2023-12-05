@@ -22,7 +22,7 @@ const Sidebar = ({ user }) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   const sidebarLinks = [
     {

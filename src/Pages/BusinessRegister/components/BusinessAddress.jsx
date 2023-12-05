@@ -51,7 +51,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
               getSuggestionItemProps,
               loading,
             }) => (
-              <div>
+              <div className="relative">
                 <input
                   {...getInputProps({
                     placeholder: "Enter your address...",
@@ -59,12 +59,18 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
                   })}
                   className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
                 />
-                <div>
+
+                { suggestions.length > 0 &&
+                <div className="absolute z-50 w-full px-5 py-4 bg-gray-200 rounded-lg">
                   {loading ? <div>Loading...</div> : null}
 
                   {suggestions.map((suggestion, index) => {
                     const style = {
-                      backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
+                      backgroundColor: suggestion.active ? "#f7f7f7" : "",
+                      cursor: suggestion.active ? "pointer" : "",
+                      padding: "12px",
+                      borderRadius: "10px",
+                      // borderBottom: `${index === suggestions.length - 1 ? "none" : "1px solid #f7f7f7"}`,
                     };
                     return (
                       <div
@@ -76,6 +82,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
                     );
                   })}
                 </div>
+}
               </div>
             )}
           </PlacesAutocomplete>

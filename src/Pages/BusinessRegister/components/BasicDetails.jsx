@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BiDetail } from "react-icons/bi";
 import { FiChevronDown, FiXCircle } from "react-icons/fi";
 import { PhoneInput } from "react-international-phone";
+import Input from "../../../Components/Input";
 
 const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
   const [serviceError, setServiceError] = useState("");
@@ -58,7 +59,7 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
               name="name"
               value={businessDetails.name}
               onChange={handleBusinessDetailsChange}
-              className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="mt-2 rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
             />
           </div>
 
@@ -66,12 +67,12 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
           <div className="flex flex-col w-full">
             <label htmlFor="">Business Type</label>
 
-            <div className="flex items-center justify-center mt-2 h-full">
+            <div className="flex items-center justify-center h-full">
               <div className="relative w-full">
                 <select
                   name="type"
                   value={businessDetails.type}
-                  className="appearance-none rounded-md relative block w-full px-3 py-2 h-full border  border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="mt-2 appearance-none rounded-md relative block w-full px-4 py-3 h-full border  border-gray-300 placeholder-gray-500  bg-white"
                   onChange={handleBusinessDetailsChange}
                 >
                   <option value="" disabled className="">
@@ -98,10 +99,10 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
               defaultCountry="in"
               value={businessDetails.phone}
               onChange={handlePhoneChange}
-              className="mt-2 appearance-none rounded-md w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="mt-2 appearance-none placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
               style={{
                 width: "100%",
-                height: "39px",
+                height: "50px",
                 padding: "0px",
                 border: "none",
               }}
@@ -128,7 +129,7 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
               name="email"
               value={businessDetails.email}
               onChange={handleBusinessDetailsChange}
-              className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="mt-2 rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
             />
           </div>
         </div>
@@ -155,11 +156,11 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
               value={service}
               id=""
               placeholder="Service name"
-              className="flex-[8] appearance-none rounded-md relative block w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="flex-[8] rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
               onChange={handleServicesChange}
             />
             <button
-              className="rounded-md bg-blue-500 text-white px-8 py-2 flex-[4]"
+              className="rounded-md bg-blue-500 text-white px-8 py-3 flex-[4] focus:outline-none border border-blue-500"
               onClick={() => handleServiceAction("add")}
             >
               Add
