@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./Crop";
 
-const EasyCrop = ({ image }) => {
+const EasyCrop = ({ image, setImage }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -14,6 +14,12 @@ const EasyCrop = ({ image }) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
+  const blobUrlToFile = async (url, fileName) => {
+    const res = await fetch(url);
+    const blob = await res.blob();
+    return new File([blob], fileName, { type: blob.type });
+  }
+
   const showCroppedImage = useCallback(async () => {
     try {
       const croppedImage = await getCroppedImg(
@@ -23,6 +29,9 @@ const EasyCrop = ({ image }) => {
       );
       console.log("donee", { croppedImage });
       setCroppedImage(croppedImage);
+      const file = await blobUrlToFile(croppedImage, "crop.png");
+      console.log(file);
+    setImage(file);
     } catch (e) {
       console.error(e);
     }

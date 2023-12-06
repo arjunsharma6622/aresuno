@@ -1,16 +1,15 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { FiImage, FiUploadCloud, FiX } from 'react-icons/fi';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import React, { useState } from "react";
+import { FiImage, FiUploadCloud, FiX } from "react-icons/fi";
+import { MdOutlineCloudDone } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
-
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isUploaded, setIsUploaded] = useState(false);
 
   const handleImageChange = (e) => {
-
     const files = Array.from(e.target.files);
     files.forEach((file) => {
       const reader = new FileReader();
@@ -20,49 +19,6 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
       reader.readAsDataURL(file);
     });
   };
-
-  // const handleImagesUpload = async (e) => {
-  //     e.preventDefault();
-
-  //     try {
-  //       const imageData = new FormData();
-
-  //       images.forEach(async (image, index) => {
-  //         imageData.append(`file`, image)
-  //         imageData.append("folder", `aresuno/businessImages/${businessDetails.name}/gallery`)
-  //         imageData.append("upload_preset", "ml_default");
-
-  //         const uploadResponse = await axios.post(
-  //           "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-  //           imageData,
-  //         );
-
-
-  //         console.log(uploadResponse.data.secure_url)
-  //         setBusinessDetails((prev) => ({
-  //           ...prev,
-  //           photosGallery: [...prev.photosGallery, uploadResponse.data.secure_url],
-  //         }));
-
-  //         // console.log("This is the business details", businessDetails)
-  //       })
-
-
-
-  //       // console.log(uploadResponse.data);
-  //       // const imageUrls = uploadResponse.data.resources.map((resource) => resource.secure_url);
-  //       // return imageUrls;
-  //     }
-  //     catch (err) {
-  //       console.error("Error uploading images to Cloudinary:", err);
-  //       setIsLoading(false);
-  //     }
-
-
-
-  //   }
-
-
 
   const handleImagesUpload = async (e) => {
     e.preventDefault();
@@ -86,11 +42,15 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
         console.log(uploadResponse.data.secure_url);
         setBusinessDetails((prev) => ({
           ...prev,
-          photosGallery: [...prev.photosGallery, uploadResponse.data.secure_url],
+          photosGallery: [
+            ...prev.photosGallery,
+            uploadResponse.data.secure_url,
+          ],
         }));
       });
 
       await Promise.all(uploadPromises);
+      setIsUploaded(true);
       toast.success("Images uploaded successfully");
     } catch (err) {
       console.error("Error uploading images to Cloudinary:", err);
@@ -100,11 +60,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
     }
   };
 
-
-
-
   return (
-
     <div className="mt-6 mb-6">
       <div className="flex items-center gap-2">
         <FiImage className="w-6 h-6" />
@@ -113,9 +69,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
 
       <div className="mt-6">
         <div className="flex flex-col items-start">
-          {images.length > 0 && (
-            <span>{images.length} Images Added</span>
-          )}
+          {images.length > 0 && <span>{images.length} Images Added</span>}
 
           <label
             htmlFor="image"
@@ -145,9 +99,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                 <FiX
                   className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
                   onClick={() => {
-                    setImages((prev) =>
-                      prev.filter((_, i) => i !== index)
-                    );
+                    setImages((prev) => prev.filter((_, i) => i !== index));
                   }}
                 />
               </div>
@@ -156,8 +108,9 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
 
           {images.length > 0 && (
             <button
-              className="mt-2 py-2 px-4 bg-blue-500 gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center"
+              className={`mt-2 py-3 px-4 bg-blue-500 gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center ${isLoading || isUploaded ? "opacity-50 cursor-not-allowed" : ""}`}
               onClick={handleImagesUpload}
+              disabled={isLoading || isUploaded}
             >
               {isLoading ? (
                 <div
@@ -168,18 +121,18 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                     Loading...
                   </span>
                 </div>
+              ) : isUploaded ? (
+                <MdOutlineCloudDone className="w-6 h-6" />
               ) : (
                 <FiUploadCloud className="w-6 h-6" />
-
               )}
-              {isLoading ? "Uploading..." : "Upload All Images"}
+              {isLoading ? "Uploading..." : isUploaded ? "Uploaded" : "Upload Images"}
             </button>
           )}
         </div>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default BusinessImages
+export default BusinessImages;

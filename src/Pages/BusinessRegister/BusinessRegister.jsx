@@ -14,6 +14,7 @@ import BusinessImages from "./components/BusinessImages";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Input from "../../Components/Input";
+import { MdOutlineDone } from "react-icons/md";
 
 const BusinessRegister = () => {
   const navigate = useNavigate();

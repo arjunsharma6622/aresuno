@@ -36,7 +36,6 @@ const Posts = ({ posts, businesses }) => {
 
   })
 
-    console.log("Images", images)
 
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({onDrop});
@@ -80,6 +79,8 @@ const Posts = ({ posts, businesses }) => {
   const handleImage = async () => {
     try {
       setIsLoading(true);
+
+      console.log('image while uploading', image)
 
       const imageData = new FormData();
       imageData.append("file", image);
@@ -165,6 +166,11 @@ const Posts = ({ posts, businesses }) => {
     </div>
   );
 
+  console.log("Image-----", image)
+
+
+
+
   return (
     <div className="overflow-x-auto">
       {showEditModal && (
@@ -177,7 +183,7 @@ const Posts = ({ posts, businesses }) => {
 
       
 
-      <div
+      {/* <div
         className="flex justify-center items-center w-full bg-azure border bg-blue-200 border-dashed border-gray-500 h-[200px]"
         {...getRootProps()}
       >
@@ -193,7 +199,7 @@ const Posts = ({ posts, businesses }) => {
             <img key={index} src={image} alt="" className="w-32 h-32 aspect-auto object-cover rounded-lg" />
           ))}
         </div>
-      )}
+      )} */}
 
 
 
@@ -228,7 +234,7 @@ const Posts = ({ posts, businesses }) => {
                       />
                     </div> */}
 
-                    <EasyCrop image={imageToShow} />
+                    <EasyCrop image={imageToShow} setImage = {setImage} />
                   </div>
                 </div>
               )}

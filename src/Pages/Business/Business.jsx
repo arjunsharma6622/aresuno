@@ -35,6 +35,7 @@ import { useSelector } from "react-redux";
 
 const Business = () => {
     const [business, setBusiness] = useState({});
+    const [posts, setPosts] = useState([]);
     const [selectedStars, setSelectedStars] = useState(4);
     const [review, setReview] = useState("");
     const [hoveredStars, setHoveredStars] = useState(0);
@@ -97,6 +98,8 @@ const Business = () => {
                 "https://aresuno-server.vercel.app/api/business/getBusinessByName/" + businessName
             );
             setBusiness(res.data);
+            const postsRes = await axios.get(`https://aresuno-server.vercel.app/api/post/all-posts/${res.data._id}`);
+            setPosts(postsRes.data);
             console.log(res.data);
         } catch (e) {
             console.log(e);
@@ -446,7 +449,7 @@ const Business = () => {
 
                         <div className="grid grid-cols-1 gap-8 mt-8">
                             {
-                                business.posts?.map((post, index) => (
+                                posts?.map((post, index) => (
                                     <div key={index} className="max-w-full gap-4 flex items-start">
                                         <div className="flex-[3]">
                                             <img
