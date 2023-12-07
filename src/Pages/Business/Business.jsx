@@ -58,12 +58,6 @@ const Business = () => {
 
   //   const roundedAvgRating = Number.isNaN(avgRating) ? 0 : Math.round(avgRating);
 
-  const slides = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHfp2-v0_mvOp5W9vUBpNKVMH4A-3M7oRidg&usqp=CAU",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-    "https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698019200&semt=sph",
-    "https://img.freepik.com/free-photo/group-diverse-people-having-business-meeting_53876-25060.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1697155200&semt=ais",
-  ];
 
   const handleStarHover = (index) => {
     setHoveredStars(index + 1);
@@ -216,7 +210,7 @@ const Business = () => {
                         modules={[Autoplay, Pagination]}
                         className="mySwiper rounded-xl"
                       >
-                        {slides.map((slide, index) => (
+                        {business.photosGallery?.map((slide, index) => (
                           <SwiperSlide className="rounded-xl" key={index}>
                             <img src={slide} alt="" className="rounded-xl" />
                           </SwiperSlide>
@@ -614,7 +608,7 @@ const Business = () => {
                   </div>
 
                   <div className="flex flex-col gap-4">
-                    {ratings?.map((rating, index) => (
+                    {[...ratings]?.reverse().map((rating, index) => (
                       <div key={index} className="flex items-start gap-4">
                         <div>
                           <img
