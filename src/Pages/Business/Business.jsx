@@ -166,26 +166,39 @@ const Business = () => {
         .flatMap((category) => category.subcategories)
         .find((subcategory) => subcategory._id === business.subCategory);
 
-    const daysAgoFormatDate = (dateString) => {
-        const currentDate = new Date();
-        const inputDate = new Date(dateString);
-
-        const elapsedDays = Math.round(
-            (currentDate - inputDate) / (1000 * 60 * 60 * 24)
-        );
-
-        if (elapsedDays <= 1) {
-            return "Today";
-        } else if (elapsedDays <= 30) {
-            return `${elapsedDays} ${elapsedDays === 1 ? "day" : "days"} ago`;
-        } else if (elapsedDays <= 365) {
-            const elapsedMonths = Math.round(elapsedDays / 30);
-            return `${elapsedMonths} ${elapsedMonths === 1 ? "month" : "months"} ago`;
-        } else {
-            const elapsedYears = Math.round(elapsedDays / 365);
-            return `${elapsedYears} ${elapsedYears === 1 ? "year" : "years"} ago`;
-        }
-    };
+        const daysAgoFormatDate = (dateString) => {
+            const currentDate = new Date();
+            const inputDate = new Date(dateString);
+        
+            // Check if the inputDate is today
+            if (
+                inputDate.getDate() === currentDate.getDate() &&
+                inputDate.getMonth() === currentDate.getMonth() &&
+                inputDate.getFullYear() === currentDate.getFullYear()
+            ) {
+                const hoursDifference = Math.round((currentDate - inputDate) / (1000 * 60 * 60));
+                if (hoursDifference > 0) {
+                    return `${hoursDifference} ${hoursDifference === 1 ? "hour" : "hours"} ago`;
+                } else {
+                    return "Just now";
+                }
+            }
+        
+            const elapsedDays = Math.round((currentDate - inputDate) / (1000 * 60 * 60 * 24));
+        
+            if (elapsedDays <= 1) {
+                return "Yesterday";
+            } else if (elapsedDays <= 30) {
+                return `${elapsedDays} ${elapsedDays === 1 ? "day" : "days"} ago`;
+            } else if (elapsedDays <= 365) {
+                const elapsedMonths = Math.round(elapsedDays / 30);
+                return `${elapsedMonths} ${elapsedMonths === 1 ? "month" : "months"} ago`;
+            } else {
+                const elapsedYears = Math.round(elapsedDays / 365);
+                return `${elapsedYears} ${elapsedYears === 1 ? "year" : "years"} ago`;
+            }
+        };
+        
 
 
 

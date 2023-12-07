@@ -46,7 +46,7 @@ export default function ModalEdit({ onClose, post }) {
   return (
     <div>
       {open && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm z-[999]">
           <div className="bg-white p-6 rounded-lg w-[45%]">
             <div className="flex items-center gap-4 justify-center">
             <div className="h-12 w-12 flex items-center justify-center rounded-full bg-gray-100">

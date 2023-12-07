@@ -83,29 +83,15 @@ const Sidebar = ({ user }) => {
 
   return (
     <div
-      className={` relative overflow-y-auto p-4 py-8 shadow-lg border-r flex flex-col justify-between items-start transition-all duration-[300ms] ${isSidebarCollapsed ? " w-24 p-2" : " w-72"
-        }`}
+      className={`relative h-screen  overflow-y-auto ${isSidebarCollapsed ? "p-2 pr-6" : "p-4 pr-8"} py-8 shadow-lg border-r flex justify-between items-start  `}
     >
+      <div className={`h-full transition-all duration-[400ms]  flex flex-col justify-between overflow-y-auto ${isSidebarCollapsed ? " w-20 p-2" : " w-48"
+        }`}>
       <div className="flex flex-col gap-8 w-full">
-        <div className="flex flex-col items-start justify-start gap-6 w-full">
+        <div className="flex flex-col items-center justify-start gap-6 w-full">
 
 
-          <div className="absolute right-0 transform top-6 z-[10] flex items-center cursor-pointer gap-2">
-            {!isSidebarCollapsed && (
-              <div className="bg-gray-300 p-1 rounded-l-lg flex items-center gap-1" onClick={toggleSidebar}>
-                <FaAngleLeft className="w-5 h-5 text-gray-800" />
-                {/* <span>Hide</span> */}
-              </div>
-            )}
 
-
-            {isSidebarCollapsed && (
-              <div className="bg-gray-300 p-1 rounded-l-lg flex items-center gap-1" onClick={toggleSidebar}>
-                {/* <span>Open</span> */}
-                <FaAngleRight className="w-5 h-5" />
-              </div>
-            )}
-          </div>
 
 
           <div className="flex items-center gap-4">
@@ -128,7 +114,7 @@ const Sidebar = ({ user }) => {
 
         <div className={` flex flex-col ${isSidebarCollapsed ? "items-center" : "items-start"} gap-4 w-full`}>
           {sidebarLinks.map(({ name, icon, path }, index) => (
-            <Link to={path} key={index} className={`w-full rounded-md p-2 px-4 ${isActiveLink(path) ? "bg-blue-500" : ""}`} >
+            <Link to={path} key={index} className={`w-full rounded-md p-2 px-4 ${isSidebarCollapsed ? "px-0" : ""} ${isActiveLink(path) ? "bg-blue-500" : ""}`} >
               <div
                 className={`flex items-center ${isSidebarCollapsed ? "justify-center" : "justify-start"} w-full} cursor-pointer gap-3 ${isActiveLink(path) ? "text-white" : "text-gray-600"
                   }`}
@@ -160,6 +146,25 @@ const Sidebar = ({ user }) => {
 }
           </button>
       </div>
+
+      </div>
+
+      <div className="absolute -right-5 w-10 top-1/2 transform -translate-y-1/2 z-[20] flex items-center cursor-pointer gap-2">
+            {!isSidebarCollapsed && (
+              <div className=" p-1 rounded-2xl bg-gray-300 pr-2 flex items-center gap-1" onClick={toggleSidebar}>
+                <FaAngleLeft className="w-4 h-4 text-gray-600" />
+                {/* <span>Hide</span> */}
+              </div>
+            )}
+
+
+            {isSidebarCollapsed && (
+              <div className=" p-1 rounded-2xl bg-gray-300 pr-2 flex items-center gap-1" onClick={toggleSidebar}>
+                {/* <span>Open</span> */}
+                <FaAngleRight className="w-4 h-4 text-gray-600" />
+              </div>
+            )}
+          </div>
     </div>
   );
 };

@@ -327,11 +327,6 @@ const Posts = ({ posts, businesses }) => {
                     />
                   );
                 })}
-
-                <div className="flex items-center gap-2 mb-6 cursor-pointer text-blue-500">
-                  <span>View all</span>
-                  <FiExternalLink />
-                </div>
               </div>
               <div className="gradient-overlay-bottom"></div>
             </div>

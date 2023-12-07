@@ -10,9 +10,9 @@ const Reviews = ({ businesses }) => {
         <table className="w-full">
           <thead className="">
             <tr className="bg-gray-300">
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 User Name
-              </th>
+              </th> */}
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Business
               </th>
@@ -26,21 +26,21 @@ const Reviews = ({ businesses }) => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 text-sm">
             {businesses.map((business) =>
-              business.ratingsReviews.map((ratingReview, index) => (
+              business.ratings?.map((ratingReview, index) => (
                 <tr key={index}>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  {/* <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex gap-2 items-center">
                       <img
                         src={
-                          ratingReview.user.image ||
+                          ratingReview.userId?.image ||
                           "https://i.pravatar.cc/300"
                         }
                         alt=""
                         className="w-5 h-5 rounded-full"
                       />
-                      {ratingReview.user.name}
+                      {ratingReview.userId?.name}
                     </div>
-                  </td>
+                  </td> */}
                   <td className="px-6 py-4 whitespace-nowrap">
                     {business.name}
                   </td>
