@@ -7,12 +7,15 @@ body {
 /* Width */
 /* Chrome, Safari, Edge, Opera */
 ::-webkit-scrollbar {
-  width: 4px;
+  /* width: 4px; */
+  /* height: 0px; */
+  display: none;
 }
 
 /* Firefox */
 * {
-  scrollbar-width: thin;
+  scrollbar-width: 0px;
+
 }
 
 /* Track */
@@ -33,15 +36,12 @@ body {
   border-radius: 50px;
 }
 
-/* Firefox */
-* {
-  scrollbar-color: #b8b8b8 transparent;
-}
+
 
 /* Handle on hover */
 /* Chrome, Safari, Edge, Opera */
 ::-webkit-scrollbar-thumb:hover {
-  /* background: #555; */
+  background: #555;
 }
 
 .gradient-overlay-left {
@@ -96,14 +96,7 @@ body {
   );
   z-index: 1;
 }
-.custom-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
 
-&::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, and Opera */
-}
 
 
 

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FiImage, FiUploadCloud, FiX } from "react-icons/fi";
 import { MdOutlineCloudDone } from "react-icons/md";
 import { toast } from "react-toastify";
+import EasyCrop from "../../Vendor/Dashboard/components/EasyCrop";
 
 const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
   const [images, setImages] = useState([]);
@@ -67,6 +68,8 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
         <h2 className="text-xl font-semibold">Gallery Images</h2>
       </div>
 
+
+
       <div className="mt-6">
         <div className="flex flex-col items-start">
           {images.length > 0 && <span>{images.length} Images Added</span>}
@@ -96,12 +99,15 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                   alt={`Selected Image ${index}`}
                   className="object-cover h-full rounded-xl"
                 />
+                                {/* <EasyCrop image={image} setImages={setImages} aspectRatio={16/10} widthOfImg={"w-full"}/> */}
+
                 <FiX
                   className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
                   onClick={() => {
                     setImages((prev) => prev.filter((_, i) => i !== index));
                   }}
                 />
+
               </div>
             ))}
           </div>

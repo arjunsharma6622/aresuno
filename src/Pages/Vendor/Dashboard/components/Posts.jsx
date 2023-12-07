@@ -214,13 +214,10 @@ const Posts = ({ posts, businesses }) => {
             <div className="flex flex-col gap-4 mb-4 bg-white p-4 py-6 rounded-lg">
               {image && (
                 <div>
-                  <div className="relative">
+                  <div className="w-full relative">
                     {/* <img src={imageToShow} alt="Selected Image" className=" rounded" /> */}
 
-                    <FiXCircle
-                      className="w-6 h-6 z-20 absolute top-2 right-2 cursor-pointer bg-red-200 rounded-full text-red-500 "
-                      onClick={() => setImage(null)}
-                    />
+
 
                     {/* <div className="flex justify-center w-full h-64">
                       <Cropper
@@ -234,7 +231,12 @@ const Posts = ({ posts, businesses }) => {
                       />
                     </div> */}
 
-                    <EasyCrop image={imageToShow} setImage = {setImage} />
+                    <EasyCrop className='' image={imageToShow} setImage = {setImage} aspectRatio={1/1} widthOfImg={"w-64"}/>
+
+                    <FiXCircle
+                      className="w-6 h-6 z-20 absolute top-2 right-2 cursor-pointer bg-red-200 rounded-full text-red-500 "
+                      onClick={() => setImage(null)}
+                    />
                   </div>
                 </div>
               )}
