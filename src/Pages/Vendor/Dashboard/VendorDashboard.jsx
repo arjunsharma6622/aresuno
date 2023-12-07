@@ -13,8 +13,8 @@ import DashboardLayout from "./DashboardLayout";
 import { Route, Routes } from "react-router-dom";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api/vendor/",
-  // baseURL: "https://aresuno-server.vercel.app/api/vendor/",
+  // baseURL: "http://localhost:8000/api/vendor/",
+  baseURL: "https://aresuno-server.vercel.app/api/vendor/",
 });
 
 const VendorDashboard = () => {
