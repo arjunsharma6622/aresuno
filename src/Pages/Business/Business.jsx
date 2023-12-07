@@ -438,10 +438,10 @@ const Business = () => {
                         {/* business bottom sedtion */}
 
                         {/* business bottom left */}
-                        <div className="w-full flex flex-col gap-4 flex-[9] border border-solid border-[#d7d7d7] rounded-xl">
+                        <div className="w-full flex flex-col gap-4 flex-[9] border border-solid border-[#d7d7d7] rounded-xl px-2 pt-3">
 
 
-                        <div className="flex items-center justify-between px-12 py-5 rounded-t-xl bg-blue-200">
+                        <div className="flex items-center justify-between px-12 py-5 rounded-xl bg-gray-300">
                             <div className="w-full flex items-center justify-between ">
                             <span className=""><a href="#overview">Overview</a></span>
                             <span className=""><a href="#photos">Images</a></span>
@@ -451,7 +451,7 @@ const Business = () => {
                             <span className=""><a href="#faq">FAQ</a></span>
                             </div>
                         </div>
-                        <div className="flex flex-col gap-10 px-10 py-8 pt-2">
+                        <div className="flex flex-col gap-10 px-8 py-8 pt-2">
 
 
                             {/* overview */}
