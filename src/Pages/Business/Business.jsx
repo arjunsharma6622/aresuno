@@ -214,7 +214,7 @@ const Business = () => {
                 return (
                     currentDay === currentTiming.day &&
                     currentHour >= fromTime.getHours() &&
-                    currentHour <= toTime.getHours()
+                    currentHour < toTime.getHours()
                 );
             }
         }
