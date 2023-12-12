@@ -165,11 +165,11 @@ const BusinessEdit = () => {
   const categories = useSelector((state) => state.categories)
 
   const mainCategories = categories.map((category) => {
-      const mainCategory = {
-          _id: category._id,
-          name: category.title
-      }
-      return mainCategory
+    const mainCategory = {
+      _id: category._id,
+      name: category.title
+    }
+    return mainCategory
   })
   console.log('main categories', mainCategories)
 
@@ -177,10 +177,10 @@ const BusinessEdit = () => {
   const subCategories = {};
 
   categories.forEach((category) => {
-      subCategories[category.title] = category.subcategories.map((subCategory) => ({
-          _id: subCategory._id,
-          name: subCategory.name,
-      }));
+    subCategories[category.title] = category.subcategories.map((subCategory) => ({
+      _id: subCategory._id,
+      name: subCategory.name,
+    }));
   });
 
   // console.log('sub categories', subCategories);
@@ -262,24 +262,24 @@ const BusinessEdit = () => {
   ];
 
   const timeOptions = [
-    "06:00 AM",
-    "07:00 AM",
-    "08:00 AM",
-    "09:00 AM",
-    "10:00 AM",
-    "11:00 AM",
-    "12:00 PM",
-    "01:00 PM",
-    "02:00 PM",
-    "03:00 PM",
-    "04:00 PM",
-    "05:00 PM",
-    "06:00 PM",
-    "07:00 PM",
-    "08:00 PM",
-    "09:00 PM",
-    "10:00 PM",
-    "11:00 PM",
+    "06:00",
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00",
+    "23:00",
   ];
 
   const handleBusinessHoursChange = (index, isChecked) => {
@@ -790,12 +790,15 @@ const BusinessEdit = () => {
                           })}
                           className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
                         />
-                        <div>
+                        <div className="bg-gray-200">
                           {loading ? <div>Loading...</div> : null}
 
                           {suggestions.map((suggestion, index) => {
                             const style = {
-                              backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
+                              backgroundColor: suggestion.active ? "#fafafa" : "",
+                              cursor: suggestion.active ? "pointer" : "",
+                              padding: "12px",
+                              borderRadius: "10px",
                             };
                             return (
                               <div
@@ -969,7 +972,7 @@ const BusinessEdit = () => {
                         <textarea
                           value={faq.answer}
                           onChange={e => handleFaqChange(index, 'answer', e.target.value)}
-                          rows={2}
+                          rows={4}
                           className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           disabled={businessFaqUpdate}
                         />

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
     FiArrowRight,
@@ -38,6 +39,9 @@ import { useSelector } from "react-redux";
 import BusinessNotFound from "./BusinessNotFound";
 import { ToastContainer, toast } from "react-toastify";
 import { MdOutlineDone } from "react-icons/md";
+
+
+
 
 const Business = () => {
     const [business, setBusiness] = useState({});
@@ -166,50 +170,55 @@ const Business = () => {
         .flatMap((category) => category.subcategories)
         .find((subcategory) => subcategory._id === business.subCategory);
 
-        const daysAgoFormatDate = (dateString) => {
-            const currentDate = new Date();
-            const inputDate = new Date(dateString);
-        
-            // Check if the inputDate is today
-            if (
-                inputDate.getDate() === currentDate.getDate() &&
-                inputDate.getMonth() === currentDate.getMonth() &&
-                inputDate.getFullYear() === currentDate.getFullYear()
-            ) {
-                const hoursDifference = Math.round((currentDate - inputDate) / (1000 * 60 * 60));
-                if (hoursDifference > 0) {
-                    return `${hoursDifference} ${hoursDifference === 1 ? "hour" : "hours"} ago`;
-                } else {
-                    return "Just now";
-                }
-            }
-        
-            const elapsedDays = Math.round((currentDate - inputDate) / (1000 * 60 * 60 * 24));
-        
-            if (elapsedDays <= 1) {
-                return "Yesterday";
-            } else if (elapsedDays <= 30) {
-                return `${elapsedDays} ${elapsedDays === 1 ? "day" : "days"} ago`;
-            } else if (elapsedDays <= 365) {
-                const elapsedMonths = Math.round(elapsedDays / 30);
-                return `${elapsedMonths} ${elapsedMonths === 1 ? "month" : "months"} ago`;
+    const daysAgoFormatDate = (dateString) => {
+        const currentDate = new Date();
+        const inputDate = new Date(dateString);
+
+        // Check if the inputDate is today
+        if (
+            inputDate.getDate() === currentDate.getDate() &&
+            inputDate.getMonth() === currentDate.getMonth() &&
+            inputDate.getFullYear() === currentDate.getFullYear()
+        ) {
+            const hoursDifference = Math.round(
+                (currentDate - inputDate) / (1000 * 60 * 60)
+            );
+            if (hoursDifference > 0) {
+                return `${hoursDifference} ${hoursDifference === 1 ? "hour" : "hours"
+                    } ago`;
             } else {
-                const elapsedYears = Math.round(elapsedDays / 365);
-                return `${elapsedYears} ${elapsedYears === 1 ? "year" : "years"} ago`;
+                return "Just now";
             }
-        };
-        
+        }
 
+        const elapsedDays = Math.round(
+            (currentDate - inputDate) / (1000 * 60 * 60 * 24)
+        );
 
-
+        if (elapsedDays <= 1) {
+            return "Yesterday";
+        } else if (elapsedDays <= 30) {
+            return `${elapsedDays} ${elapsedDays === 1 ? "day" : "days"} ago`;
+        } else if (elapsedDays <= 365) {
+            const elapsedMonths = Math.round(elapsedDays / 30);
+            return `${elapsedMonths} ${elapsedMonths === 1 ? "month" : "months"} ago`;
+        } else {
+            const elapsedYears = Math.round(elapsedDays / 365);
+            return `${elapsedYears} ${elapsedYears === 1 ? "year" : "years"} ago`;
+        }
+    };
 
     const isStoreOpenNow = (business) => {
         const currentDate = new Date();
-        const currentDay = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+        const currentDay = currentDate.toLocaleDateString("en-US", {
+            weekday: "long",
+        });
         const currentHour = currentDate.getHours();
         const currentMinute = currentDate.getMinutes();
 
-        const currentTiming = business?.timing?.find((item) => item.day === currentDay);
+        const currentTiming = business?.timing?.find(
+            (item) => item.day === currentDay
+        );
 
         if (currentTiming && currentTiming.isOpen) {
             if (currentTiming.from && currentTiming.to) {
@@ -237,20 +246,50 @@ const Business = () => {
 
     const openTimingToday = (business) => {
         const currentDate = new Date();
-        const currentDay = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+        const currentDay = currentDate.toLocaleDateString("en-US", {
+            weekday: "long",
+        });
 
-        const currentTiming = business?.timing?.find((item) => item.day === currentDay);
+        const currentTiming = business?.timing?.find(
+            (item) => item.day === currentDay
+        );
         if (currentTiming && currentTiming.isOpen) {
             if (currentTiming.from && currentTiming.to) {
                 return `${currentTiming.from} - ${currentTiming.to}`;
             }
         }
+    };
 
-    }
 
+    const articleStructuredData = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Structured data for you",
+        description: "This is an article that demonstrates structured data.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg",
+        datePublished: new Date("2021-09-04T09:25:01.340Z").toISOString(),
+        author: {
+          "@type": "Person",
+          name: "John Reilly",
+          url: "https://twitter.com/johnny_reilly",
+        },
+      };
 
     return (
+        
         <div>
+
+<script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleStructuredData),
+        }}
+      />
+
+{/* <JsonLd<Person></Person>/> */}
+
+
+            
             {business.name ? (
                 <div className="bg-white flex flex-col gap-6 justify-center w-full px-6 mt-10">
                     <div className="w-full border border-solid border-gray-300 rounded-xl p-8 flex gap-4">
@@ -308,7 +347,6 @@ const Business = () => {
 
                                         {avgRating ? (
                                             <div className="flex items-center gap-6">
-
                                                 <div className="flex items-center gap-2">
                                                     <span className="text-black text-lg font-semibold">
                                                         {avgRating ? avgRating.toFixed(1) : "-"}
@@ -357,8 +395,6 @@ const Business = () => {
                                             </div>
                                         )}
 
-
-
                                         <div className="w-full flex items-center justify-start gap-4">
                                             {businessLinks.map((item, index) => {
                                                 return (
@@ -366,6 +402,7 @@ const Business = () => {
                                                         <a
                                                             key={index}
                                                             href={business.socialLinks?.[item.link]}
+                                                            target="_blank"
                                                         >
                                                             <div
                                                                 key={index}
@@ -387,29 +424,32 @@ const Business = () => {
                         <div className="flex flex-[3] flex-col gap-4 justify-center items-center">
                             <div className="w-full">
                                 <div className="flex items-start gap-3">
-                                    {/* <PiCalendarCheckLight
-                    className="text-gray-800 w-10 h-10 mt-1"
-                    strokeWidth={0.1}
-                  /> */}
-
-                                    {/* {() => { */}
-
-
-                                    {/* }; */}
-
-
-                                    {/* return ( */}
                                     <div className="w-full">
-                                        <div className="flex items-center gap-4">
+                                        <div className="flex flex-col gap-2">
+                                            <div className="flex items-center gap-4">
+                                                {openTimingToday(business) && (
+                                                    <div className="flex items-center gap-2">
+                                                        <FiClock className="text-gray-800 w-6 h-6" />
+                                                        <p>{openTimingToday(business)}</p>
+                                                    </div>
+                                                )}
 
-{ openTimingToday(business) &&
-                                        <div className="flex items-center gap-2">
-                                                <FiClock className="text-gray-800 w-6 h-6"/>
-                                            <p>{openTimingToday(business)}</p>
+                                                <div className="flex items-center gap-2 cursor-pointer">
+                                                    <span className="text-gray-600 text-sm">
+                                                        <a href="#timings">
+                                                        View timings
+                                                        </a>
+                                                        
+                                                    </span>
+                                                </div>
                                             </div>
-}
 
-                                            <div className={`flex items-center px-3 py-1 text-sm rounded-full font-medium ${isStoreOpenNow(business) ? 'bg-green-500' : 'bg-red-500'}`}>
+                                            <div
+                                                className={`w-20 justify-center  flex items-center px-3 py-1 text-sm rounded-full font-medium ${isStoreOpenNow(business)
+                                                        ? "bg-green-500"
+                                                        : "bg-red-500"
+                                                    }`}
+                                            >
                                                 {isStoreOpenNow(business) ? (
                                                     <div className="flex items-center gap-2 text-white">
                                                         Open
@@ -418,17 +458,10 @@ const Business = () => {
                                                     <div className="flex items-center gap-2 text-white">
                                                         Closed
                                                     </div>
-                                                )}</div>
-
-
-
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                    {/* ) */}
-
-
-                                    {/* })} */}
-
                                 </div>
                             </div>
 
@@ -452,120 +485,152 @@ const Business = () => {
 
                         {/* business bottom left */}
                         <div className="w-full flex flex-col gap-4 flex-[9] border border-solid border-[#d7d7d7] rounded-xl px-2 pt-3">
-
-
-                        <div className="flex items-center justify-between px-12 py-5 rounded-xl bg-gray-300">
-                            <div className="w-full flex items-center justify-between ">
-                            <span className=""><a href="#overview">Overview</a></span>
-                            <span className=""><a href="#photos">Images</a></span>
-                            <span className=""><a href="#address">Address</a></span>
-                            <span className=""><a href="#posts">Posts</a></span>
-                            <span className=""><a href="#ratings">Ratings</a></span>
-                            <span className=""><a href="#faq">FAQ</a></span>
+                            <div className="flex items-center justify-between px-12 py-5 rounded-xl bg-gray-300">
+                                <div className="w-full flex items-center justify-between ">
+                                    <span className="">
+                                        <a href="#overview">Overview</a>
+                                    </span>
+                                    <span className="">
+                                        <a href="#photos">Images</a>
+                                    </span>
+                                    <span className="">
+                                        <a href="#address">Address</a>
+                                    </span>
+                                    <span className="">
+                                        <a href="#posts">Posts</a>
+                                    </span>
+                                    <span className="">
+                                        <a href="#ratings">Ratings</a>
+                                    </span>
+                                    <span className="">
+                                        <a href="#timings">Timings</a>
+                                    </span>
+                                    <span className="">
+                                        <a href="#faq">FAQ</a>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex flex-col gap-10 px-8 py-8 pt-2">
+                            <div className="flex flex-col gap-10 px-8 py-8 pt-2">
+                                {/* overview */}
+
+                                <div
+                                    id="overview"
+                                    className="w-full border-b pb-10 border-b-gray-300"
+                                >
+                                    <div className="w-full">
+                                        <div className="flex items-center justify-start gap-4">
+                                            <FiFileText className="text-black w-6 h-6" />
+                                            <h2 className="text-2xl font-bold text-black">
+                                                Overview
+                                            </h2>
+                                        </div>
+                                        <p className="mt-2 text-gray-700 text-base">
+                                            <span>{business.description}</span>
+                                        </p>
+
+                                        <div className="flex justify-start items-center">
 
 
-                            {/* overview */}
 
-                            <div id="overview" className="w-full border-b pb-10 border-b-gray-300">
-                                <div className="w-full">
-                                    <div className="flex items-center justify-start gap-4">
-                                        <FiFileText className="text-black w-6 h-6" />
-                                        <h2 className="text-2xl font-bold text-black">Overview</h2>
-                                    </div>
-                                    <p className="mt-2 text-gray-700 text-base">
-                                        <span>{business.description}</span>
-                                    </p>
 
-                                    <div className="flex justify-start items-center">
-                                        <div className="flex flex-col justify-start items-start">
-                                            <div>
-                                                <p className="text-base font-medium mb-1 mt-2">
-                                                    We offer
-                                                </p>
-                                                {business.services?.map((service, index) => (
-                                                    <div
-                                                        key={index}
-                                                        className="flex items-center gap-2 mb-2"
-                                                    >
-                                                        <FiArrowRight className="text-gray-800 w-5 h-5" />
-                                                        <p className="text-gray-800">{service}</p>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                            <div className="flex flex-col justify-start items-start">
 
-                                            <div className="">
-                                                <p className="text-base font-medium mb-1 mt-2">
-                                                    We accept
-                                                </p>
 
-                                                <div className="flex flex-wrap gap-2">
-                                                    {business.modeOfPayment?.map((payment, index) => (
+
+
+
+
+                                                <div>
+                                                    <p className="text-base font-medium mb-1 mt-2">
+                                                        We offer
+                                                    </p>
+                                                    {business.services?.map((service, index) => (
                                                         <div
                                                             key={index}
-                                                            className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1"
+                                                            className="flex items-center gap-2 mb-2"
                                                         >
-                                                            <span className="text-gray-800 text-sm">
-                                                                {payment}
-                                                            </span>
+                                                            <FiArrowRight className="text-gray-800 w-5 h-5" />
+                                                            <p className="text-gray-800">{service}</p>
                                                         </div>
                                                     ))}
+                                                </div>
+
+                                                <div className="">
+                                                    <p className="text-base font-medium mb-1 mt-2">
+                                                        We accept
+                                                    </p>
+
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {business.modeOfPayment?.map((payment, index) => (
+                                                            <div
+                                                                key={index}
+                                                                className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-4 py-1"
+                                                            >
+                                                                <span className="text-gray-800 text-sm">
+                                                                    {payment}
+                                                                </span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* photos gallery */}
-                            <div id="photos" className=" w-full border-b pb-10 border-b-gray-300">
-                                <div className="flex items-start gap-4">
-                                    <FiImage className="text-black w-6 h-6" />
-                                    <h2 className="text-2xl font-bold text-black">Photos</h2>
-                                </div>
+                                {/* photos gallery */}
+                                <div
+                                    id="photos"
+                                    className=" w-full border-b pb-10 border-b-gray-300"
+                                >
+                                    <div className="flex items-start gap-4">
+                                        <FiImage className="text-black w-6 h-6" />
+                                        <h2 className="text-2xl font-bold text-black">Photos</h2>
+                                    </div>
 
-                                <div className="relative">
-                                    <div className="overflow-x-auto flex w-[calc(100%-10px)] custom-scrollbar">
-                                        {/* <img
+                                    <div className="relative">
+                                        <div className="overflow-x-auto flex w-[calc(100%-10px)] custom-scrollbar">
+                                            {/* <img
                                     src="https://media.istockphoto.com/id/1023612090/photo/interior-of-clothing-store.jpg?s=612x612&w=0&k=20&c=84NciWwU43Zyzmxph6bCVTG9WRO9rxDGUYtYnUqpTt8="
                                     alt=""
                                     className="rounded-lg m-2 w-64"
                                 /> */}
 
-                                        {business.photosGallery?.map((image) => (
-                                            <img
-                                                key={image}
-                                                src={image}
-                                                alt=""
-                                                className="rounded-lg m-2 w-64 aspect-auto object-cover"
-                                            />
-                                        ))}
+                                            {business.photosGallery?.map((image) => (
+                                                <img
+                                                    key={image}
+                                                    src={image}
+                                                    alt=""
+                                                    className="rounded-lg m-2 w-64 aspect-auto object-cover"
+                                                />
+                                            ))}
+                                        </div>
+                                        <div className="gradient-overlay-right" />
                                     </div>
-                                    <div className="gradient-overlay-right" />
+
+                                    <div className="flex items-center justify-start gap-4 mt-4">
+                                        <button
+                                            className="flex items-center gap-2 p-2 px-4 bg-[#E9F5FE] rounded-full"
+                                            style={{ border: "2px solid #C9E0F2" }}
+                                        >
+                                            <FiUploadCloud className="text-gray-700 w-6 h-6" />
+                                            <p className="text-blue-500 text-md font-medium">
+                                                Upload Photos
+                                            </p>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <div className="flex items-center justify-start gap-4 mt-4">
-                                    <button
-                                        className="flex items-center gap-2 p-2 px-4 bg-[#E9F5FE] rounded-full"
-                                        style={{ border: "2px solid #C9E0F2" }}
-                                    >
-                                        <FiUploadCloud className="text-gray-700 w-6 h-6" />
-                                        <p className="text-blue-500 text-md font-medium">
-                                            Upload Photos
-                                        </p>
-                                    </button>
-                                </div>
-                            </div>
+                                {/* address */}
+                                <div
+                                    id="address"
+                                    className="w-full border-b pb-10 border-b-gray-300"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <FiNavigation className="text-black w-6 h-6" />
+                                        <h2 className="text-2xl font-bold text-black">Address</h2>
 
-                            {/* address */}
-                            <div id="address" className="w-full border-b pb-10 border-b-gray-300">
-                                <div className="flex items-center gap-4">
-                                    <FiNavigation className="text-black w-6 h-6" />
-                                    <h2 className="text-2xl font-bold text-black">Address</h2>
-
-                                    {/* <iframe
+                                        {/* <iframe
                                 width="600"
                                 height="450"
                                 loading="lazy"
@@ -573,219 +638,255 @@ const Business = () => {
                                 referrerPolicy="no-referrer-when-downgrade"
                                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDaaCWy7vsFxmPd5zHmapYuO5KH8kaw67M&q=Space+Needle,Seattle+WA">
                             </iframe> */}
-                                </div>
-                                <div className="my-4">
-                                    <p className="text-gray-600 text-base">
-                                        H.No.185 Maruti City Mauza Kahrai, Shamshabad Road, Kahrai,
-                                        Agra - 282001 (Near All Sent School)
-                                    </p>
-                                </div>
+                                    </div>
+                                    <div className="my-4">
+                                        <p className="text-gray-600 text-base">
+                                            H.No.185 Maruti City Mauza Kahrai, Shamshabad Road,
+                                            Kahrai, Agra - 282001 (Near All Sent School)
+                                        </p>
+                                    </div>
 
-                                <iframe
-                                    src={business.iframe?.extractedLink}
-                                    width="100%"
-                                    height="400"
-                                    allowFullScreen=""
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                    className="rounded-xl"
-                                ></iframe>
-                            </div>
-
-                            {/* posts */}
-                            <div id="posts" className="w-full border-b pb-10 border-b-gray-300">
-                                <div className="flex items-center gap-4">
-                                    <FiInbox className="text-black w-6 h-6" />
-                                    <h2 className="text-2xl font-bold text-black">Updates</h2>
+                                    <iframe
+                                        src={business.iframe?.extractedLink}
+                                        width="100%"
+                                        height="400"
+                                        allowFullScreen=""
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                        className="rounded-xl"
+                                    ></iframe>
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-8 mt-8">
-                                    {posts?.map((post, index) => (
-                                        <div
-                                            key={index}
-                                            className="max-w-full gap-4 flex items-start"
-                                        >
-                                            <div className="flex-[3]">
-                                                <img
-                                                    className="w-full rounded-xl object-cover"
-                                                    alt="Image"
-                                                    src={
-                                                        post.image
-                                                            ? post.image
-                                                            : "https://img.freepik.com/premium-vector/happy-diwali-festival-wishing-post-design-with-red-background-template_593190-96.jpg"
-                                                    }
-                                                />
-                                            </div>
+                                {/* posts */}
+                                <div
+                                    id="posts"
+                                    className="w-full border-b pb-10 border-b-gray-300"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <FiInbox className="text-black w-6 h-6" />
+                                        <h2 className="text-2xl font-bold text-black">Updates</h2>
+                                    </div>
 
-                                            <div className="flex-[10]">
-                                                <p className="text-sm text-gray-600">
-                                                    {post.description}
-                                                </p>
-                                                <div className="mt-2 text-blue-600">
-                                                    #autodetailing&nbsp;&nbsp;#detailing&nbsp;&nbsp;#cardetailing&nbsp;&nbsp;#carcare&nbsp;&nbsp;#paintprote
-                                                </div>
-                                                <div className="mt-2 text-gray-500">
-                                                    {new Date(post.createdAt).toLocaleDateString(
-                                                        "en-US",
-                                                        {
-                                                            year: "numeric",
-                                                            month: "long",
-                                                            day: "numeric",
+                                    <div className="grid grid-cols-1 gap-8 mt-8">
+                                        {posts?.map((post, index) => (
+                                            <div
+                                                key={index}
+                                                className="max-w-full gap-4 flex items-start"
+                                            >
+                                                <div className="flex-[3]">
+                                                    <img
+                                                        className="w-full rounded-xl object-cover"
+                                                        alt="Image"
+                                                        src={
+                                                            post.image
+                                                                ? post.image
+                                                                : "https://img.freepik.com/premium-vector/happy-diwali-festival-wishing-post-design-with-red-background-template_593190-96.jpg"
                                                         }
-                                                    )}
-                                                </div>
-                                                <div className="flex items-center mt-2 text-green-600">
-                                                    <span className="font-semibold">VIEW MORE</span>
-                                                    <FiArrowRight
-                                                        className="ml-1 w-5 h-5"
-                                                        strokeWidth={2}
                                                     />
                                                 </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
 
-                            {/* ratings and reviews */}
-                            <div
-                                className="flex flex-col border-b pb-10 border-b-gray-300"
-                                id="ratings"
-                            >
-                                <div className="flex gap-4">
-                                    <FiStar className="text-black w-6 h-6" />
-                                    <h2 className="text-2xl font-bold text-black">
-                                        Customer ratings & reviews
-                                    </h2>
-                                </div>
-
-                                {avgRating ? (
-                                    <div className="grid grid-cols-1 gap-8 mt-8">
-
-
-                                        <div className="flex flex-col gap-3">
-                                            <div className="flex items-center gap-4">
-
-                                                <div className="">
-                                                    <div className="flex items-center gap-1">
-                                                        {[...Array(fullStars ? fullStars : 0)].map(
-                                                            (_, index) => (
-                                                                <BsStarFill
-                                                                    key={index}
-                                                                    className="text-yellow-500 w-6 h-6"
-                                                                />
-                                                            )
-                                                        )}
-
-                                                        {hasHalfStar && (
-                                                            <BsStarHalf className="text-yellow-500 w-6 h-6" />
-                                                        )}
-
-                                                        {[
-                                                            ...Array(
-                                                                5 -
-                                                                (fullStars ? fullStars : 0) -
-                                                                (hasHalfStar ? 1 : 0)
-                                                            ),
-                                                        ].map((_, index) => (
-                                                            <BsStar
-                                                                key={index}
-                                                                className="text-gray-300 w-6 h-6"
-                                                            />
-                                                        ))}
+                                                <div className="flex-[10]">
+                                                    <p className="text-sm text-gray-600">
+                                                        {post.description}
+                                                    </p>
+                                                    <div className="mt-2 text-blue-600">
+                                                        #autodetailing&nbsp;&nbsp;#detailing&nbsp;&nbsp;#cardetailing&nbsp;&nbsp;#carcare&nbsp;&nbsp;#paintprote
                                                     </div>
-                                                </div>
-
-                                                <span className="flex items-center gap-2">
-                                                    <span className="text-black text-base">
-                                                        {avgRating.toFixed(1)} out of 5
-                                                    </span>
-                                                </span>
-
-                                            </div>
-
-                                            <span className="text-gray-600 text-sm">
-                                                {ratings?.length === 0
-                                                    ? "No ratings yet"
-                                                    : ratings?.length === 1
-                                                        ? "1 rating"
-                                                        : `${ratings?.length} ratings`}
-                                            </span>
-
-                                        </div>
-
-                                        <div className="flex flex-col gap-4">
-                                            {[...ratings]?.reverse().map((rating, index) => (
-                                                <div key={index} className="flex items-start gap-4">
-                                                    <div>
-                                                        <img
-                                                            src={rating.user?.image || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
-                                                            alt=""
-                                                            className="w-9 h-9 rounded-full object-cover"
+                                                    <div className="mt-2 text-gray-500">
+                                                        {new Date(post.createdAt).toLocaleDateString(
+                                                            "en-US",
+                                                            {
+                                                                year: "numeric",
+                                                                month: "long",
+                                                                day: "numeric",
+                                                            }
+                                                        )}
+                                                    </div>
+                                                    <div className="flex items-center mt-2 text-green-600">
+                                                        <span className="font-semibold">VIEW MORE</span>
+                                                        <FiArrowRight
+                                                            className="ml-1 w-5 h-5"
+                                                            strokeWidth={2}
                                                         />
                                                     </div>
-                                                    <div className="flex flex-col gap-2">
-                                                        <div className="">
-                                                            <span>{rating.user.name}</span>
-                                                            <div className="flex gap-4 mt-1">
-                                                                <div className="flex items-center">
-                                                                    {[...Array(rating.rating)].map((_, index) => (
-                                                                        <AiFillStar
-                                                                            key={index}
-                                                                            className="text-yellow-500"
-                                                                        />
-                                                                    ))}
-                                                                    {[...Array(5 - rating.rating)].map(
-                                                                        (_, index) => (
-                                                                            <AiFillStar
-                                                                                key={index}
-                                                                                className="text-gray-300"
-                                                                            />
-                                                                        )
-                                                                    )}
-                                                                </div>
-                                                                <div className="text-gray-500 text-xs mr-4">
-                                                                    {daysAgoFormatDate(rating.createdAt)}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <p className=" font-normal text-sm">
-                                                                {rating.review}
-                                                            </p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* ratings and reviews */}
+                                <div
+                                    className="flex flex-col border-b pb-10 border-b-gray-300"
+                                    id="ratings"
+                                >
+                                    <div className="flex gap-4">
+                                        <FiStar className="text-black w-6 h-6" />
+                                        <h2 className="text-2xl font-bold text-black">
+                                            Customer ratings & reviews
+                                        </h2>
+                                    </div>
+
+                                    {avgRating ? (
+                                        <div className="grid grid-cols-1 gap-8 mt-8">
+                                            <div className="flex flex-col gap-3">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="">
+                                                        <div className="flex items-center gap-1">
+                                                            {[...Array(fullStars ? fullStars : 0)].map(
+                                                                (_, index) => (
+                                                                    <BsStarFill
+                                                                        key={index}
+                                                                        className="text-yellow-500 w-6 h-6"
+                                                                    />
+                                                                )
+                                                            )}
+
+                                                            {hasHalfStar && (
+                                                                <BsStarHalf className="text-yellow-500 w-6 h-6" />
+                                                            )}
+
+                                                            {[
+                                                                ...Array(
+                                                                    5 -
+                                                                    (fullStars ? fullStars : 0) -
+                                                                    (hasHalfStar ? 1 : 0)
+                                                                ),
+                                                            ].map((_, index) => (
+                                                                <BsStar
+                                                                    key={index}
+                                                                    className="text-gray-300 w-6 h-6"
+                                                                />
+                                                            ))}
                                                         </div>
                                                     </div>
+
+                                                    <span className="flex items-center gap-2">
+                                                        <span className="text-black text-base">
+                                                            {avgRating.toFixed(1)} out of 5
+                                                        </span>
+                                                    </span>
                                                 </div>
-                                            ))}
+
+                                                <span className="text-gray-600 text-sm">
+                                                    {ratings?.length === 0
+                                                        ? "No ratings yet"
+                                                        : ratings?.length === 1
+                                                            ? "1 rating"
+                                                            : `${ratings?.length} ratings`}
+                                                </span>
+                                            </div>
+
+                                            <div className="flex flex-col gap-4">
+                                                {[...ratings]?.reverse().map((rating, index) => (
+                                                    <div key={index} className="flex items-start gap-4">
+                                                        <div>
+                                                            <img
+                                                                src={
+                                                                    rating.user?.image ||
+                                                                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                                                                }
+                                                                alt=""
+                                                                className="w-9 h-9 rounded-full object-cover"
+                                                            />
+                                                        </div>
+                                                        <div className="flex flex-col gap-2">
+                                                            <div className="">
+                                                                <span>{rating.user.name}</span>
+                                                                <div className="flex gap-4 mt-1">
+                                                                    <div className="flex items-center">
+                                                                        {[...Array(rating.rating)].map(
+                                                                            (_, index) => (
+                                                                                <AiFillStar
+                                                                                    key={index}
+                                                                                    className="text-yellow-500"
+                                                                                />
+                                                                            )
+                                                                        )}
+                                                                        {[...Array(5 - rating.rating)].map(
+                                                                            (_, index) => (
+                                                                                <AiFillStar
+                                                                                    key={index}
+                                                                                    className="text-gray-300"
+                                                                                />
+                                                                            )
+                                                                        )}
+                                                                    </div>
+                                                                    <div className="text-gray-500 text-xs mr-4">
+                                                                        {daysAgoFormatDate(rating.createdAt)}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <p className=" font-normal text-sm">
+                                                                    {rating.review}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-
-                                ) : (
-                                    <div className="mt-4">
-                                        <span className="text-gray-600">No ratings yet</span>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* faqs */}
-                            <div id="faq" className="w-full mb-10">
-                                <div className="flex items-center gap-4">
-                                    <FiHelpCircle className="text-black w-6 h-6" />
-                                    <h2 className="text-2xl font-bold text-black">
-                                        Frequently Asked Questions
-                                    </h2>
+                                    ) : (
+                                        <div className="mt-4">
+                                            <span className="text-gray-600">No ratings yet</span>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="flex flex-col gap-3 mt-4">
-                                    {business.faqs?.map((faq, index) => (
-                                        <Accordion
-                                            question={`${faq.question}`}
-                                            content={faq.answer}
-                                            key={index}
-                                        />
-                                    ))}
 
+
+
+                                <div id="timings" className="border-b pb-10 border-b-gray-300">
+                                    <div className="flex items-center gap-4">
+                                        <FiClock className="text-black w-6 h-6" />
+                                        <h2 className="text-2xl font-bold text-black">
+                                            Business Timings
+                                        </h2>
+                                    </div>                            
+                                    
+                                    <div className="flex flex-col gap-5 mt-4">
+                                        {business.timing?.map((time, index) => (
+                                            <div>
+
+                                                {time.isOpen && (
+                                                    <div className="flex flex-col gap-1">
+                                                        <span className="font-medium">{time.day}</span>
+                                                        <div className=" flex items-center gap-2">
+                                                            <span>{time.from}</span>
+                                                            to
+                                                            <span>{time.to}</span>
+                                                        </div>
+                                                    </div>
+                                                )}
+
+
+                                            </div>
+
+                                        ))}
+                                    </div>
+                                </div>
+
+
+
+
+                                {/* faqs */}
+                                <div id="faq" className="w-full mb-10">
+                                    <div className="flex items-center gap-4">
+                                        <FiHelpCircle className="text-black w-6 h-6" />
+                                        <h2 className="text-2xl font-bold text-black">
+                                            Frequently Asked Questions
+                                        </h2>
+                                    </div>
+                                    <div className="flex flex-col gap-3 mt-4">
+                                        {business.faqs?.map((faq, index) => (
+                                            <Accordion
+                                                question={`${faq.question}`}
+                                                content={faq.answer}
+                                                key={index}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
 
                         {/* business bottom right */}

@@ -11,9 +11,6 @@ const Home = () => {
 
       <ServiceCategories />
 
-      {/* <Testimonials /> */}
-
-      {/* <AboutUs /> */}
     </div>
   );
 };

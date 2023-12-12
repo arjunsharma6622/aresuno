@@ -3,6 +3,8 @@ import { BiDetail } from "react-icons/bi";
 import { FiChevronDown, FiXCircle } from "react-icons/fi";
 import { PhoneInput } from "react-international-phone";
 import Input from "../../../Components/Input";
+import 'react-international-phone/style.css';
+
 
 const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
   const [serviceError, setServiceError] = useState("");
