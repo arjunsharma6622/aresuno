@@ -19,7 +19,7 @@ const ServiceCategories = () => {
         Array of Options.
       </div>
       <div className="self-center w-full max-w-[1314px] mt-16 max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+        <div className="gap-5 flex items-start max-md:flex-col max-md:items-stretch max-md:gap-0">
           {categories.map((category, index) => (
             <div
               key={index}
