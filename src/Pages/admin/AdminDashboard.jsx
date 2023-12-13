@@ -24,17 +24,19 @@ import {
     AiOutlineAppstoreAdd,
     AiOutlineUser,
 } from "react-icons/ai";
-import { FiDelete, FiEdit, FiEdit2, FiExternalLink, FiEye, FiEyeOff, FiHome, FiLink, FiLock, FiStar, FiTrash2, FiUsers, FiX } from "react-icons/fi";
+import { FiDelete, FiEdit, FiEdit2, FiExternalLink, FiEye, FiEyeOff, FiHome, FiImage, FiLink, FiLock, FiStar, FiTrash2, FiUsers, FiX } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import AdminHome from "./AdminHome";
 import DeleteModal from "./DeleteModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
+import Banner from "./Banner";
+import Category from "./Category";
+import AdminHome from "./AdminHome";
 // import {setAllCategories} from "../../categoriesSlice"
 
 
-const AllBusiness = ({ businesses }) => {
+const AllBusiness = ({ businesses, categories }) => {
 
     const handleDelete = async (id) => {
         try {
@@ -84,7 +86,13 @@ const AllBusiness = ({ businesses }) => {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.vendorName}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.type}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{business.mainCategory}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{categories.map((category) => {
+                                    if(category._id === business.mainCategory){
+                                        const subCat = category.subcategories.find((subCat) => subCat._id === business.subCategory)
+                                        // return `${category.title} - ${subCat.name}`
+                                        return `${subCat.name}`
+                                    }
+                                })}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(business._id)} />
@@ -225,128 +233,7 @@ const AllVendors = ({ users }) => {
 
 
 
-const AllCategories = () => {
 
-    const categories = useSelector(state => state.categories)
-
-    const [selectedCategory, setSelectedCategory] = useState(null);
-
-
-    const groupedCategories = {};
-    categories.forEach((category) => {
-      if (category.title) {
-        if (!groupedCategories[category.title]) {
-          groupedCategories[category.title] = [];
-        }
-        groupedCategories[category.title].push(category);
-      }
-    });
-
-
-    return (
-
-        <div className="flex flex-col gap-10">
-
-            <div>
-                <h1 className="text-2xl font-medium mb-5">Main Categories</h1>
-
-                {
-
-
-                    <table className=" table-auto ">
-                        <thead>
-
-                            <tr className="bg-gray-300">
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subcategories</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total businesses</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody className="bg-white divide-y divide-gray-200">
-
-                            {
-                                categories.map((category, index) => (
-                                    <tr key={index}>
-                                        <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">{category.title}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">{category.subcategories.length !== 0 ? category.subcategories.length : "no"}</td> 
-
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            {category.subcategories.map((subcategory) => (
-                                                <tr>{subcategory.name}</tr>
-                                            ))}
-                                        </td>    
-
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            {category.subcategories.map((subcategory) => (
-                                                <tr>{subcategory.businesses.length}</tr>
-                                            ))}
-                                        </td>                                       
-                                   
-                                    </tr>
-                                ))
-                            }
-
-                        </tbody>
-
-
-
-
-                    </table>
-                }
-
-
-            </div>
-        <div>
-        <h1 className="text-2xl font-medium mb-5">Sub Categories</h1>
-  
-        {categories.map((category, index) => (
-
-            category.subcategories.length > 0 &&
-
-            
-          <div key={index} className="mb-8">
-            {category.title && <h2 className="text-lg font-semibold mt-4 mb-2">{category.title}</h2>}
-  
-            <div className="mt-2 rounded-xl grid grid-cols-3 gap-4">
-              {category.subcategories.map((subCategory, index) => (
-                <div key={index} className="bg-white relative border rounded-xl p-5 py-6">
-                  <div className="justify-start flex gap-10 items-center">
-                    <div className="w-24 h-24">
-                      <img src={subCategory.image?.url} alt={subCategory.image?.altTag} className="rounded-lg w-full h-full object-cover" />
-                    </div>
-                    <div>
-                      <h2 className="text-sm font-base">{subCategory.name}</h2>
-                    </div>
-                  </div>
-  
-                  <div className="flex justify-end gap-5">
-                    <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => setSelectedCategory(subCategory)} />
-                    {selectedCategory && selectedCategory._id === subCategory._id && (
-                      <DeleteModal categoryId={category._id} subCategory={selectedCategory} onClose={() => setSelectedCategory(null)} />
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-
-
-
-                    
-
-
-
-        ))}
-      </div>
-      </div>
-    );
-};
 
 
 
@@ -359,6 +246,8 @@ const AdminDashboard = () => {
     const dispatch = useDispatch()
 
     const [selectedField, setSelectedField] = useState("adminHome");
+
+    const categories = useSelector(state => state.categories);
 
 
     const handleSelectedField = (field) => {
@@ -449,7 +338,7 @@ const AdminDashboard = () => {
                             onClick={() => handleSelectedField("allBusinesses")}
                         >
                             <LuLayoutDashboard className="w-6 h-6" />
-                            <span className="">All Businesses</span>
+                            <span className="">Businesses</span>
                         </div>
 
 
@@ -464,7 +353,7 @@ const AdminDashboard = () => {
                             onClick={() => handleSelectedField("allUsers")}
                         >
                             <FiUsers className="w-6 h-6" />
-                            <span className="">All Users</span>
+                            <span className="">Users</span>
                         </div>
 
                     </div>
@@ -479,12 +368,25 @@ const AdminDashboard = () => {
                             onClick={() => handleSelectedField("allVendors")}
                         >
                             <FiUsers className="w-6 h-6" />
-                            <span className="">All Vendors</span>
+                            <span className="">Vendors</span>
                         </div>
 
                     </div>
 
 
+                    <div className="text-sm flex flex-col gap-6 w-full">
+                        <div
+                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "banner"
+                                ? "text-blue-500"
+                                : "text-gray-700"
+                                }`}
+                            onClick={() => handleSelectedField("banner")}
+                        >
+                            <FiImage className="w-6 h-6" />
+                            <span className="">Banner</span>
+                        </div>
+
+                    </div>
                     <div className="text-sm flex flex-col gap-6 w-full">
                         <div
                             className={`flex items-center cursor-pointer gap-2 ${selectedField === "allCategories"
@@ -494,7 +396,7 @@ const AdminDashboard = () => {
                             onClick={() => handleSelectedField("allCategories")}
                         >
                             <BiCategory className="w-6 h-6" />
-                            <span className="">All Categories</span>
+                            <span className="">Categories</span>
                         </div>
 
                     </div>
@@ -519,11 +421,12 @@ const AdminDashboard = () => {
                             </div>
                         ) : (
                             <div className="">
-                                {selectedField === "allBusinesses" && <AllBusiness businesses={businesses} />}
+                                {selectedField === "allBusinesses" && <AllBusiness businesses={businesses} categories={categories}/>}
                                 {selectedField === "allUsers" && <AllUsers users={users} />}
                                 {selectedField === "allVendors" && <AllVendors users={vendors} />}
                                 {selectedField === "adminHome" && <AdminHome/>}
-                                {selectedField === "allCategories" && <AllCategories />}
+                                {selectedField === "banner" && <Banner />}
+                                {selectedField === "allCategories" && <Category />}
                             </div>
                         )}
                     </div>

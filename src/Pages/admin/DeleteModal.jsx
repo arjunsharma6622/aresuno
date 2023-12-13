@@ -3,17 +3,19 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function DeleteModal({ categoryId, subCategory, onClose }) {
+export default function DeleteModal({ categoryId, subCategory, onClose, mainCategory }) {
   const [open, setOpen] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
+  const deleteUrl = subCategory ? `https://aresuno-server.vercel.app/api/category/deletesubcategory/${categoryId}/${subCategory._id}` : `https://aresuno-server.vercel.app/api/category/${mainCategory._id}`;
+  
 
-  console.log("The cat is" + subCategory.name)
+  console.log(`The cat is ${subCategory ? subCategory.name : mainCategory.name}`)
 
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
       const res = await axios.delete(
-        `https://aresuno-server.vercel.app/api/category/deletesubcategory/${categoryId}/${subCategory._id}`,
+        deleteUrl,
       );
       console.log(res);
       toast.success("Category Deleted");
@@ -43,12 +45,19 @@ export default function DeleteModal({ categoryId, subCategory, onClose }) {
             <div className="mt-4 text-center">
               <h3 className="text-lg font-medium">
                 Delete{" "}
-                <span className="font-bold underline"> {subCategory.name}</span>{" "}
+                <span className="font-bold underline"> {subCategory? subCategory.name : mainCategory.title }</span>{" "}
                 Category
               </h3>
-              <p className="text-sm text-gray-500 mt-2">
-                Are you sure you want to delete this category
-              </p>
+              {mainCategory && (
+                <div className="px-4">
+                  <p className="text-sm text-gray-500">All the below mentioned subCategories will be deleted</p>
+                  <div className="mt-2 flex flex-wrap gap-2 items-center justify-center">
+                    {mainCategory.subcategories.map((subCategory) => (
+                      <span className="text-xs bg-gray-200 rounded-full px-3 py-[6px] flex items-center justify-center">{subCategory.name}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
             <div className="flex justify-center mt-6">
               <button
