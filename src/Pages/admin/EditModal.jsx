@@ -163,7 +163,7 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
 <div className="w-full flex flex-col gap-1 text-sm">
   <label htmlFor="altTag">Image Alt Tag</label>
 
-  <input type="text" id="altTag" value={subCategoryToEdit.image.altTag} className="text-base w-full border border-gray-300 p-2 rounded-md"/>
+  <input type="text" id="altTag" value={subCategoryToEdit.image.altTag} className="text-base w-full border border-gray-300 p-2 rounded-md" onChange={e => setSubCategoryToEdit({...subCategoryToEdit, image: {...subCategoryToEdit.image, altTag: e.target.value}})}/>
   </div>
 }
 
