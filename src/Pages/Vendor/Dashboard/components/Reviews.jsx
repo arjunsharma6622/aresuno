@@ -26,21 +26,8 @@ const Reviews = ({ businesses }) => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 text-sm">
             {businesses.map((business) =>
-              business.ratings?.map((ratingReview, index) => (
+              [...business.ratings].reverse().map((ratingReview, index) => (
                 <tr key={index}>
-                  {/* <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex gap-2 items-center">
-                      <img
-                        src={
-                          ratingReview.userId?.image ||
-                          "https://i.pravatar.cc/300"
-                        }
-                        alt=""
-                        className="w-5 h-5 rounded-full"
-                      />
-                      {ratingReview.userId?.name}
-                    </div>
-                  </td> */}
                   <td className="px-6 py-4 whitespace-nowrap">
                     {business.name}
                   </td>

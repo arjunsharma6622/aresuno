@@ -13,10 +13,10 @@ const ServiceCard = ({ business }) => {
 
     console.log(businessRating)
     return (
-        <div className='relative mb-40' key={business._id}>
+        <div className='relative ' key={business._id}>
             <div className=''>
 
-                <img src="https://images.squarespace-cdn.com/content/v1/541eaa20e4b0eb59dead1cd7/1589303826107-DJ01MFBNKWL2MJWBQACF/4.jpg" alt="" className='w-full aspect-[2/1] object-cover rounded-xl' />
+                <img src={business.photosGallery[0] ? business.photosGallery[0] : "https://placehold.co/200x100"} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' />
             </div>
 
 

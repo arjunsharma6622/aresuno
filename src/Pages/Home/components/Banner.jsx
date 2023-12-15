@@ -27,41 +27,39 @@ const Banner = () => {
   }, [dispatch]);
 
   return (
-    <div className="relative flex-col overflow-hidden self-stretch flex min-h-[576px] w-full items-center px-5 py-12 max-md:max-w-full">
-      <div className="gradient-overlay-top h-48 z[-1]"></div>
+    <div className="relative flex-col overflow-hidden self-stretch flex min-h-[80vh] w-full items-center px-5 py-12 max-md:max-w-full">
+      <div className="gradient-overlay-top-banner h-[100%] z[-1]"></div>
       <img
         loading="lazy"
         src={bannerUrl}
         className="absolute h-full w-full object-cover object-center inset-0"
       />
       <div className="relative z-[10] flex w-full max-w-[1195px] flex-col mt-12 mb-10 max-md:max-w-full max-md:my-10">
-        <div className="text-white text-4xl font-bold leading-[60px] tracking-wider self-center whitespace-nowrap max-md:max-w-full">
+        <div className="text-white text-6xl font-bold self-center whitespace-nowrap max-md:max-w-full">
           India’s Largest Service Provider
         </div>
         <div className="text-white text-2xl leading-9 tracking-wider self-center whitespace-nowrap mt-3.5">
           Search from 1000+ Services
         </div>
-        <div className="bg-white self-stretch flex w-full items-center justify-between gap-5 mt-20 pl-11 pr-6 py-3 rounded-[60px] max-md:max-w-full max-md:flex-wrap max-md:mt-10 max-md:px-5">
-          <div className="w-full flex px-5 py-3 rounded-full items-center gap-5">
-            <FiHardDrive />
+        <div className="bg-white max-w-[1100px] m-auto self-stretch flex w-full items-center justify-between gap-[6px] mt-20 px-[6px] py-[6px] rounded-2xl">
+          <div className="border border-gray-600 w-full h-full flex px-5 py-4 rounded-xl items-center gap-3 bg-white">
+            <FiHardDrive className="w-6 h-6"/>
             <input
-              className="text-stone-500 focus:outline-none text-base"
-              placeholder="What are you looking for?
-"
+              className="text-stone-500 focus:outline-none text-base w-full h-full"
+              placeholder="What are you looking for?"
             />
           </div>
-          <div className="w-full flex px-5 py-3 rounded-full items-center gap-5">
-            <FiNavigation />
+          <div className="border border-gray-600 w-full h-full flex px-5 py-4 rounded-xl items-center gap-3 bg-white">
+            <FiNavigation className="w-6 h-6"/>
             <input
-              className="text-stone-500 focus:outline-none text-base"
-              placeholder="Your location
-"
+              className="text-stone-500 focus:outline-none text-base w-full h-full"
+              placeholder="Your location"
             />
             <FiCrosshair className="w-6 h-6 text-gray-500" />
           </div>
 
-          <div className="flex items-center">
-            <button className="text-base py-4 text-white rounded-full px-10 bg-blue-600">
+          <div className="flex items-center h-full bg-blue-600 rounded-xl">
+            <button className="text-base py-4 text-white rounded-2xl h-full px-10 bg-blue-600">
               Search
             </button>
           </div>

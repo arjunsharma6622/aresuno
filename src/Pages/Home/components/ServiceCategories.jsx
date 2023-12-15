@@ -8,28 +8,27 @@ const ServiceCategories = () => {
 
   return (
     <div className="self-center w-full max-w-[1314px] mt-16 max-md:max-w-full max-md:mt-10">
-      <div className="text-black text-center text-xl font-semibold leading-8 self-center whitespace-nowrap mt-24 max-md:mt-10">
-        SERVICES
-      </div>
-      <div className="text-blue-600 text-center text-3xl font-bold leading-10 self-center whitespace-nowrap mt-6 max-md:max-w-full">
+      <div className="text-black text-center text-4xl font-bold leading-10 self-center whitespace-nowrap mt-8 max-md:max-w-full">
         All the Categories of Services
       </div>
-      <div className="text-neutral-500 text-center text-base leading-6 self-center whitespace-nowrap mt-5 max-md:max-w-full">
+      {/* <div className="text-neutral-500 text-center text-base leading-6 self-center whitespace-nowrap mt-5 max-md:max-w-full">
         Elevating Your Service Experience with Increased Flexibility and a Wide
         Array of Options.
-      </div>
-      <div className="self-center w-full max-w-[1314px] mt-16 max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex items-start max-md:flex-col max-md:items-stretch max-md:gap-0">
-          {categories.map((category, index) => (
+      </div> */}
+      <div className="w-full mt-8">
+        <div className="w-full grid grid-cols-2 gap-6">
+          { categories.map((category, index) => (
+
+            category.subcategories?.length > 0 && (
             <div
               key={index}
-              className="flex flex-col items-stretch w-6/12 max-md:w-full max-md:ml-0"
+              className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0"
             >
               <div className="justify-center items-center flex grow flex-col w-full mx-auto px-9 py-8 rounded-xl border-solid border-zinc-300 max-md:max-w-full max-md:mt-10 max-md:px-5">
-                <div className="text-black text-xl font-semibold uppercase leading-8 tracking-wide whitespace-nowrap">
+                <div className="text-black text-xl font-semibold">
                   {category.title}
                 </div>
-                <div className="w-full self-stretch mt-10 max-md:max-w-full">
+                <div className="w-full self-stretch mt-4 max-md:max-w-full">
                   <div className="grid grid-cols-2 w-full gap-4 gap-y-7">
                     {category.subcategories?.map((subCategory, index) => (
                       <Link
@@ -66,7 +65,13 @@ const ServiceCategories = () => {
                 </div>
               </div>
             </div>
-          ))}
+
+
+          )
+
+
+
+                        ))}
         </div>
       </div>{" "}
     </div>
