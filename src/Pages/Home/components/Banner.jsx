@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FiCrosshair, FiHardDrive, FiNavigation } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 // import { getBanner } from "../../../bannerSlice";
 // getBanner
 import axios from "axios";
 import { getBanner } from "../../../state/slices/bannerSlice";
+import Header from "../../../Components/Header/Header";
 
 const Banner = () => {
-  const dispatch = useDispatch();
   const bannerUrl = useSelector((state) => state.banner.url);
   const categories = useSelector((state) => state.categories);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchBanner = async () => {
@@ -26,33 +27,37 @@ const Banner = () => {
     fetchBanner();
   }, [dispatch]);
 
+
   return (
-    <div className="relative flex-col overflow-hidden self-stretch flex min-h-[80vh] w-full items-center px-5 py-12 max-md:max-w-full">
+    <div className="relative flex-col self-stretch flex w-full items-center max-md:max-w-full  h-[45vh] bg-gradient-to-b from-blue-800 to-blue-900">
+      {/* style={{backgroundImage: "linear-gradient(to right, #0f2027, #203a43, #2c5364)"}} */}
+      <div className=" z-[999] w-full">
+      <Header homePage={true}/>
+      </div>
       <div className="gradient-overlay-top-banner h-[100%] z[-1]"></div>
       <img
         loading="lazy"
         src={bannerUrl}
         className="absolute h-full w-full object-cover object-center inset-0"
       />
-      <div className="relative z-[10] flex w-full max-w-[1195px] flex-col mt-12 mb-10 max-md:max-w-full max-md:my-10">
-        <div className="text-white text-6xl font-bold self-center whitespace-nowrap max-md:max-w-full">
-          India’s Largest Service Provider
+      <div className="absolute -bottom-8 z-[10] m-auto  max-w-[1100px] flex w-full flex-col max-md:max-w-full max-md:my-10 gap-10 items-start justify-start">
+        <div className="text-white   max-md:max-w-full flex flex-col gap-2">
+          <p className="text-4xl font-bold">Find your next service</p>
+          <p className="text-xl ">at most affordable prices, from over 1000+ services</p>
         </div>
-        <div className="text-white text-2xl leading-9 tracking-wider self-center whitespace-nowrap mt-3.5">
-          Search from 1000+ Services
-        </div>
-        <div className="bg-white max-w-[1100px] m-auto self-stretch flex w-full items-center justify-between gap-[6px] mt-20 px-[6px] py-[6px] rounded-2xl">
-          <div className="border border-gray-600 w-full h-full flex px-5 py-4 rounded-xl items-center gap-3 bg-white">
+        <div className="bg-white shadow-lg  self-stretch flex w-full items-center justify-between gap-[6px] px-[6px] py-[6px] rounded-2xl">
+          <div className="border-r-2 border-black rounded-tr-none rounded-br-none w-full h-full flex px-5 py-2 rounded-xl items-center gap-3 bg-white">
             <FiHardDrive className="w-6 h-6"/>
             <input
-              className="text-stone-500 focus:outline-none text-base w-full h-full"
+              className="text-stone-500 py-1 focus:outline-none text-base w-full h-full"
               placeholder="What are you looking for?"
             />
           </div>
-          <div className="border border-gray-600 w-full h-full flex px-5 py-4 rounded-xl items-center gap-3 bg-white">
+
+          <div className=" w-full h-full flex px-5 py-2 rounded-xl items-center gap-3 bg-white">
             <FiNavigation className="w-6 h-6"/>
             <input
-              className="text-stone-500 focus:outline-none text-base w-full h-full"
+              className="text-stone-500 py-1 focus:outline-none text-base w-full h-full"
               placeholder="Your location"
             />
             <FiCrosshair className="w-6 h-6 text-gray-500" />
@@ -63,16 +68,6 @@ const Banner = () => {
               Search
             </button>
           </div>
-        </div>
-        <div className="flex items-center justify-center flex-wrap gap-5 mt-10">
-          {categories.map((category, index) => (
-            <div
-              key={index}
-              className="text-white text-center text-base font-semibold bg-blue-600 px-5 py-2 rounded-full"
-            >
-              {category.title}
-            </div>
-          ))}
         </div>
       </div>
     </div>

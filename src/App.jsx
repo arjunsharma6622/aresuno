@@ -43,6 +43,7 @@ function Main() {
   const isAdminPage = location.pathname.match(/\/admin/);
   const userType = useSelector((state) => state.user.userType);
   const navigate = useNavigate();
+  const isHomepage = location.pathname === "/";
 
   const dispatch = useDispatch();
 
@@ -68,6 +69,7 @@ function Main() {
         !isSignpuPage &&
         !isVendorDashboard &&
         !isOnboarding &&
+        !isHomepage &&
         !isAdminPage && <Header />}
       <div className="app">
         <Routes>
