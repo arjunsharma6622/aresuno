@@ -113,6 +113,20 @@ const CategoriesSlider = ({ category }) => {
         onSwiper={handleSwiper}
         onSlideChange={handleSlideChange}
         className="py-3"
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
       >
         {category.subcategories?.map((subCategory, index) => (
           <SwiperSlide key={index} className="">
@@ -121,7 +135,7 @@ const CategoriesSlider = ({ category }) => {
               className="w-full flex flex-col items-center max-md:w-full max-md:ml-0"
             >
               <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
-                <div className="justify-start items-start flex grow flex-col max-md:mt-10">
+                <div className="justify-start items-start flex grow flex-col">
                   <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch justify-start rounded-lg">
                     <img
                       loading="lazy"

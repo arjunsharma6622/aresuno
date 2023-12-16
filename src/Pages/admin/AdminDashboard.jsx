@@ -90,7 +90,7 @@ const AllBusiness = ({ businesses, categories }) => {
                                     if(category._id === business.mainCategory){
                                         const subCat = category.subcategories.find((subCat) => subCat._id === business.subCategory)
                                         // return `${category.title} - ${subCat.name}`
-                                        return `${subCat.name}`
+                                        return `${subCat?.name}`
                                     }
                                 })}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.email}</td>

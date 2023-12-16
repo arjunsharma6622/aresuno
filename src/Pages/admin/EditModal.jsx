@@ -168,6 +168,9 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
             <div className="mt-8 flex items-start gap-2 flex-col w-[80%] m-auto justify-center">
 
 { subCategoryToEdit &&
+
+<div className="flex justify-between items-end w-full">
+
 <div className="flex items-center gap-2 relative">
   <img src={imageToShow ? imageToShow : subCategoryToEdit.image?.url} alt="" className=" w-60 rounded-md"/>
   <label htmlFor="subCategoryImage" className="cursor-pointer absolute bottom-1 right-1 bg-blue-500 p-[6px] rounded-full">
@@ -181,10 +184,9 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
 }
 </div>
 
-}
-{ subCategoryToEdit &&
+
 <div className="flex items-center gap-2 relative">
-  {iconToShow ? <img src={iconToShow ? iconToShow : subCategoryToEdit.icon} alt="" className=" w-40 rounded-md"/> : <span>Click on green cam to add icon</span>}
+  {iconToShow ? <img src={iconToShow ? iconToShow : subCategoryToEdit.icon} alt="" className=" w-20 rounded-md"/> : <span>Click on green cam to add icon</span>}
   <label htmlFor="subCategoryIcon" className="cursor-pointer absolute bottom-1 right-1 bg-green-500 p-[6px] rounded-full">
     <BsFillCameraFill className="h-5 w-5 text-white"/>
   <input type="file" id="subCategoryIcon" className="hidden" onChange={handleIconChange}/>
@@ -195,8 +197,14 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
   </div>
 }
 </div>
+</div>
+
+
 
 }
+
+
+
 
 
 {subCategoryToEdit ? 

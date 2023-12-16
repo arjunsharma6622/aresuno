@@ -178,32 +178,7 @@ const AllCategories = () => {
         <div className="flex flex-col gap-10">
 
 
-<div>
-      <h1 className="text-2xl font-medium mb-5">Category Titles</h1>
 
-      <div className='relative grid grid-cols-4 gap-4'>
-      {categories.map((category, index) => (
-        <div key={index} className=' flex flex-col items-start justify-start gap-4 bg-white px-5 py-6 rounded-lg'>
-            <h2 className="text-md font-base">{category.title}</h2>
-            <div className=' flex items-center justify-center gap-4'>
-            <FiEdit3 className="w-5 h-5 text-gray-500 cursor-pointer" onClick={() => setSelectedMainCategoryToEdit(category)} />
-            {selectedMainCategoryToEdit && selectedMainCategoryToEdit._id === category._id && (
-                      <EditModal categoryId={category._id} mainCategory={selectedMainCategoryToEdit} onClose={() => setSelectedMainCategoryToEdit(null)} />
-                    )}
-            <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => setSelectedMainCategory(category)} />
-
-
-            {selectedMainCategory && selectedMainCategory._id === category._id && (
-                      <DeleteModal mainCategory={selectedMainCategory} onClose={() => setSelectedMainCategory(null)} />
-                    )}
-
-            </div>
-        </div>
-      ))}
-
-</div>
-
-      </div>
 
 
         <div>
@@ -217,19 +192,22 @@ const AllCategories = () => {
           <div key={index} className="mb-8">
             {category.title && <h2 className="text-lg font-semibold mt-4 mb-2">{category.title}</h2>}
   
-            <div className="mt-2 rounded-xl grid grid-cols-3 gap-4">
+            <div className="mt-2 rounded-xl grid grid-cols-4 gap-4">
               {category.subcategories.map((subCategory, index) => (
-                <div key={index} className="bg-white relative border rounded-xl p-5 py-6">
+                <div key={index} className="bg-white relative shadow rounded-xl p-5 py-6 flex justify-between items-center">
                   <div className="justify-start flex gap-10 items-center">
-                    <div className="w-24 h-24">
+                    {/* <div className="w-24 h-24">
                       <img src={subCategory.image?.url} alt={subCategory.image?.altTag} className="rounded-lg w-full h-full object-cover" />
-                    </div>
-                    <div>
-                      <h2 className="text-sm font-base">{subCategory.name}</h2>
+                    </div> */}
+                    <div >
+                        <div>
+                            <img src={subCategory.icon} alt="" className='w-10 h-10'/>
+                        </div>
+                      <h2 className="text-sm font-base mt-1">{subCategory.name}</h2>
                     </div>
                   </div>
   
-                  <div className="flex justify-end gap-5">
+                  <div className="flex flex-col justify-start gap-2">
                   <FiEdit3 className="w-5 h-5 text-gray-500 cursor-pointer" onClick={() => setSelectedCategoryToEdit(subCategory)} />
                   {selectedCategoryToEdit && selectedCategoryToEdit._id === subCategory._id && (
                       <EditModal categoryId={category._id} subCategory={selectedCategoryToEdit} onClose={() => setSelectedCategoryToEdit(null)} />
@@ -254,6 +232,35 @@ const AllCategories = () => {
 
 
         ))}
+      </div>
+
+
+
+      <div>
+      <h1 className="text-2xl font-medium mb-5">Category Titles</h1>
+
+      <div className='relative grid grid-cols-4 gap-4'>
+      {categories.map((category, index) => (
+        <div key={index} className=' flex flex-col items-start justify-start gap-4 bg-white px-5 py-6 rounded-lg'>
+            <h2 className="text-md font-base">{category.title}</h2>
+            <div className=' flex items-center justify-center gap-4'>
+            <FiEdit3 className="w-5 h-5 text-gray-500 cursor-pointer" onClick={() => setSelectedMainCategoryToEdit(category)} />
+            {selectedMainCategoryToEdit && selectedMainCategoryToEdit._id === category._id && (
+                      <EditModal categoryId={category._id} mainCategory={selectedMainCategoryToEdit} onClose={() => setSelectedMainCategoryToEdit(null)} />
+                    )}
+            <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => setSelectedMainCategory(category)} />
+
+
+            {selectedMainCategory && selectedMainCategory._id === category._id && (
+                      <DeleteModal mainCategory={selectedMainCategory} onClose={() => setSelectedMainCategory(null)} />
+                    )}
+
+            </div>
+        </div>
+      ))}
+
+</div>
+
       </div>
 
 

@@ -19,7 +19,7 @@ import BusinessOnboarding from "./Pages/BusinessOnboarding/BusinessOnboarding";
 import AdminDashboard from "./Pages/admin/AdminDashboard";
 import BusinessEdit from "./Pages/BusinessEdit/BusinessEdit";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import Services from "./Pages/Services/Services";
 import BusinessRegister from "./Pages/BusinessRegister/BusinessRegister";
 import Business from "./Pages/Business/Business";
@@ -27,6 +27,7 @@ import Home from "./Pages/Home/Home";
 import { setAllCategories } from "./state/slices/categoriesSlice";
 
 function App() {
+
   return (
     <BrowserRouter>
       <Main />
@@ -46,6 +47,12 @@ function Main() {
   const isHomepage = location.pathname === "/";
 
   const dispatch = useDispatch();
+
+  // const location = useLocation();
+  // Scroll to top if path changes
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
