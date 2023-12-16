@@ -13,14 +13,14 @@ const ServiceCard = ({ business }) => {
 
     console.log(businessRating)
     return (
-        <div className='relative ' key={business._id}>
+        <div className='relative' key={business._id}>
             <div className=''>
 
                 <img src={business.photosGallery[0] ? business.photosGallery[0] : "https://placehold.co/200x100"} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' />
             </div>
 
 
-            <div className='bg-white py-4 pb-0 w-full rounded-xl shadow-xl absolute top-[80%] overflow-hidden flex flex-col gap-4'>
+            <div className='bg-white py-4 pb-0 w-full rounded-xl shadow-xl top-[80%] overflow-hidden flex flex-col gap-4'>
                 <div className='px-4'>
 
                     

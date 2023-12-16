@@ -12,10 +12,16 @@ const CategoryInput = ({ index, onRemove, onImageChange, onUpdateCategory, onUpd
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        if (e.target.files[0].size > 1 * 1000 * 1024) {
+            // console.log("File with maximum size of 1MB is allowed");
+            toast.error(`File with maximum size of 1MB is allowed, your size is ${(e.target.files[0].size / 1000 / 1024).toFixed(2)} MB`);
+            return false;
+          }
+          else{
         const imageUrl = URL.createObjectURL(file);
         setCategory((prevCategory) => ({ ...prevCategory, image: { ...prevCategory.image, url: file } }));
         setImageToShow(imageUrl);
-        onImageChange(index, file);
+        onImageChange(index, file);}
     };
 
     const onUpdateCategoryImageAltTagHandler = (e) => {
@@ -325,6 +331,8 @@ const Category = () => {
 
         try {
             const uploadPromises = categories.map(async (category) => {
+
+                try{
                 if (category.image.url) {
                     const img = category.image.url;
                     const imageData = new FormData();
@@ -342,14 +350,20 @@ const Category = () => {
                     return { ...category, image: { url: imageUrl, altTag: category.image.altTag } };
                 }
                 return category;
+
+            }
+            catch(err){
+                console.log("some err : ", err.response.data.error.message);
+                toast.error(err.response.data.error.message);
+            }
             });
 
             await Promise.all(uploadPromises);
+            console.log('xxx')
 
             return imgUrls; // Return the array of image URLs
-        } catch (err) {
-            console.log(err);
-            return []; // Return an empty array in case of an error
+        } catch (error) {
+            console.log(error);
         } finally {
             setIsCategoryLoading(false);
         }

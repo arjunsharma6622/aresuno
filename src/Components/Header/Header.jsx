@@ -123,10 +123,13 @@ const Header = ({homePage}) => {
       )}
     </div>
 
-    <div className="text-white relative flex justify-between items-center px-4 py-4 md:hidden">
+    <div className={`${homePage && 'text-white shadow-none'} text-black shadow-md relative flex justify-between items-center px-4 py-4 md:hidden`}>
         <div className="text-lg font-medium">
             <span>Aresuno</span>
         </div>
+
+
+        { user.name ? 
 
         <div className="flex gap-6 items-center">
 
@@ -148,6 +151,22 @@ const Header = ({homePage}) => {
             </div>
 
         </div>
+
+        : 
+
+        <div className="flex gap-6 items-center">
+            <button className="bg-white text-xs border  text-blue-700 px-2 py-1 rounded-md">
+                <Link to="/login">Login</Link>
+            </button>
+            <button className="bg-white text-xs border  text-blue-700 px-2 py-1 rounded-md">
+                <Link to="/signup">Signup</Link>
+            </button>
+            <div onClick={() => setMenuOpen(!menuOpen)}>
+                <FiMenu className="w-5 h-5" />
+            </div>
+        </div>
+
+            }
 
         {menuOpen && (
         <div className="w-full text-black  bg-white/90 backdrop-blur-sm fixed top-0 left-0 h-[100vh] z-[80] px-8 flex flex-col gap-4 py-6">
@@ -212,7 +231,9 @@ const Header = ({homePage}) => {
               onClick={async () => {
                 localStorage.removeItem("token");
                 dispatch(userLogout());
+                setMobileProfileOpen(false);
                 navigate("/");
+
               }}
             >
               <FiLogOut className="w-5 h-5" />

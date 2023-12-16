@@ -33,6 +33,8 @@ import { setAllCategories } from "../../state/slices/categoriesSlice";
 import Banner from "./Banner";
 import Category from "./Category";
 import AdminHome from "./AdminHome";
+import Footer from "./Footer";
+import { FaGripLines } from "react-icons/fa";
 // import {setAllCategories} from "../../categoriesSlice"
 
 
@@ -400,6 +402,19 @@ const AdminDashboard = () => {
                         </div>
 
                     </div>
+                    <div className="text-sm flex flex-col gap-6 w-full">
+                        <div
+                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "footer"
+                                ? "text-blue-500"
+                                : "text-gray-700"
+                                }`}
+                            onClick={() => handleSelectedField("footer")}
+                        >
+                            <FaGripLines className="w-6 h-6" />
+                            <span className="">Footer</span>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div className="w-full">
@@ -427,6 +442,7 @@ const AdminDashboard = () => {
                                 {selectedField === "adminHome" && <AdminHome/>}
                                 {selectedField === "banner" && <Banner />}
                                 {selectedField === "allCategories" && <Category />}
+                                {selectedField === "footer" && <Footer />}
                             </div>
                         )}
                     </div>

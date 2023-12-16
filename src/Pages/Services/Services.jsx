@@ -49,7 +49,7 @@ const Services = () => {
             <h1 className='text-3xl font-semibold text-center mt-10 mb-4'>Find the service you want</h1>
             <p className='mb-8 text-center '>Total of {allBusinesses.length} services available</p>
 
-            <div className='grid grid-cols-3 gap-8 w-[80%] mx-auto h-full mb-80'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[80%] mx-auto h-full mb-80'>
 
                 {
                     allBusinesses.map((business) => (
