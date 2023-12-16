@@ -14,6 +14,9 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
   const [imageToUpdate, setImageToUpdate] = useState(null);
   const [imageToShow, setImageToShow] = useState(null);
 
+  const [icon, setIcon] = useState(null);
+  const [iconToShow, setIconToShow] = useState(subCategory ? subCategory.icon : null);
+
   const [subCategoryToEdit, setSubCategoryToEdit] = useState(subCategory);
   const [mainCategoryToEdit, setMainCategoryToEdit] = useState(mainCategory);
 
@@ -28,6 +31,12 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
     setImageToUpdate(e.target.files[0])
     const imageUrl = URL.createObjectURL(e.target.files[0]);
     setImageToShow(imageUrl);
+  }
+
+  const handleIconChange = (e) => {
+    setIcon(e.target.files[0])
+    const iconUrl = URL.createObjectURL(e.target.files[0]);
+    setIconToShow(iconUrl);
   }
 
   const handleImageUpload = async () => {
@@ -47,6 +56,23 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
     }
   }
 
+  const handleIconUpload = async () => {
+    try{
+      const iconData = new FormData()
+      iconData.append('file', icon)
+      iconData.append("upload_preset", "ml_default")
+      iconData.append("folder", "aresuno/category")
+        
+        const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", iconData)
+        const iconUrl = uploadResponse.data.secure_url
+  
+        return iconUrl
+      }
+      catch(err){
+        console.log(err)
+      }
+  }
+
   const handleMainCategoryUpdate = async () => {
     try {
       setIsUpdating(true);
@@ -64,6 +90,7 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
     try {
       setIsUpdating(true);
       let imageUrl = ''
+      let iconUrl = ''
       let subCatToEdit = {}
 
       if(imageToUpdate){
@@ -76,6 +103,7 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
           }
         }
       }
+
       else{
         subCatToEdit = {
           ...subCategoryToEdit,
@@ -84,9 +112,21 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
           }
         }
       }
+      
+      if(icon){
+        iconUrl = await handleIconUpload()
+        subCatToEdit = {
+          ...subCategoryToEdit,
+          icon: iconUrl
+        }
+      }
+
+
+
 
       console.log('sub cat to edittt')
-      console.log(subCategoryToEdit);
+      console.log(subCatToEdit);
+
 
       const res = await axios.put(editUrl, subCatToEdit );
       console.log(res);
@@ -136,6 +176,21 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
   </label>
   { imageToUpdate &&
   <div className="absolute cursor-pointer top-1 right-1 bg-red-200 rounded-full p-[2px]" onClick={() => {setImageToUpdate(null); setImageToShow(null)}}>
+  <FiX className="h-4 w-4 text-red-500 "/>
+  </div>
+}
+</div>
+
+}
+{ subCategoryToEdit &&
+<div className="flex items-center gap-2 relative">
+  {iconToShow ? <img src={iconToShow ? iconToShow : subCategoryToEdit.icon} alt="" className=" w-40 rounded-md"/> : <span>Click on green cam to add icon</span>}
+  <label htmlFor="subCategoryIcon" className="cursor-pointer absolute bottom-1 right-1 bg-green-500 p-[6px] rounded-full">
+    <BsFillCameraFill className="h-5 w-5 text-white"/>
+  <input type="file" id="subCategoryIcon" className="hidden" onChange={handleIconChange}/>
+  </label>
+  { icon &&
+  <div className="absolute cursor-pointer top-1 right-1 bg-red-200 rounded-full p-[2px]" onClick={() => {setIcon(null); setIconToShow(null)}}>
   <FiX className="h-4 w-4 text-red-500 "/>
   </div>
 }

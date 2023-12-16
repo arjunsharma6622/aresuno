@@ -42,7 +42,7 @@ const Banner = () => {
       />
       <div className="absolute -bottom-8 z-[10] m-auto  max-w-[1100px] flex w-full flex-col max-md:max-w-full max-md:my-10 gap-10 items-start justify-start">
         <div className="text-white   max-md:max-w-full flex flex-col gap-2">
-          <p className="text-5xl font-bold">Welcome to Aresuno</p>
+          {/* <p className="text-5xl font-bold">Welcome to Aresuno</p> */}
           <p className="text-4xl font-bold">Find your next service</p>
           <p className="text-xl ">at most affordable prices, from over 1000+ services</p>
         </div>

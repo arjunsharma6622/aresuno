@@ -34,7 +34,7 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="bg-white flex flex-col">
+    <div className="bg-white flex flex-col gap-8">
       <Banner />
 
       {/* <img src={bannerUrl} className="w-full h-[40vh] object-cover" /> */}
@@ -62,6 +62,13 @@ const Home = () => {
       <MainCategories />
 
       <ServiceCategories />
+
+
+
+      <div className="bg-gray-300 h-[300px] w-full">
+  </div>
+
+
 
     </div>
   );
