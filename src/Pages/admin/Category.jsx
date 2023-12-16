@@ -334,7 +334,7 @@ const Category = () => {
 
                     const uploadResponse = await axios.post(
                         'https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload',
-                        imageData
+                        imageData,
                     );
 
                     const imageUrl = uploadResponse.data.secure_url;
