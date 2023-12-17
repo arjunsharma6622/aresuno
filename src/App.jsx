@@ -27,9 +27,20 @@ import Home from "./Pages/Home/Home";
 import { setAllCategories } from "./state/slices/categoriesSlice";
 
 function App() {
+  const ScrollToTop = () => {
+    const location = useLocation();
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [location.pathname]);
+  
+    return null;
+  };
 
   return (
     <BrowserRouter>
+          <ScrollToTop />
+
       <Main />
     </BrowserRouter>
   );
@@ -49,15 +60,7 @@ function Main() {
 
   const dispatch = useDispatch();
 
-  // const location = useLocation();
-  // Scroll to top if path changes
-  // useLayoutEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [location.pathname]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 });
-  }, [location.pathname]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
