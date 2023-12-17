@@ -20,7 +20,7 @@ const ServiceCard = ({ business }) => {
             </div>
 
 
-            <div className='bg-white py-4 pb-0 w-full rounded-xl shadow-xl top-[80%] overflow-hidden flex flex-col gap-4'>
+            <div className='bg-white py-4 pb-0 w-full rounded-xl shadow-xl flex flex-col gap-4'>
                 <div className='px-4'>
 
                     

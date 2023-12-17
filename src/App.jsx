@@ -28,7 +28,6 @@ import { setAllCategories } from "./state/slices/categoriesSlice";
 
 function App() {
 
-
   return (
     <BrowserRouter>
       <Main />
@@ -50,7 +49,15 @@ function Main() {
 
   const dispatch = useDispatch();
 
+  // const location = useLocation();
+  // Scroll to top if path changes
+  // useLayoutEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [location.pathname]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
