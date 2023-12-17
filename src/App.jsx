@@ -27,20 +27,10 @@ import Home from "./Pages/Home/Home";
 import { setAllCategories } from "./state/slices/categoriesSlice";
 
 function App() {
-  const ScrollToTop = () => {
-    const location = useLocation();
-  
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [location.pathname]);
-  
-    return null;
-  };
+
 
   return (
     <BrowserRouter>
-          <ScrollToTop />
-
       <Main />
     </BrowserRouter>
   );
