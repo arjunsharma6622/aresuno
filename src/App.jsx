@@ -50,9 +50,7 @@ function Main() {
 
   // const location = useLocation();
   // Scroll to top if path changes
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+
 
   useEffect(() => {
     const fetchAllCategories = async () => {
