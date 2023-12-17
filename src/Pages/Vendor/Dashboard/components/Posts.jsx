@@ -204,33 +204,17 @@ const Posts = ({ posts, businesses }) => {
 
 
 
-      <div className="">
-        <h2 className="text-2xl font-semibold mb-6">Posts</h2>
+      <div className="mt-6">
+        <h2 className="text-lg md:text-2xl font-semibold">Posts</h2>
 
-        <div className="flex justify-between gap-6">
-          <div className="flex-[6] w-full  rounded">
-            <h2 className="mb-4 text-base font-semibold">Add new post</h2>
+        <div className="flex flex-col md:flex-row justify-between gap-6">
+          <div className="flex-[6] w-full  rounded ">
+            <h2 className=" md:mb-4 text-base font-medium mb-2 underline">Add new post</h2>
 
-            <div className="flex flex-col gap-4 mb-4 bg-white p-4 py-6 rounded-lg">
+            <div className="flex flex-col gap-4 mb-4 bg-white md:p-4 md:py-6 rounded-lg">
               {image && (
                 <div>
                   <div className="w-full relative">
-                    {/* <img src={imageToShow} alt="Selected Image" className=" rounded" /> */}
-
-
-
-                    {/* <div className="flex justify-center w-full h-64">
-                      <Cropper
-                        image={imageToShow}
-                        crop={crop}
-                        zoom={zoom}
-                        aspect={1 / 1}
-                        onCropChange={setCrop}
-                        onCropComplete={onCropComplete}
-                        onZoomChange={setZoom}
-                      />
-                    </div> */}
-
                     <EasyCrop className='' image={imageToShow} setImage = {setImage} aspectRatio={1/1} widthOfImg={"w-64"}/>
 
                     <FiXCircle
@@ -247,7 +231,7 @@ const Posts = ({ posts, businesses }) => {
                   setPost({ ...post, description: e.target.value })
                 }
                 placeholder="Enter post description"
-                className="w-full p-2 rounded border focus:outline-none resize-none"
+                className="w-full p-2 rounded border focus:outline-none resize-none text-sm md:text-base"
                 rows="4"
               ></textarea>
 
@@ -256,7 +240,7 @@ const Posts = ({ posts, businesses }) => {
                   <select
                     name=""
                     id=""
-                    className=" w-full appearance-none cursor-pointer px-3  py-2 border rounded bg-white"
+                    className=" w-full text-sm md:text-base appearance-none cursor-pointer px-3  py-2 border rounded bg-white"
                     onChange={(e) =>
                       setPost({ ...post, businessId: e.target.value })
                     }
@@ -310,7 +294,7 @@ const Posts = ({ posts, businesses }) => {
             </div>
           </div>
 
-          <div className="flex-[6] w-full rounded">
+          <div className="flex-[6] w-full rounded hidden md:block">
             <h2 className="mb-4 text-base font-semibold">Recent Posts</h2>
 
             <div className="relative">
@@ -334,7 +318,9 @@ const Posts = ({ posts, businesses }) => {
         </div>
       </div>
 
-      <h1 className="text-2xl font-semibold mb-6">
+<div className="mt-6">
+
+      <h1 className="text-lg md:text-2xl font-semibold mb-6">
         You have {posts.length === 0 ? "No" : posts.length} Posts
       </h1>
       {posts.length === 0 ? (
@@ -342,31 +328,31 @@ const Posts = ({ posts, businesses }) => {
           <button>Add Post</button>
         </div>
       ) : (
-        <div className="min-w-full overflow-hidden">
+        <div className="min-w-full overflow-auto">
           <table className="w-full table-auto">
             <thead className="">
               <tr className="bg-gray-300">
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   Posted In
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   Image
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   Description
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   Created
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   Last update
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200 text-sm">
+            <tbody className="bg-white divide-y divide-gray-200 text-xs md:text-sm">
               {businesses.map((business, topindex) =>
                 business.posts.map((post, index) => (
                   <tr key={index}>
@@ -425,6 +411,10 @@ const Posts = ({ posts, businesses }) => {
           </table>
         </div>
       )}
+
+</div>
+
+
     </div>
   );
 };

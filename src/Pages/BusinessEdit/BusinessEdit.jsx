@@ -530,7 +530,7 @@ const BusinessEdit = () => {
 
   return (
 
-    <div className="  flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8 mx-44">
+    <div className="  flex items-start justify-center md:py-12 px-4 sm:px-6 lg:px-8 md:mx-44">
 
       <div className=" w-full justify-between flex flex-col">
         <div className="flex flex-col">

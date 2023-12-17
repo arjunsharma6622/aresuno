@@ -132,13 +132,13 @@ const Profile = ({ user }) => {
   }
 
   return (
-    <div className="w-full flex justify-center items-center flex-col gap-10">
+    <div className="w-full flex justify-center items-center flex-col gap-10 mt-6">
 
       <div className="relative flex items-center flex-col">
         <img
           src={user.image&&!image ? user.image : image ? imageToShow : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
           alt=""
-          className="rounded-full w-32 h-32 object-cover"
+          className="rounded-full border-2 w-20 h-20 md:w-32 md:h-32 object-cover"
         />
         {image ? 
 
@@ -150,7 +150,7 @@ const Profile = ({ user }) => {
         <div className="absolute bottom-1 -right-1 cursor-pointer">
         <label htmlFor="profileImage">
 
-        <div className="p-5 bg-blue-500 cursor-pointer rounded-full w-7 h-7 relative">
+        <div className="p-4 md:p-5 bg-blue-500 cursor-pointer rounded-full w-5 h-5 md:w-7 md:h-7 relative">
           
           <input 
           type="file" 
@@ -160,7 +160,7 @@ const Profile = ({ user }) => {
           onChange={handleImageChange}
           style={{ display: "none" }}
           />
-          <BsFillCameraFill className="text-white cursor-pointer w-5 h-5 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"/>
+          <BsFillCameraFill className="text-white cursor-pointer w-4 h-4 md:w-5 md:h-5 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"/>
         </div>
         </label>
 
@@ -169,7 +169,8 @@ const Profile = ({ user }) => {
       </div>
 
       <div className="flex w-full flex-col items-center justify-between gap-8">
-        <div className="w-1/2 bg-white px-8 py-10 rounded-xl shadow-lg">
+        <div className="px-3 py-3 w-full md:w-1/2 bg-white md:px-8 md:py-10 rounded-xl shadow-lg">
+
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-medium">Update Your Details</h2>
             {edit ? (
@@ -230,7 +231,7 @@ const Profile = ({ user }) => {
           </div>
         </div>
 
-        <div className="w-1/2 bg-white p-6 py-10 rounded-xl shadow-lg">
+        <div className="px-3 py-3 w-full bg-white md:p-6 md:py-10 rounded-xl shadow-lg">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-medium">Change Password</h2>
 
@@ -308,6 +309,7 @@ const Profile = ({ user }) => {
             </form>
           </div>
         </div>
+
       </div>
     </div>
   );

@@ -6,11 +6,11 @@ const DashboardLayout = ({
   children,
 }) => {
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col md:flex-row md:h-screen">
       <Sidebar
         user={user}
       />
-      <div className="flex-[10] bg-gray-100 p-10 overflow-y-scroll">
+      <div className="md:flex-[10] md:bg-gray-100 md:p-10 overflow-y-scroll w-[90%] m-auto">
         {children}
       </div>
     </div>

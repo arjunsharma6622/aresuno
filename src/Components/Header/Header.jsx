@@ -18,7 +18,7 @@ const Header = ({homePage}) => {
 
   return (
     <div className="w-full">
-    <div className={`w-[100%] h-16  items-center justify-between px-4 sm:px-6 lg:px-8 shadow-md ${homePage && "shadow-none text-white"} text-black hidden md:flex`} >
+    <div className={`w-[100%] h-16 ${!homePage && "bg-white"}  items-center justify-between px-4 sm:px-6 lg:px-8 shadow-md ${homePage && "shadow-none text-white"} text-black hidden md:flex`} >
       <div className={` text-2xl font-semibold`}>
         <Link to="/">Aresuno</Link>
       </div>

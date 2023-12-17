@@ -11,6 +11,7 @@ import AddListing from "./components/AddListing";
 import Profile from "./components/Profile";
 import DashboardLayout from "./DashboardLayout";
 import { Route, Routes } from "react-router-dom";
+import Header from "../../../Components/Header/Header";
 
 const api = axios.create({
   // baseURL: "http://localhost:8000/api/vendor/",
@@ -53,7 +54,10 @@ const VendorDashboard = () => {
   console.log(user)
 
   return (
-    <div className="">
+    <div className="relative h-screen">
+      {/* <div className="fixed w-full z-[99]">
+      <Header />
+      </div> */}
       <DashboardLayout user={user}>
         <Routes>
           <Route

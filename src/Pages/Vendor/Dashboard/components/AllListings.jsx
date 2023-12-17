@@ -6,12 +6,12 @@ import Modal from "./Modal";
 const AllListings = ({ businesses }) => {
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   return (
-    <div className="">
-      <h1 className="text-2xl font-semibold mb-6">All Listings</h1>
-      <div className="mb-6">
+    <div className="mt-6">
+      <h1 className="text-lg md:text-2xl font-semibold mb-2 md:mb-6">All Listings</h1>
+      <div className="md:mb-6 mb-4">
         <span>Total Businesses : {businesses.length}</span>
       </div>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {businesses.map((business) => (
           <div
             key={business._id}
