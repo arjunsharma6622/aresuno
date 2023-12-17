@@ -124,8 +124,10 @@ const Header = ({homePage}) => {
     </div>
 
     <div className={`${homePage && 'text-white shadow-none'} text-black shadow-md relative flex justify-between items-center px-4 py-4 md:hidden`}>
-        <div className="text-lg font-medium">
-            <span>Aresuno</span>
+        <div className="text-xl font-medium text-blue-500">
+            <Link to="/">
+            <span>A.s</span>
+            </Link>
         </div>
 
 

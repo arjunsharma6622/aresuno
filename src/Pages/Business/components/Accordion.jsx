@@ -10,17 +10,21 @@ const Accordion = ({ question, content }) => {
         className="flex items-center justify-between gap-4 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p className="text-base font-medium text-black">{question}</p>
-        { isOpen ? <FiMinus className="text-gray-700 w-6 h-6 duration-300" /> :
-        <FiPlus className="text-gray-700 w-6 h-6 duration-300" />
-
-}
+        <p className="text-sm md:text-base font-medium text-black">{question}</p>
+        <div>
+        { isOpen 
+          ? 
+          <FiMinus className="text-gray-700 w-5 h-5 md:w-6 md:h-6 duration-300" /> 
+          :
+          <FiPlus className="text-gray-700 w-5 h-5 md:w-6 md:h-6 duration-300" />
+        }
+        </div>
 
       </div>
       {isOpen && (
         <div className="grid grid-cols-1 gap-8 mt-2" >
           <div className="max-w-full">
-            <p className="text-gray-600 text-sm">{content}</p>
+            <p className="text-gray-600 text-xs md:text-sm">{content}</p>
           </div>
         </div>
       )}

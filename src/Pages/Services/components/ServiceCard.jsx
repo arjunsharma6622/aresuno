@@ -85,7 +85,7 @@ const ServiceCard = ({ business }) => {
 
 
                 <div className='flex w-full'>
-                    <button className='w-full px-2 py-[10px] border-t-[1px] border-gray-200  text-blue-500 f'>
+                    <button className='w-full px-2 py-[10px] border-t-[1px] border-gray-200  text-blue-500'>
 
                         <a href={`tel:${business.phone}`} className='flex items-center gap-4 justify-center'>
                             <FiPhoneCall className=' w-5 h-5' />
