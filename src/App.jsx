@@ -37,6 +37,7 @@ function App() {
 
 function Main() {
   const location = useLocation();
+  const { pathname } = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isSignpuPage = location.pathname === "/signup";
   const isVendorDashboard = location.pathname.match(/\/vendor\/dashboard/);
@@ -50,7 +51,13 @@ function Main() {
 
   // const location = useLocation();
   // Scroll to top if path changes
+  // useLayoutEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [location.pathname]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
