@@ -37,7 +37,7 @@ function App() {
 
 function Main() {
   const location = useLocation();
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isSignpuPage = location.pathname === "/signup";
   const isVendorDashboard = location.pathname.match(/\/vendor\/dashboard/);
@@ -56,8 +56,8 @@ function Main() {
   // }, [location.pathname]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    window.scrollTo({ top: 0, left: 0 });
+  }, [location.pathname]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
