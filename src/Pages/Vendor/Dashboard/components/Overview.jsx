@@ -12,6 +12,7 @@ import {
   YAxis,
 } from "recharts";
 import { graphData } from "../../../../data";
+import { useSelector } from "react-redux";
 
 
 const iconMapping = {
@@ -26,11 +27,14 @@ const iconMapping = {
 // import getcropppe from 'react-easy-crop/utils'
 
 const Overview = ({ businesses, posts }) => {
+  const user = useSelector((state) => state.user);
+  
   return (
     <div className="flex flex-col gap-10 md:gap-16 mt-6">
 
-      <div className="">
-        <h1 className="text-lg md:text-3xl">Welcome to your dashboard 🙏🏻</h1>
+      <div className="flex flex-col gap-2">
+        <h1 className="text-lg md:text-3xl font-normal md:font-semibold">Welcome <span className="font-semibold md:font-bold text-blue-600">{user.name}</span> </h1>
+        <p className="text-sm">This is your dashboard, where you can view and manage your business.</p>
       </div>
 
       <div className="">
@@ -76,7 +80,7 @@ const Overview = ({ businesses, posts }) => {
         <div className={"bg-white rounded-lg shadow-lg md:hidden"}>
         <ResponsiveContainer width="100%" height={180} >
           <LineChart data={graphData} className="text-xs  font-light">
-            <Line type="monotone" dataKey="Leads" stroke="#007bff" strokeWidth={1}/>
+            <Line type="monotone" dataKey="Leads" stroke="#007bff" strokeWidth={1} dot={false}/>
             <CartesianGrid stroke="#ddd" strokeDasharray="2 2" />
             <XAxis dataKey="name" />
             <YAxis width={35}/>

@@ -91,7 +91,7 @@ const Sidebar = ({ user }) => {
       <div className={`h-full transition-all duration-[400ms]  flex flex-col justify-between overflow-y-auto ${isSidebarCollapsed ? " w-20 p-2" : " w-48"
         }`}>
       <div className="flex flex-col gap-8 w-full">
-        {/* <div className="flex flex-col items-center justify-start gap-6 w-full">
+        <div className="flex flex-col items-center justify-start gap-6 w-full">
 
 
 
@@ -111,9 +111,9 @@ const Sidebar = ({ user }) => {
               <h2 className="text-2xl font-semibold">{user.name}</h2>
             )}
           </div>
-        </div> */}
+        </div>
 
-        {/* <hr className="w-full border-gray-300" /> */}
+        <hr className="w-full border-gray-300" />
 
         <div className={` flex flex-col ${isSidebarCollapsed ? "items-center" : "items-start"} gap-4 w-full`}>
           {sidebarLinks.map(({ name, icon, path }, index) => (
@@ -233,6 +233,7 @@ const Sidebar = ({ user }) => {
 
 
     </div>
+    
   );
 };
 
