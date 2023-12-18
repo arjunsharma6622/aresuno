@@ -54,7 +54,7 @@ function Main() {
     };
 
     fetchAllCategories();
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
