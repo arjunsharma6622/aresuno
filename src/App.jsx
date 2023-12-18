@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import "./App.css";
@@ -19,7 +13,7 @@ import BusinessOnboarding from "./Pages/BusinessOnboarding/BusinessOnboarding";
 import AdminDashboard from "./Pages/admin/AdminDashboard";
 import BusinessEdit from "./Pages/BusinessEdit/BusinessEdit";
 import axios from "axios";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import Services from "./Pages/Services/Services";
 import BusinessRegister from "./Pages/BusinessRegister/BusinessRegister";
 import Business from "./Pages/Business/Business";
@@ -27,7 +21,6 @@ import Home from "./Pages/Home/Home";
 import { setAllCategories } from "./state/slices/categoriesSlice";
 
 function App() {
-
   return (
     <BrowserRouter>
       <Main />
@@ -37,24 +30,15 @@ function App() {
 
 function Main() {
   const location = useLocation();
-  // const { pathname } = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isSignpuPage = location.pathname === "/signup";
   const isVendorDashboard = location.pathname.match(/\/vendor\/dashboard/);
   const isOnboarding = location.pathname.match(/\/vendor\/onboarding/);
   const isAdminPage = location.pathname.match(/\/admin/);
   const userType = useSelector((state) => state.user.userType);
-  const navigate = useNavigate();
   const isHomepage = location.pathname === "/";
 
   const dispatch = useDispatch();
-
-  // const location = useLocation();
-  // Scroll to top if path changes
-  // useLayoutEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [location.pathname]);
-
 
   useEffect(() => {
     const fetchAllCategories = async () => {
@@ -101,7 +85,6 @@ function Main() {
           <Route path={"/business/:businessName"} element={<Business />} />
           <Route path={"/business/edit/:id"} element={<BusinessEdit />} />
           <Route path={"/admin"} element={<AdminDashboard />} />
-          {/* <Route path={'/:subCategoryId'} element={<Services />} /> */}
           <Route path={"/:subCategoryName"} element={<Services />} />
 
           <Route path="/contact" element={<h1>Contact</h1>} />
