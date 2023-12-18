@@ -38,16 +38,16 @@ const BusinessModeOfPayment = ({businessDetails, setBusinessDetails}) => {
         }
       };
   return (
-    <div className="mt-6 mb-6">
+    <div className="md:mt-6 md:mb-6">
     <div className="flex items-center gap-2">
-      <MdPayment className="w-6 h-6" />
-      <h2 className="text-xl font-semibold">Mode of Payment</h2>
+      <MdPayment className="w-5 h-5 md:w-6 md:h-6" />
+      <h2 className="text-lg md:text-xl font-semibold">Mode of Payment</h2>
     </div>
 
     <div className="flex flex-wrap gap-4 mt-6">
       {paymentModes.map((mode, index) => (
         <span
-          className={`px-4 py-2 border rounded-lg cursor-pointer  ${
+          className={`md:px-4 px-3 py-1 md:py-2 border rounded-lg text-sm md:text-base cursor-pointer  ${
             businessDetails.modeOfPayment.includes(mode)
               ? "border-blue-500 text-blue-600"
               : "border-gray-300"

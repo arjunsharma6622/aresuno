@@ -24,10 +24,10 @@ const BusinessFaqs = ({ businessDetails, setBusinessDetails }) => {
   };
 
   return (
-    <div className="mt-6 mb-6">
+    <div className="md:mt-6 md:mb-6">
       <div className="flex items-center gap-2">
-        <BiQuestionMark className="w-6 h-6" />
-        <h2 className="text-xl font-semibold">Add FAQ's</h2>
+        <BiQuestionMark className="w-5 h-5 md:w-6 md:h-6" />
+        <h2 className="text-lg md:text-xl font-semibold">Add FAQ's</h2>
       </div>
       <div className="grid grid-cols-1 gap-8 mt-6">
         {businessDetails.faqs.map((faq, index) => (

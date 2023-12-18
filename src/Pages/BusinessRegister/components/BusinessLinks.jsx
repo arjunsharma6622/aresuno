@@ -83,13 +83,13 @@ const BusinessLinks = ({ businessDetails, setBusinessDetails }) => {
   };
 
   return (
-    <div className="mt-6 mb-6">
+    <div className="md:mt-6 md:mb-6">
       <div className="flex items-center gap-2">
-        <BiLink className="w-6 h-6" />
-        <h2 className="text-xl font-semibold">Add social links</h2>
+        <BiLink className="w-5 h-5 md:w-6 md:h-6" />
+        <h2 className="text-lg md:text-xl font-semibold">Add social links</h2>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         {socialLinks.map((link) => (
           <InputWithIcon
             key={link.name}

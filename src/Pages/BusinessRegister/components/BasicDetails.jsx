@@ -46,13 +46,13 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
   };
 
   return (
-    <div className="mt-6 mb-6">
+    <div className="md:mt-6 md:mb-6">
       <div className="flex items-center gap-2">
-        <BiDetail className="w-6 h-6" />
-        <h2 className="text-xl font-semibold">Enter basic business details</h2>
+        <BiDetail className="w-5 h-5 md:w-6 md:h-6" />
+        <h2 className="text-lg md:text-xl font-semibold">Enter basic business details</h2>
       </div>
       <div className="flex flex-col gap-4 mt-6">
-        <div className="flex w-full gap-3">
+        <div className="flex flex-col md:flex-row w-full gap-3">
           {/* BUSINESS NAME */}
           <div className="flex flex-col w-full">
             <label htmlFor="">Business Name</label>
@@ -92,7 +92,7 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
           </div>
         </div>
 
-        <div className="flex w-full gap-3">
+        <div className="flex flex-col md:flex-row w-full gap-3">
           {/* PHONE NUMBER */}
           <div className="flex flex-col w-full">
             <label htmlFor="phone">Phone Number</label>
@@ -162,7 +162,7 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
               onChange={handleServicesChange}
             />
             <button
-              className="rounded-md bg-blue-500 text-white px-8 py-3 flex-[4] focus:outline-none border border-blue-500"
+              className="rounded-md bg-blue-500 text-white px-8 py-3 md:flex-[4] focus:outline-none border border-blue-500"
               onClick={() => handleServiceAction("add")}
             >
               Add

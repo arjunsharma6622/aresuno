@@ -30,10 +30,10 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
     }
   };
   return (
-    <div className="mt-6 mb-6">
+    <div className="md:mt-6 md:mb-6">
       <div className="flex items-center gap-2">
-        <BiNavigation className="w-6 h-6" />
-        <h2 className="text-xl font-semibold">Add business address</h2>
+        <BiNavigation className="w-5 h-5 md:w-6 md:h-6" />
+        <h2 className="text-lg md:text-xl font-semibold">Add business address</h2>
       </div>
 
       <div className="flex flex-col gap-4 mt-6">
@@ -99,7 +99,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
           />
         </div>
 
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           <div className="flex flex-col">
             <label htmlFor="" className="">
               City
@@ -116,7 +116,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
             </label>
             <input
               type="text"
-              className="mt-2 ml-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="mt-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             />
           </div>
         </div>

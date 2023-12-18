@@ -32,14 +32,14 @@ const BusinessCategory = ({ businessDetails, setBusinessDetails }) => {
         );
     });
     return (
-        <div className="mt-6 mb-6">
+        <div className="md:mt-6 md:mb-6">
             <div className="flex items-center gap-2">
-                <BiCategory className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">
+                <BiCategory className="h-5 w-5 md:w-6 md:h-6" />
+                <h2 className="text-lg md:text-xl font-semibold">
                     Select you business category
                 </h2>
             </div>
-            <div className="flex gap-4 mt-6 w-full">
+            <div className="flex flex-col md:flex-row gap-4 mt-6 w-full">
                 {/* CATEGORY */}
                 <div className="flex flex-col w-full">
                     <label htmlFor="">Category</label>

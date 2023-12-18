@@ -25,17 +25,17 @@ const BusinessIframe = ({ businessDetails, setBusinessDetails }) => {
   };
 
   return (
-    <div className="mt-6 mb-6">
+    <div className="md:mt-6 md:mb-6">
     <div className="flex items-center gap-2">
-      <FiCode className="w-6 h-6" />
-      <h2 className="text-xl font-semibold">
-        Enter google maps iframe HTML link
+      <FiCode className="w-5 h-5 md:w-6 md:h-6" />
+      <h2 className="text-lg md:text-xl font-semibold">
+        Enter iframe HTML
       </h2>
     </div>
 
     <div className="mt-6">
       <textarea
-        className="w-full h-48 p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="w-full h-24 md:h-48 text-sm md:text-base p-4 rounded-md border border-gray-300 focus:outline-none"
         placeholder="Enter google maps iframe HTML link"
         name="iframe"
         onChange={handleIframeChange}

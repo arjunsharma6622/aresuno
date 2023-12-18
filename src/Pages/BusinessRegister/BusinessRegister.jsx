@@ -200,9 +200,11 @@ const BusinessRegister = () => {
   console.log(businessDetails);
 
   return (
-    <div className="flex items-start justify-center py-0 px-4 sm:px-6 lg:px-8">
-      <div className="w-full justify-between flex flex-col gap-8">
-        <div className="flex gap-2 w-full">
+    <div className="flex items-start justify-center mt-6 md:py-0 px-0 md:px-6 lg:px-8">
+      <div className="w-full justify-between flex flex-col gap-6 md:gap-8">
+{/* desktop */}
+        <div className="hidden md:flex flex-col gap-5">
+        <div className="hidden md:flex gap-2 w-full">
           {totalSections.map((section, index) => (
             <ProgressBar
               completed={index <= currentSectionIndex ? 100 : 0}
@@ -214,31 +216,30 @@ const BusinessRegister = () => {
             />
           ))}
         </div>
-
-        <div className="flex justify-between items-center">
+        <div className=" flex flex-col gap-2 md:flex-row text-sm md:text-base justify-between items-center">
           <p>
             {currentSectionIndex + 1} out of {totalSections.length} sections
-            completed
+            
           </p>
 
-          <div className="flex justify-end gap-6">
+          <div className="flex justify-end md:justify-end gap-4 md:gap-6 text-sm md:text-base">
             {currentSectionIndex > 0 && (
               <button
                 type="button"
-                className="py-2 px-4 bg-gray-400 text-white rounded-lg shadow focus:outline-none"
+                className="py-2 px-3 md:py-2 md:px-4 bg-gray-400 text-white rounded-lg shadow focus:outline-none"
                 onClick={handlePrev}
                 disabled={currentSectionIndex === 0}
               >
                 <span className="flex items-center gap-2">
-                  <FiArrowLeft className="w-5 h-5" />
-                  <span>Previous</span>
+                  <FiArrowLeft className="w-4 h-5 md:w-5 md:h-5" />
+                  <span>Back</span>
                 </span>
               </button>
             )}
 
             <button
               type="button"
-              className="py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="py-2 px-3 md:py-2 md:px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none"
               onClick={
                 currentSectionIndex === totalSections.length - 1
                   ? handleBusinessRegistration
@@ -250,14 +251,80 @@ const BusinessRegister = () => {
               ) : (
                 <span className="flex items-center gap-2">
                   <span>Next</span>
-                  <FiArrowRight className="w-5 h-5" />
+                  <FiArrowRight className="w-4 h-5 md:w-5 md:h-5" />
                 </span>
               )}
             </button>
           </div>
         </div>
+        </div>
 
-        <div className="flex flex-col gap-6 bg-white p-4 px-6 rounded-2xl shadow-lg">
+
+
+
+
+
+{/* mobile */}
+        <div className="md:hidden flex flex-col gap-2">
+        <div className="flex flex-col md:hidden w-full">
+        <p className="text-sm">
+            {currentSectionIndex + 1} out of {totalSections.length} sections
+            
+          </p>
+            <ProgressBar
+              completed={(currentSectionIndex+1)*11.111}
+              
+              bgColor="#007BFF"
+              height="5px"
+              isLabelVisible={false}
+              transitionDuration="0.3s"
+              className="w-full"
+            />
+        </div>
+
+        <div className=" flex flex-col gap-2 md:flex-row text-sm md:text-base justify-between items-center">
+
+<div className="w-full self-end">
+          <div className="flex w-full justify-between gap-4 md:gap-6 text-sm md:text-base">
+            {currentSectionIndex > 0 && (
+              <button
+                type="button"
+                className="py-2 px-3 md:py-2 md:px-4 bg-gray-400 text-white rounded-lg shadow focus:outline-none"
+                onClick={handlePrev}
+                disabled={currentSectionIndex === 0}
+              >
+                <span className="flex items-center gap-2">
+                  <FiArrowLeft className="w-4 h-5 md:w-5 md:h-5" />
+                  <span>Back</span>
+                </span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              className="py-2 px-3 md:py-2 md:px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none"
+              onClick={
+                currentSectionIndex === totalSections.length - 1
+                  ? handleBusinessRegistration
+                  : handleNext
+              }
+            >
+              {currentSectionIndex === totalSections.length - 1 ? (
+                "Register Business"
+              ) : (
+                <span className="flex items-center gap-2">
+                  <span>Next</span>
+                  <FiArrowRight className="w-4 h-5 md:w-5 md:h-5" />
+                </span>
+              )}
+            </button>
+          </div>
+          </div>
+        </div>
+        </div>
+
+
+        <div className="flex flex-col gap-6 bg-white md:p-4 md:px-6 rounded-2xl shadow-lg">
           {renderCurrentSection()}
         </div>
       </div>

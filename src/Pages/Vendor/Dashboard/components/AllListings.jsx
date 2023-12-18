@@ -11,16 +11,16 @@ const AllListings = ({ businesses }) => {
       <div className="md:mb-6 mb-4">
         <span>Total Businesses : {businesses.length}</span>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 md:mb-0">
         {businesses.map((business) => (
           <div
             key={business._id}
-            className="text-base flex flex-col gap-6 bg-white shadow-lg rounded-xl px-8 py-6"
+            className="text-base flex flex-col gap-3 md:gap-6 bg-white border md:border-none md:shadow-lg rounded-xl px-5 py-3 md:px-8 md:py-6"
           >
             <span className="font-semibold text-xl underline">
               {business.name}
             </span>
-            <div className="flex gap-2 flex-col text-sm">
+            <div className="flex gap-2 flex-col text-xs md:text-sm">
               <span>
                 <span className="font-semibold">Category : </span> {business.mainCategory}
               </span>
@@ -47,7 +47,7 @@ const AllListings = ({ businesses }) => {
               </span>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-sm md:text-base">
               <Link
                 to={`/business/${business.name
                   .split(" ")

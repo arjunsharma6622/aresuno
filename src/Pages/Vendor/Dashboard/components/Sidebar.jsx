@@ -27,42 +27,42 @@ const Sidebar = ({ user }) => {
   const sidebarLinks = [
     {
       name: "Dashboard",
-      icon: <LuLayoutDashboard className="w-6 h-6" />,
+      icon: <LuLayoutDashboard className="w-5 h-5 md:w-6 md:h-6" />,
       path: "",
     },
     {
       name: "Profile",
-      icon: <AiOutlineUser className="w-6 h-6 " />,
+      icon: <AiOutlineUser className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "profile",
     },
     {
       name: "All Listings",
-      icon: <AiOutlineAppstore className="w-6 h-6 " />,
+      icon: <AiOutlineAppstore className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "all-listings",
     },
     {
       name: "Add Listing",
-      icon: <AiOutlineAppstoreAdd className="w-6 h-6 " />,
+      icon: <AiOutlineAppstoreAdd className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "add-listing",
     },
     {
       name: "Posts",
-      icon: <MdOutlinePostAdd className="w-6 h-6 " />,
+      icon: <MdOutlinePostAdd className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "posts",
     },
     {
       name: "Reviews",
-      icon: <FiStar className="w-6 h-6 " />,
+      icon: <FiStar className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "reviews",
     },
     {
       name: "Leads",
-      icon: <MdOutlineLeaderboard className="w-6 h-6 " />,
+      icon: <MdOutlineLeaderboard className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "leads",
     },
     {
       name: "Subscriptions",
-      icon: <BiDollar className="w-6 h-6 " />,
+      icon: <BiDollar className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "subscriptions",
     },
   ];
@@ -219,7 +219,7 @@ const Sidebar = ({ user }) => {
           <Link to={path} key={index} className={`w-full rounded-md p-2 px-4 ${isActiveLink(path) ? "bg-blue-500 text-white" : ""}`} onClick={() => setDashboardMenuOpen(!dashboardMenuOpen)}>
             <div className="flex items-center justify-start w-full cursor-pointer gap-3">
               {icon}
-              <span className="text-base">{name}</span>
+              <span className="text-sm">{name}</span>
             </div>
           </Link>
         ))}

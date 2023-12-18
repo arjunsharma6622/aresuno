@@ -65,10 +65,10 @@ const BusinessHours = ({businessDetails, setBusinessDetails}) => {
         }));
     };
     return (
-        <div className="mt-6 mb-6">
+        <div className="md:mt-6 md:mb-6">
             <div className="flex items-center gap-2">
-                <FiClock className="w-6 h-6" />
-                <h2 className="text-xl font-semibold">Business Hours</h2>
+                <FiClock className="w-5 h-5 md:w-6 md:h-6" />
+                <h2 className="text-lg md:text-xl font-semibold">Business Hours</h2>
             </div>
 
             <div className="mt-6">
