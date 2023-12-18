@@ -28,6 +28,7 @@ const iconMapping = {
 
 const Overview = ({ businesses, posts }) => {
   const user = useSelector((state) => state.user);
+
   
   return (
     <div className="flex flex-col gap-10 md:gap-16 mt-6">
@@ -55,7 +56,7 @@ const Overview = ({ businesses, posts }) => {
 
               <div className="flex flex-col justify-center text-sm md:text-base">
                 <span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
-                <span>{key === "credits" ? 359 : key === "posts" ? 4 : businesses.length}</span>
+                <span>{key === "credits" ? 359 : key === "posts" ? posts.length : businesses.length}</span>
               </div>
             </div>
           ))}

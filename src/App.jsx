@@ -55,9 +55,6 @@ function Main() {
   //   window.scrollTo(0, 0);
   // }, [location.pathname]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
