@@ -43,6 +43,8 @@ const Services = () => {
     useEffect(() => {
         fetchAllBusinessesByCategory();
     }, [])
+
+    
     return (
         <div>
 

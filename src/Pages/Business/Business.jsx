@@ -36,9 +36,7 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import BusinessNotFound from "./BusinessNotFound";
 import { ToastContainer, toast } from "react-toastify";
-import { MdOutlineDone } from "react-icons/md";
 
 
 
@@ -102,6 +100,7 @@ const Business = () => {
     useEffect(() => {
         fetchBusiness();
     }, []);
+
     const fetchBusiness = async () => {
         try {
             const res = await axios.get(
@@ -260,37 +259,9 @@ const Business = () => {
         }
     };
 
-
-    const articleStructuredData = {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        headline: "Structured data for you",
-        description: "This is an article that demonstrates structured data.",
-        image: "https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg",
-        datePublished: new Date("2021-09-04T09:25:01.340Z").toISOString(),
-        author: {
-          "@type": "Person",
-          name: "John Reilly",
-          url: "https://twitter.com/johnny_reilly",
-        },
-      };
-
     return (
         
-        <div>
-
-<script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleStructuredData),
-        }}
-      />
-
-{/* <JsonLd<Person></Person>/> */}
-
-
-            
-            {business.name ? (
+        // <div>
                 <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-10">
                     <div className="w-full md:border border-solid border-gray-300 rounded-xl md:p-8 flex justify-center flex-col md:flex-row gap-4">
                         <div className="flex md:flex-[9] justify-center items-center">
@@ -1021,10 +992,7 @@ const Business = () => {
                     </div>
                     <ToastContainer />
                 </div>
-            ) : (
-                <BusinessNotFound />
-            )}
-        </div>
+        // </div>
     );
 };
 
