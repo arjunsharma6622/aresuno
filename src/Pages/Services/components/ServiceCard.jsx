@@ -16,7 +16,7 @@ const ServiceCard = ({ business }) => {
         <div className='' key={business._id}>
             <div className=''>
 
-                {/* <img src={business.photosGallery[0] ? business.photosGallery[0] : "https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_1280.jpg"} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' /> */}
+                <img loading='lazy' src={business.photosGallery[0] ? business.photosGallery[0] : "https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_1280.jpg"} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' />
             </div>
 
 
@@ -26,7 +26,7 @@ const ServiceCard = ({ business }) => {
                     
                     <div className='flex gap-3 items-center border-b-[1px] border-gray-200 pb-4'>
                         <div>
-                            <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.pn" alt="test img" className='w-6 h-6 object-cover' />
+                            <img loading='lazy' src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.pn" alt="test img" className='w-6 h-6 object-cover' />
                         </div>
                         <div className='border-l-[1.4px] border-gray-300 pl-2'>{business.name}</div>
                         <div className='ml-2'>

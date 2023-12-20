@@ -283,7 +283,7 @@ const Business = () => {
                                             >
                                                 {business.photosGallery?.map((slide, index) => (
                                                     <SwiperSlide className="rounded-xl" key={index}>
-                                                        <img src={slide} alt="" className="rounded-xl" />
+                                                        <img loading="lazy" src={slide} alt="" className="rounded-xl" />
                                                     </SwiperSlide>
                                                 ))}
                                             </Swiper>
@@ -573,6 +573,7 @@ const Business = () => {
 
                                             {business.photosGallery?.map((image) => (
                                                 <img
+                                                loading="lazy"
                                                     key={image}
                                                     src={image}
                                                     alt=""
@@ -622,6 +623,7 @@ const Business = () => {
                                     </div>
 
                                     <iframe
+                                    loading="lazy"
                                         src={business.iframe?.extractedLink}
                                         width="100%"
                                         // height="400"
@@ -649,6 +651,7 @@ const Business = () => {
                                             >
                                                 <div className="md:flex-[3] w-full">
                                                     <img
+                                                    loading="lazy"
                                                         className="w-full md:h-full h-[180px] rounded-xl object-cover"
                                                         alt="Image"
                                                         src={
@@ -758,6 +761,7 @@ const Business = () => {
                                                     <div key={index} className="flex items-start justify-start gap-2 md:gap-4 w-full">
                                                         <div className="">
                                                             <img
+                                                            loading="lazy"
                                                                 src={
                                                                     rating.user?.image ||
                                                                     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
