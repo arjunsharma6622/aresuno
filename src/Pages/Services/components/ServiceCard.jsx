@@ -16,7 +16,7 @@ const ServiceCard = ({ business }) => {
         <div className='' key={business._id}>
             <div className=''>
 
-                <img src={business.photosGallery[0] ? business.photosGallery[0] : "https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_1280.jpg"} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' />
+                {/* <img src={business.photosGallery[0] ? business.photosGallery[0] : "https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_1280.jpg"} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' /> */}
             </div>
 
 
