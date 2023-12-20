@@ -44,22 +44,29 @@ const Services = () => {
         fetchAllBusinessesByCategory();
     }, [])
 
-    
+
     return (
         <div>
 
             <h1 className='text-3xl font-semibold text-center mt-10 mb-4'>Find the service you want</h1>
             <p className='mb-8 text-center '>Total of {allBusinesses.length} services available</p>
 
+{ allBusinesses ? 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8'>
 
                 {
-                    allBusinesses.map((business) => (
+                    allBusinesses?.map((business) => (
                         <ServiceCard key={business._id} business={business} />
                     ))
                 }
 
             </div>
+
+            :
+
+            <h1>loading</h1>
+
+}
         </div>
     )
 }
