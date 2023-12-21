@@ -20,7 +20,10 @@ const Header = ({homePage}) => {
     <div className="w-full">
     <div className={`w-[100%] h-16 ${!homePage && "bg-white"}  items-center justify-between px-4 sm:px-6 lg:px-8 shadow-md ${homePage && "shadow-none text-white"} text-black hidden md:flex`} >
       <div className={` text-2xl font-semibold`}>
-        <Link to="/">Aresuno</Link>
+        {/* <Link to="/">Aresuno</Link> */}
+        <Link to={"/"}>
+          <img src="/assets/logo.png" alt="" className=" w-20 object-cover"/>
+        </Link>
       </div>
 
       {user.name ? (
@@ -126,7 +129,8 @@ const Header = ({homePage}) => {
     <div className={`${homePage && 'text-white shadow-none'} text-black shadow-md relative flex justify-between items-center px-4 py-4 md:hidden`}>
         <div className="text-xl font-medium text-blue-500">
             <Link to="/">
-            <span>A.s</span>
+            {/* <span>A.s</span> */}
+            <img src="/assets/logo.png" alt="" className=" w-14 object-cover"/>
             </Link>
         </div>
 

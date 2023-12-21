@@ -139,7 +139,7 @@ const CategoriesSlider = ({ category }) => {
                   <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch justify-start rounded-lg">
                     <img
                       loading="lazy"
-                      src={subCategory.image.url.replace('/upload', '/upload/c_scale,h_300,w_300')}
+                      src={subCategory.image.url.replace('/upload', '/upload/c_scale,h_500')}
                       alt={subCategory.image.altTag}
                       className="w-full h-full object-cover"
                     />
