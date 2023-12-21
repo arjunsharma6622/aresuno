@@ -23,7 +23,7 @@ const MainCategories = () => {
                 className="flex flex-col gap-3 items-center justify-center w-24 md:w-32 h-full"
               >
                 <div className="">
-                  <img loading="lazy" src={subCategory.icon} alt="" className="bg-gray-100 p-4 rounded-xl w-16 md:w-20"/>
+                  <img loading="lazy" src={subCategory.icon} alt="" className="bg-gray-100 p-4 rounded-xl w-20 md:w-24"/>
                 </div>
                 <span className="text-xs md:text-sm text-center leading-4 ">
                 {subCategory.name}
