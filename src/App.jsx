@@ -22,6 +22,7 @@ import { setAllCategories } from "./state/slices/categoriesSlice";
 import {HelmetProvider} from "react-helmet-async"
 import PrivacyPolicy from "./Pages/Privacy/Privacy";
 import TermsAndConditions from "./Pages/Terms/Terms";
+import NotFound from "./Pages/NotFound/NotFound";
 
 function App() {
 
@@ -86,6 +87,9 @@ useLayoutEffect(() => {
           <Route path="/terms" element={<TermsAndConditions />} />
 
           <Route path="/signup" element={<Register />} />
+          <Route path="/x" element={<NotFound />} />
+
+
 
           {userType === "vendor" && (
             <Route path="/vendor/dashboard/*" element={<VendorDashboard />} />
