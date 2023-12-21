@@ -107,6 +107,7 @@
 
 import React from "react";
 import { FiFacebook, FiInstagram, FiLinkedin, FiTwitter, FiYoutube } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -122,11 +123,11 @@ const Footer = () => {
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
           <div className="text-base font-bold leading-6 mb-3">Popular Links</div>
           <ul className="space-y-3">
-            <li className="text-sm leading-5">Packers and Movers in New Delhi</li>
-            <li className="text-sm leading-5">Web Designers in New Delhi</li>
-            <li className="text-sm leading-5">Pest Control in New Delhi</li>
-            <li className="text-sm leading-5">Interior Decorators in New Delhi</li>
-            <li className="text-sm leading-5">Wedding Caterers in New Delhi</li>
+            <li className="text-sm">Packers and Movers in New Delhi</li>
+            <li className="text-sm">Web Designers in New Delhi</li>
+            <li className="text-sm">Pest Control in New Delhi</li>
+            <li className="text-sm">Interior Decorators in New Delhi</li>
+            <li className="text-sm">Wedding Caterers in New Delhi</li>
           </ul>
         </div>
 
@@ -134,10 +135,20 @@ const Footer = () => {
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
           <div className="text-base font-bold leading-6 mb-3">Corporate</div>
           <ul className="space-y-3">
-            <li className="text-sm leading-5">About Us</li>
-            <li className="text-sm leading-5">Contact Us</li>
-            <li className="text-sm leading-5">Privacy Policy</li>
-            <li className="text-sm leading-5">Terms Of Service For Advertiser</li>
+            <li className="text-sm">About Us</li>
+            <li className="text-sm">Contact Us</li>
+            
+            <li className="text-sm">
+            <Link to={"/privacy"}>
+              Privacy Policy
+              </Link>
+              </li>
+            
+            <li className="text-sm">
+              <Link to={"/terms"}>
+              Terms and Conditions
+              </Link>
+              </li>
           </ul>
         </div>
       </div>

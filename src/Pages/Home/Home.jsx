@@ -11,6 +11,7 @@ import { Swiper } from 'swiper/react';
 
 import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
 
@@ -35,6 +36,12 @@ const Home = () => {
 
   return (
     <div className="bg-white flex flex-col gap-4">
+      <Helmet>
+        <title>Aresuno - Home</title>
+        <meta name="description" content="Aresuno - Home" />
+        <meta name="keywords" content="Aresuno - Home" />
+        <meta name="author" content="Aresuno - Home" />
+      </Helmet>
       <Banner />
 
       {/* <img src={bannerUrl} className="w-full h-[40vh] object-cover" /> */}

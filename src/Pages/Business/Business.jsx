@@ -37,6 +37,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -263,6 +264,16 @@ const Business = () => {
         
         // <div>
                 <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-10">
+
+                    <Helmet>
+                        <title>{business.name}</title>
+                        <meta name="description" content={business.description} />
+                        <meta name="keywords" content={business.name} />
+                        <meta name="author" content="aresuno" />
+                        <link rel="icon" href="/vite.svg" />
+                    </Helmet>
+
+
                     <div className="w-full md:border border-solid border-gray-300 rounded-xl md:p-8 flex justify-center flex-col md:flex-row gap-4">
                         <div className="flex md:flex-[9] justify-center items-center">
                             <div className="w-full bg-cover bg-center">

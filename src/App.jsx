@@ -13,18 +13,24 @@ import BusinessOnboarding from "./Pages/BusinessOnboarding/BusinessOnboarding";
 import AdminDashboard from "./Pages/admin/AdminDashboard";
 import BusinessEdit from "./Pages/BusinessEdit/BusinessEdit";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import Services from "./Pages/Services/Services";
 import BusinessRegister from "./Pages/BusinessRegister/BusinessRegister";
 import Business from "./Pages/Business/Business";
 import Home from "./Pages/Home/Home";
 import { setAllCategories } from "./state/slices/categoriesSlice";
+import {HelmetProvider} from "react-helmet-async"
+import PrivacyPolicy from "./Pages/Privacy/Privacy";
+import TermsAndConditions from "./Pages/Terms/Terms";
 
 function App() {
+
   return (
+    <HelmetProvider>
     <BrowserRouter>
       <Main />
     </BrowserRouter>
+    </HelmetProvider>
   );
 }
 
@@ -39,6 +45,11 @@ function Main() {
   const isHomepage = location.pathname === "/";
 
   const dispatch = useDispatch();
+
+useLayoutEffect(() => {
+  window.scrollTo(0, 0);
+}, [location.pathname]);
+
 
   useEffect(() => {
     const fetchAllCategories = async () => {
@@ -70,6 +81,10 @@ function Main() {
 
           <Route path="/login" element={<Login />} />
 
+          <Route path="/privacy" element={<PrivacyPolicy />}/>
+
+          <Route path="/terms" element={<TermsAndConditions />} />
+
           <Route path="/signup" element={<Register />} />
 
           {userType === "vendor" && (
@@ -79,6 +94,8 @@ function Main() {
           {userType === "user" && (
             <Route path="/user/dashboard/" element={<UserDashboard />} />
           )}
+
+          {/* <Route path="/privacy-policy" element={<PrivacyPolicy />} /> */}
 
           <Route path="/vendor/onboarding/" element={<BusinessOnboarding />} />
 
