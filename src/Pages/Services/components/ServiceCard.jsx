@@ -5,12 +5,10 @@ import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ business }) => {
 
-    const businessRating = business.ratingsReviews?.reduce((acc, item) => acc + (item.rating || 0), 0) / business.ratingsReviews?.length;
+    const businessRating = business.ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) / business.ratings?.length;
     const roundedAvgRating = Number.isNaN(businessRating) ? 0 : Math.round(businessRating);
 
     
-
-
     console.log(businessRating)
     return (
         <div className='' key={business._id}>
@@ -26,7 +24,7 @@ const ServiceCard = ({ business }) => {
                     
                     <div className='flex gap-3 items-center border-b-[1px] border-gray-200 pb-4'>
                         <div>
-                            <img loading='lazy' src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.pn" alt="test img" className='w-6 h-6 object-cover' />
+                            <img loading='lazy' src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png" alt="test img" className='w-7 h-7 object-cover rounded-full' />
                         </div>
                         <div className='border-l-[1.4px] border-gray-300 pl-2'>{business.name}</div>
                         <div className='ml-2'>
@@ -93,7 +91,7 @@ const ServiceCard = ({ business }) => {
                         </a>
 
                     </button>
-                    <button className='w-full px-2 py-[10px] text-white bg-blue-500 flex items-center justify-center gap-4'>
+                    <button className='w-full px-2 py-[10px] text-white bg-blue-500 flex items-center justify-center gap-4 rounded-br-lg'>
                         <FiMessageSquare className='w-5 h-5' /> 
                         Enquire
                     </button>

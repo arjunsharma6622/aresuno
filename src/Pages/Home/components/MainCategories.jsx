@@ -17,7 +17,7 @@ const MainCategories = () => {
         <div className="flex flex-wrap gap-4 md:gap-10 justify-center items-start">
           {categories.map((category, index) => (
             category.subcategories.map((subCategory, index) => (
-              <Link to={`/${subCategory.name.split(" ").join("-").toLowerCase()}`} className="">
+              <Link key={index} to={`/${subCategory.name.split(" ").join("-").toLowerCase()}`} className="">
               <div
                 key={index}
                 className="flex flex-col gap-3 items-center justify-center w-24 md:w-32 h-full"

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import "./App.css";
@@ -39,13 +39,15 @@ function Main() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isSignpuPage = location.pathname === "/signup";
-  const isVendorDashboard = location.pathname.match(/\/vendor\/dashboard/);
+  const isDashboard = location.pathname.match(/\/dashboard/);
   const isOnboarding = location.pathname.match(/\/vendor\/onboarding/);
   const isAdminPage = location.pathname.match(/\/admin/);
   const userType = useSelector((state) => state.user.userType);
   const isHomepage = location.pathname === "/";
 
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
 
 useLayoutEffect(() => {
   window.scrollTo(0, 0);
@@ -72,7 +74,7 @@ useLayoutEffect(() => {
     <>
       {!isLoginPage &&
         !isSignpuPage &&
-        !isVendorDashboard &&
+        !isDashboard &&
         !isOnboarding &&
         !isHomepage &&
         !isAdminPage && <Header />}
@@ -80,26 +82,21 @@ useLayoutEffect(() => {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={user.name ? <Navigate to={`/`}/> : <Login />} />
+
+          <Route path="/signup" element={user.name ? <Navigate to={`/`}/> : <Register />} />
+
 
           <Route path="/privacy" element={<PrivacyPolicy />}/>
 
           <Route path="/terms" element={<TermsAndConditions />} />
 
-          <Route path="/signup" element={<Register />} />
-          <Route path="/x" element={<NotFound />} />
+          <Route path="/dashboard/*" element={!user.name ? <Navigate to={`/login`} /> : userType === "vendor" ? <VendorDashboard /> : <UserDashboard />} />
 
-
-
-          {userType === "vendor" && (
-            <Route path="/vendor/dashboard/*" element={<VendorDashboard />} />
-          )}
-
-          {userType === "user" && (
+          {/* {userType === "user" && (
             <Route path="/user/dashboard/" element={<UserDashboard />} />
-          )}
+          )} */}
 
-          {/* <Route path="/privacy-policy" element={<PrivacyPolicy />} /> */}
 
           <Route path="/vendor/onboarding/" element={<BusinessOnboarding />} />
 
@@ -115,7 +112,7 @@ useLayoutEffect(() => {
       </div>
       {!isLoginPage &&
         !isSignpuPage &&
-        !isVendorDashboard &&
+        !isDashboard &&
         !isOnboarding &&
         !isAdminPage && <Footer />}
     </>

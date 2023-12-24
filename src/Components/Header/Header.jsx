@@ -63,7 +63,7 @@ const Header = ({homePage}) => {
                 <div className="flex flex-col gap-2 items-start text-[14px]">
                   <div className="px-4 w-full py-3 hover:bg-gray-100">
                     <Link
-                      to={`${user.userType}/dashboard`}
+                      to={`/dashboard`}
                       className="flex items-center gap-4"
                     >
                       <FiUser className="w-5 h-5" />
@@ -73,7 +73,7 @@ const Header = ({homePage}) => {
 
                   <div className="px-4 w-full py-3 hover:bg-gray-100">
                     <Link
-                      to={`${user.userType}/dashboard`}
+                      to={`/dashboard`}
                       className="flex items-center gap-4"
                     >
                       <LuLayoutDashboard className="w-5 h-5" />
@@ -83,7 +83,7 @@ const Header = ({homePage}) => {
 
                   <div className="px-4 w-full py-3 hover:bg-gray-100">
                     <Link
-                      to={`${user.userType}/dashboard/`}
+                      to={`/dashboard/`}
                       className="flex items-center gap-4"
                     >
                       <FiDollarSign className="w-5 h-5" />
@@ -211,21 +211,21 @@ const Header = ({homePage}) => {
 
 
         <div className="mt-5">
-            <Link to={`${user.userType}/dashboard`} className="flex items-center gap-4">
+            <Link to={`/dashboard`} className="flex items-center gap-4">
             <FiUser className="w-5 h-5" />
             <span>Manage Profile</span>
             </Link>
         </div>
 
         <div>
-            <Link to={`${user.userType}/dashboard`} className="flex items-center gap-4">
+            <Link to={`/dashboard`} className="flex items-center gap-4">
             <LuLayoutDashboard className="w-5 h-5" />
             <span>Dashboard</span>
             </Link>
         </div>
 
         <div>
-            <Link to={`${user.userType}/dashboard`} className="flex items-center gap-4">
+            <Link to={`/dashboard`} className="flex items-center gap-4">
             <FiDollarSign className="w-5 h-5" />
             <span>Subscriptions</span>
             </Link>

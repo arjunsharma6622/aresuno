@@ -12,13 +12,14 @@ import { Swiper } from 'swiper/react';
 import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import { Helmet } from "react-helmet-async";
+import { userLogout } from "../../state/slices/userSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 
-  const bannerUrl = useSelector((state) => state.banner.url);
-  const categories = useSelector((state) => state.categories);
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchBanner = async () => {
       try {
@@ -30,6 +31,29 @@ const Home = () => {
         console.log(err);
       }
     };
+
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const res = await axios.get("http://localhost:8000/api/userData", {
+          headers: { Authorization: `Bearer ${token}` },
+          });
+
+          console.log(res.data)
+      }
+      catch (err) {
+
+        console.log(err.response.data.message);
+
+        if(err.response.data.message === "Unauthorized"){
+          localStorage.removeItem("token");
+          dispatch(userLogout())
+        }
+      }
+    }
+
+
+    fetchUserData()
 
     fetchBanner();
   }, [dispatch]);

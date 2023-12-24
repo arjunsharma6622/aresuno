@@ -70,11 +70,11 @@ const Sidebar = ({ user }) => {
   const isActiveLink = (path) => {
     if (path === "") {
       return (
-        location.pathname === `/vendor/dashboard/` ||
-        location.pathname === `/vendor/dashboard`
+        location.pathname === `/dashboard/` ||
+        location.pathname === `/dashboard`
       );
     }
-    return location.pathname === `/vendor/dashboard/${path}`;
+    return location.pathname === `/dashboard/${path}`;
   };
 
   const toggleSidebar = () => {

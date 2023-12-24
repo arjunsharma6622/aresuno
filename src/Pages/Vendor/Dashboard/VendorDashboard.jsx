@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Overview from "./components/Overview";
 import Reviews from "./components/Reviews";
 import Posts from "./components/Posts";
@@ -10,8 +10,10 @@ import AllListings from "./components/AllListings";
 import AddListing from "./components/AddListing";
 import Profile from "./components/Profile";
 import DashboardLayout from "./DashboardLayout";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "../../../Components/Header/Header";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../../state/slices/userSlice";
 
 const api = axios.create({
   // baseURL: "http://localhost:8000/api/vendor/",
@@ -22,6 +24,9 @@ const VendorDashboard = () => {
   const [user, setUser] = useState({});
   const [businesses, setBusinesses] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const fetchUserData = async () => {
     try {
@@ -43,6 +48,14 @@ const VendorDashboard = () => {
       setAllPosts(allPosts);
     } catch (error) {
       console.error("An error occurred:", error);
+      console.error("An error occurred:", error.response.data.message);
+
+      if(error.response.data.message === "Unauthorized"){
+        localStorage.removeItem("token");
+        toast.error("Session Expired, Please Login")
+        dispatch(userLogout())
+        navigate("/")
+      }
       // Handle error (e.g., show a user-friendly message)
     }
   };
