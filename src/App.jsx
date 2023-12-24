@@ -99,6 +99,7 @@ useLayoutEffect(() => {
 
 
           <Route path="/vendor/onboarding/" element={<BusinessOnboarding />} />
+          <Route path="*" element={<NotFound />} />
 
           <Route path={"/business/:businessName"} element={<Business />} />
           <Route path={"/business/edit/:id"} element={<BusinessEdit />} />

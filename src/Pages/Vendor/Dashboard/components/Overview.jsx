@@ -18,16 +18,17 @@ import { useSelector } from "react-redux";
 const iconMapping = {
   businesses: BiSolidBusiness,
   reviews: MdReviews,
-  credits: BiRupee,
   posts : MdOutlinePostAdd,
+  credits: BiRupee,
   leads: BsPeopleFill,
-
 };
 
 // import getcropppe from 'react-easy-crop/utils'
 
-const Overview = ({ businesses, posts, reviews }) => {
+const Overview = ({ businesses, posts, ratings }) => {
   const user = useSelector((state) => state.user);
+
+
 
   
   return (
@@ -46,7 +47,7 @@ const Overview = ({ businesses, posts, reviews }) => {
           {Object.keys(iconMapping).map((key) => (
             <div
               key={key}
-              className="bg-white border shadow-lg flex justify-center gap-4 py-4 md:gap-5 md:py-6 items-center rounded-lg"
+              className="bg-white border shadow-lg flex justify-normal pl-5 md:justify-center gap-4 py-4 md:gap-5 md:py-6 items-center rounded-lg"
             >
               <div>
                 {React.createElement(iconMapping[key], {
@@ -56,7 +57,7 @@ const Overview = ({ businesses, posts, reviews }) => {
 
               <div className="flex flex-col justify-center text-sm md:text-base">
                 <span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
-                <span>{key === "credits" ? 359 : key === "posts" ? posts.length  : businesses.length}</span>
+                <span>{key === "posts" ? posts.length  : key === 'reviews' ? ratings.length : key === 'businesses' ? businesses.length : '-'}</span>
               </div>
             </div>
           ))}

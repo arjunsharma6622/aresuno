@@ -1,9 +1,10 @@
 import React from 'react';
+import { FiHome } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
-    <div className="flex flex-col items-center w-full justify-center h-[80vh] bg-gray-100">
+    <div className="flex flex-col items-center w-full justify-center h-[90vh] bg-gray-100">
       <div className=" w-[50%] text-center flex flex-col gap-6 items-start ">
         <img src="./assets/error.png" alt="" className='w-32'/>
 
@@ -15,10 +16,11 @@ const NotFound = () => {
 
 
         <button
-          className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          className="bg-blue-500 text-white px-4 py-3 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
         >
-            <Link to='/'>
-          Go Back
+            <Link to='/' className='flex items-center gap-2'>
+              <FiHome className='w-5 h-5'/>
+          Go Home
             </Link>
         </button>
       </div>

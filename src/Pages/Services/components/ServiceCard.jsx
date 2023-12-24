@@ -75,6 +75,14 @@ const ServiceCard = ({ business }) => {
 
                             }
 
+{ businessRating ?
+                            <span className='text-xs ml-2'>{business.ratings?.length} ratings</span>
+
+                            :
+                            null
+
+}
+
                         </div>
                     </div>
 

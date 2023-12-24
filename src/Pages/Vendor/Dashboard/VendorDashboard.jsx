@@ -24,6 +24,7 @@ const VendorDashboard = () => {
   const [user, setUser] = useState({});
   const [businesses, setBusinesses] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
+  const [allRatings, setAllRatings] = useState([]);
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -42,10 +43,12 @@ const VendorDashboard = () => {
 
       // Extract all posts from businesses array
       const allPosts = businesses.flatMap((business) => business.posts);
+      const allRatings = businesses.flatMap((business) => business.ratings);
 
       setUser(user);
       setBusinesses(businesses);
       setAllPosts(allPosts);
+      setAllRatings(allRatings);
     } catch (error) {
       console.error("An error occurred:", error);
       console.error("An error occurred:", error.response.data.message);
@@ -75,7 +78,7 @@ const VendorDashboard = () => {
         <Routes>
           <Route
             path="/"
-            element={<Overview businesses={businesses} posts={allPosts} />}
+            element={<Overview businesses={businesses} posts={allPosts} ratings={allRatings}/>}
           />
           <Route path="/profile" element={<Profile user={user} />} />
           <Route
