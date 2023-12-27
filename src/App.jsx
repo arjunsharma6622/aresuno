@@ -23,6 +23,7 @@ import {HelmetProvider} from "react-helmet-async"
 import PrivacyPolicy from "./Pages/Privacy/Privacy";
 import TermsAndConditions from "./Pages/Terms/Terms";
 import NotFound from "./Pages/NotFound/NotFound";
+import AboutUs from "./Pages/AboutUs/AboutUs";
 
 function App() {
 
@@ -107,6 +108,7 @@ useLayoutEffect(() => {
           <Route path={"/:subCategoryName"} element={<Services />} />
 
           <Route path="/contact" element={<h1>Contact</h1>} />
+          <Route path="/about" element={<AboutUs />} />
 
           <Route path="/business/register" element={<BusinessRegister />} />
         </Routes>

@@ -100,26 +100,27 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             </div>
           ) : 
           (
-            <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
-              {images.map((image, index) => (
-                <div className="relative rounded-xl w-full" key={index}>
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`Selected Image ${index}`}
-                    className="object-cover h-full rounded-xl"
-                  />
-                  {/* <EasyCrop image={image} setImages={setImages} aspectRatio={16/10} widthOfImg={"w-full"}/> */}
+            // <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
+            //   {images.map((image, index) => (
+            //     <div className="relative rounded-xl w-full" key={index}>
+            //       <img
+            //         key={index}
+            //         src={image}
+            //         alt={`Selected Image ${index}`}
+            //         className="object-cover h-full rounded-xl"
+            //       />
+            //       {/* <EasyCrop image={image} setImages={setImages} aspectRatio={16/10} widthOfImg={"w-full"}/> */}
 
-                  <FiX
-                    className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
-                    onClick={() => {
-                      setImages((prev) => prev.filter((_, i) => i !== index));
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
+            //       <FiX
+            //         className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+            //         onClick={() => {
+            //           setImages((prev) => prev.filter((_, i) => i !== index));
+            //         }}
+            //       />
+            //     </div>
+            //   ))}
+            // </div>
+            null
           )}
 
 

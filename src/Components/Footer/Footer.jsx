@@ -176,11 +176,16 @@ const Footer = () => {
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
           <div className="text-xl font-semibold leading-8 mb-2">Follow Us</div>
           <div className="flex space-x-5">
-            <FiInstagram className="w-6 h-6 text-blue-600" />
-            <FiFacebook className="w-6 h-6 text-blue-600" />
-            <FiYoutube className="w-6 h-6 text-blue-600" />
-            <FiTwitter className="w-6 h-6 text-blue-600" />
-            <FiLinkedin className="w-6 h-6 text-blue-600" />
+            <Link to={"https://in.linkedin.com/company/aresuno"} target="_blank">
+              <FiLinkedin className="w-6 h-6 text-blue-600" />
+            </Link>
+            <Link to={"https://www.instagram.com/aresuno.3/"} target="_blank">
+              <FiInstagram className="w-6 h-6 text-blue-600" />
+            </Link>
+            <Link to={"https://www.facebook.com/people/Aresuno/100070231573790/"} target="_blank">
+              <FiFacebook className="w-6 h-6 text-blue-600" />
+            </Link>
+
           </div>
         </div>
       </div>

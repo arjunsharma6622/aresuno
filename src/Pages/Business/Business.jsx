@@ -707,7 +707,7 @@ const Business = () => {
 
                                 {/* ratings and reviews */}
                                 <div
-                                    className="flex flex-col border-b pb-10 border-b-gray-300"
+                                    className="w-full flex flex-col border-b pb-10 border-b-gray-300"
                                     id="ratings"
                                 >
                                     <div className="flex gap-3 items-center md:gap-4">
@@ -837,9 +837,8 @@ const Business = () => {
                                     
                                     <div className="flex flex-col gap-5 mt-4 text-sm md:text-base">
                                         {business.timing?.map((time, index) => (
-                                            <div>
 
-                                                {time.isOpen && (
+                                                time.isOpen && time.from && time.to && (
                                                     <div className="flex flex-col gap-1">
                                                         <span className="font-medium">{time.day}</span>
                                                         <div className=" flex items-center gap-2">
@@ -848,10 +847,9 @@ const Business = () => {
                                                             <span>{time.to}</span>
                                                         </div>
                                                     </div>
-                                                )}
+                                                )
 
 
-                                            </div>
 
                                         ))}
                                     </div>

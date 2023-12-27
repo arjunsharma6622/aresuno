@@ -15,6 +15,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Input from "../../Components/Input";
 import { MdOutlineDone } from "react-icons/md";
+import Review from "./components/Review";
 
 const BusinessRegister = () => {
   const navigate = useNavigate();
@@ -28,9 +29,11 @@ const BusinessRegister = () => {
     "businessModeOfPayment",
     "businessHours",
     "businessImages",
+    "reviewDetails",
   ];
 
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [businessRegisterLoading, setBusinessRegisterLoading] = useState(false);
 
   const [businessDetails, setBusinessDetails] = useState({
     name: "",
@@ -69,6 +72,7 @@ const BusinessRegister = () => {
 
   const handleBusinessRegistration = async () => {
     try {
+      setBusinessRegisterLoading(true);
       const token = localStorage.getItem("token");
       const vendorRes = await axios.get(
         "https://aresuno-server.vercel.app/api/vendor/",
@@ -103,81 +107,72 @@ const BusinessRegister = () => {
       );
 
       toast.success("Business Registered");
-      window.location.reload();
-      navigate("/vendor/dashboard");
+      navigate("/dashboard");
 
       console.log(res.data);
     } catch (error) {
+      setBusinessRegisterLoading(false);
       console.error("Error", error);
       toast.error("Business Registration Failed");
     }
   };
 
-
-
   const handleNext = () => {
     // Check if it's the first section and if any of the required fields are empty
     if (currentSectionIndex === 0) {
-      const {
-        name,
-        phone,
-        email,
-        description,
-        type,
-        services
-      } = businessDetails;
-  
-      if (!name || !phone || !email || !description || !type || services.length === 0) {
+      const { name, phone, email, description, type, services } =
+        businessDetails;
+
+      if (
+        !name ||
+        !phone ||
+        !email ||
+        !description ||
+        !type ||
+        services.length === 0
+      ) {
         toast.error("Please enter all details");
         return; // Exit the function if there's an error
       }
     }
-    
+
     // Check if it's the second section and if category details are missing
     if (currentSectionIndex === 1) {
       const { mainCategory, subCategory } = businessDetails;
-      
+
       if (!mainCategory || !subCategory) {
         toast.error("Please enter the categories");
         return; // Exit the function if there's an error
       }
     }
 
-    // Check if it's the third section and if address details are missing
-    // if (currentSectionIndex === 2) {
-    //   const { address } = businessDetails;
-      
-    //   if (!address) {
-    //     toast.error("Please enter the address");
-    //     return; // Exit the function if there's an error
-    //   }
-    // }
-
     // Check if it's the fourth section and if iframe details are missing
-     if (currentSectionIndex === 3) {
-       const { iframe } = businessDetails;
-       if(!iframe.embedLink || !iframe.extractedLink){
-         toast.error("Please enter valid iframe link");
-         return; // Exit the function if there's an error
-       }  
+    if (currentSectionIndex === 3) {
+      const { iframe } = businessDetails;
+      if (!iframe.embedLink || !iframe.extractedLink) {
+        toast.error("Please enter valid iframe link");
+        return; // Exit the function if there's an error
+      }
     }
 
     // check if it's the fifth section and if social links are missing
     if (currentSectionIndex === 4) {
       const { socialLinks } = businessDetails;
-      
+
       const socialPlatforms = [
         socialLinks.website,
         socialLinks.instagram,
         socialLinks.whatsapp,
         socialLinks.twitter,
         socialLinks.facebook,
-        socialLinks.youtube
+        socialLinks.youtube,
       ];
-      
+
       // Filter out any empty or undefined values
-      const filledLinks = socialPlatforms.filter(link => link && link.trim() !== "");
-    
+      const filledLinks = socialPlatforms.filter(
+        (link) => link && link.trim() !== ""
+      );
+
       // Check if at least 3 links are entered
       if (filledLinks.length < 3) {
         toast.error("Please enter at least 3 valid social links");
@@ -187,53 +182,47 @@ const BusinessRegister = () => {
 
     if (currentSectionIndex === 5) {
       const { faqs } = businessDetails;
-    
+
       // Check if there's at least one FAQ
       if (faqs.length === 0) {
         toast.error("Please add at least one FAQ");
         return; // Exit the function if there's an error
       }
-    
+
       // Check if all FAQs have both a question and an answer
-      const hasIncompleteFAQ = faqs.some(faq => !faq.question || !faq.answer);
-    
+      const hasIncompleteFAQ = faqs.some((faq) => !faq.question || !faq.answer);
+
       if (hasIncompleteFAQ) {
-        toast.error("Please ensure all FAQs have both a question and an answer");
+        toast.error(
+          "Please ensure all FAQs have both a question and an answer"
+        );
         return; // Exit the function if there's an error
       }
     }
 
-    if(currentSectionIndex === 6){
+    if (currentSectionIndex === 6) {
       const { modeOfPayment } = businessDetails;
-      
-      if(modeOfPayment.length < 3){
+
+      if (modeOfPayment.length < 3) {
         toast.error("Please select at least 3 mode of payment");
         return; // Exit the function if there's an error
       }
     }
 
-    if(currentSectionIndex === 8){
-      const {photosGallery} = businessDetails
+    if (currentSectionIndex === 8) {
+      const { photosGallery } = businessDetails;
 
-      if(photosGallery.length < 3){
+      if (photosGallery.length < 3) {
         toast.error("Please add at least 3 image");
         return; // Exit the function if there's an error
       }
     }
 
-    
-    
-  
     // If it's not the last section, proceed to the next section
-    if (currentSectionIndex < totalSections.length - 1) {
+    if (currentSectionIndex < totalSections.length) {
       setCurrentSectionIndex(currentSectionIndex + 1);
     }
-    
   };
-  
-  
-
-
 
   const handlePrev = () => {
     if (currentSectionIndex > 0) {
@@ -310,6 +299,8 @@ const BusinessRegister = () => {
             setBusinessDetails={setBusinessDetails}
           />
         );
+      case "reviewDetails":
+        return <Review businessDetails={businessDetails} />;
       default:
         return null;
     }
@@ -337,7 +328,8 @@ const BusinessRegister = () => {
           </div>
           <div className=" flex flex-col gap-2 md:flex-row text-sm md:text-base justify-between items-center">
             <p>
-              {currentSectionIndex + 1} out of {totalSections.length} sections
+              {currentSectionIndex + 1} out of {totalSections.length} sections,{" "}
+              {(currentSectionIndex + 1) * 10}% Done
             </p>
 
             <div className="flex justify-end md:justify-end gap-4 md:gap-6 text-sm md:text-base">
@@ -359,24 +351,35 @@ const BusinessRegister = () => {
                 type="button"
                 className="py-2 px-3 md:py-2 md:px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none"
                 onClick={
-                  currentSectionIndex === totalSections.length + 1
+                  currentSectionIndex === totalSections.length - 1
                     ? handleBusinessRegistration
                     : handleNext
                 }
               >
-                {/* {currentSectionIndex === totalSections.length - 1 ? (
-                  "Register Business"
+                {currentSectionIndex === totalSections.length - 1 ? (
+                  <span>
+                    {!businessRegisterLoading
+                      ? "Register Business"
+                      : "Registering..."}
+                  </span>
                 ) : (
                   <span className="flex items-center gap-2">
                     <span>Next</span>
                     <FiArrowRight className="w-4 h-5 md:w-5 md:h-5" />
                   </span>
-                )} */}
+                )}
 
-<span className="flex items-center gap-2">
-                    <span>Next</span>
-                    <FiArrowRight className="w-4 h-5 md:w-5 md:h-5" />
-                  </span>
+                {businessRegisterLoading && (
+                  <div
+                    className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    role="status"
+                  >
+                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                      Loading...
+                    </span>
+                  </div>
+                )}
+
               </button>
             </div>
           </div>
