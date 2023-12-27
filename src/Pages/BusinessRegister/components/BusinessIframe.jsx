@@ -28,9 +28,11 @@ const BusinessIframe = ({ businessDetails, setBusinessDetails }) => {
     <div className="md:mt-6 md:mb-6">
     <div className="flex items-center gap-2">
       <FiCode className="w-5 h-5 md:w-6 md:h-6" />
-      <h2 className="text-lg md:text-xl font-semibold">
-        Enter iframe HTML
-      </h2>
+        <div className="flex items-center gap-4">
+        <h2 className="text-lg md:text-xl font-semibold">Enter iFrame HTML link 
+        </h2>
+        <span className="text-gray-500 text-sm">* All fields are required</span>
+        </div>
     </div>
 
     <div className="mt-6">
@@ -39,6 +41,7 @@ const BusinessIframe = ({ businessDetails, setBusinessDetails }) => {
         placeholder="Enter google maps iframe HTML link"
         name="iframe"
         onChange={handleIframeChange}
+        value={businessDetails.iframe.embedLink}
       />
     </div>
   </div>  

@@ -11,14 +11,47 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
   const handleBusinessDetailsChange = (e) => {
     const { name, value } = e.target;
     setBusinessDetails((prev) => ({ ...prev, [name]: value }));
+
+
+    switch (name) {
+      case "name":
+        setNameError(value ? "" : "Please enter the business name");
+        break;
+      case "type":
+        setTypeError(value ? "" : "Please select the business type");
+        break;
+      case "description":
+        setDescriptionError(
+          value ? "" : "Please enter the business description"
+        )
+        break;
+      case "email":
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        setEmailError(emailPattern.test(value) ? "" : "Invalid email format");
+        break;
+      default:
+        break;
+    }
   };
 
+  // const handlePhoneChange = (value) => {
+  //   setBusinessDetails((prev) => ({
+  //     ...prev,
+  //     phone: value,
+  //   }));
+  // };
+
+
   const handlePhoneChange = (value) => {
-    setBusinessDetails((prev) => ({
-      ...prev,
-      phone: value,
-    }));
+    if (value && value.length >= 2 && value.length <= 14) {
+      setBusinessDetails((prev) => ({ ...prev, phone: value }));
+      setPhoneError("");
+    } else {
+      setPhoneError("Please enter a valid phone number");
+    }
   };
+  
+  
 
   const [service, setService] = useState("");
 
@@ -45,17 +78,36 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
     setServiceError("");
   };
 
+
+
+  const [nameError, setNameError] = useState("");
+const [typeError, setTypeError] = useState("");
+const [phoneError, setPhoneError] = useState("");
+const [emailError, setEmailError] = useState("");
+const [descriptionError, setDescriptionError] = useState("");
+
+
+
+
+
   return (
     <div className="md:mt-6 md:mb-6">
       <div className="flex items-center gap-2">
         <BiDetail className="w-5 h-5 md:w-6 md:h-6" />
-        <h2 className="text-lg md:text-xl font-semibold">Enter basic business details</h2>
+        <div className="flex items-center gap-4">
+        <h2 className="text-lg md:text-xl font-semibold">Enter basic business details 
+        </h2>
+        <span className="text-gray-500 text-sm">* All fields are required</span>
+        </div>
       </div>
       <div className="flex flex-col gap-4 mt-6">
         <div className="flex flex-col md:flex-row w-full gap-3">
           {/* BUSINESS NAME */}
           <div className="flex flex-col w-full">
-            <label htmlFor="">Business Name</label>
+            <div className="flex gap-2 items-center">
+            <label htmlFor="">Business Name <span className="text-red-500 text-sm">*</span></label>
+            {nameError && <p className="text-red-500 text-xs">{nameError}</p>}
+            </div>
             <input
               type="text"
               name="name"
@@ -63,12 +115,15 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
               onChange={handleBusinessDetailsChange}
               className="mt-2 rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
             />
+
           </div>
 
           {/* BUSINESS TYPE */}
           <div className="flex flex-col w-full">
-            <label htmlFor="">Business Type</label>
-
+          <div className="flex gap-2 items-center">
+            <label htmlFor="">Business Type <span className="text-red-500 text-sm">*</span></label>
+            {typeError && <p className="text-red-500 text-xs">{typeError}</p>}
+            </div>
             <div className="flex items-center justify-center h-full">
               <div className="relative w-full">
                 <select
@@ -89,14 +144,20 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
                 </div>
               </div>
             </div>
+
+
+            {typeError && <p className="text-red-500 text-xs mt-2">{typeError}</p>}
+
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row w-full gap-3">
           {/* PHONE NUMBER */}
           <div className="flex flex-col w-full">
-            <label htmlFor="phone">Phone Number</label>
-            <PhoneInput
+          <div className="flex gap-2 items-center">
+            <label htmlFor="phone">Business Phone <span className="text-red-500 text-sm">*</span></label>
+            {phoneError && <p className="text-red-500 text-xs">{phoneError}</p>}
+            </div>            <PhoneInput
               international
               defaultCountry="in"
               value={businessDetails.phone}
@@ -125,20 +186,26 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
 
           {/* BUSINESS EMAIL */}
           <div className="flex flex-col w-full">
-            <label htmlFor="">Mail Id</label>
-            <input
+          <div className="flex gap-2 items-center">
+            <label htmlFor="">Mail ID <span className="text-red-500 text-sm">*</span></label>
+            {emailError && <p className="text-red-500 text-xs">{emailError}</p>}
+            </div>             <input
               type="email"
               name="email"
               value={businessDetails.email}
               onChange={handleBusinessDetailsChange}
               className="mt-2 rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
             />
+
           </div>
         </div>
 
         <div className="flex flex-col w-full">
-          <label>About your business</label>
-          <textarea
+        <div className="flex gap-2 items-center">
+            <label htmlFor="">About your business <span className="text-red-500 text-sm">*</span></label>
+            {descriptionError && <p className="text-red-500 text-xs">{descriptionError}</p>}
+            </div>
+                      <textarea
             name="description"
             value={businessDetails.description}
             id=""
@@ -150,7 +217,7 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
           ></textarea>
         </div>
         <div className="flex flex-col w-full">
-          <label>What services you offer</label>
+          <label>What services you offer <span className="text-red-500 text-sm">*</span></label>
           <div className="flex items-center gap-4 mt-2">
             <input
               type="text"

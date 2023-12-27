@@ -33,8 +33,11 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
     <div className="md:mt-6 md:mb-6">
       <div className="flex items-center gap-2">
         <BiNavigation className="w-5 h-5 md:w-6 md:h-6" />
-        <h2 className="text-lg md:text-xl font-semibold">Add business address</h2>
-      </div>
+        <div className="flex items-center gap-4">
+        <h2 className="text-lg md:text-xl font-semibold">Add business address 
+        </h2>
+        <span className="text-gray-500 text-sm">* All fields are required</span>
+        </div>      </div>
 
       <div className="flex flex-col gap-4 mt-6">
         <div className="flex flex-col">

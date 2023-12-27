@@ -93,15 +93,26 @@ const Home = () => {
         }}
         modules={[Autoplay]}
       >
-        <SwiperSlide className="bg-red-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
-        <SwiperSlide className="bg-blue-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
+        <SwiperSlide className=" h-44 md:h-52 rounded-3xl">
+          <img src="https://akam.cdn.jdmagicbox.com/images/icontent/newwap/brand_connect/Web-Banners_eureka.png?w=1080&q=75" alt="" className="rounded-3xl"/>
+        </SwiperSlide>
+        <SwiperSlide className=" h-44 md:h-52 rounded-3xl">
+          <img src="https://akam.cdn.jdmagicbox.com/images/icontent/newwap/brand_connect/tesla.png?w=1080&q=75" alt="" className="rounded-3xl"/>
+        </SwiperSlide>
+        <SwiperSlide className=" h-44 md:h-52 rounded-3xl">
+          <img src="https://akam.cdn.jdmagicbox.com/images/icontent/newwap/brand_connect/Web-Banners_eureka.png?w=1080&q=75" alt="" className="rounded-3xl"/>
+        </SwiperSlide>
+        <SwiperSlide className=" h-44 md:h-52 rounded-3xl">
+          <img src="https://akam.cdn.jdmagicbox.com/images/icontent/newwap/brand_connect/Web-Banners_eureka.png?w=1080&q=75" alt="" className="rounded-3xl"/>
+        </SwiperSlide>
+        {/* <SwiperSlide className="bg-blue-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
         <SwiperSlide className="bg-green-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
         <SwiperSlide className="bg-pink-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
         <SwiperSlide className="bg-purple-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
         <SwiperSlide className="bg-indigo-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
         <SwiperSlide className="bg-gray-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
         <SwiperSlide className="bg-orange-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
-        <SwiperSlide className="bg-teal-500 h-44 md:h-56 rounded-3xl"></SwiperSlide>
+        <SwiperSlide className="bg-teal-500 h-44 md:h-56 rounded-3xl"></SwiperSlide> */}
       </Swiper>
 
       </div>
