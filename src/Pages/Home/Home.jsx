@@ -65,6 +65,7 @@ const Home = () => {
         <meta name="description" content="Aresuno - Home" />
         <meta name="keywords" content="Aresuno - Home" />
         <meta name="author" content="Aresuno - Home" />
+        
       </Helmet>
       <Banner />
 
