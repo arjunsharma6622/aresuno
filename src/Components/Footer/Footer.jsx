@@ -115,8 +115,12 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10">
         {/* Company Info */}
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
-          <div className="text-3xl font-semibold leading-10 mb-3">AreSuno</div>
-          <p className="text-base leading-6 mb-5">India’s Fastest online services</p>
+          <div className="text-3xl font-semibold leading-10 mb-3">
+            <Link to="/">
+              <img src="./assets/logo.png" alt="" className="w-24"/>
+            </Link>
+          </div>
+          <p className="text-base leading-6 mb-5">India’s Fastest online service provider</p>
         </div>
 
         {/* Popular Links */}
@@ -135,7 +139,11 @@ const Footer = () => {
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
           <div className="text-base font-bold leading-6 mb-3">Corporate</div>
           <ul className="space-y-3">
-            <li className="text-sm">About Us</li>
+            <li className="text-sm">
+            <Link to={"/about"}>              
+              About Us
+              
+              </Link></li>
             <li className="text-sm">Contact Us</li>
             
             <li className="text-sm">

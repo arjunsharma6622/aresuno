@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiLinkedin } from 'react-icons/fi';
 
 const AboutUs = () => {
   return (
@@ -17,19 +18,12 @@ const AboutUs = () => {
         <div className="flex flex-wrap -mx-4 mb-8">
           <div className="w-full md:w-1/2 px-4">
             <h3 className="text-xl font-semibold mb-4">Founders</h3>
-            <ul className="list-disc pl-5">
-              <li>Rahul Verma</li>
-              <li>Rinki Verma</li>
+            <ul className=" list-none">
+              <li className='flex gap-6 items-center'><span>Rahul Verma</span> <FiLinkedin className='text-blue-500 w-5 h-5'/></li>
+              <li className='flex gap-6 items-center'><span>Rinki Verma</span> <FiLinkedin className='text-blue-500 w-5 h-5'/></li>
             </ul>
           </div>
           
-          <div className="w-full md:w-1/2 px-4">
-            <h3 className="text-xl font-semibold mb-4">Key Focus Areas</h3>
-            <ul className="list-disc pl-5">
-              <li>Digital Marketing</li>
-              <li>+ 2 more focus areas</li>
-            </ul>
-          </div>
         </div>
 
         <div className="border-t pt-6">
@@ -37,9 +31,9 @@ const AboutUs = () => {
             Reach out to us for all types of services ranging from home services, health and wellness, training and education, wedding services, and much more. Experience our commitment to excellence with a 100% service guarantee.
           </p>
           
-          <div className="text-xl">
+          {/* <div className="text-xl">
             <a href="https://www.aresuno.com" className="text-blue-500 hover:underline">Visit our Website</a>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
