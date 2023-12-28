@@ -39,6 +39,9 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 
+import { Person } from "schema-dts";
+import { JsonLd } from "react-schemaorg";
+
 
 
 
@@ -260,10 +263,47 @@ const Business = () => {
         }
     };
 
+
+    const openingHours = business.timing?.map(hour => {
+        if (hour.isOpen) {
+          return `${hour.day.slice(0, 2)} ${hour.from}-${hour.to}`; // Assuming 17:00 as a fixed closing time
+        } else {
+          return `${hour.day.slice(0, 2)} Closed`;
+        }
+      });
+
+    const businessStrDataStructure = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        // "address": {
+        //   "@type": "PostalAddress",
+        //   "addressLocality": "Mexico Beach",
+        //   "addressRegion": "FL",
+        //   "streetAddress": "3102 Highway 98"
+        // },
+        "description": business.description,
+        "name": business.name,
+        "telephone": business.phone,
+        "openingHours" : openingHours,
+        "email": business.email,
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": avgRating,
+            "reviewCount": business.ratings.length
+          },
+      }
+
     return (
         
         // <div>
                 <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-10">
+
+<script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(businessStrDataStructure),
+        }}
+      />
 
                     <Helmet>
                         <title>{business.name}</title>
@@ -272,6 +312,7 @@ const Business = () => {
                         <meta name="author" content="aresuno" />
                         <link rel="icon" href="/vite.svg" />
                     </Helmet>
+
 
 
                     <div className="w-full md:border border-solid border-gray-300 rounded-xl md:p-8 flex justify-center flex-col md:flex-row gap-4">

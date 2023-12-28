@@ -4,12 +4,14 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ServiceCard from "./components/ServiceCard";
 import ServiceCardSkeleton from "./components/ServiceCardSkeleton";
+import NotFound from "../NotFound/NotFound";
 
 const Services = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
   const { subCategoryName } = useParams();
   const extractedName = subCategoryName.split("-").join(" ");
   console.log(extractedName);
+  const [isLoading, setIsLoading] = useState(false);
 
   const subCategoryId = useSelector((state) => {
     // Use flatMap to flatten the array of subcategories
@@ -31,6 +33,7 @@ const Services = () => {
   const fetchAllBusinessesByCategory = async () => {
     try {
       // setIsLoading(true)
+      setIsLoading(true);
 
       const res = await axios.get(
         `https://aresuno-server.vercel.app/api/business/getbusinessesbycategory/${subCategoryId}`
@@ -38,9 +41,10 @@ const Services = () => {
       );
       setAllBusinesses(res.data);
       console.log(res.data);
-      // setIsLoading(false)
+      setIsLoading(false)
     } catch (e) {
       console.log(e);
+      setIsLoading(false)
     }
   };
 
@@ -50,30 +54,55 @@ const Services = () => {
 
   return (
     <div>
+
+
+
+
+      {
+        isLoading ? (
+
+          <div>
       <h1 className="text-3xl font-semibold text-center mt-10 mb-4">
         Find the service you want
       </h1>
       <p className="mb-8 text-center ">
         Total of {allBusinesses.length} services available
       </p>
+      
 
-      {
-        allBusinesses.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8">
+                    <ServiceCardSkeleton />
+                    <ServiceCardSkeleton />
+                    <ServiceCardSkeleton />
+                  </div>
+
+                  </div>
+        ) : 
+
+        allBusinesses.length > 0 && (
+
+          <div>
+          <h1 className="text-3xl font-semibold text-center mt-10 mb-4">
+            Find the service you want
+          </h1>
+          <p className="mb-8 text-center ">
+            Total of {allBusinesses.length} services available
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8">
-            {allBusinesses?.map((business) => (
-              <ServiceCard key={business._id} business={business} />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8">
-            <ServiceCardSkeleton />
-            <ServiceCardSkeleton />
-            <ServiceCardSkeleton />
-          </div>
+          {allBusinesses?.map((business) => (
+            <ServiceCard key={business._id} business={business} />
+          ))}
+        </div>
+        </div>
         )
-
-        // <h1>loading</h1>
       }
+      
+        
+        {
+          !isLoading && allBusinesses.length === 0 && (
+            <NotFound />
+          )
+        }
     </div>
   );
 };
