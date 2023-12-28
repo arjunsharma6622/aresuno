@@ -289,7 +289,7 @@ const Business = () => {
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": avgRating,
-            "reviewCount": business.ratings.length
+            "reviewCount": business.ratings?.length
           },
       }
 
