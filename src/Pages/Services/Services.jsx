@@ -79,12 +79,12 @@ const Services = () => {
         isLoading ? (
 
           <div>
-      <h1 className="text-3xl font-semibold text-center mt-10 mb-4">
-        Find the service you want
-      </h1>
-      <p className="mb-8 text-center ">
-        Total of {allBusinesses.length} services available
-      </p>
+          <h1 className="text-2xl md:text-3xl font-semibold text-center md:mt-10 mt-6 md:mb-4">
+            Find the service you want
+          </h1>
+          <p className="md:mb-8 mb-6 text-center ">
+            Total of {allBusinesses.length} services available
+          </p>
       
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8">
@@ -99,10 +99,10 @@ const Services = () => {
         allBusinesses.length > 0 && (
 
           <div>
-          <h1 className="text-3xl font-semibold text-center mt-10 mb-4">
+          <h1 className="text-2xl md:text-3xl font-semibold text-center md:mt-10 mt-6 md:mb-4">
             Find the service you want
           </h1>
-          <p className="mb-8 text-center ">
+          <p className="md:mb-8 mb-6 text-center ">
             Total of {allBusinesses.length} services available
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8">

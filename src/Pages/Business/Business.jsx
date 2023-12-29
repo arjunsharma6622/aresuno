@@ -41,6 +41,7 @@ import { Helmet } from "react-helmet-async";
 
 import { Person } from "schema-dts";
 import { JsonLd } from "react-schemaorg";
+import NotFound from "../NotFound/NotFound";
 
 
 
@@ -309,7 +310,10 @@ const Business = () => {
 
     return (
 
-        // <div>
+        <div>
+
+            {business.name &&
+            
         <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-10">
 
             <script
@@ -1074,7 +1078,17 @@ const Business = () => {
             </div>
             <ToastContainer />
         </div>
-        // </div>
+
+        }
+
+{ !business._id &&
+        <NotFound />
+}
+
+
+        </div>
+
+        
     );
 };
 
