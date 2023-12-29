@@ -10,8 +10,33 @@ const ServiceCard = ({ business }) => {
 
     
     console.log(businessRating)
+
+    const businessStrDataStructure = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": business.name,
+        "telephone": business.phone,
+        "email": business.email,
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": roundedAvgRating,
+            "reviewCount": business.ratings?.length
+        },
+        "description": business.description,
+      }
+
+
     return (
         <div className='' key={business._id}>
+
+<script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(businessStrDataStructure),
+        }}
+      />
+
+
             <div className=''>
 
                 <img loading='lazy' src={business.photosGallery[0] ? business.photosGallery[0] : "https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_1280.jpg"} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' />

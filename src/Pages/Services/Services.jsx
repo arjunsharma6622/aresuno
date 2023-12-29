@@ -52,8 +52,25 @@ const Services = () => {
     fetchAllBusinessesByCategory();
   }, []);
 
+  // const businessStrDataStructure = {
+  //   "@context": "https://schema.org",
+  //   "@type": "LocalBusiness",
+  //   "description": business.description,
+  //   "name": business.name,
+  //   "telephone": business.phone,
+  //   "email": business.email,
+  //   "aggregateRating": {
+  //       "@type": "AggregateRating",
+  //       "ratingValue": avgRating,
+  //       "reviewCount": business.ratings?.length
+  //     },
+  // }
+
+
+
   return (
     <div>
+
 
 
 
