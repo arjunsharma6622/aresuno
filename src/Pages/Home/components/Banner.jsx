@@ -54,7 +54,7 @@ const Banner = () => {
         </div>
         <div className="bg-white shadow-lg relative  self-stretch flex flex-col md:flex-row w-full items-center justify-between gap-[6px] px-[6px] py-[6px] rounded-lg md:rounded-2xl">
 
-          <div className=" md:relative md:border-r-2 border-black rounded-tr-none rounded-br-none w-full h-full flex px-2 py-1 md:px-5 md:py-2 rounded-xl items-center gap-3 bg-white">
+          <div className=" md:relative md:border-r-2 border-black rounded-tr-none rounded-br-none w-full h-full flex px-2 py-1 md:px-5 md:py-2 rounded-xl items-center gap-3 bg-white" >
             <FiHardDrive className="w-6 h-6"/>
             <input
               className=" py-1 focus:outline-none text-sm text-black md:text-base w-full h-full"
@@ -62,10 +62,10 @@ const Banner = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsSearchBoxFocused(true)}
-              onBlur={() => setIsSearchBoxFocused(false)}
+              // onBlur={() => setIsSearchBoxFocused(false)}
             />
 { searchQuery && isSearchBoxFocused &&
-            <div className="absolute px-2 md:px-4 max-h-72 overflow-y-auto py-3 md:py-5 bg-white shadow-xl w-full top-10  md:top-14 rounded-b-xl left-0 text-sm md:text-base">
+            <div className="absolute z-10 px-2 md:px-4 max-h-72 overflow-y-auto py-3 md:py-5 bg-white shadow-xl w-full top-10  md:top-14 rounded-b-xl left-0 text-sm md:text-base">
               <div className="flex flex-col gap-1 md:gap-2">
               {filteredSubcategories?.map((category, index) => (
                 <Link to={`/${category.name.split(" ").join("-").toLowerCase()}`} key={index}>
