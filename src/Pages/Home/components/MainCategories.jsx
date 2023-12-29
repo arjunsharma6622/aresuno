@@ -15,8 +15,8 @@ const MainCategories = () => {
       </div>
       <div className="m-auto self-center w-full  max-w-[1100px] mt-12 max-md:max-w-full max-md:mt-10">
         <div className="flex flex-wrap gap-4 md:gap-10 justify-center items-start">
-          {categories.map((category, index) => (
-            category.subcategories.map((subCategory, index) => (
+          {categories.slice(0,2).map((category, index) => (
+            category.subcategories.slice(0, 6).map((subCategory, index) => (
               <Link key={index} to={`/${subCategory.name.split(" ").join("-").toLowerCase()}`} className="">
               <div
                 key={index}
