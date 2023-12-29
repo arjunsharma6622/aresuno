@@ -266,11 +266,25 @@ const Business = () => {
 
     const openingHours = business.timing?.map(hour => {
         if (hour.isOpen) {
-          return `${hour.day.slice(0, 2)} ${hour.from}-${hour.to}`; // Assuming 17:00 as a fixed closing time
+            return `${hour.day.slice(0, 2)} ${hour.from}-${hour.to}`; // Assuming 17:00 as a fixed closing time
         } else {
-          return `${hour.day.slice(0, 2)} Closed`;
+            return `${hour.day.slice(0, 2)} Closed`;
         }
-      });
+    });
+
+    const allFAQsSchema = business.faqs?.map((faq, index) => (
+        {
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": `<p>${faq.answer}</p>`
+            }
+
+        }
+    ))
+
+    console.log(allFAQsSchema)
 
     const businessStrDataStructure = {
         "@context": "https://schema.org",
@@ -284,359 +298,359 @@ const Business = () => {
         "description": business.description,
         "name": business.name,
         "telephone": business.phone,
-        "openingHours" : openingHours,
+        "openingHours": openingHours,
         "email": business.email,
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": avgRating,
             "reviewCount": business.ratings?.length
-          },
-      }
+        },
+    }
 
     return (
-        
+
         // <div>
-                <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-10">
+        <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-10">
 
-<script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(businessStrDataStructure),
-        }}
-      />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(businessStrDataStructure),
+                }}
+            />
 
-                    <Helmet>
-                        <title>{business.name}</title>
-                        <meta name="description" content={business.description} />
-                        <meta name="keywords" content={business.name} />
-                        <meta name="author" content="aresuno" />
-                        <link rel="icon" href="/vite.svg" />
-                    </Helmet>
+            <Helmet>
+                <title>{business.name}</title>
+                <meta name="description" content={business.description} />
+                <meta name="keywords" content={business.name} />
+                <meta name="author" content="aresuno" />
+                <link rel="icon" href="/vite.svg" />
+            </Helmet>
 
 
 
-                    <div className="w-full md:border border-solid border-gray-300 rounded-xl md:p-8 flex justify-center flex-col md:flex-row gap-4">
-                        <div className="flex md:flex-[9] justify-center items-center">
-                            <div className="w-full bg-cover bg-center">
+            <div className="w-full md:border border-solid border-gray-300 rounded-xl md:p-8 flex justify-center flex-col md:flex-row gap-4">
+                <div className="flex md:flex-[9] justify-center items-center">
+                    <div className="w-full bg-cover bg-center">
 
-                                <div className="flex flex-col md:flex-row md:gap-6 justify-start items-center">
+                        <div className="flex flex-col md:flex-row md:gap-6 justify-start items-center">
 
-                                    <div className="md:flex-[4] flex w-[90%] md:w-[300px] rounded-xl">
-                                        <div className="w-full h-[200px] rounded-xl relative">
-                                            <Swiper
-                                                spaceBetween={30}
-                                                centeredSlides={true}
-                                                autoplay={{
-                                                    delay: 2500,
-                                                    disableOnInteraction: false,
-                                                }}
-                                                modules={[Autoplay, Pagination]}
-                                                className="mySwiper rounded-xl"
-                                            >
-                                                {business.photosGallery?.map((slide, index) => (
-                                                    <SwiperSlide className="rounded-xl" key={index}>
-                                                        <img loading="lazy" src={slide} alt="" className="rounded-xl" />
-                                                    </SwiperSlide>
-                                                ))}
-                                            </Swiper>
-                                            <span className="z-10 absolute top-0 left-0 rounded-tl-xl rounded-br-xl bg-green-600 text-xs text-white px-3 py-1 font-medium">
-                                                top rated
-                                            </span>
-                                        </div>
+                            <div className="md:flex-[4] flex w-[90%] md:w-[300px] rounded-xl">
+                                <div className="w-full h-[200px] rounded-xl relative">
+                                    <Swiper
+                                        spaceBetween={30}
+                                        centeredSlides={true}
+                                        autoplay={{
+                                            delay: 2500,
+                                            disableOnInteraction: false,
+                                        }}
+                                        modules={[Autoplay, Pagination]}
+                                        className="mySwiper rounded-xl"
+                                    >
+                                        {business.photosGallery?.map((slide, index) => (
+                                            <SwiperSlide className="rounded-xl" key={index}>
+                                                <img loading="lazy" src={slide} alt="" className="rounded-xl" />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                    <span className="z-10 absolute top-0 left-0 rounded-tl-xl rounded-br-xl bg-green-600 text-xs text-white px-3 py-1 font-medium">
+                                        top rated
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="md:flex-[8] mt-2 md:mt-0 w-[90%] flex flex-col gap-2 justify-between items-start md:h-[200px]">
+                                <div className="text-black flex-col flex justify-start items-start">
+                                    <span className="text-xl md:text-3xl font-bold">{business.name}</span>
+                                    <span className="text-gray-800 text-sm md:text-base font-medium">
+                                        {subCategory?.name}
+                                    </span>
+
+                                    <div className="flex items-center text-xs">
+                                        <span className="text-gray-600 text-xs font-normal">
+                                            Hyderabad
+                                        </span>
                                     </div>
+                                </div>
 
-                                    <div className="md:flex-[8] mt-2 md:mt-0 w-[90%] flex flex-col gap-2 justify-between items-start md:h-[200px]">
-                                        <div className="text-black flex-col flex justify-start items-start">
-                                            <span className="text-xl md:text-3xl font-bold">{business.name}</span>
-                                            <span className="text-gray-800 text-sm md:text-base font-medium">
-                                                {subCategory?.name}
+                                <div className="flex items-center gap-3">
+                                    <span className="text-gray-600 md:text-sm text-xs  bg-gray-200 py-[2px] px-2 font-semibold rounded-full">
+                                        6 Yrs
+                                    </span>
+
+                                    <span className="flex items-center gap-1 text-xs">
+                                        <BiCheckShield className="text-green-600 w-5 h-5 md:w-6 md:h-6" />
+                                        Verified
+                                    </span>
+                                </div>
+
+                                {avgRating ? (
+                                    <div className="flex items-center gap-3 md:gap-6">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-black text-sm md:text-lg font-semibold">
+                                                {avgRating ? avgRating.toFixed(1) : "-"}
                                             </span>
 
-                                            <div className="flex items-center text-xs">
-                                                <span className="text-gray-600 text-xs font-normal">
-                                                    Hyderabad
-                                                </span>
+                                            <div className="flex items-center gap-1">
+                                                {[...Array(fullStars ? fullStars : 0)].map(
+                                                    (_, index) => (
+                                                        <BsStarFill
+                                                            key={index}
+                                                            className="text-yellow-500 w-3 h-3 md:w-4 md:h-4"
+                                                        />
+                                                    )
+                                                )}
+
+                                                {hasHalfStar && (
+                                                    <BsStarHalf className="text-yellow-500 w-3 h-3 md:w-4 md:h-4" />
+                                                )}
+
+                                                {[
+                                                    ...Array(
+                                                        5 -
+                                                        (fullStars ? fullStars : 0) -
+                                                        (hasHalfStar ? 1 : 0)
+                                                    ),
+                                                ].map((_, index) => (
+                                                    <BsStar
+                                                        key={index}
+                                                        className="text-gray-300 w-3 h-3 md:w-4 md:h-4"
+                                                    />
+                                                ))}
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-gray-600 md:text-sm text-xs  bg-gray-200 py-[2px] px-2 font-semibold rounded-full">
-                                                6 Yrs
+                                        <a href="#ratings">
+                                            <span className="text-gray-black text-xs md:text-sm text-blue-500">
+                                                {ratings?.length} ratings
                                             </span>
+                                        </a>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-gray-500 text-sm">
+                                            No ratings yet
+                                        </span>
+                                    </div>
+                                )}
 
-                                            <span className="flex items-center gap-1 text-xs">
-                                                <BiCheckShield className="text-green-600 w-5 h-5 md:w-6 md:h-6" />
-                                                Verified
-                                            </span>
-                                        </div>
-
-                                        {avgRating ? (
-                                            <div className="flex items-center gap-3 md:gap-6">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-black text-sm md:text-lg font-semibold">
-                                                        {avgRating ? avgRating.toFixed(1) : "-"}
-                                                    </span>
-
-                                                    <div className="flex items-center gap-1">
-                                                        {[...Array(fullStars ? fullStars : 0)].map(
-                                                            (_, index) => (
-                                                                <BsStarFill
-                                                                    key={index}
-                                                                    className="text-yellow-500 w-3 h-3 md:w-4 md:h-4"
-                                                                />
-                                                            )
-                                                        )}
-
-                                                        {hasHalfStar && (
-                                                            <BsStarHalf className="text-yellow-500 w-3 h-3 md:w-4 md:h-4" />
-                                                        )}
-
-                                                        {[
-                                                            ...Array(
-                                                                5 -
-                                                                (fullStars ? fullStars : 0) -
-                                                                (hasHalfStar ? 1 : 0)
-                                                            ),
-                                                        ].map((_, index) => (
-                                                            <BsStar
-                                                                key={index}
-                                                                className="text-gray-300 w-3 h-3 md:w-4 md:h-4"
-                                                            />
-                                                        ))}
+                                <div className="w-full flex items-center justify-start gap-2 md:gap-4">
+                                    {businessLinks.map((item, index) => {
+                                        return (
+                                            business.socialLinks?.[item.link] && (
+                                                <a
+                                                    key={index}
+                                                    href={business.socialLinks?.[item.link]}
+                                                    target="_blank"
+                                                >
+                                                    <div
+                                                        key={index}
+                                                        className="cursor-pointer relative bg-[#E9F5FE] rounded-full md:h-9 md:w-9 w-8 h-8"
+                                                        style={{ border: "2px solid #C9E0F2" }}
+                                                    >
+                                                        {item.icon}
                                                     </div>
-                                                </div>
-
-                                                <a href="#ratings">
-                                                    <span className="text-gray-black text-xs md:text-sm text-blue-500">
-                                                        {ratings?.length} ratings
-                                                    </span>
                                                 </a>
-                                            </div>
-                                        ) : (
+                                            )
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex md:flex-[3] flex-col border-t pt-4 md:border-none md:pt-0 mt-2 m-auto w-[90%] gap-4 justify-center items-center">
+                    <div className="w-full">
+                        <div className="flex items-start gap-3">
+                            <div className="w-full">
+                                <div className="flex flex-col gap-2">
+                                    <div className="flex items-center gap-4">
+                                        {openTimingToday(business) && (
                                             <div className="flex items-center gap-2">
-                                                <span className="text-gray-500 text-sm">
-                                                    No ratings yet
-                                                </span>
+                                                <FiClock className="text-gray-800 w-6 h-6" />
+                                                <p>{openTimingToday(business)}</p>
                                             </div>
                                         )}
 
-                                        <div className="w-full flex items-center justify-start gap-2 md:gap-4">
-                                            {businessLinks.map((item, index) => {
-                                                return (
-                                                    business.socialLinks?.[item.link] && (
-                                                        <a
-                                                            key={index}
-                                                            href={business.socialLinks?.[item.link]}
-                                                            target="_blank"
-                                                        >
-                                                            <div
-                                                                key={index}
-                                                                className="cursor-pointer relative bg-[#E9F5FE] rounded-full md:h-9 md:w-9 w-8 h-8"
-                                                                style={{ border: "2px solid #C9E0F2" }}
-                                                            >
-                                                                {item.icon}
-                                                            </div>
-                                                        </a>
-                                                    )
-                                                );
-                                            })}
+                                        <div className="flex items-center gap-2 cursor-pointer">
+                                            <span className="text-gray-600 text-xs md:text-sm">
+                                                <a href="#timings">
+                                                    View timings
+                                                </a>
+
+                                            </span>
                                         </div>
                                     </div>
 
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex md:flex-[3] flex-col border-t pt-4 md:border-none md:pt-0 mt-2 m-auto w-[90%] gap-4 justify-center items-center">
-                            <div className="w-full">
-                                <div className="flex items-start gap-3">
-                                    <div className="w-full">
-                                        <div className="flex flex-col gap-2">
-                                            <div className="flex items-center gap-4">
-                                                {openTimingToday(business) && (
-                                                    <div className="flex items-center gap-2">
-                                                        <FiClock className="text-gray-800 w-6 h-6" />
-                                                        <p>{openTimingToday(business)}</p>
-                                                    </div>
-                                                )}
-
-                                                <div className="flex items-center gap-2 cursor-pointer">
-                                                    <span className="text-gray-600 text-xs md:text-sm">
-                                                        <a href="#timings">
-                                                        View timings
-                                                        </a>
-                                                        
-                                                    </span>
-                                                </div>
+                                    <div
+                                        className={`w-20 justify-center  flex items-center px-3 md:py-1 py-2 text-xs md:text-sm rounded-full font-medium ${isStoreOpenNow(business)
+                                            ? "bg-green-500"
+                                            : "bg-red-500"
+                                            }`}
+                                    >
+                                        {isStoreOpenNow(business) ? (
+                                            <div className="flex items-center gap-2 text-white">
+                                                Open
                                             </div>
-
-                                            <div
-                                                className={`w-20 justify-center  flex items-center px-3 md:py-1 py-2 text-xs md:text-sm rounded-full font-medium ${isStoreOpenNow(business)
-                                                        ? "bg-green-500"
-                                                        : "bg-red-500"
-                                                    }`}
-                                            >
-                                                {isStoreOpenNow(business) ? (
-                                                    <div className="flex items-center gap-2 text-white">
-                                                        Open
-                                                    </div>
-                                                ) : (
-                                                    <div className="flex items-center gap-2 text-white">
-                                                        Closed
-                                                    </div>
-                                                )}
+                                        ) : (
+                                            <div className="flex items-center gap-2 text-white">
+                                                Closed
                                             </div>
-                                        </div>
+                                        )}
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="w-full flex md:flex-col flex-row items-center gap-4 md:gap-2">
-                                <button className="w-full flex items-center justify-center gap-2 p-2  rounded-full border border-solid border-blue-600 text-sm md:text-base">
-                                    <FiPhone className="text-blue-600 w-5 h-5 md:w-6 md:h-6" />
-                                    <span className="text-blue-600 font-semibold">
-                                        <a href={`tel:${business?.phone}`}>Call Now</a>
-                                    </span>
-                                </button>
-                                <button className="w-full flex items-center justify-center gap-2 p-2  rounded-full bg-blue-600 text-sm md:text-base">
-                                    <FiMessageSquare className="text-white w-5 h-5 md:w-6 md:h-6" />
-                                    <span className="text-white font-semibold">Enquire Now</span>
-                                </button>
                             </div>
                         </div>
                     </div>
 
-                    <div className="w-[90%] md:w-full flex m-auto md:m-0 gap-6 mb-10 flex-col md:flex-row">
-                        {/* business bottom sedtion */}
+                    <div className="w-full flex md:flex-col flex-row items-center gap-4 md:gap-2">
+                        <button className="w-full flex items-center justify-center gap-2 p-2  rounded-full border border-solid border-blue-600 text-sm md:text-base">
+                            <FiPhone className="text-blue-600 w-5 h-5 md:w-6 md:h-6" />
+                            <span className="text-blue-600 font-semibold">
+                                <a href={`tel:${business?.phone}`}>Call Now</a>
+                            </span>
+                        </button>
+                        <button className="w-full flex items-center justify-center gap-2 p-2  rounded-full bg-blue-600 text-sm md:text-base">
+                            <FiMessageSquare className="text-white w-5 h-5 md:w-6 md:h-6" />
+                            <span className="text-white font-semibold">Enquire Now</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-                        {/* business bottom left */}
-                        <div className="w-full md:w-full flex flex-col gap-4 flex-[9] md:border border-solid border-[#d7d7d7] rounded-xl md:px-2 pt-3">
+            <div className="w-[90%] md:w-full flex m-auto md:m-0 gap-6 mb-10 flex-col md:flex-row">
+                {/* business bottom sedtion */}
 
-                            <div className="md:flex hidden items-center justify-between px-12 py-5 rounded-xl bg-gray-300">
-                                <div className="w-full flex items-center justify-between ">
-                                    <span className="">
-                                        <a href="#overview">Overview</a>
-                                    </span>
-                                    <span className="">
-                                        <a href="#photos">Images</a>
-                                    </span>
-                                    <span className="">
-                                        <a href="#address">Address</a>
-                                    </span>
-                                    <span className="">
-                                        <a href="#posts">Posts</a>
-                                    </span>
-                                    <span className="">
-                                        <a href="#ratings">Ratings</a>
-                                    </span>
-                                    <span className="">
-                                        <a href="#timings">Timings</a>
-                                    </span>
-                                    <span className="">
-                                        <a href="#faq">FAQ</a>
-                                    </span>
+                {/* business bottom left */}
+                <div className="w-full md:w-full flex flex-col gap-4 flex-[9] md:border border-solid border-[#d7d7d7] rounded-xl md:px-2 pt-3">
+
+                    <div className="md:flex hidden items-center justify-between px-12 py-5 rounded-xl bg-gray-300">
+                        <div className="w-full flex items-center justify-between ">
+                            <span className="">
+                                <a href="#overview">Overview</a>
+                            </span>
+                            <span className="">
+                                <a href="#photos">Images</a>
+                            </span>
+                            <span className="">
+                                <a href="#address">Address</a>
+                            </span>
+                            <span className="">
+                                <a href="#posts">Posts</a>
+                            </span>
+                            <span className="">
+                                <a href="#ratings">Ratings</a>
+                            </span>
+                            <span className="">
+                                <a href="#timings">Timings</a>
+                            </span>
+                            <span className="">
+                                <a href="#faq">FAQ</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div className="w-full flex flex-col items-center justify-center gap-10 md:px-8 md:py-8 pt-2">
+                        {/* overview */}
+
+                        <div
+                            id="overview"
+                            className="w-full border-b border-t pt-5 pb-10 border-b-gray-300 border-t-gray-300"
+                        >
+                            <div className="w-full">
+                                <div className="flex items-center justify-start gap-3 md:gap-4">
+                                    <FiFileText className="text-black w-5 h-5 md:w-6 md:h-6" />
+                                    <h2 className="text-lg md:text-2xl font-bold text-black">
+                                        Overview
+                                    </h2>
                                 </div>
-                            </div>
-                            <div className="w-full flex flex-col items-center justify-center gap-10 md:px-8 md:py-8 pt-2">
-                                {/* overview */}
+                                <p className="mt-2 text-gray-700 text-sm md:text-base">
+                                    <span>{business.description}</span>
+                                </p>
 
-                                <div
-                                    id="overview"
-                                    className="w-full border-b border-t pt-5 pb-10 border-b-gray-300 border-t-gray-300"
-                                >
-                                    <div className="w-full">
-                                        <div className="flex items-center justify-start gap-3 md:gap-4">
-                                            <FiFileText className="text-black w-5 h-5 md:w-6 md:h-6" />
-                                            <h2 className="text-lg md:text-2xl font-bold text-black">
-                                                Overview
-                                            </h2>
+                                <div className="flex justify-start items-center">
+
+
+
+
+                                    <div className="flex flex-col justify-start items-start">
+
+
+
+
+
+
+                                        <div>
+                                            <p className="text-base font-medium mb-1 mt-2">
+                                                We offer
+                                            </p>
+                                            {business.services?.map((service, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="flex items-center gap-2 mb-2"
+                                                >
+                                                    <FiArrowRight className="text-gray-800 w-4 h-4 md:w-5 md:h-5" />
+                                                    <p className="text-gray-800 md:text-base text-sm">{service}</p>
+                                                </div>
+                                            ))}
                                         </div>
-                                        <p className="mt-2 text-gray-700 text-sm md:text-base">
-                                            <span>{business.description}</span>
-                                        </p>
 
-                                        <div className="flex justify-start items-center">
+                                        <div className="">
+                                            <p className="text-base font-medium mb-1 mt-2">
+                                                We accept
+                                            </p>
 
-
-
-
-                                            <div className="flex flex-col justify-start items-start">
-
-
-
-
-
-
-                                                <div>
-                                                    <p className="text-base font-medium mb-1 mt-2">
-                                                        We offer
-                                                    </p>
-                                                    {business.services?.map((service, index) => (
-                                                        <div
-                                                            key={index}
-                                                            className="flex items-center gap-2 mb-2"
-                                                        >
-                                                            <FiArrowRight className="text-gray-800 w-4 h-4 md:w-5 md:h-5" />
-                                                            <p className="text-gray-800 md:text-base text-sm">{service}</p>
-                                                        </div>
-                                                    ))}
-                                                </div>
-
-                                                <div className="">
-                                                    <p className="text-base font-medium mb-1 mt-2">
-                                                        We accept
-                                                    </p>
-
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {business.modeOfPayment?.map((payment, index) => (
-                                                            <div
-                                                                key={index}
-                                                                className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-3 md:px-4 py-1"
-                                                            >
-                                                                <span className="text-gray-800 text-xs md:text-sm">
-                                                                    {payment}
-                                                                </span>
-                                                            </div>
-                                                        ))}
+                                            <div className="flex flex-wrap gap-2">
+                                                {business.modeOfPayment?.map((payment, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-3 md:px-4 py-1"
+                                                    >
+                                                        <span className="text-gray-800 text-xs md:text-sm">
+                                                            {payment}
+                                                        </span>
                                                     </div>
-                                                </div>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
-                                {/* photos gallery */}
-                                <div
-                                    id="photos"
-                                    className=" w-full border-b pb-10 border-b-gray-300"
-                                >
-                                    <div className="flex items-center gap-3 md:gap-4">
-                                        <FiImage className="text-black w-5 h-5 md:w-6 md:h-6" />
-                                        <h2 className="text-lg md:text-2xl font-bold text-black">Photos</h2>
-                                    </div>
+                        {/* photos gallery */}
+                        <div
+                            id="photos"
+                            className=" w-full border-b pb-10 border-b-gray-300"
+                        >
+                            <div className="flex items-center gap-3 md:gap-4">
+                                <FiImage className="text-black w-5 h-5 md:w-6 md:h-6" />
+                                <h2 className="text-lg md:text-2xl font-bold text-black">Photos</h2>
+                            </div>
 
-                                    <div className="relative">
-                                        <div className="overflow-x-auto flex w-[calc(100%-10px)] custom-scrollbar">
-                                            {/* <img
+                            <div className="relative">
+                                <div className="overflow-x-auto flex w-[calc(100%-10px)] custom-scrollbar">
+                                    {/* <img
                                     src="https://media.istockphoto.com/id/1023612090/photo/interior-of-clothing-store.jpg?s=612x612&w=0&k=20&c=84NciWwU43Zyzmxph6bCVTG9WRO9rxDGUYtYnUqpTt8="
                                     alt=""
                                     className="rounded-lg m-2 w-64"
                                 /> */}
 
-                                            {business.photosGallery?.map((image) => (
-                                                <img
-                                                loading="lazy"
-                                                    key={image}
-                                                    src={image}
-                                                    alt=""
-                                                    className="rounded-lg m-2 w-64 aspect-auto object-cover"
-                                                />
-                                            ))}
-                                        </div>
-                                        <div className=" md:gradient-overlay-right" />
-                                    </div>
+                                    {business.photosGallery?.map((image) => (
+                                        <img
+                                            loading="lazy"
+                                            key={image}
+                                            src={image}
+                                            alt=""
+                                            className="rounded-lg m-2 w-64 aspect-auto object-cover"
+                                        />
+                                    ))}
+                                </div>
+                                <div className=" md:gradient-overlay-right" />
+                            </div>
 
-                                    {/* <div className="flex items-center justify-start gap-4 mt-4">
+                            {/* <div className="flex items-center justify-start gap-4 mt-4">
                                         <button
                                             className="flex items-center gap-2 p-2 px-4 bg-[#E9F5FE] rounded-full"
                                             style={{ border: "2px solid #C9E0F2" }}
@@ -647,18 +661,18 @@ const Business = () => {
                                             </p>
                                         </button>
                                     </div> */}
-                                </div>
+                        </div>
 
-                                {/* address */}
-                                <div
-                                    id="address"
-                                    className="w-full border-b pb-10 border-b-gray-300"
-                                >
-                                    <div className="flex items-center gap-3 md:gap-4">
-                                        <FiNavigation className="text-black w-5 h-5 md:w-6 md:h-6" />
-                                        <h2 className="text-lg md:text-2xl font-bold text-black">Address</h2>
+                        {/* address */}
+                        <div
+                            id="address"
+                            className="w-full border-b pb-10 border-b-gray-300"
+                        >
+                            <div className="flex items-center gap-3 md:gap-4">
+                                <FiNavigation className="text-black w-5 h-5 md:w-6 md:h-6" />
+                                <h2 className="text-lg md:text-2xl font-bold text-black">Address</h2>
 
-                                        {/* <iframe
+                                {/* <iframe
                                 width="600"
                                 height="450"
                                 loading="lazy"
@@ -666,386 +680,400 @@ const Business = () => {
                                 referrerPolicy="no-referrer-when-downgrade"
                                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDaaCWy7vsFxmPd5zHmapYuO5KH8kaw67M&q=Space+Needle,Seattle+WA">
                             </iframe> */}
-                                    </div>
-                                    <div className="my-4">
-                                        <p className="text-gray-600 text-sm md:text-base">
-                                            H.No.185 Maruti City Mauza Kahrai, Shamshabad Road,
-                                            Kahrai, Agra - 282001 (Near All Sent School)
-                                        </p>
-                                    </div>
+                            </div>
+                            <div className="my-4">
+                                <p className="text-gray-600 text-sm md:text-base">
+                                    H.No.185 Maruti City Mauza Kahrai, Shamshabad Road,
+                                    Kahrai, Agra - 282001 (Near All Sent School)
+                                </p>
+                            </div>
 
-                                    <iframe
-                                    loading="lazy"
-                                        src={business.iframe?.extractedLink}
-                                        width="100%"
-                                        // height="400"
-                                        allowFullScreen=""
-                                        referrerPolicy="no-referrer-when-downgrade"
-                                        className="rounded-xl h-[240px] md:h-[400px]"
-                                    ></iframe>
-                                </div>
+                            <iframe
+                                loading="lazy"
+                                src={business.iframe?.extractedLink}
+                                width="100%"
+                                // height="400"
+                                allowFullScreen=""
+                                referrerPolicy="no-referrer-when-downgrade"
+                                className="rounded-xl h-[240px] md:h-[400px]"
+                            ></iframe>
+                        </div>
 
-                                {/* posts */}
-                                <div
-                                    id="posts"
-                                    className="w-full border-b pb-10 border-b-gray-300"
-                                >
-                                    <div className="flex items-center gap-3 md:gap-4">
-                                        <FiInbox className="text-black w-5 h-5 md:w-6 md:h-6" />
-                                        <h2 className="text-lg md:text-2xl font-bold text-black">Updates</h2>
-                                    </div>
+                        {/* posts */}
+                        <div
+                            id="posts"
+                            className="w-full border-b pb-10 border-b-gray-300"
+                        >
+                            <div className="flex items-center gap-3 md:gap-4">
+                                <FiInbox className="text-black w-5 h-5 md:w-6 md:h-6" />
+                                <h2 className="text-lg md:text-2xl font-bold text-black">Updates</h2>
+                            </div>
 
-                                    <div className="grid grid-cols-1 gap-8 mt-8">
-                                        {posts?.map((post, index) => (
-                                            <div
-                                                key={index}
-                                                className="max-w-full gap-4 flex flex-col md:flex-row items-start"
-                                            >
-                                                <div className="md:flex-[3] w-full">
-                                                    <img
-                                                    loading="lazy"
-                                                        className="w-full md:h-full h-[180px] rounded-xl object-cover"
-                                                        alt="Image"
-                                                        src={
-                                                            post.image
-                                                                ? post.image
-                                                                : "https://img.freepik.com/premium-vector/happy-diwali-festival-wishing-post-design-with-red-background-template_593190-96.jpg"
+                            <div className="grid grid-cols-1 gap-8 mt-8">
+                                {posts?.map((post, index) => (
+                                    <div
+                                        key={index}
+                                        className="max-w-full gap-4 flex flex-col md:flex-row items-start"
+                                    >
+                                        <div className="md:flex-[3] w-full">
+                                            <img
+                                                loading="lazy"
+                                                className="w-full md:h-full h-[180px] rounded-xl object-cover"
+                                                alt="Image"
+                                                src={
+                                                    post.image
+                                                        ? post.image
+                                                        : "https://img.freepik.com/premium-vector/happy-diwali-festival-wishing-post-design-with-red-background-template_593190-96.jpg"
+                                                }
+                                            />
+                                        </div>
+
+                                        <div className="md:flex-[10] w-full">
+                                            <p className="text-sm text-gray-600">
+                                                {post.description}
+                                            </p>
+                                            <p className="mt-2 text-blue-600 w-full text-sm md:text-base">
+                                                #autodetailing&nbsp;&nbsp;#detailing
+                                            </p>
+                                            <div className="flex mt-3 justify-between items-center">
+                                                <div className=" text-gray-500 text-xs md:text-base">
+                                                    {new Date(post.createdAt).toLocaleDateString(
+                                                        "en-US",
+                                                        {
+                                                            year: "numeric",
+                                                            month: "long",
+                                                            day: "numeric",
                                                         }
+                                                    )}
+                                                </div>
+                                                <div className="flex items-center md:mt-2 text-green-600">
+                                                    <span className="font-semibold text-sm md:text-base">View more</span>
+                                                    <FiArrowRight
+                                                        className="ml-1 w-4 h-4 md:w-5 md:h-5"
+                                                        strokeWidth={2}
                                                     />
                                                 </div>
-
-                                                <div className="md:flex-[10] w-full">
-                                                    <p className="text-sm text-gray-600">
-                                                        {post.description}
-                                                    </p>
-                                                    <p className="mt-2 text-blue-600 w-full text-sm md:text-base">
-                                                        #autodetailing&nbsp;&nbsp;#detailing
-                                                    </p>
-                                                    <div className="flex mt-3 justify-between items-center">
-                                                    <div className=" text-gray-500 text-xs md:text-base">
-                                                        {new Date(post.createdAt).toLocaleDateString(
-                                                            "en-US",
-                                                            {
-                                                                year: "numeric",
-                                                                month: "long",
-                                                                day: "numeric",
-                                                            }
-                                                        )}
-                                                    </div>
-                                                    <div className="flex items-center md:mt-2 text-green-600">
-                                                        <span className="font-semibold text-sm md:text-base">View more</span>
-                                                        <FiArrowRight
-                                                            className="ml-1 w-4 h-4 md:w-5 md:h-5"
-                                                            strokeWidth={2}
-                                                        />
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* ratings and reviews */}
-                                <div
-                                    className="w-full flex flex-col border-b pb-10 border-b-gray-300"
-                                    id="ratings"
-                                >
-                                    <div className="flex gap-3 items-center md:gap-4">
-                                        <FiStar className="text-black w-5 h-5 md:w-6 md:h-6" />
-                                        <h2 className="text-lg md:text-2xl font-bold text-black">
-                                            Ratings
-                                        </h2>
-                                    </div>
-
-                                    {avgRating ? (
-                                        <div className="grid grid-cols-1 gap-6 mt-4 md:gap-8 md:mt-8">
-                                            <div className="flex flex-col gap-2 md:gap-3">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="">
-                                                        <div className="flex items-center gap-1">
-                                                            {[...Array(fullStars ? fullStars : 0)].map(
-                                                                (_, index) => (
-                                                                    <BsStarFill
-                                                                        key={index}
-                                                                        className="text-yellow-500 w-5 h-5 mdw-6 md:h-6"
-                                                                    />
-                                                                )
-                                                            )}
-
-                                                            {hasHalfStar && (
-                                                                <BsStarHalf className="text-yellow-500 w-5 h-5 mdw-6 md:h-6" />
-                                                            )}
-
-                                                            {[
-                                                                ...Array(
-                                                                    5 -
-                                                                    (fullStars ? fullStars : 0) -
-                                                                    (hasHalfStar ? 1 : 0)
-                                                                ),
-                                                            ].map((_, index) => (
-                                                                <BsStar
-                                                                    key={index}
-                                                                    className="text-gray-300 w-5 h-5 mdw-6 md:h-6"
-                                                                />
-                                                            ))}
-                                                        </div>
-                                                    </div>
-
-                                                    <span className="flex items-center gap-2">
-                                                        <span className="text-black text-sm md:text-base">
-                                                            {avgRating.toFixed(1)} out of 5
-                                                        </span>
-                                                    </span>
-                                                </div>
-
-                                                <span className="text-gray-600 text-xs md:text-sm">
-                                                    {ratings?.length === 0
-                                                        ? "No ratings yet"
-                                                        : ratings?.length === 1
-                                                            ? "1 rating"
-                                                            : `${ratings?.length} ratings`}
-                                                </span>
-                                            </div>
-
-                                            <div className="flex flex-col gap-4">
-                                                {[...ratings]?.reverse().map((rating, index) => (
-                                                    <div key={index} className="flex items-start justify-start gap-2 md:gap-4 w-full">
-                                                        <div className="">
-                                                            <img
-                                                            loading="lazy"
-                                                                src={
-                                                                    rating.user?.image ||
-                                                                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                                                }
-                                                                alt=""
-                                                                className="w-8 md:w-9 md:h-9 rounded-full object-cover"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col gap-1 md:gap-2 w-full">
-                                                            <div className="">
-                                                                <span className="text-sm md:text-base">{rating.user.name}</span>
-                                                                <div className="flex gap-4 mt-0  md:mt-1">
-                                                                    <div className="flex items-center">
-                                                                        {[...Array(rating.rating)].map(
-                                                                            (_, index) => (
-                                                                                <AiFillStar
-                                                                                    key={index}
-                                                                                    className="text-yellow-500 w-3 h-3 md:w-4 md:h-4"
-                                                                                />
-                                                                            )
-                                                                        )}
-                                                                        {[...Array(5 - rating.rating)].map(
-                                                                            (_, index) => (
-                                                                                <AiFillStar
-                                                                                    key={index}
-                                                                                    className="text-gray-300 w-3 h-3 md:w-4 md:h-4"
-                                                                                />
-                                                                            )
-                                                                        )}
-                                                                    </div>
-                                                                    <div className="text-gray-500 text-xs mr-4">
-                                                                        {daysAgoFormatDate(rating.createdAt)}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <p className=" font-normal text-xs md:text-sm">
-                                                                    {rating.review}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))}
                                             </div>
                                         </div>
-                                    ) : (
-                                        <div className="mt-4">
-                                            <span className="text-gray-600">No ratings yet</span>
-                                        </div>
-                                    )}
-                                </div>
-
-
-
-                                <div id="timings" className="border-b pb-10 w-full border-b-gray-300">
-                                    <div className="flex items-center gap-3 md:gap-4">
-                                        <FiClock className="text-black w-5 h-5 md:w-6 md:h-6" />
-                                        <h2 className="text-lg md:text-2xl font-bold text-black">
-                                            Business Timings
-                                        </h2>
-                                    </div>                            
-                                    
-                                    <div className="flex flex-col gap-5 mt-4 text-sm md:text-base">
-                                        {business.timing?.map((time, index) => (
-
-                                                time.isOpen && time.from && time.to && (
-                                                    <div className="flex flex-col gap-1">
-                                                        <span className="font-medium">{time.day}</span>
-                                                        <div className=" flex items-center gap-2">
-                                                            <span>{time.from}</span>
-                                                            to
-                                                            <span>{time.to}</span>
-                                                        </div>
-                                                    </div>
-                                                )
-
-
-
-                                        ))}
                                     </div>
-                                </div>
-
-
-
-
-                                {/* faqs */}
-                                <div id="faq" className="w-full mb-10">
-                                    <div className="flex items-center gap-3 md:gap-4">
-                                        <FiHelpCircle className="text-black w-5 h-5 md:w-6 md:h-6" />
-                                        <h2 className="text-lg md:text-2xl font-bold text-black">
-                                            FAQ's
-                                        </h2>
-                                    </div>
-                                    <div className="flex flex-col gap-3 mt-4">
-                                        {business.faqs?.map((faq, index) => (
-                                            <Accordion
-                                                question={`${faq.question}`}
-                                                content={faq.answer}
-                                                key={index}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
 
-                        {/* business bottom right */}
-                        <div className="flex flex-col flex-[4.7] gap-6">
-                            <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-5">
-                                <div className="text-xl font-bold mb-3">
-                                    <span>Rate us</span>
-                                </div>
-
-                                <div className="mb-4">
-                                    <p className="text-gray-600 text-base my-2">
-                                        How would you rate our service?
-                                    </p>
-                                    <div>
-                                        <div className="flex items-center gap-1">
-                                            {[...Array(5)].map((_, index) => (
-                                                <AiFillStar
-                                                    key={index}
-                                                    className={`transition-all duration-75 w-8 h-8 cursor-pointer ${(hoveredStars > 0 ? hoveredStars : selectedStars) >
-                                                            index
-                                                            ? [
-                                                                "text-red-500",
-                                                                "text-orange-500",
-                                                                "text-yellow-500",
-                                                                "text-green-600",
-                                                                "text-blue-500",
-                                                            ][
-                                                            (hoveredStars > 0
-                                                                ? hoveredStars
-                                                                : selectedStars) - 1
-                                                            ]
-                                                            : "text-gray-300"
-                                                        }`}
-                                                    onMouseEnter={() => handleStarHover(index)}
-                                                    onMouseLeave={handleStarLeave}
-                                                    onClick={() => handleStarClick(index)}
-                                                />
-                                            ))}
-                                            {(hoveredStars > 0 ? hoveredStars : selectedStars) && (
-                                                <span className="ml-2 text-2xl">
-                                                    {
-                                                        ["😢", "😕", "😐", "🙂", "😄"][
-                                                        (hoveredStars > 0
-                                                            ? hoveredStars
-                                                            : selectedStars) - 1
-                                                        ]
-                                                    }
-                                                </span>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <p className="text-gray-600 text-base my-2 mt-4">
-                                        Share your experience
-                                    </p>
-
-                                    <div className="flex items-center flex-col gap-2">
-                                        <textarea
-                                            name="text"
-                                            id=""
-                                            cols="30"
-                                            placeholder="This is a very good ..."
-                                            rows="10"
-                                            value={review}
-                                            className=" focus:outline-none w-full h-24 bg-gray-100 rounded-md px-4 py-2 resize-none"
-                                            onChange={(e) => setReview(e.target.value)}
-                                        ></textarea>
-                                        <button
-                                            className="bg-blue-600 text-white w-full h-10 rounded-md"
-                                            onClick={handleRating}
-                                        >
-                                            {isReviewLoading ? (
-                                                <div
-                                                    className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                                                    role="status"
-                                                >
-                                                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                                                        Loading...
-                                                    </span>
-                                                </div>
-                                            ) : (
-                                                "Rate"
-                                            )}
-                                        </button>
-                                    </div>
-                                </div>
+                        {/* ratings and reviews */}
+                        <div
+                            className="w-full flex flex-col border-b pb-10 border-b-gray-300"
+                            id="ratings"
+                        >
+                            <div className="flex gap-3 items-center md:gap-4">
+                                <FiStar className="text-black w-5 h-5 md:w-6 md:h-6" />
+                                <h2 className="text-lg md:text-2xl font-bold text-black">
+                                    Ratings
+                                </h2>
                             </div>
 
-                            <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-5">
-                                <span className="text-xl font-bold">Any Query?</span>
-                                <p className="text-gray-500 text-sm my-2">
-                                    Write to us and we will get back to you
-                                </p>
-                                <div className="flex items-center flex-col gap-2">
-                                    <input
-                                        type="text"
-                                        placeholder="Name"
-                                        className="w-full h-10 bg-gray-100 rounded-md px-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Phone Number"
-                                        className="w-full h-10 bg-gray-100 rounded-md px-4"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Email"
-                                        className="w-full h-10 bg-gray-100 rounded-md px-4"
-                                    />
-                                    <textarea
-                                        name="text"
-                                        id=""
-                                        cols="30"
-                                        placeholder="Message"
-                                        rows="10"
-                                        className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"
-                                    ></textarea>
-                                    <button className="bg-blue-600 text-white w-full h-10 rounded-md">
-                                        Submit
-                                    </button>
+                            {avgRating ? (
+                                <div className="grid grid-cols-1 gap-6 mt-4 md:gap-8 md:mt-8">
+                                    <div className="flex flex-col gap-2 md:gap-3">
+                                        <div className="flex items-center gap-4">
+                                            <div className="">
+                                                <div className="flex items-center gap-1">
+                                                    {[...Array(fullStars ? fullStars : 0)].map(
+                                                        (_, index) => (
+                                                            <BsStarFill
+                                                                key={index}
+                                                                className="text-yellow-500 w-5 h-5 mdw-6 md:h-6"
+                                                            />
+                                                        )
+                                                    )}
+
+                                                    {hasHalfStar && (
+                                                        <BsStarHalf className="text-yellow-500 w-5 h-5 mdw-6 md:h-6" />
+                                                    )}
+
+                                                    {[
+                                                        ...Array(
+                                                            5 -
+                                                            (fullStars ? fullStars : 0) -
+                                                            (hasHalfStar ? 1 : 0)
+                                                        ),
+                                                    ].map((_, index) => (
+                                                        <BsStar
+                                                            key={index}
+                                                            className="text-gray-300 w-5 h-5 mdw-6 md:h-6"
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <span className="flex items-center gap-2">
+                                                <span className="text-black text-sm md:text-base">
+                                                    {avgRating.toFixed(1)} out of 5
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <span className="text-gray-600 text-xs md:text-sm">
+                                            {ratings?.length === 0
+                                                ? "No ratings yet"
+                                                : ratings?.length === 1
+                                                    ? "1 rating"
+                                                    : `${ratings?.length} ratings`}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex flex-col gap-4">
+                                        {[...ratings]?.reverse().map((rating, index) => (
+                                            <div key={index} className="flex items-start justify-start gap-2 md:gap-4 w-full">
+                                                <div className="">
+                                                    <img
+                                                        loading="lazy"
+                                                        src={
+                                                            rating.user?.image ||
+                                                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                                                        }
+                                                        alt=""
+                                                        className="w-8 md:w-9 md:h-9 rounded-full object-cover"
+                                                    />
+                                                </div>
+                                                <div className="flex flex-col gap-1 md:gap-2 w-full">
+                                                    <div className="">
+                                                        <span className="text-sm md:text-base">{rating.user.name}</span>
+                                                        <div className="flex gap-4 mt-0  md:mt-1">
+                                                            <div className="flex items-center">
+                                                                {[...Array(rating.rating)].map(
+                                                                    (_, index) => (
+                                                                        <AiFillStar
+                                                                            key={index}
+                                                                            className="text-yellow-500 w-3 h-3 md:w-4 md:h-4"
+                                                                        />
+                                                                    )
+                                                                )}
+                                                                {[...Array(5 - rating.rating)].map(
+                                                                    (_, index) => (
+                                                                        <AiFillStar
+                                                                            key={index}
+                                                                            className="text-gray-300 w-3 h-3 md:w-4 md:h-4"
+                                                                        />
+                                                                    )
+                                                                )}
+                                                            </div>
+                                                            <div className="text-gray-500 text-xs mr-4">
+                                                                {daysAgoFormatDate(rating.createdAt)}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <p className=" font-normal text-xs md:text-sm">
+                                                            {rating.review}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
+                            ) : (
+                                <div className="mt-4">
+                                    <span className="text-gray-600">No ratings yet</span>
+                                </div>
+                            )}
+                        </div>
+
+
+
+                        <div id="timings" className="border-b pb-10 w-full border-b-gray-300">
+                            <div className="flex items-center gap-3 md:gap-4">
+                                <FiClock className="text-black w-5 h-5 md:w-6 md:h-6" />
+                                <h2 className="text-lg md:text-2xl font-bold text-black">
+                                    Business Timings
+                                </h2>
+                            </div>
+
+                            <div className="flex flex-col gap-5 mt-4 text-sm md:text-base">
+                                {business.timing?.map((time, index) => (
+
+                                    time.isOpen && time.from && time.to && (
+                                        <div className="flex flex-col gap-1">
+                                            <span className="font-medium">{time.day}</span>
+                                            <div className=" flex items-center gap-2">
+                                                <span>{time.from}</span>
+                                                to
+                                                <span>{time.to}</span>
+                                            </div>
+                                        </div>
+                                    )
+
+
+
+                                ))}
+                            </div>
+                        </div>
+
+
+
+
+                        {/* faqs */}
+                        <div id="faq" className="w-full mb-10">
+                            <div className="flex items-center gap-3 md:gap-4">
+                                <FiHelpCircle className="text-black w-5 h-5 md:w-6 md:h-6" />
+                                <h2 className="text-lg md:text-2xl font-bold text-black">
+                                    FAQ's
+                                </h2>
+                            </div>
+                            <div className="flex flex-col gap-3 mt-4">
+
+
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": allFAQsSchema
+          }),
+        }}
+      />
+
+                                {business.faqs?.map((faq, index) => (
+                                    <Accordion
+                                        question={`${faq.question}`}
+                                        content={faq.answer}
+                                        key={index}
+                                    />
+                                ))}
                             </div>
                         </div>
                     </div>
-                    <ToastContainer />
                 </div>
+
+                {/* business bottom right */}
+                <div className="flex flex-col flex-[4.7] gap-6">
+                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-5">
+                        <div className="text-xl font-bold mb-3">
+                            <span>Rate us</span>
+                        </div>
+
+                        <div className="mb-4">
+                            <p className="text-gray-600 text-base my-2">
+                                How would you rate our service?
+                            </p>
+                            <div>
+                                <div className="flex items-center gap-1">
+                                    {[...Array(5)].map((_, index) => (
+                                        <AiFillStar
+                                            key={index}
+                                            className={`transition-all duration-75 w-8 h-8 cursor-pointer ${(hoveredStars > 0 ? hoveredStars : selectedStars) >
+                                                index
+                                                ? [
+                                                    "text-red-500",
+                                                    "text-orange-500",
+                                                    "text-yellow-500",
+                                                    "text-green-600",
+                                                    "text-blue-500",
+                                                ][
+                                                (hoveredStars > 0
+                                                    ? hoveredStars
+                                                    : selectedStars) - 1
+                                                ]
+                                                : "text-gray-300"
+                                                }`}
+                                            onMouseEnter={() => handleStarHover(index)}
+                                            onMouseLeave={handleStarLeave}
+                                            onClick={() => handleStarClick(index)}
+                                        />
+                                    ))}
+                                    {(hoveredStars > 0 ? hoveredStars : selectedStars) && (
+                                        <span className="ml-2 text-2xl">
+                                            {
+                                                ["😢", "😕", "😐", "🙂", "😄"][
+                                                (hoveredStars > 0
+                                                    ? hoveredStars
+                                                    : selectedStars) - 1
+                                                ]
+                                            }
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p className="text-gray-600 text-base my-2 mt-4">
+                                Share your experience
+                            </p>
+
+                            <div className="flex items-center flex-col gap-2">
+                                <textarea
+                                    name="text"
+                                    id=""
+                                    cols="30"
+                                    placeholder="This is a very good ..."
+                                    rows="10"
+                                    value={review}
+                                    className=" focus:outline-none w-full h-24 bg-gray-100 rounded-md px-4 py-2 resize-none"
+                                    onChange={(e) => setReview(e.target.value)}
+                                ></textarea>
+                                <button
+                                    className="bg-blue-600 text-white w-full h-10 rounded-md"
+                                    onClick={handleRating}
+                                >
+                                    {isReviewLoading ? (
+                                        <div
+                                            className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                            role="status"
+                                        >
+                                            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                                Loading...
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        "Rate"
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-5">
+                        <span className="text-xl font-bold">Any Query?</span>
+                        <p className="text-gray-500 text-sm my-2">
+                            Write to us and we will get back to you
+                        </p>
+                        <div className="flex items-center flex-col gap-2">
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                className="w-full h-10 bg-gray-100 rounded-md px-4"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Phone Number"
+                                className="w-full h-10 bg-gray-100 rounded-md px-4"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Email"
+                                className="w-full h-10 bg-gray-100 rounded-md px-4"
+                            />
+                            <textarea
+                                name="text"
+                                id=""
+                                cols="30"
+                                placeholder="Message"
+                                rows="10"
+                                className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"
+                            ></textarea>
+                            <button className="bg-blue-600 text-white w-full h-10 rounded-md">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ToastContainer />
+        </div>
         // </div>
     );
 };
