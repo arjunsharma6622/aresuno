@@ -4,9 +4,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 // import { userLogin } from "../../userSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiEye, FiEyeOff } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
+import InputBx from "./InputBx";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ const Register = () => {
     password: "",
     phone: "",
   });
+
+  const [queryParams] = useSearchParams()
 
   const [focusedField, setFocusedField] = useState(null);
 
@@ -135,6 +138,7 @@ const Register = () => {
       {next && (
         <section className="w-full max-w-md">
           <div className={` login w-full`}>
+            {/* <InputBx type={"text"} value={formData.name} onChange={handleChange}/> */}
             <div className="shadow-lg w-full p-8 bg-white rounded-xl">
               <div>
                 <button
@@ -156,7 +160,7 @@ const Register = () => {
               </h2>
               <form onSubmit={handleSubmit} className="w-full max-w-md">
                 <div className="field input-field mb-6 ">
-                  <div className="relative">
+                  {/* <div className="relative">
                     <span
                       className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  transition-all duration-75 ease-in ${
                         focusedField === "name" || formData.name
@@ -185,14 +189,16 @@ const Register = () => {
                       onFocus={() => handleFocus("name")}
                       onBlur={handleBlur}
                     />
-                  </div>
+                  </div> */}
+
+                  <InputBx type={"text"} value={formData.name} onChange={handleChange} placeholder={"Name"} name={"name"}/>
                   {errors.name && (
                     <p className="text-red-500 text-xs italic">{errors.name}</p>
                   )}
                 </div>
 
                 <div className="field input-field mb-6 ">
-                  <div className="relative">
+                  {/* <div className="relative">
                     <span
                       className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
                         focusedField === "email" || formData.email
@@ -220,7 +226,9 @@ const Register = () => {
                       onFocus={() => handleFocus("email")}
                       onBlur={handleBlur}
                     />
-                  </div>
+                  </div> */}
+
+                  <InputBx type={"email"} value={formData.email} onChange={handleChange} placeholder={"Email"} name={"email"}/>
                   {errors.email && (
                     <p className="text-red-500 text-xs italic">
                       {errors.email}

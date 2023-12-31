@@ -37,7 +37,7 @@ const Header = ({homePage}) => {
 
 
             <button className={` border ${homePage && "border-white"} border-black px-3 py-1 rounded-lg`}>
-            <Link className="">List your business</Link>
+            <Link className="" to={"/vendor/onboarding"}>List your business</Link>
           </button>
 
 
@@ -114,7 +114,7 @@ const Header = ({homePage}) => {
       ) : (
         <div className="flex gap-6 items-center">
           <button className={`border border-black ${homePage && "border-white"} px-3 py-1 rounded-lg`}>
-            <Link className="">List your business</Link>
+            <Link className="" to={"/signup"}>List your business</Link>
           </button>
           <button className="bg-white text-base border  text-blue-700 px-3 py-1 rounded-lg">
             <Link to="/login">Login</Link>

@@ -274,8 +274,10 @@ const AllCategories = () => {
     );
 };
 
-const Category = () => {
+const Category = ({}) => {
     const [categories, setCategories] = useState([{ categoryId : '', name: '', image: { url: null, altTag: "" } }]);
+
+    const categoriesToShow = useSelector(state => state.categories)
 
 
 
@@ -284,7 +286,6 @@ const Category = () => {
 
 
     const [newCategoryTitle, setNewCategoryTitle] = useState('');
-
 
 
 
@@ -468,6 +469,15 @@ const Category = () => {
 
 
 
+                        </div>
+
+
+                        <div className='flex flex-col gap-4 mt-8'>
+                            {
+                                [...categoriesToShow].reverse().map((category, index) => (
+                                    <p>{category.title}</p>
+                                ))
+                            }
                         </div>
 
 
