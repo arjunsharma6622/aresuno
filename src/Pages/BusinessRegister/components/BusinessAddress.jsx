@@ -31,6 +31,8 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
   };
   return (
     <div className="md:mt-6 md:mb-6">
+
+      
       <div className="flex items-center gap-2">
         <BiNavigation className="w-5 h-5 md:w-6 md:h-6" />
         <div className="flex items-center gap-4">

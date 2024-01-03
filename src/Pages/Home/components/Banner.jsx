@@ -14,6 +14,8 @@ const Banner = () => {
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
+  // const [crds, setCrds] = useState([]);
+  const [location, setLocation] = useState("");
 
   useEffect(() => {
     const fetchBanner = async () => {
@@ -34,6 +36,29 @@ const Banner = () => {
     subcategory.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleDetectLocation = async () => {
+    const success = async (pos) => {
+      const crds = pos.coords;
+      console.log(`Latitude: ${crds.latitude}`);
+      console.log(`Longitude: ${crds.longitude}`);
+      const location = await axios.post("http://localhost:8000/api/getLocationFromLatLong", {lat : crds.latitude, long : crds.longitude})
+      console.log(location.data);
+      setLocation(location.data);
+    }
+  
+    const error = (err) => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error)
+    } else {
+      alert("Geolocation is not supported by this browser.")
+    }
+
+
+  }
+
   return (
     <div className="relative flex-col self-stretch flex w-full items-center max-md:max-w-full  h-[45vh] bg-gradient-to-b from-blue-800 to-blue-900">
       {/* style={{backgroundImage: "linear-gradient(to right, #0f2027, #203a43, #2c5364)"}} */}
@@ -52,7 +77,7 @@ const Banner = () => {
           <p className="text-2xl md:text-4xl font-bold">Find your next service</p>
           <p className="text-base md:text-xl">at most affordable prices, from over 1000+ services</p>
         </div>
-        <div className="bg-white shadow-lg relative  self-stretch flex flex-col md:flex-row w-full items-center justify-between gap-[6px] px-[6px] py-[6px] rounded-lg md:rounded-2xl">
+        <div className="bg-white shadow-lg relative flex flex-col md:flex-row w-full items-center justify-between gap-[6px] px-[6px] py-[6px] rounded-lg md:rounded-2xl">
 
           <div className=" md:relative md:border-r-2 border-black rounded-tr-none rounded-br-none w-full h-full flex px-2 py-1 md:px-5 md:py-2 rounded-xl items-center gap-3 bg-white" >
             <FiHardDrive className="w-6 h-6"/>
@@ -86,8 +111,9 @@ const Banner = () => {
             <input
               className=" py-1 focus:outline-none text-sm text-black md:text-base w-full h-full"
               placeholder="Your location"
+              value={location}
             />
-            <FiCrosshair className="w-6 h-6 text-gray-500" />
+            <FiCrosshair className="w-6 h-6 text-gray-500" onClick={handleDetectLocation}/>
           </div>
 
           <div className="w-full flex items-center h-full bg-blue-600 rounded-xl px-3 py-2 md:px-5 md:py-2">

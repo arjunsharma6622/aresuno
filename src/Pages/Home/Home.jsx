@@ -35,7 +35,7 @@ const Home = () => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
       try {
-        const res = await axios.get("http://localhost:8000/api/userData", {
+        const res = await axios.get("https://aresuno-server.vercel.app/api/userData", {
           headers: { Authorization: `Bearer ${token}` },
           });
 
@@ -80,7 +80,7 @@ const Home = () => {
 
 
       <div className="bg-gray-300 h-[120px] md:h-[300px] w-full mt-5">
-        
+
   </div>
 
 
