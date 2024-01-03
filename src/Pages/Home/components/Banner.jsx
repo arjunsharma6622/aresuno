@@ -42,7 +42,8 @@ const Banner = () => {
       console.log(`Latitude: ${crds.latitude}`);
       console.log(`Longitude: ${crds.longitude}`);
       // const location = await axios.post("http://localhost:8000/api/getLocationFromLatLong", {lat : crds.latitude, long : crds.longitude})
-      const location = await axios.get(`http://localhost:8000/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`)
+      // const location = await axios.get(`http://localhost:8000/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`)
+      const location = await axios.get(`https://aresuno-server.vercel.app/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`)
       console.log(location.data);
       setLocation(location.data);
     }
