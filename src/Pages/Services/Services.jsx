@@ -8,10 +8,16 @@ import NotFound from "../NotFound/NotFound";
 
 const Services = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
-  const { subCategoryName } = useParams();
+  const { subCategoryName, city } = useParams();
+  const extractedCity = city.split("-").join(" ");
+  console.log(city)
   const extractedName = subCategoryName.split("-").join(" ");
   console.log(extractedName);
   const [isLoading, setIsLoading] = useState(false);
+
+  const coordinates = useSelector((state) => {
+    return state.user.coordinates;
+  })
 
   const subCategoryId = useSelector((state) => {
     // Use flatMap to flatten the array of subcategories
@@ -35,10 +41,14 @@ const Services = () => {
       // setIsLoading(true)
       setIsLoading(true);
 
+      // const res = await axios.get(
+      //   `https://aresuno-server.vercel.app/api/business/getbusinessesbycategory/${subCategoryId}`
+      //   // `http://localhost:8000/api/business/getbusinessesbycategory/${subCategoryId}`
+      // );
+
       const res = await axios.get(
-        `https://aresuno-server.vercel.app/api/business/getbusinessesbycategory/${subCategoryId}`
-        // `http://localhost:8000/api/business/getbusinessesbycategory/${subCategoryId}`
-      );
+        `http://localhost:8000/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryId=${subCategoryId}`
+      )
       setAllBusinesses(res.data);
       console.log(res.data);
       setIsLoading(false)

@@ -5,7 +5,12 @@ const userSlice = createSlice({
     initialState : {
         name : "",
         userType : "",
-        image : ""
+        image : "",
+        coordinates : {
+            lat : "",
+            lng : ""
+        },
+        locationName : ""
     },
     reducers : {
         userLogin  : (state, action) => {
@@ -19,9 +24,21 @@ const userSlice = createSlice({
             state.name = "",
             state.userType = "",
             state.image = ""
+        },
+        setUserCoordinates : (state, action) => {
+            const {lat, lng} = action.payload
+            state.coordinates = {
+                lat,
+                lng
+            }
+            
+        },
+        setUserLocationName : (state, action) => {
+            const {locationName} = action.payload
+            state.locationName = locationName
         }
     }
 })
 
-export const { userLogin, userLogout } = userSlice.actions
+export const { userLogin, userLogout, setUserCoordinates, setUserLocationName } = userSlice.actions
 export default userSlice.reducer

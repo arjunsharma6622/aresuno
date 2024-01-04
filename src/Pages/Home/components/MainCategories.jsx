@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const MainCategories = () => {
   const categories = useSelector((state) => state.categories);
+  const userLocationName = useSelector((state) => state.user.locationName);
 
 
   return (
@@ -17,7 +18,7 @@ const MainCategories = () => {
         <div className="flex flex-wrap gap-4 md:gap-10 justify-center items-start">
           {categories.slice(0,2).map((category, index) => (
             category.subcategories.slice(0, 6).map((subCategory, index) => (
-              <Link key={index} to={`/${subCategory.name.split(" ").join("-").toLowerCase()}`} className="">
+              <Link key={index} to={`${userLocationName.toLowerCase()}/${subCategory.name.split(" ").join("-").toLowerCase()}`} className="">
               <div
                 key={index}
                 className="flex flex-col gap-3 items-center justify-center w-24 md:w-32 h-full"

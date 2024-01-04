@@ -105,7 +105,7 @@ useLayoutEffect(() => {
           <Route path={"/business/:businessName"} element={<Business />} />
           <Route path={"/business/edit/:id"} element={<BusinessEdit />} />
           <Route path={"/admin"} element={<AdminDashboard />} />
-          <Route path={"/:subCategoryName"} element={<Services />} />
+          <Route path={"/:city/:subCategoryName"} element={<Services />} />
 
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />

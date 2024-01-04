@@ -7,6 +7,7 @@ import axios from "axios";
 import { getBanner } from "../../../state/slices/bannerSlice";
 import Header from "../../../Components/Header/Header";
 import { Link } from "react-router-dom";
+import {setUserCoordinates, setUserLocationName} from "../../../state/slices/userSlice";
 
 const Banner = () => {
   const bannerUrl = useSelector((state) => state.banner.url);
@@ -16,6 +17,38 @@ const Banner = () => {
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
   // const [crds, setCrds] = useState([]);
   const [location, setLocation] = useState("");
+  const [coordinates, setCoordinates] = useState([]);
+  const [slugLocationName, setSlugLocationName] = useState("");
+
+
+  
+  useEffect(() => {
+    // Initialize Google Places Autocomplete
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      document.getElementById('location-input')
+    );
+
+    // Listen for the 'place_changed' event
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      console.log(place)
+      if (place.geometry) {
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+        // setCoordinates([lat, lng]);
+        dispatch(setUserCoordinates({lat, lng}))
+        dispatch(setUserLocationName({locationName: place.name}))
+        
+        setSlugLocationName(place.name)
+        // Use lat and lng to fetch nearby businesses or update the state
+        console.log('Latitude:', lat);
+        console.log('Longitude:', lng);
+      }
+    });
+  }, []);
+
+
+  
 
   useEffect(() => {
     const fetchBanner = async () => {
@@ -114,6 +147,8 @@ const Banner = () => {
               className=" py-1 focus:outline-none text-sm text-black md:text-base w-full h-full"
               placeholder="Your location"
               value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              id="location-input"
             />
             <FiCrosshair className="w-6 h-6 text-gray-500" onClick={handleDetectLocation}/>
           </div>
