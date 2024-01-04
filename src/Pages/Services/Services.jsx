@@ -47,7 +47,8 @@ const Services = () => {
       // );
 
       const res = await axios.get(
-        `http://localhost:8000/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryId=${subCategoryId}`
+        // `http://localhost:8000/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryId=${subCategoryId}`
+        `https://aresuno-server.vercel.app/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryId=${subCategoryId}`
       )
       setAllBusinesses(res.data);
       console.log(res.data);
