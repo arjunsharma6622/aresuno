@@ -15,6 +15,7 @@ const Header = ({homePage}) => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
+  const userLocationName = useSelector((state) => state.user.locationName);
 
   return (
     <div className="w-full">
@@ -31,7 +32,7 @@ const Header = ({homePage}) => {
 
             <div className="flex items-center gap-2">
                 <FiMapPin className="w-5 h-5" />
-                Delhi
+                {userLocationName}
             </div>
 
 
@@ -113,6 +114,11 @@ const Header = ({homePage}) => {
         </div>
       ) : (
         <div className="flex gap-6 items-center">
+                      <div className="flex items-center gap-2">
+                <FiMapPin className="w-5 h-5" />
+                {userLocationName}
+            </div>
+
           <button className={`border border-black ${homePage && "border-white"} px-3 py-1 rounded-lg`}>
             <Link className="" to={"/signup"}>List your business</Link>
           </button>
@@ -183,7 +189,7 @@ const Header = ({homePage}) => {
 
         <div className="flex items-center gap-4 mt-5">
             <FiMapPin className="w-5 h-5" />
-            <span>Delhi</span>
+            <span>{userLocationName}</span>
         </div>
 
         <div className="">

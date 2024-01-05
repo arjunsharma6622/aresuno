@@ -7,10 +7,10 @@ const userSlice = createSlice({
         userType : "",
         image : "",
         coordinates : {
-            lat : "",
-            lng : ""
+            lat : "17.3666403",
+            lng : "78.5205603"
         },
-        locationName : ""
+        locationName : "Hyderabad"
     },
     reducers : {
         userLogin  : (state, action) => {

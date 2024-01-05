@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { getBanner } from "../../../state/slices/bannerSlice";
 import Header from "../../../Components/Header/Header";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {setUserCoordinates, setUserLocationName} from "../../../state/slices/userSlice";
 
 const Banner = () => {
@@ -16,36 +16,83 @@ const Banner = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
   // const [crds, setCrds] = useState([]);
-  const [location, setLocation] = useState("");
   const [coordinates, setCoordinates] = useState([]);
   const [slugLocationName, setSlugLocationName] = useState("");
 
+  const userLocationName = useSelector((state) => state.user.locationName);
+  const [location, setLocation] = useState(userLocationName);
+
+  const [autoDetectHovered, setAutoDetectHovered] = useState(false);
+
+  const navigate = useNavigate()
+
+
 
   
+  // useEffect(() => {
+  //   // Initialize Google Places Autocomplete
+  //   const autocomplete = new window.google.maps.places.Autocomplete(
+  //     document.getElementById('location-input')
+  //   );
+
+  //   // Listen for the 'place_changed' event
+  //   autocomplete.addListener('place_changed', () => {
+  //     const place = autocomplete.getPlace();
+  //     console.log(place)
+  //     if (place.geometry) {
+  //       const lat = place.geometry.location.lat();
+  //       const lng = place.geometry.location.lng();
+  //       // setCoordinates([lat, lng]);
+  //       dispatch(setUserCoordinates({lat, lng}))
+  //       dispatch(setUserLocationName({locationName: place.name}))
+        
+  //       setSlugLocationName(place.name)
+  //       // Use lat and lng to fetch nearby businesses or update the state
+  //       console.log('Latitude:', lat);
+  //       console.log('Longitude:', lng);
+  //     }
+  //   });
+  // }, []);
+
+
+
+
   useEffect(() => {
     // Initialize Google Places Autocomplete
     const autocomplete = new window.google.maps.places.Autocomplete(
       document.getElementById('location-input')
     );
-
+  
     // Listen for the 'place_changed' event
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
-      console.log(place)
-      if (place.geometry) {
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
-        // setCoordinates([lat, lng]);
-        dispatch(setUserCoordinates({lat, lng}))
-        dispatch(setUserLocationName({locationName: place.name}))
+      if (place.geometry && place.address_components) {
+        // Construct the desired format from the selected place details
+        const formattedLocation = {
+          value: place.formatted_address,
+          area: '', // You can set this value based on your requirements
+          city: place.address_components.find(component => component.types.includes('locality'))?.long_name || '',
+          dcity: place.address_components.find(component => component.types.includes('administrative_area_level_2'))?.long_name || '',
+          state: place.address_components.find(component => component.types.includes('administrative_area_level_1'))?.long_name || '',
+          country: place.address_components.find(component => component.types.includes('country'))?.long_name || '',
+          pincode: place.address_components.find(component => component.types.includes('postal_code'))?.long_name || '',
+          lat: place.geometry.location.lat(),
+          long: place.geometry.location.lng(),
+          type: 'City', // You can set this value based on your requirements
+          mobicode: 'in', // You can set this value based on your requirements
+          isExact: 0 // You can set this value based on your requirements
+        };
+  
+        console.log(formattedLocation);
+        dispatch(setUserCoordinates({lat: formattedLocation.lat, lng: formattedLocation.long}))
+        dispatch(setUserLocationName({locationName: formattedLocation.city}))
         
-        setSlugLocationName(place.name)
-        // Use lat and lng to fetch nearby businesses or update the state
-        console.log('Latitude:', lat);
-        console.log('Longitude:', lng);
+        setSlugLocationName(formattedLocation.city)
+        // Here, you can dispatch an action or set the state with the formattedLocation object as needed
       }
     });
   }, []);
+  
 
 
   
@@ -78,7 +125,9 @@ const Banner = () => {
       // const location = await axios.get(`http://localhost:8000/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`)
       const location = await axios.get(`https://aresuno-server.vercel.app/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`)
       console.log(location.data);
-      setLocation(location.data);
+      setLocation(location.data.city);
+      dispatch(setUserCoordinates({lat: crds.latitude, lng: crds.longitude}))
+      dispatch(setUserLocationName({locationName: location.data.city}))
     }
   
     const error = (err) => {
@@ -106,59 +155,68 @@ const Banner = () => {
         src={bannerUrl}
         className="absolute h-full w-full object-cover object-center inset-0"
       />
-      <div className="absolute -bottom-32 md:-bottom-8 z-[10] m-auto px-5 md:px-0  max-w-[1100px] flex w-full flex-col max-md:max-w-full max-md:my-10 gap-4 md:gap-10 items-start justify-start">
+      <div className="absolute -bottom-6 md:bottom-4 z-[10] m-auto px-5 md:px-0  max-w-[1100px] flex w-full flex-col max-md:max-w-full max-md:my-10 gap-4 md:gap-10 items-start justify-start">
         <div className="text-white   max-md:max-w-full flex flex-col gap-1 md:gap-2">
           {/* <p className="text-5xl font-bold">Welcome to Aresuno</p> */}
           <p className="text-2xl md:text-4xl font-bold">Find your next service</p>
-          <p className="text-base md:text-xl">at most affordable prices, from over 1000+ services</p>
+          <p className="text-sm md:text-xl">at most affordable prices, from over 1000+ services</p>
         </div>
-        <div className="bg-white shadow-lg relative flex flex-col md:flex-row w-full items-center justify-between gap-[6px] px-[6px] py-[6px] rounded-lg md:rounded-2xl">
+        <div className="relative flex flex-col md:flex-row w-full items-center justify-between gap-2 md:px-2 md:py-2 rounded-lg md:rounded-2xl">
 
-          <div className=" md:relative md:border-r-2 border-black rounded-tr-none rounded-br-none w-full h-full flex px-2 py-1 md:px-5 md:py-2 rounded-xl items-center gap-3 bg-white" >
-            <FiHardDrive className="w-6 h-6"/>
-            <input
-              className=" py-1 focus:outline-none text-sm text-black md:text-base w-full h-full"
-              placeholder="What are you looking for?"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => setIsSearchBoxFocused(true)}
-              // onBlur={() => setIsSearchBoxFocused(false)}
-            />
-{ searchQuery && isSearchBoxFocused &&
-            <div className="absolute z-10 px-2 md:px-4 max-h-72 overflow-y-auto py-3 md:py-5 bg-white shadow-xl w-full top-10  md:top-14 rounded-b-xl left-0 text-sm md:text-base">
-              <div className="flex flex-col gap-1 md:gap-2">
-              {filteredSubcategories?.map((category, index) => (
-                <Link to={`/${category.name.split(" ").join("-").toLowerCase()}`} key={index}>
-                <p key={category.name}>{category.name}</p>
-                </Link>
-              ))}
 
-              {filteredSubcategories.length === 0 && <p>No results found</p>}
+<div className="flex-[3] px-4 py-2 w-full h-full flex items-center gap-2 bg-white rounded-xl relative">
+  <FiNavigation className="w-6 h-6" />
+  <input
+    className="py-1 focus:outline-none text-sm text-black md:text-base w-full h-full"
+    placeholder="Your location"
+    value={location}
+    onChange={(e) => setLocation(e.target.value)}
+    id="location-input"
+  />
+<div className="relative group">
+  <FiCrosshair className="w-6 h-6 text-gray-500 hover:text-gray-800 cursor-pointer" onClick={handleDetectLocation} onMouseEnter={() => setAutoDetectHovered(true)} onMouseLeave={() => setAutoDetectHovered(false)}/>
+  <div className={`w-48 px-2 py-2 absolute z-10 top-10 left-1/2 transform -translate-x-1/2 p-1 text-xs bg-black text-white rounded ${autoDetectHovered ? "block" : "hidden"}  transition ease-in-out duration-150`}>
+    Click to autodetect location
+  </div>
+</div>
 
-            </div>
-            </div>
 
-              }
-          </div>
 
-          <div className=" w-full h-full flex px-2 py-1 md:px-5 md:py-2 rounded-xl items-center gap-3 bg-white">
-            <FiNavigation className="w-6 h-6"/>
-            <input
-              className=" py-1 focus:outline-none text-sm text-black md:text-base w-full h-full"
-              placeholder="Your location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              id="location-input"
-            />
-            <FiCrosshair className="w-6 h-6 text-gray-500" onClick={handleDetectLocation}/>
-          </div>
 
-          <div className="w-full flex items-center h-full bg-blue-600 rounded-xl px-3 py-2 md:px-5 md:py-2">
-            <button className="text-base text-white text-center w-full">
-              Search
-            </button>
-          </div>
-        </div>
+</div>
+
+
+<div className="flex-[5] px-4 py-2 relative w-full h-full flex items-center gap-2 bg-white rounded-xl">
+  <FiHardDrive className="w-6 h-6"/>
+  <input
+    className="py-1 focus:outline-none text-sm text-black md:text-base w-full h-full"
+    placeholder="What are you looking for?"
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    onFocus={() => setIsSearchBoxFocused(true)}
+  />
+
+  {searchQuery && isSearchBoxFocused && (
+    <div className="absolute z-10 px-2 md:px-4 max-h-72 overflow-y-auto py-3 md:py-5 bg-white shadow-xl w-full top-10 md:top-12 rounded-b-xl left-0 text-sm md:text-base">
+      <div className="flex flex-col gap-1 md:gap-2">
+        {filteredSubcategories?.map((category, index) => (
+          <Link to={`/${userLocationName.toLowerCase()}/${category.name.split(" ").join("-").toLowerCase()}`} key={index}>
+            <p key={category.name}>{category.name}</p>
+          </Link>
+        ))}
+        {filteredSubcategories.length === 0 && <p>No results found</p>}
+      </div>
+    </div>
+  )}
+</div>
+
+<div className="hidden md:flex flex-[2] px-4 py-2 w-full items-center h-full bg-blue-600 rounded-xl">
+  <button className="text-base text-white text-center w-full h-full py-1" onClick={() => navigate(`/${userLocationName.toLowerCase()}/${searchQuery}`)}>
+    Search
+  </button>
+</div>
+</div>
+
       </div>
     </div>
   );
