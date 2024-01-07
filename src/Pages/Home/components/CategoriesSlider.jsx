@@ -80,10 +80,12 @@ import { Link } from 'react-router-dom';
 import { Navigation } from 'swiper/modules';
 import { SwiperSlide, Swiper } from 'swiper/react';
 
-const CategoriesSlider = ({ category }) => {
+const CategoriesSlider = ({ categories, categoryTitle }) => {
   const [swiper, setSwiper] = useState(null);
   const [isStart, setIsStart] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
+  console.log(categories)
 
 
 
@@ -107,7 +109,7 @@ const CategoriesSlider = ({ category }) => {
         modules={[Navigation]}
         slidesPerView={4}
         spaceBetween={30}
-        navigation={{ nextEl: `.arrow-right-${category.title}`, prevEl: `.arrow-left-${category.title}` }}
+        navigation={{ nextEl: `.arrow-right-${categoryTitle.title}`, prevEl: `.arrow-left-${categoryTitle.title}` }}
         autoHeight={true}
         pagination={{ clickable: true, dynamicBullets: true }}
         onSwiper={handleSwiper}
@@ -128,7 +130,7 @@ const CategoriesSlider = ({ category }) => {
           },
         }}
       >
-        {category.subcategories?.map((subCategory, index) => (
+        {categories?.map((subCategory, index) => (
           <SwiperSlide key={index} className="">
             <Link
               to={`/${subCategory.name.replace(/\s+/g, "-").toLowerCase()}`}
@@ -160,7 +162,7 @@ const CategoriesSlider = ({ category }) => {
       { !isStart &&
 
         <button
-          className={`arrow-right-${category.title} arrow shadow-lg bg-gray-100/30 backdrop-blur-lg rounded-full p-[6px] absolute top-1/2 transform -translate-y-1/2 -left-4 z-[20] cursor-pointer `}
+          className={`arrow-right-${categoryTitle.title} arrow shadow-lg bg-gray-100/30 backdrop-blur-lg rounded-full p-[6px] absolute top-1/2 transform -translate-y-1/2 -left-4 z-[20] cursor-pointer `}
           onClick={() => swiper.slidePrev()}
         >
           <FiChevronLeft className="w-5 h-5" />
@@ -172,7 +174,7 @@ const CategoriesSlider = ({ category }) => {
 { !isEnd &&
 
         <button
-          className={`arrow-left-${category.title} arrow shadow-lg bg-gray-100/30 backdrop-blur-lg rounded-full p-[6px] absolute top-1/2 transform -translate-y-1/2 -right-4 z-[20] cursor-pointer`}
+          className={`arrow-left-${categoryTitle.title} arrow shadow-lg bg-gray-100/30 backdrop-blur-lg rounded-full p-[6px] absolute top-1/2 transform -translate-y-1/2 -right-4 z-[20] cursor-pointer`}
           onClick={() => swiper.slideNext()}
         >
           <FiChevronRight className="w-5 h-5" />

@@ -205,13 +205,13 @@ const Posts = ({ posts, businesses }) => {
 
 
       <div className="mt-6">
-        <h2 className="text-lg md:text-2xl font-semibold">Posts</h2>
+        <h2 className="text-lg md:text-2xl font-semibold">Business Posts</h2>
 
-        <div className="flex flex-col md:flex-row justify-between gap-6">
-          <div className="flex-[6] w-full  rounded ">
-            <h2 className=" md:mb-4 text-base font-medium mb-2 underline">Add new post</h2>
+        <div className="flex flex-col md:flex-row justify-between py-4 px-4  gap-6">
+          <div className="flex-[6] w-full   rounded-lg bg-white border border-gray-200 shadow-lg md:pb-8 md:p-6 md:py-5">
+            <h2 className=" md:mb-4 text-xl font-medium mb-2">Add new post</h2>
 
-            <div className="flex flex-col gap-4 mb-4 bg-white md:p-4 md:py-6 rounded-lg">
+            <div className="flex flex-col gap-4 mb-4  rounded-lg">
               {image && (
                 <div>
                   <div className="w-full relative">
@@ -294,7 +294,8 @@ const Posts = ({ posts, businesses }) => {
             </div>
           </div>
 
-          <div className="flex-[6] w-full rounded hidden md:block">
+{ posts.length > 0 ?
+          <div className="flex-[6] w-full  rounded hidden md:block">
             <h2 className="mb-4 text-base font-semibold">Recent Posts</h2>
 
             <div className="relative">
@@ -315,9 +316,21 @@ const Posts = ({ posts, businesses }) => {
               <div className="gradient-overlay-bottom"></div>
             </div>
           </div>
+
+          :
+
+          (
+            <div className="border h-64 border-dashed border-black flex-[6] w-full items-center hidden md:flex justify-center rounded">
+              <h2 className="text-2xl font-semibold">No Posts Yet!</h2>
+            </div>
+          )
+}
+
+
         </div>
       </div>
 
+{ posts.length > 0 &&
 <div className="mt-6">
 
       <h1 className="text-lg md:text-2xl font-semibold mb-6">
@@ -413,6 +426,7 @@ const Posts = ({ posts, businesses }) => {
       )}
 
 </div>
+}
 
 
     </div>

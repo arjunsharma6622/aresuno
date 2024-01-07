@@ -200,6 +200,9 @@ const [descriptionError, setDescriptionError] = useState("");
           </div>
         </div>
 
+
+
+
         <div className="flex flex-col w-full">
         <div className="flex gap-2 items-center">
             <label htmlFor="">About your business <span className="text-red-500 text-sm">*</span></label>
@@ -216,7 +219,25 @@ const [descriptionError, setDescriptionError] = useState("");
             onChange={handleBusinessDetailsChange}
           ></textarea>
         </div>
-        <div className="flex flex-col w-full">
+
+
+
+        <div className="flex gap-4">
+        <div className="flex-[3] w-full">
+        <label>Founded In <span className="text-red-500 text-sm">*</span></label>
+          <div className="flex items-center gap-4 mt-2">
+            <input
+              type="date"
+              name="foundedIn"
+              value={businessDetails.foundedIn}
+              id=""
+              placeholder="When was your business found"
+              className="flex-[8] rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
+              onChange={handleBusinessDetailsChange}
+            />
+          </div>
+        </div>
+        <div className="flex-[9] flex flex-col w-full">
           <label>What services you offer <span className="text-red-500 text-sm">*</span></label>
           <div className="flex items-center gap-4 mt-2">
             <input
@@ -255,6 +276,9 @@ const [descriptionError, setDescriptionError] = useState("");
             ))}
           </div>
         </div>
+
+        </div>
+
       </div>
     </div>
   );

@@ -223,6 +223,21 @@ const Sidebar = ({ user }) => {
             </div>
           </Link>
         ))}
+
+<div className="w-full p-2 px-4">
+          <button
+            className={` flex gap-3 items-center justify-start  rounded-md`}
+            onClick={() => {
+              localStorage.removeItem("token");
+              dispatch(userLogout());
+              navigate("/");
+            }}
+          >
+            <FiLogOut className="w-5 h-5 text-red-500"/>
+            <span className="text-sm text-red-500">Logout</span> 
+          </button>
+      </div>
+
       </div>
 
       </div>

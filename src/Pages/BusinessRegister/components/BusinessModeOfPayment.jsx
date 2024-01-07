@@ -4,24 +4,19 @@ import { MdPayment } from 'react-icons/md';
 const BusinessModeOfPayment = ({businessDetails, setBusinessDetails}) => {
 
     const paymentModes = [
-        "UPI",
         "Cash",
-        "Credit Card",
-        "Debit Card",
-        "Net Banking",
-        "EMI",
-        "Wallet",
-        "American Express",
+        "UPI",
+        "Card",
         "Master Card",
         "Visa",
-        "Other",
-        "Paytm",
+        "Rupay",
         "PhonePe",
         "Google Pay",
+        "Paytm",
         "Apple Pay",
-        "Paytm Wallet",
         "Amazon Pay",
         "Razorpay",
+        "American Express",
       ];
 
     const handlModeOfPaymentClick = (option) => {

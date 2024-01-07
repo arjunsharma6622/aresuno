@@ -168,7 +168,7 @@ const Profile = ({ user }) => {
 }
       </div>
 
-      <div className="flex w-full flex-col items-center justify-between gap-8">
+      <div className="flex w-full flex-col items-center md:flex-row md:items-start justify-between gap-8">
         <div className="px-3 py-3 w-full md:w-1/2 bg-white md:px-8 md:py-10 rounded-xl border md:shadow-lg">
 
           <div className="flex justify-between items-center">
@@ -231,7 +231,7 @@ const Profile = ({ user }) => {
           </div>
         </div>
 
-        <div className="px-3 py-3 w-full bg-white md:p-6 md:py-10 rounded-xl border md:shadow-lg">
+        <div className="px-3 py-3 w-full md:w-1/2 bg-white md:p-6 md:py-10 rounded-xl border md:shadow-lg">
           <div className="flex justify-between items-center">
             <h2 className="text-base md:text-lg font-medium">Change Password</h2>
 

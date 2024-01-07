@@ -27,36 +27,6 @@ const Banner = () => {
   const navigate = useNavigate()
 
 
-
-  
-  // useEffect(() => {
-  //   // Initialize Google Places Autocomplete
-  //   const autocomplete = new window.google.maps.places.Autocomplete(
-  //     document.getElementById('location-input')
-  //   );
-
-  //   // Listen for the 'place_changed' event
-  //   autocomplete.addListener('place_changed', () => {
-  //     const place = autocomplete.getPlace();
-  //     console.log(place)
-  //     if (place.geometry) {
-  //       const lat = place.geometry.location.lat();
-  //       const lng = place.geometry.location.lng();
-  //       // setCoordinates([lat, lng]);
-  //       dispatch(setUserCoordinates({lat, lng}))
-  //       dispatch(setUserLocationName({locationName: place.name}))
-        
-  //       setSlugLocationName(place.name)
-  //       // Use lat and lng to fetch nearby businesses or update the state
-  //       console.log('Latitude:', lat);
-  //       console.log('Longitude:', lng);
-  //     }
-  //   });
-  // }, []);
-
-
-
-
   useEffect(() => {
     // Initialize Google Places Autocomplete
     const autocomplete = new window.google.maps.places.Autocomplete(
@@ -92,6 +62,8 @@ const Banner = () => {
       }
     });
   }, []);
+
+  console.log(categories)
   
 
 
@@ -112,9 +84,7 @@ const Banner = () => {
     fetchBanner();
   }, [dispatch]);
 
-  const filteredSubcategories = categories.flatMap((category) => category.subcategories).filter((subcategory) => 
-    subcategory.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredSubcategories = categories.filter((category) => category.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const handleDetectLocation = async () => {
     const success = async (pos) => {

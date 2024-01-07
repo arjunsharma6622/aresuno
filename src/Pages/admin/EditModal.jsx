@@ -5,27 +5,29 @@ import { toast } from "react-toastify";
 import { FiCamera, FiEdit3, FiX } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
 
-export default function EditModal({ categoryId, subCategory, onClose, mainCategory }) {
+export default function EditModal({ category, onClose, categoryTitle }) {
   const [open, setOpen] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
-  const editUrl = subCategory ? `https://aresuno-server.vercel.app/api/category/updatesubcategory/${categoryId}/${subCategory._id}` : `https://aresuno-server.vercel.app/api/category/${mainCategory._id}`;
-  // const editUrl = subCategory ? `http://localhost:8000/api/category/updatesubcategory/${categoryId}/${subCategory._id}` : `http://localhost:8000/api/category/${mainCategory._id}`;
+  // const editUrl = category ? `https://aresuno-server.vercel.app/api/category/${category._id}` : `https://aresuno-server.vercel.app/api/category-title/${categoryTitle._id}`;
+  // const editUrl = category ? `http://localhost:8000/api/category/${category._id}` : `http://localhost:8000/api/category-title/${categoryTitle._id}`;
+  const editUrl = category ? `https://aresuno-server.vercel.app/api/category/${category._id}` : `http://localhost:8000/api/category-title/${categoryTitle._id}`;
 
   const [imageToUpdate, setImageToUpdate] = useState(null);
   const [imageToShow, setImageToShow] = useState(null);
 
-  const [icon, setIcon] = useState(null);
-  const [iconToShow, setIconToShow] = useState(subCategory ? subCategory.icon : null);
+  const [showOnHome, setShowOnHome] = useState(category ? category.showOnHome :  categoryTitle.showOnHome);
 
-  const [subCategoryToEdit, setSubCategoryToEdit] = useState(subCategory);
-  const [mainCategoryToEdit, setMainCategoryToEdit] = useState(mainCategory);
+  const [icon, setIcon] = useState(null);
+  const [iconToShow, setIconToShow] = useState(category ? category.icon : null);
+
+  const [subCategoryToEdit, setSubCategoryToEdit] = useState(category);
+  const [mainCategoryToEdit, setMainCategoryToEdit] = useState(categoryTitle);
 
   console.log(`SubCategoryToEdit is`)
   console.log(subCategoryToEdit)
-  // console.log(`MainCategoryToEdit is` + mainCategoryToEdit)
   
 
-  console.log(`The cat is ${subCategory ? subCategory.name : mainCategory.name}`)
+  console.log(`The cat is ${category ? category.name : categoryTitle.title}`)
 
   const handleImageChange = (e) => {
     setImageToUpdate(e.target.files[0])
@@ -76,7 +78,7 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
   const handleMainCategoryUpdate = async () => {
     try {
       setIsUpdating(true);
-      const res = await axios.put(editUrl, mainCategoryToEdit );
+      const res = await axios.put(editUrl, {...mainCategoryToEdit, showOnHome : showOnHome} );
       console.log(res);
       toast.success("Main Category Updated");
       onClose();
@@ -128,7 +130,7 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
       console.log(subCatToEdit);
 
 
-      const res = await axios.put(editUrl, subCatToEdit );
+      const res = await axios.put(editUrl, {...subCatToEdit, showOnHome : showOnHome} );
       console.log(res);
       toast.success("Sub Category Updated");
       onClose();
@@ -161,10 +163,12 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
             <div className="mt-4 text-center">
               <h3 className="text-lg font-medium">
                 Edit
-                <span className="font-bold underline"> {subCategory? subCategory.name : mainCategory.title }</span>{" "}
+                <span className="font-bold underline"> {category? category.name : categoryTitle.title }</span>{" "}
                 Category
               </h3>
             </div>
+
+
             <div className="mt-8 flex items-start gap-2 flex-col w-[80%] m-auto justify-center">
 
 { subCategoryToEdit &&
@@ -209,33 +213,94 @@ export default function EditModal({ categoryId, subCategory, onClose, mainCatego
 
 {subCategoryToEdit ? 
 
-<div className="w-full flex flex-col gap-1 text-sm">
-    <label htmlFor="subCategoryName">Name</label>
+<div className="w-full flex flex-col gap-4 text-sm">
+  <div className="w-full flex flex-col gap-1 text-sm">
+    <label htmlFor="subCategoryName" className="font-medium text-base">Name</label>
     <input type="text" id="subCategoryName" value={subCategoryToEdit.name} onChange={e => setSubCategoryToEdit({...subCategoryToEdit, name: e.target.value})} className="text-base w-full border border-gray-300 p-2 rounded-md"/>
     </div>
-    :
-<div className="w-full flex flex-col gap-1 text-sm">
-    <label htmlFor="mainCategoryName">Name</label>
-    <input type="text" id="mainCategoryName" value={mainCategoryToEdit.title} onChange={e => setMainCategoryToEdit({...mainCategoryToEdit, title: e.target.value})} className="text-base w-full border border-gray-300 p-2 rounded-md"/>
-    </div>
-  }
 
-{
-  subCategoryToEdit && 
-
-<div className="w-full flex flex-col gap-1 text-sm">
-  <label htmlFor="altTag">Image Alt Tag</label>
+  <div className="w-full flex flex-col gap-1 text-sm">
+  <label htmlFor="altTag" className="font-medium text-base">Image Alt Tag</label>
 
   <input type="text" id="altTag" value={subCategoryToEdit.image.altTag} className="text-base w-full border border-gray-300 p-2 rounded-md" onChange={e => setSubCategoryToEdit({...subCategoryToEdit, image: {...subCategoryToEdit.image, altTag: e.target.value}})}/>
   </div>
-}
+
+  <div className="w-full flex flex-col gap-1 text-sm">
+    <label htmlFor="showOnHome" className="font-medium text-base">Show on Home Page</label>
+    <div className="flex items-center gap-3 cursor-pointer">
+      <input 
+        type="radio" 
+        name="showOnHome" 
+        id="show" 
+        value={true} 
+        checked={showOnHome === true} 
+        onChange={e => setShowOnHome(true)}
+        className="cursor-pointer"
+      />
+      <label htmlFor="show">Show</label>
+    </div>
+    
+    <div className="flex items-center gap-3 cursor-pointer">
+      <input 
+        type="radio" 
+        name="showOnHome" 
+        id="dontShow" 
+        value={false} 
+        checked={showOnHome === false} 
+        onChange={e => setShowOnHome(false)}
+        className="cursor-pointer"
+      />
+      <label htmlFor="dontShow">Don't Show</label>
+    </div>
+  </div>
+    </div>
+    :
+<div className="w-full flex flex-col gap-4 text-sm">
+
+  <div className="w-full flex flex-col gap-1 text-sm">
+    <label htmlFor="mainCategoryName" className="font-medium text-base">Name</label>
+    <input type="text" id="mainCategoryName" value={mainCategoryToEdit.title} onChange={e => setMainCategoryToEdit({...mainCategoryToEdit, title: e.target.value})} className="text-base w-full border border-gray-300 p-2 rounded-md"/>
+    </div>
+
+
+    <div className="w-full flex flex-col gap-1 text-sm">
+    <label htmlFor="showOnHome" className="font-medium text-base">Show on Home Page</label>
+    <div className="flex items-center gap-3 cursor-pointer">
+      <input 
+        type="radio" 
+        name="showOnHome" 
+        id="show" 
+        value={true} 
+        checked={showOnHome === true} 
+        onChange={e => setShowOnHome(true)}
+        className="cursor-pointer"
+      />
+      <label htmlFor="show">Show</label>
+    </div>
+    
+    <div className="flex items-center gap-3 cursor-pointer">
+      <input 
+        type="radio" 
+        name="showOnHome" 
+        id="dontShow" 
+        value={false} 
+        checked={showOnHome === false} 
+        onChange={e => setShowOnHome(false)}
+        className="cursor-pointer"
+      />
+      <label htmlFor="dontShow" >Don't Show</label>
+    </div>
+  </div>
+
+    </div>
+  }
 
 
 </div>
             <div className="flex justify-center mt-6">
               <button
                 className="bg-gray-600 text-white px-4 py-2 rounded-md mr-2 hover:bg-gray-500"
-                onClick={subCategory ? handleSubCategoryUpdate : handleMainCategoryUpdate}
+                onClick={category ? handleSubCategoryUpdate : handleMainCategoryUpdate}
                 disabled={isUpdating}
               >
                 {isUpdating ? "Updating..." : "Update"}

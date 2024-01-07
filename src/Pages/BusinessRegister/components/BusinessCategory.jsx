@@ -1,104 +1,72 @@
-import React from 'react'
-import { BiCategory } from 'react-icons/bi'
-import { FiChevronDown } from 'react-icons/fi'
+import React, { useState } from 'react';
+import { BiCategory } from 'react-icons/bi';
 import { useSelector } from 'react-redux';
 
 const BusinessCategory = ({ businessDetails, setBusinessDetails }) => {
     const categories = useSelector((state) => state.categories);
 
-    const handleBusinessDetailsChange = (e) => {
-        const { name, value } = e.target;
-        setBusinessDetails((prev) => ({ ...prev, [name]: value }));
-      };
+    const handleCategorySelection = (category) => {
+        setBusinessDetails((prev) => ({
+            ...prev,
+            category: category._id,
+        }));
+        setSearchQuery(category.name);
+        setShowDropdown(false);
+    };
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showDropdown, setShowDropdown] = useState(false);
 
-    const mainCategories = categories.map((category) => {
-        const mainCategory = {
-            _id: category._id,
-            name: category.title,
-        };
-        return mainCategory;
-    });
-    console.log("main categories", mainCategories);
+    const handleCategorySearchQueryChange = (e) => {
+        const searchQuery = e.target.value;
+        setSearchQuery(searchQuery);
+        setShowDropdown(true); // Show dropdown when input changes
+    };
 
-    const subCategories = {};
-
-    categories.forEach((category) => {
-        subCategories[category.title] = category.subcategories.map(
-            (subCategory) => ({
-                _id: subCategory._id,
-                name: subCategory.name,
-            })
-        );
-    });
     return (
         <div className="md:mt-6 md:mb-6">
-            <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2">
                 <BiCategory className="h-5 w-5 md:w-6 md:h-6" />
                 <div className="flex items-center gap-4">
-        <h2 className="text-lg md:text-xl font-semibold">Select your business category 
-        </h2>
-        <span className="text-gray-500 text-sm">* All fields are required</span>
-        </div>
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 mt-6 w-full">
-                {/* CATEGORY */}
-                <div className="flex flex-col w-full">
-                    <label htmlFor="">Category</label>
-
-                    <div className="relative mt-2">
-                        <select
-                            name="mainCategory"
-                            value={businessDetails.mainCategory}
-                            onChange={handleBusinessDetailsChange}
-                            className="appearance-none rounded-md relative block w-full px-3 py-2 border  border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
-                        >
-                            <option value="" disabled className="text-red">
-                                -
-                            </option>
-                            {mainCategories.map((category) => (
-                                <option key={category.name} value={category._id}>
-                                    {category.name}
-                                </option>
-                            ))}
-                        </select>
-
-                        <div>
-                            <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
-                        </div>
-                    </div>
+                    <h2 className="text-lg md:text-xl font-semibold">
+                        Select your business category
+                    </h2>
+                    <span className="text-gray-500 text-sm">* All fields are required</span>
                 </div>
-
-                {/* SUB CATEGORY */}
-                <div className="flex flex-col w-full">
-                    <label htmlFor="">Sub Category</label>
-
-                    <div className="relative mt-2">
-                        <select
-                            name="subCategory"
-                            value={businessDetails.subCategory}
-                            onChange={handleBusinessDetailsChange}
-                            className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
-                        >
-                            <option value="" disabled defaultChecked>
-                                -
-                            </option>
-                            {businessDetails.mainCategory &&
-                                subCategories[mainCategories.find(category => category._id === businessDetails.mainCategory)?.name].map((category) => (
-                                    <option key={category._id} value={category._id}>
+            </div>
+            <div className="flex flex-col w-full mt-6">
+                <label htmlFor="category">Category</label>
+                <div className="relative w-1/2 mt-2">
+                    <input
+                        type="text"
+                        id="category"
+                        name="category"
+                        className="relative appearance-none rounded-md block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 md:text-base text-sm"
+                        onChange={handleCategorySearchQueryChange}
+                        value={searchQuery}
+                        onFocus={() => setShowDropdown(true)}
+                    />
+                    {searchQuery && showDropdown && (
+                        <div className="absolute w-full bg-white flex flex-col gap-3 py-6 px-6 shadow-lg overflow-y-auto rounded-lg">
+                            {categories
+                                .filter((category) =>
+                                    category.name.toLowerCase().includes(searchQuery.toLowerCase())
+                                )
+                                .map((category) => (
+                                    <span
+                                        key={category._id}
+                                        onClick={() => handleCategorySelection(category)}
+                                        className="cursor-pointer hover:bg-gray-200 p-2 rounded-lg"
+                                    >
                                         {category.name}
-                                    </option>
-                                ))
-                            }
-                        </select>
-
-                        <div>
-                            <FiChevronDown className="absolute top-1/2 transform -translate-y-1/2 right-0 mr-4 text-sm text-gray-500 w-6 h-6" />
+                                    </span>
+                                ))}
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
-        </div>)
-}
+        </div>
+    );
+};
 
-export default BusinessCategory
+export default BusinessCategory;

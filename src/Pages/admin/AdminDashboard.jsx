@@ -439,7 +439,7 @@ const AdminDashboard = () => {
                                 {selectedField === "allBusinesses" && <AllBusiness businesses={businesses} categories={categories}/>}
                                 {selectedField === "allUsers" && <AllUsers users={users} />}
                                 {selectedField === "allVendors" && <AllVendors users={vendors} />}
-                                {selectedField === "adminHome" && <AdminHome/>}
+                                {/* {selectedField === "adminHome" && <AdminHome/>} */}
                                 {selectedField === "banner" && <Banner />}
                                 {selectedField === "allCategories" && <Category />}
                                 {selectedField === "footer" && <Footer />}

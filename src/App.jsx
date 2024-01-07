@@ -24,6 +24,7 @@ import PrivacyPolicy from "./Pages/Privacy/Privacy";
 import TermsAndConditions from "./Pages/Terms/Terms";
 import NotFound from "./Pages/NotFound/NotFound";
 import AboutUs from "./Pages/AboutUs/AboutUs";
+import { setAllCategoryTitle } from "./state/slices/categoriestitleSlice";
 
 function App() {
 
@@ -59,9 +60,16 @@ useLayoutEffect(() => {
     const fetchAllCategories = async () => {
       try {
         const res = await axios.get(
+          // "https://aresuno-server.vercel.app/api/category/"
           "https://aresuno-server.vercel.app/api/category/"
+          // "http://localhost:8000/api/category/"
         );
+        const resTitles = await axios.get(
+          "https://aresuno-server.vercel.app/api/category-title/"
+          // "http://localhost:8000/api/category-title/"
+        )
         dispatch(setAllCategories(res.data));
+        dispatch(setAllCategoryTitle(resTitles.data));
         console.log("Categories fetched:", res.data);
       } catch (err) {
         console.error("Error fetching categories:", err);

@@ -37,9 +37,13 @@ const Register = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `https://aresuno-server.vercel.app/api/${role}/register`,
-        formData
+        `http://localhost:8000/api/${role}/register`,
+        {...formData, email : formData.email.toLowerCase()}
       );
+      // const res = await axios.post(
+      //   `https://aresuno-server.vercel.app/api/${role}/register`,
+      //   formData
+      // );
       console.log(res.data);
       const token = res.data.token;
       localStorage.setItem("token", token);
@@ -60,8 +64,16 @@ const Register = () => {
         navigate(`/user/dashboard`);
       }
     } catch (err) {
-      setErrors(err.response.data);
-      toast.error("User Registration Failed");
+      console.log(err)
+      toast.error(err.response.data.message);
+      setIsLoading(false);
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        phone: "",
+      });
+      setErrors(err.response.data.message);
     }
   };
 

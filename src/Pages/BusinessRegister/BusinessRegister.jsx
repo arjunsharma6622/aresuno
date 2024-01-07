@@ -40,9 +40,9 @@ const BusinessRegister = () => {
     type: "",
     phone: "",
     email: "",
+    foundedIn: "",
     description: "",
-    mainCategory: "",
-    subCategory: "",
+    category: "",
     address: "",
     timing: [
       { day: "Monday", from: "", to: "", isOpen: false },
@@ -120,7 +120,7 @@ const BusinessRegister = () => {
   const handleNext = () => {
     // Check if it's the first section and if any of the required fields are empty
     if (currentSectionIndex === 0) {
-      const { name, phone, email, description, type, services } =
+      const { name, phone, email, description, type, services, foundedIn } =
         businessDetails;
 
       if (
@@ -129,6 +129,7 @@ const BusinessRegister = () => {
         !email ||
         !description ||
         !type ||
+        !foundedIn ||
         services.length === 0
       ) {
         toast.error("Please enter all details");
@@ -138,10 +139,10 @@ const BusinessRegister = () => {
 
     // Check if it's the second section and if category details are missing
     if (currentSectionIndex === 1) {
-      const { mainCategory, subCategory } = businessDetails;
+      const { category } = businessDetails;
 
-      if (!mainCategory || !subCategory) {
-        toast.error("Please enter the categories");
+      if (!category) {
+        toast.error("Please enter the category");
         return; // Exit the function if there's an error
       }
     }
@@ -326,9 +327,8 @@ const BusinessRegister = () => {
               />
             ))}
           </div>
-          <div className=" flex flex-col gap-2 md:flex-row text-sm md:text-base justify-between items-center">
+          <div className=" flex flex-col gap-2 md:flex-row text-sm md:text-base justify-between items-start">
             <p>
-              {currentSectionIndex + 1} out of {totalSections.length} sections,{" "}
               {(currentSectionIndex + 1) * 10}% Done
             </p>
 
