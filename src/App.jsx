@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import "./App.css";
@@ -19,20 +25,25 @@ import BusinessRegister from "./Pages/BusinessRegister/BusinessRegister";
 import Business from "./Pages/Business/Business";
 import Home from "./Pages/Home/Home";
 import { setAllCategories } from "./state/slices/categoriesSlice";
-import {HelmetProvider} from "react-helmet-async"
+import { setAllCategoryTitle } from "./state/slices/categoriestitleSlice";
+import { HelmetProvider } from "react-helmet-async";
 import PrivacyPolicy from "./Pages/Privacy/Privacy";
 import TermsAndConditions from "./Pages/Terms/Terms";
 import NotFound from "./Pages/NotFound/NotFound";
 import AboutUs from "./Pages/AboutUs/AboutUs";
-import { setAllCategoryTitle } from "./state/slices/categoriestitleSlice";
+import { API_URL } from "./utils/util";
 
 function App() {
 
+
+
+
+
   return (
     <HelmetProvider>
-    <BrowserRouter>
-      <Main />
-    </BrowserRouter>
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
     </HelmetProvider>
   );
 }
@@ -47,37 +58,13 @@ function Main() {
   const userType = useSelector((state) => state.user.userType);
   const isHomepage = location.pathname === "/";
 
-  const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user);
 
-useLayoutEffect(() => {
-  window.scrollTo(0, 0);
-}, [location.pathname]);
+  console.log('ssssss in app jsx')
 
-
-  useEffect(() => {
-    const fetchAllCategories = async () => {
-      try {
-        const res = await axios.get(
-          // "https://aresuno-server.vercel.app/api/category/"
-          "https://aresuno-server.vercel.app/api/category/"
-          // "http://localhost:8000/api/category/"
-        );
-        const resTitles = await axios.get(
-          "https://aresuno-server.vercel.app/api/category-title/"
-          // "http://localhost:8000/api/category-title/"
-        )
-        dispatch(setAllCategories(res.data));
-        dispatch(setAllCategoryTitle(resTitles.data));
-        console.log("Categories fetched:", res.data);
-      } catch (err) {
-        console.error("Error fetching categories:", err);
-      }
-    };
-
-    fetchAllCategories();
-  }, []);
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <>
@@ -90,34 +77,36 @@ useLayoutEffect(() => {
       <div className="app">
         <Routes>
           <Route path="/" element={<Home />} />
-
-          <Route path="/login" element={user.name ? <Navigate to={`/`}/> : <Login />} />
-
-          <Route path="/signup" element={user.name ? <Navigate to={`/`}/> : <Register />} />
-
-
-          <Route path="/privacy" element={<PrivacyPolicy />}/>
-
+          <Route
+            path="/login"
+            element={user.name ? <Navigate to={`/`} /> : <Login />}
+          />
+          <Route
+            path="/signup"
+            element={user.name ? <Navigate to={`/`} /> : <Register />}
+          />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
-
-          <Route path="/dashboard/*" element={!user.name ? <Navigate to={`/login`} /> : userType === "vendor" ? <VendorDashboard /> : <UserDashboard />} />
-
-          {/* {userType === "user" && (
-            <Route path="/user/dashboard/" element={<UserDashboard />} />
-          )} */}
-
-
+          <Route
+            path="/dashboard/*"
+            element={
+              !user.name ? (
+                <Navigate to={`/login`} />
+              ) : userType === "vendor" ? (
+                <VendorDashboard />
+              ) : (
+                <UserDashboard />
+              )
+            }
+          />
           <Route path="/vendor/onboarding/" element={<BusinessOnboarding />} />
           <Route path="*" element={<NotFound />} />
-
           <Route path={"/business/:businessName"} element={<Business />} />
           <Route path={"/business/edit/:id"} element={<BusinessEdit />} />
           <Route path={"/admin"} element={<AdminDashboard />} />
           <Route path={"/:city/:subCategoryName"} element={<Services />} />
-
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />
-
           <Route path="/business/register" element={<BusinessRegister />} />
         </Routes>
       </div>

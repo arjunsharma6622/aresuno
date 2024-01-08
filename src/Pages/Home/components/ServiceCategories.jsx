@@ -1,11 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CategoriesSlider from "./CategoriesSlider";
+import { setAllCategories } from "../../../state/slices/categoriesSlice";
+import { setAllCategoryTitle } from "../../../state/slices/categoriestitleSlice";
 
 const ServiceCategories = () => {
+
+
   const categories = useSelector((state) => state.categories);
   const categoriesTitles = useSelector((state) => state.categoriestitle);
-  const categoriesTitlesToShowOnHome = categoriesTitles?.filter((categoryTitle) => categoryTitle.showOnHome);
+  const categoriesTitlesToShowOnHome = categoriesTitles.length > 0 && categoriesTitles?.filter((categoryTitle) => categoryTitle.showOnHome);
 
   return (
     <div className="self-center w-full max-w-[1314px] mt-5 md:mt-16 max-md:max-w-full px-3 md:px-8">
@@ -18,7 +22,7 @@ const ServiceCategories = () => {
                   Browse from all {categoryTitle.title}
                 </div>
                 <div className="w-full max-md:max-w-full">
-                  <CategoriesSlider categories={categories.filter(category => category.categoryTitle === categoryTitle._id)} categoryTitle={categoryTitle} />
+                  <CategoriesSlider categories={categories?.filter(category => category.categoryTitle === categoryTitle._id)} categoryTitle={categoryTitle} />
                 </div>
               </div>
             </div>

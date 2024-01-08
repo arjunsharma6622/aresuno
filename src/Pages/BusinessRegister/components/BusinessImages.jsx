@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { FiImage, FiUploadCloud, FiX } from "react-icons/fi";
+import { FiCrop, FiImage, FiPlus, FiUploadCloud, FiX, FiXCircle } from "react-icons/fi";
 import { MdOutlineCloudDone } from "react-icons/md";
 import { toast } from "react-toastify";
 import EasyCrop from "../../Vendor/Dashboard/components/EasyCrop";
 
 const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
   const [images, setImages] = useState([]);
+  const [featuredImage, setFeaturedImage] = useState(null); // [image, setImage
+  const [logoImage, setLogoImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
 
@@ -22,6 +24,25 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
       reader.readAsDataURL(file);
     });
   };
+
+  const handleLogoImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setLogoImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  const handleFeaturedImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFeaturedImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
 
   const handleImagesUpload = async () => {
     setIsLoading(true);
@@ -62,16 +83,82 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
     <div className="md:mt-6 md:mb-6">
       <div className="flex items-center gap-2">
         <FiImage className="w-5 h-5 md:w-6 md:h-6" />
-        <h2 className="text-lg md:text-xl font-semibold">Gallery Images</h2>
+        <h2 className="text-lg md:text-xl font-semibold">Images</h2>
       </div>
 
-      <div className="mt-6">
+      <div className="w-full mt-4 flex flex-col gap-6">
+
+      <div className="w-full mt-2 flex flex-col gap-4">
+        <h1>Add your business Logo</h1>
+
+        <div className="flex gap-6 flex-wrap">
+
+        <div className="w-fit">
+          <label htmlFor="logo" className="cursor-pointer w-24 h-24">
+            <div className="flex justify-center items-center w-24 h-24 border-dashed border border-gray-500 rounded-md">
+              <span className="text-gray-500 text-sm">{logoImage ? <MdOutlineCloudDone className="w-6 h-6"/> : <FiUploadCloud className="w-6 h-6"/>}</span>
+            </div>
+          </label>
+          <input
+            type="file"
+            id="logo"
+            accept="image/*"
+            onChange={handleLogoImageChange}
+            className=" hidden"
+          />
+        </div>
+        {logoImage && (
+                  <div className="relative rounded-md">
+                  <img src={logoImage} alt="" className="w-24 h-24 rounded-md object-cover"/>
+                  <div className="absolute -top-2 -right-2 flex gap-2 items-center bg-white rounded-full">
+                  <FiXCircle className=" text-red-500 w-6 h-6 cursor-pointer" onClick={() => setLogoImage(null)}/>
+                  </div>
+                </div>
+        )}
+
+        </div>
+      </div>
+
+
+      <div className="w-full mt-2 flex flex-col gap-4">
+        <h1>Add your business featured images</h1>
+        <div className="flex gap-6 flex-wrap">
+        <div className="w-fit">
+          <label htmlFor="featuredImage" className="cursor-pointer w-24 h-24">
+            <div className="flex justify-center items-center w-[300px] h-[150px] border-dashed border border-gray-500 rounded-md">
+              <span className="text-gray-500">{featuredImage ? <MdOutlineCloudDone className="w-6 h-6"/> : <FiUploadCloud className="w-6 h-6"/>}</span>
+            </div>
+          </label>
+          <input
+            type="file"
+            id="featuredImage"
+            accept="image/*"
+            className=" hidden"
+            onChange={handleFeaturedImageChange}
+          />
+        </div>
+{featuredImage &&
+        <div className="relative shadow-lg rounded-lg">
+          <img src={featuredImage} alt="" className="w-[300px] h-[150px] rounded-lg object-cover"/>
+          <div className="absolute -top-2 -right-2 flex gap-2 items-center rounded-full bg-white">
+          <FiXCircle className=" text-red-500 w-6 h-6 cursor-pointer" onClick={() => setFeaturedImage(null)}/>
+          </div>
+        </div>
+}
+
+
+        </div>
+
+      </div>
+
+      <div className="w-full mt-2 flex flex-col gap-4">
+      <h1>Add your business gallery images</h1>
         <div className="flex flex-col items-start">
           {images.length > 0 && <span>{images.length} Images Added</span>}
 
           <label
             htmlFor="image"
-            className="cursor-pointer mt-2 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <input
               type="file"
@@ -100,52 +187,31 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             </div>
           ) : 
           (
-            // <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
-            //   {images.map((image, index) => (
-            //     <div className="relative rounded-xl w-full" key={index}>
-            //       <img
-            //         key={index}
-            //         src={image}
-            //         alt={`Selected Image ${index}`}
-            //         className="object-cover h-full rounded-xl"
-            //       />
-            //       {/* <EasyCrop image={image} setImages={setImages} aspectRatio={16/10} widthOfImg={"w-full"}/> */}
+            <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
+              {images.map((image, index) => (
+                <div className="relative rounded-xl w-full" key={index}>
+                  {/* <img
+                    key={index}
+                    src={image}
+                    alt={`Selected Image ${index}`}
+                    className="object-cover h-full rounded-xl"
+                  /> */}
+                  <EasyCrop image={image} setImages={setImages} aspectRatio={16/10} widthOfImg={"w-full"}/>
 
-            //       <FiX
-            //         className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
-            //         onClick={() => {
-            //           setImages((prev) => prev.filter((_, i) => i !== index));
-            //         }}
-            //       />
-            //     </div>
-            //   ))}
-            // </div>
-            null
+                  <FiX
+                    className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+                    onClick={() => {
+                      setImages((prev) => prev.filter((_, i) => i !== index));
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            // null
           )}
 
 
-          {images.length > 0 && (
-                        <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
-                        {images.map((image, index) => (
-                          <div className="relative rounded-xl w-full" key={index}>
-                            <img
-                              key={index}
-                              src={image}
-                              alt={`Selected Image ${index}`}
-                              className="object-cover h-full rounded-xl"
-                            />
-                            {/* <EasyCrop image={image} setImages={setImages} aspectRatio={16/10} widthOfImg={"w-full"}/> */}
-          
-                            <FiX
-                              className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
-                              onClick={() => {
-                                setImages((prev) => prev.filter((_, i) => i !== index));
-                              }}
-                            />
-                          </div>
-                        ))}
-                      </div>
-          )}
+
 
 {images.length > 0 && (
         <button
@@ -178,6 +244,10 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
           )}
         </div>
       </div>
+
+      </div>
+
+
     </div>
   );
 };

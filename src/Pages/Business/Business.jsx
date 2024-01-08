@@ -170,9 +170,9 @@ const Business = () => {
     ];
 
     const categories = useSelector((state) => state.categories);
-    const subCategory = categories
-        .flatMap((category) => category.subcategories)
-        .find((subcategory) => subcategory._id === business.subCategory);
+    const businessCategory = categories.find(
+        (category) => category._id === business.category
+    )
 
     const daysAgoFormatDate = (dateString) => {
         const currentDate = new Date();
@@ -367,7 +367,7 @@ const Business = () => {
                                 <div className="text-black flex-col flex justify-start items-start">
                                     <span className="text-xl md:text-3xl font-bold">{business.name}</span>
                                     <span className="text-gray-800 text-sm md:text-base font-medium">
-                                        {subCategory?.name}
+                                        {businessCategory?.name}
                                     </span>
 
                                     <div className="flex items-center text-xs">
@@ -704,6 +704,8 @@ const Business = () => {
                         </div>
 
                         {/* posts */}
+
+                        { posts.length > 0 &&
                         <div
                             id="posts"
                             className="w-full border-b pb-10 border-b-gray-300"
@@ -764,7 +766,10 @@ const Business = () => {
                             </div>
                         </div>
 
+                                                    }
+
                         {/* ratings and reviews */}
+                        { ratings.length > 0 &&
                         <div
                             className="w-full flex flex-col border-b pb-10 border-b-gray-300"
                             id="ratings"
@@ -883,6 +888,7 @@ const Business = () => {
                                 </div>
                             )}
                         </div>
+}
 
 
 

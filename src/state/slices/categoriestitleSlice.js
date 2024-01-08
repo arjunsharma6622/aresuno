@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const categoriestitleSlice = createSlice({
     name: "CategoryTitle",
     initialState:
+    [
         {
             _id: "",
             title : ""
         }
+    ]
     ,
 
     reducers: {

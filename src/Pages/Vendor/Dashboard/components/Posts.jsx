@@ -53,6 +53,13 @@ const Posts = ({ posts, businesses }) => {
     businessId: "",
   });
 
+  const [isCropping, setIsCropping] = useState(false);
+
+  const handleCroppedImage = (croppedImage) => {
+    setImage(croppedImage);
+    setIsCropping(false); // Exit cropping mode
+  };
+
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
 
@@ -75,6 +82,7 @@ const Posts = ({ posts, businesses }) => {
     setImageToShow(URL.createObjectURL(file));
     setImage(file);
   };
+  
 
   const handleImage = async () => {
     try {
@@ -168,7 +176,7 @@ const Posts = ({ posts, businesses }) => {
 
   console.log("Image-----", image)
 
-
+        const [toCrop, settoCrop] = useState(false)
 
 
   return (
@@ -182,24 +190,6 @@ const Posts = ({ posts, businesses }) => {
 
 
       
-
-      {/* <div
-        className="flex justify-center items-center w-full bg-azure border bg-blue-200 border-dashed border-gray-500 h-[200px]"
-        {...getRootProps()}
-      >
-        <input {...getInputProps()} />
-        {isDragActive ? "Drop" : "Click here or drop an image"}
-      </div>
-
-
-
-      {images.length > 0 && (
-        <div className="flex gap-2 items-center">
-          {images.map((image, index) => (
-            <img key={index} src={image} alt="" className="w-32 h-32 aspect-auto object-cover rounded-lg" />
-          ))}
-        </div>
-      )} */}
 
 
 
@@ -215,7 +205,17 @@ const Posts = ({ posts, businesses }) => {
               {image && (
                 <div>
                   <div className="w-full relative">
-                    <EasyCrop className='' image={imageToShow} setImage = {setImage} aspectRatio={1/1} widthOfImg={"w-64"}/>
+                    <img src={imageToShow} alt="" />
+      {/* Check if cropping is needed */}
+      {isCropping && (
+        <EasyCrop
+          image={imageToShow}
+          setImage={handleCroppedImage}
+          aspectRatio={1 / 1}
+          widthOfImg={"w-64"}
+        />
+      )}
+                    <button onClick={() => setIsCropping(true)}>crop</button>
 
                     <FiXCircle
                       className="w-6 h-6 z-20 absolute top-2 right-2 cursor-pointer bg-red-200 rounded-full text-red-500 "

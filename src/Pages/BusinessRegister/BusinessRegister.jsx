@@ -239,10 +239,15 @@ const BusinessRegister = () => {
     switch (getCurrentSection()) {
       case "basicDetails":
         return (
-          <BasicDetails
-            businessDetails={businessDetails}
-            setBusinessDetails={setBusinessDetails}
-          />
+          // <BasicDetails
+          //   businessDetails={businessDetails}
+          //   setBusinessDetails={setBusinessDetails}
+          // />
+
+          <BusinessImages
+          businessDetails={businessDetails}
+          setBusinessDetails={setBusinessDetails}
+        />
         );
       case "businessCategory":
         return (

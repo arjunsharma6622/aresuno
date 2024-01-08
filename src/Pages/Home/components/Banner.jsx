@@ -8,6 +8,7 @@ import { getBanner } from "../../../state/slices/bannerSlice";
 import Header from "../../../Components/Header/Header";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import {setUserCoordinates, setUserLocationName} from "../../../state/slices/userSlice";
+import { API_URL } from "../../../utils/util";
 
 const Banner = () => {
   const bannerUrl = useSelector((state) => state.banner.url);
@@ -91,9 +92,7 @@ const Banner = () => {
       const crds = pos.coords;
       console.log(`Latitude: ${crds.latitude}`);
       console.log(`Longitude: ${crds.longitude}`);
-      // const location = await axios.post("http://localhost:8000/api/getLocationFromLatLong", {lat : crds.latitude, long : crds.longitude})
-      // const location = await axios.get(`http://localhost:8000/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`)
-      const location = await axios.get(`https://aresuno-server.vercel.app/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`)
+      const location = await axios.get(`${API_URL}/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`)
       console.log(location.data);
       setLocation(location.data.city);
       dispatch(setUserCoordinates({lat: crds.latitude, lng: crds.longitude}))
@@ -115,7 +114,6 @@ const Banner = () => {
 
   return (
     <div className="relative flex-col self-stretch flex w-full items-center max-md:max-w-full  h-[45vh] bg-gradient-to-b from-blue-800 to-blue-900">
-      {/* style={{backgroundImage: "linear-gradient(to right, #0f2027, #203a43, #2c5364)"}} */}
       <div className=" z-[999] w-full">
       <Header homePage={true}/>
       </div>
@@ -127,7 +125,6 @@ const Banner = () => {
       />
       <div className="absolute -bottom-6 md:bottom-4 z-[10] m-auto px-5 md:px-0  max-w-[1100px] flex w-full flex-col max-md:max-w-full max-md:my-10 gap-4 md:gap-10 items-start justify-start">
         <div className="text-white   max-md:max-w-full flex flex-col gap-1 md:gap-2">
-          {/* <p className="text-5xl font-bold">Welcome to Aresuno</p> */}
           <p className="text-2xl md:text-4xl font-bold">Find your next service</p>
           <p className="text-sm md:text-xl">at most affordable prices, from over 1000+ services</p>
         </div>

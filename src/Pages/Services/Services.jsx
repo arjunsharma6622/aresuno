@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import ServiceCard from "./components/ServiceCard";
 import ServiceCardSkeleton from "./components/ServiceCardSkeleton";
 import NotFound from "../NotFound/NotFound";
+import { API_URL } from "../../utils/util";
 
 const Services = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
@@ -21,13 +22,11 @@ const Services = () => {
 
   const subCategoryId = useSelector((state) => {
     // Use flatMap to flatten the array of subcategories
-    const allSubcategories = state.categories.flatMap(
-      (category) => category.subcategories
-    );
+    const categories = state.categories
 
     // Find the subcategory with the matching name
-    const matchingSubcategory = allSubcategories.find(
-      (subCategory) => subCategory.name.toLowerCase() === extractedName
+    const matchingSubcategory = categories.find(
+      (category) => category.name.toLowerCase() === extractedName
     );
 
     // Return the _id if a matching subcategory is found
@@ -38,17 +37,10 @@ const Services = () => {
 
   const fetchAllBusinessesByCategory = async () => {
     try {
-      // setIsLoading(true)
       setIsLoading(true);
 
-      // const res = await axios.get(
-      //   `https://aresuno-server.vercel.app/api/business/getbusinessesbycategory/${subCategoryId}`
-      //   // `http://localhost:8000/api/business/getbusinessesbycategory/${subCategoryId}`
-      // );
-
       const res = await axios.get(
-        // `http://localhost:8000/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryId=${subCategoryId}`
-        `https://aresuno-server.vercel.app/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryId=${subCategoryId}`
+        `${API_URL}/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryId=${subCategoryId}`
       )
       setAllBusinesses(res.data);
       console.log(res.data);
@@ -63,29 +55,8 @@ const Services = () => {
     fetchAllBusinessesByCategory();
   }, []);
 
-  // const businessStrDataStructure = {
-  //   "@context": "https://schema.org",
-  //   "@type": "LocalBusiness",
-  //   "description": business.description,
-  //   "name": business.name,
-  //   "telephone": business.phone,
-  //   "email": business.email,
-  //   "aggregateRating": {
-  //       "@type": "AggregateRating",
-  //       "ratingValue": avgRating,
-  //       "reviewCount": business.ratings?.length
-  //     },
-  // }
-
-
-
   return (
     <div>
-
-
-
-
-
       {
         isLoading ? (
 

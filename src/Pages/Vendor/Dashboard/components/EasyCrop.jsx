@@ -44,7 +44,7 @@ const EasyCrop = ({ image, setImage, aspectRatio, widthOfImg }) => {
   return (
 
 
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 z-[40] fixed inset-0  items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm">
 
 
 
