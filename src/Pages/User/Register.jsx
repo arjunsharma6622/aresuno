@@ -8,6 +8,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiEye, FiEyeOff } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
 import InputBx from "./InputBx";
+import {API_URL} from "../../utils/util";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -37,13 +38,9 @@ const Register = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/${role}/register`,
-        {...formData, email : formData.email.toLowerCase()}
+        `${API_URL}/api/${role}/register`,
+        formData
       );
-      // const res = await axios.post(
-      //   `https://aresuno-server.vercel.app/api/${role}/register`,
-      //   formData
-      // );
       console.log(res.data);
       const token = res.data.token;
       localStorage.setItem("token", token);
@@ -56,12 +53,14 @@ const Register = () => {
           userType: role,
         })
       );
+
       setIsLoading(false);
 
       if (role === "vendor") {
-        navigate(`/vendor/onboarding`);
+        console.log('goingo to onboarding')
+        navigate(`/`);
       } else {
-        navigate(`/user/dashboard`);
+        navigate(`/`);
       }
     } catch (err) {
       console.log(err)
