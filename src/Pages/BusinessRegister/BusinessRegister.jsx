@@ -32,7 +32,7 @@ const BusinessRegister = () => {
     "reviewDetails",
   ];
 
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(2);
   const [businessRegisterLoading, setBusinessRegisterLoading] = useState(false);
 
   const [businessDetails, setBusinessDetails] = useState({
@@ -43,7 +43,14 @@ const BusinessRegister = () => {
     foundedIn: "",
     description: "",
     category: "",
-    address: "",
+    address: {
+      street : "",
+      landmark : "",
+      pincode : "",
+      city : "",
+      state : "",
+      coordinates : []
+    },
     timing: [
       { day: "Monday", from: "", to: "", isOpen: false },
       { day: "Tuesday", from: "", to: "", isOpen: false },

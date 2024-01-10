@@ -6,7 +6,14 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState({
+    street: "",
+    landmark: "",
+    pincode: "",
+    city : "",
+    district : "",
+    state : ""
+  });
 
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
@@ -29,6 +36,39 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
       console.error("Error", error);
     }
   };
+  
+
+  const [isAddressValidated, setIsAddressValidated] = useState(false)
+
+  const [isAddressValidationLoading, setisAddressValidationLoading] = useState(true)
+
+
+  const handleAddressValidation = () => {
+    setTimeout(() => {
+      setisAddressValidationLoading(false)
+    }, 1500)
+    setIsAddressValidated(true)
+  }
+
+  const handleAddressChange = (e) => {
+    const {name, value} = e.target
+
+    setAddress((prev) => {
+      return {
+        ...prev,
+        [name] : value
+      }
+    })
+
+    setBusinessDetails((prev) => {
+      return {
+        ...prev,
+        address : address
+      }
+    })
+  }
+
+
   return (
     <div className="md:mt-6 md:mb-6">
 
@@ -36,16 +76,24 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
       <div className="flex items-center gap-2">
         <BiNavigation className="w-5 h-5 md:w-6 md:h-6" />
         <div className="flex items-center gap-4">
-        <h2 className="text-lg md:text-xl font-semibold">Add business address 
+        <h2 className="text-lg md:text-xl font-semibold">Business Address 
         </h2>
         <span className="text-gray-500 text-sm">* All fields are required</span>
         </div>      </div>
 
-      <div className="flex flex-col gap-4 mt-6">
-        <div className="flex flex-col">
-          <label htmlFor="">Address</label>
 
-          <PlacesAutocomplete
+
+        <div className="flex gap-8 flex-col md:flex-row">
+      <div className="flex flex-col gap-6 mt-6 flex-[6]">
+
+      <h2 className="text-lg font-medium">Enter Address Details <span className="text-sm text-gray-500 ml-3">( Step - 1 )</span></h2>
+
+
+        <div className="flex gap-6 w-full flex-col">
+        <div className="flex flex-col w-full">
+          <label htmlFor="">Street / Locality / Colony</label>
+
+          {/* <PlacesAutocomplete
             value={address}
             onChange={setAddress}
             onSelect={handleSelect}
@@ -90,42 +138,131 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
 }
               </div>
             )}
-          </PlacesAutocomplete>
-        </div>
+          </PlacesAutocomplete> */}
 
-        <div className="flex flex-col">
-          <label htmlFor="">
-            Address Line 2{" "}
-            <span className="text-gray-500 font-light text-sm">(optional)</span>
-          </label>
+          {/* street, landmark, pincode, city, state */}
+
           <input
             type="text"
+            name="street"
+            value={address.street}
             className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
+            onChange = {handleAddressChange}
+          />        
+          </div>
+
+        <div className="flex flex-col w-full">
+          <label htmlFor="">
+            Landmark / Address lane 2
+            <span className="text-gray-500 font-light text-sm">(optional)</span>
+            <input
+            type="text"
+            name="landmark"
+            value={address.landmark}
+            className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
+            onChange = {handleAddressChange}
           />
+          </label>
+
         </div>
 
-        <div className="flex flex-col md:flex-row">
-          <div className="flex flex-col">
+        </div>
+
+        <div className="flex flex-col w-full gap-6">
+
+<div className="flex flex-col md:flex-row gap-4">
+  
+        <div className="flex flex-col w-full">
+            <label htmlFor="" className="">
+              Zip Code
+            </label>
+            <input
+              type="number"
+              name="pincode"
+              maxLength={6}
+              value={address.pincode}
+              className="mt-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              onChange = {handleAddressChange}
+            />
+          </div>
+
+
+          <div className="flex flex-col w-full">
             <label htmlFor="" className="">
               City
             </label>
             <input
               type="text"
+              name = "city"
+              value={address.city}
               className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              onChange = {handleAddressChange}
             />
           </div>
 
-          <div className="flex flex-col">
+          </div>
+
+
+<div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col w-full">
             <label htmlFor="" className="">
-              Zip Code
+              District
             </label>
             <input
               type="text"
-              className="mt-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              name = "district"
+              value={address.district}
+              className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              onChange = {handleAddressChange}
             />
           </div>
+          <div className="flex flex-col w-full">
+            <label htmlFor="" className="">
+              State
+            </label>
+            <input
+              type="text"
+              name="state"
+              value={address.state}
+              className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              onChange = {handleAddressChange}
+            />
+          </div>
+          </div>
+
+
         </div>
+{ !isAddressValidated &&
+        <button className="bg-blue-500 text-white mt-4 py-2 px-4 rounded-md" onClick={handleAddressValidation}>Validate Address</button>
+}
       </div>
+
+<div className="flex-[6] mt-6">
+<div className="flex flex-col w-full gap-4">
+<h2 className="text-lg font-medium">Pin Point Location <span className="text-sm text-gray-500 ml-3">( Step - 2 )</span></h2>  { !isAddressValidated ? 
+      <p>After validating your address you will get a map here and you will be asked to exactly pin point the location of your business</p>
+      : isAddressValidationLoading ? 
+
+<div className="flex flex-col gap-4">
+<div className="h-80 w-full bg-gray-300 animate-pulse rounded-lg"></div>
+<div className="h-12 w-full bg-gray-300 animate-pulse rounded-lg"></div>
+</div>
+
+      :
+
+      <div className="flex flex-col gap-4">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15229.124557242834!2d78.4825873!3d17.3982906!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb994eaaaa3b7d%3A0x4aa420ccb9c38e00!2sBox-fitt11%20-%209247877888!5e0!3m2!1sen!2sin!4v1704905139696!5m2!1sen!2sin"  className="w-full h-80 rounded-lg" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+      <button className="bg-blue-500 w-full text-white py-2 px-4 rounded-md" onClick={handleAddressValidation}>Done</button>
+      </div>
+
+
+
+  }
+
+      </div>
+      </div>
+      </div>
+
     </div>
   );
 };
