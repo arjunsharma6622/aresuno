@@ -63,7 +63,7 @@ const BusinessRegister = () => {
       youtube: "",
     },
     modeOfPayment: [],
-    iframe: { embedLink: "", extractedLink: "" },
+    iframe: { embedLink: 'src="example link"', extractedLink: "example link" },
     services: [],
     photosGallery: [],
   });
@@ -446,7 +446,7 @@ const BusinessRegister = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 bg-white md:p-4 md:px-6 rounded-2xl shadow-lg">
+        <div className="flex flex-col gap-6 bg-white md:p-4 md:px-6 rounded-2xl mb-8 md:shadow-lg">
           {notFilledError && <p>{notFilledError}</p>}
           {renderCurrentSection()}
         </div>

@@ -6,10 +6,12 @@ import PlacesAutocomplete, {
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  FiArrowLeft,
   FiChevronDown,
   FiClock,
   FiCode,
   FiEdit2,
+  FiEdit3,
   FiFacebook,
   FiGlobe,
   FiImage,
@@ -27,6 +29,7 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import {
   BiCategory,
+  BiCreditCard,
   BiDetail,
   BiLink,
   BiNavigation,
@@ -57,7 +60,7 @@ const BusinessEdit = () => {
     }));
   };
 
-  const [currentSection, setCurrentSection] = useState("basic details");
+  const [currentSection, setCurrentSection] = useState("Basic Details");
 
   const [businessDetails, setBusinessDetails] = useState({
     name: "",
@@ -105,6 +108,8 @@ const BusinessEdit = () => {
     services: [],
     photosGallery: [],
   });
+
+  const [isBusinessUpdating, setIsBusinessUpdating] = useState(false);
 
   const handleIframeChange = (e) => {
     const { value } = e.target;
@@ -490,6 +495,7 @@ const BusinessEdit = () => {
   const handleUpdate = async () => {
     try {
       console.log(id);
+      setIsBusinessUpdating(true);
 
       const res = await axios.put(
         `https://aresuno-server.vercel.app/api/business/${id}`,
@@ -497,7 +503,9 @@ const BusinessEdit = () => {
       );
       console.log(res);
       toast.success("Business Details Updated");
+      setIsBusinessUpdating(false);
     } catch (err) {
+      setIsBusinessUpdating(false);
       console.log(err);
       toast.error("Business Update Failed");
     }
@@ -513,81 +521,107 @@ const BusinessEdit = () => {
     return `${year}-${month}-${day}`;
   };
 
-  return (
-    <div className="h-screen overflow-y-scroll  flex items-start justify-center mx-4">
-      <div className="flex gap-4 h-screen w-full">
+  const sidebarElements = [
+    { name: "Basic Details",
+      icon : <BiDetail className="w-5 h-5" />
+    },
+    {
+      name : "Category",
+      icon : <BiCategory className="w-5 h-5" />
+    },
+    {
+      name : "Address",
+      icon : <BiNavigation className="w-5 h-5" />
+    },
+    {
+      name : "Iframe",
+      icon : <FiCode className="w-5 h-5" />
+    },
+    {
+      name : "Social Links",
+      icon : <BiLink className="w-5 h-5" />
+    },
+    {
+      name : "FAQ",
+      icon : <BiQuestionMark className="w-5 h-5" />
+    },
+    {
+      name : "Mode of Payment",
+      icon : <MdPayment className="w-5 h-5" />
+    },
+    {
+      name : "Timings",
+      icon : <FiClock className="w-5 h-5" />
+    },
+    {
+      name : "Images",
+      icon : <FiImage className="w-5 h-5" />
+    }
+  ]
 
-        <div className="flex-[2] border w-full flex items-start px-4 py-6 flex-col gap-4">
+
+
+  return (
+    <div className="h-screen overflow-y-scroll  flex items-start justify-center mx-8">
+      <div className="flex gap-10 h-screen w-full">
+
+        
+
+<div className="flex-[3] border w-full flex items-start py-6 flex-col gap-12">
+
+  <div className="w-full flex flex-col gap-4">
+    <div className="flex gap-4 items-center justify-start px-5 cursor-pointer" onClick={() => navigate(-1)}>
+      <FiArrowLeft className="w-5 h-5 "  />
+      <span>Go Back</span>
+    </div>
+      <div className="flex flex-col gap-2 items-start w-full px-5 py-2">
+
+<div className="flex gap-4 items-center justify-start ">
+<div className="h-12 w-12 flex items-center justify-center rounded-full bg-gray-100">
+      <FiEdit3 className="h-6 w-6 text-gray-600" />
+    </div>            
+    <span className="text-xl font-semibold">
+      Edit Business
+    </span>
+</div>
+
+<p>Edit Your <span className="font-medium"> {businessDetails.name} </span> business</p>
+
+</div>
+</div>
+
+
+
+        <div className="flex w-full flex-col gap-4">
+
+
+
+{ sidebarElements.map(({name, icon}, index) => (
           <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("basic details")}
+            className={`flex items-center gap-2 cursor-pointer w-full px-5 py-2 ${currentSection === name && 'bg-gray-200'}`}
+            onClick={() => setCurrentSection(name)}
           >
-            <BiDetail className="w-5 h-5" />
-            <h2 className="text-base font-medium">Basic Details</h2>
+            {icon}
+            <h2 className="text-base font-medium">{name}</h2>
           </div>
-          <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("category")}
-          >
-            <BiCategory className="w-5 h-5" />
-            <h2 className="text-base font-medium">Category</h2>
-          </div>
-          <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("address")}
-          >
-            <BiNavigation className="w-5 h-5" />
-            <h2 className="text-base font-medium">Address</h2>
-          </div>
-          <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("iframe link")}
-          >
-            <FiCode className="w-5 h-5" />
-            <h2 className="text-base font-medium">Iframe Link</h2>
-          </div>
-          <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("social links")}
-          >
-            <BiLink className="w-5 h-5" />
-            <h2 className="text-base font-medium">Social links</h2>
-          </div>
-          <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("faq")}
-          >
-            <BiQuestionMark className="w-5 h-5" />
-            <h2 className="text-base font-medium">FAQ's</h2>
-          </div>
-          <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("mode of payment")}
-          >
-            <MdPayment className="w-5 h-5" />
-            <h2 className="text-base font-medium">Mode of Payments</h2>
-          </div>
-          <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("business hours")}
-          >
-            <FiClock className="w-5 h-5" />
-            <h2 className="text-base font-medium">Business Hours</h2>
-          </div>
-          <div
-            className="flex items-center gap-2"
-            onClick={() => setCurrentSection("images")}
-          >
-            <FiImage className="w-5 h-5" />
-            <h2 className="text-base font-medium">Images</h2>
-          </div>
+
+))
+
+}
+
+
         </div>
 
-        <div className="px-4 py-6 flex-[10] w-full h-screen overflow-y-scroll justify-between flex flex-col">
+        </div>
+
+
+
+        <div className="px-4 py-6 flex-[9] w-full h-screen overflow-y-scroll justify-start flex flex-col">
           <div className="flex flex-col">
+
             <div className="flex flex-col gap-6">
 
-              {currentSection === "basic details" && (
+              {currentSection === "Basic Details" && (
                 <div className="mt-6 mb-6">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
@@ -777,7 +811,7 @@ const BusinessEdit = () => {
                 </div>
               )}
 
-              {currentSection === "category" && (
+              {currentSection === "Category" && (
                 <div className="mt-6 mb-6">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
@@ -832,7 +866,7 @@ const BusinessEdit = () => {
                 </div>
               )}
 
-              {currentSection === "address" && (
+              {currentSection === "Address" && (
                 <div className="mt-6 mb-6">
                   <div className="flex items-center gap-2">
                     <BiNavigation className="w-6 h-6" />
@@ -941,7 +975,7 @@ const BusinessEdit = () => {
                 </div>
               )}
 
-              {currentSection === "iframe link" && (
+              {currentSection === "Iframe" && (
                 <div className="mt-6 mb-6">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
@@ -976,7 +1010,7 @@ const BusinessEdit = () => {
                 </div>
               )}
 
-              {currentSection === "social links" && (
+              {currentSection === "Social Links" && (
                 <div className="mt-6 mb-6">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
@@ -1024,7 +1058,7 @@ const BusinessEdit = () => {
                 </div>
               )}
 
-              {currentSection === "faq" && (
+              {currentSection === "FAQ" && (
                 <div className="mt-6 mb-6">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
@@ -1106,7 +1140,7 @@ const BusinessEdit = () => {
                 </div>
               )}
 
-              {currentSection === "mode of payment" && (
+              {currentSection === "Mode of Payment" && (
                 <div className="mt-6 mb-6">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
@@ -1147,7 +1181,7 @@ const BusinessEdit = () => {
                 </div>
               )}
 
-              {currentSection === "business hours" && (
+              {currentSection === "Timings" && (
                 <div className="mt-6 mb-6">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
@@ -1268,7 +1302,7 @@ const BusinessEdit = () => {
                 </div>
               )}
 
-              {currentSection === "images" && (
+              {currentSection === "Images" && (
                 <div className="mt-6 mb-6">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2">
@@ -1385,10 +1419,21 @@ const BusinessEdit = () => {
 
             <button
               type="submit"
-              className="mt-6 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex gap-4 items-center justify-center mt-6 py-2 px-4 bg-blue-500 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
               onClick={handleUpdate}
             >
-              Save Business
+              {isBusinessUpdating ? "Saving business" : "Save business"}
+
+
+              {isBusinessUpdating && 
+                                <div
+                                className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                role="status"
+                              >
+                                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                  Loading...
+                                </span>
+                              </div>}
             </button>
           </div>
         </div>

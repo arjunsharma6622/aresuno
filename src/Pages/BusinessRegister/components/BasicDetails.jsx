@@ -222,7 +222,7 @@ const [descriptionError, setDescriptionError] = useState("");
 
 
 
-        <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-[3] w-full">
         <label>Founded In <span className="text-red-500 text-sm">*</span></label>
           <div className="flex items-center gap-4 mt-2">

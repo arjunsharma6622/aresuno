@@ -29,14 +29,14 @@ const BusinessCategory = ({ businessDetails, setBusinessDetails }) => {
                 <BiCategory className="h-5 w-5 md:w-6 md:h-6" />
                 <div className="flex items-center gap-4">
                     <h2 className="text-lg md:text-xl font-semibold">
-                        Select your business category
+                        Business Category
                     </h2>
                     <span className="text-gray-500 text-sm">* All fields are required</span>
                 </div>
             </div>
             <div className="flex flex-col w-full mt-6">
                 <label htmlFor="category">Category</label>
-                <div className="relative w-1/2 mt-2">
+                <div className="relative md:w-1/2 mt-2 w-full">
                     <input
                         type="text"
                         id="category"
