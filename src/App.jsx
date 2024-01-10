@@ -57,6 +57,7 @@ function Main() {
   const isAdminPage = location.pathname.match(/\/admin/);
   const userType = useSelector((state) => state.user.userType);
   const isHomepage = location.pathname === "/";
+  const isBusinessEditPage = location.pathname.match(/\/business\/edit/);
 
   const user = useSelector((state) => state.user);
 
@@ -73,6 +74,7 @@ function Main() {
         !isDashboard &&
         !isOnboarding &&
         !isHomepage &&
+        !isBusinessEditPage &&
         !isAdminPage && <Header />}
       <div className="app">
         <Routes>
@@ -113,6 +115,7 @@ function Main() {
       {!isLoginPage &&
         !isSignpuPage &&
         !isDashboard &&
+        !isBusinessEditPage &&
         !isOnboarding &&
         !isAdminPage && <Footer />}
     </>

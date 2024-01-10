@@ -308,6 +308,8 @@ const Business = () => {
         },
     }
 
+    const totalYearsCompleted = new Date().getFullYear() - new Date(business.foundedIn).getFullYear()
+
     return (
 
         <div>
@@ -379,7 +381,7 @@ const Business = () => {
 
                                 <div className="flex items-center gap-3">
                                     <span className="text-gray-600 md:text-sm text-xs  bg-gray-200 py-[2px] px-2 font-semibold rounded-full">
-                                        6 Yrs
+                                        {totalYearsCompleted} Yrs
                                     </span>
 
                                     <span className="flex items-center gap-1 text-xs">
