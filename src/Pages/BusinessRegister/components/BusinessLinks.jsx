@@ -54,7 +54,7 @@ const InputWithIcon = ({ name, onChange, value }) => {
   return (
     <div className="flex flex-col" key={name}>
       <label className="flex gap-2 items-center mb-2 capitalize">
-        {name} Link
+        {name !== "whatsapp" ? `${name} Link` : "Whatsapp Link / 10 digit Number"} 
       </label>
 
       <div className="relative">
@@ -74,13 +74,25 @@ const InputWithIcon = ({ name, onChange, value }) => {
 const BusinessLinks = ({ businessDetails, setBusinessDetails }) => {
   const handleSocialLinksChange = (e) => {
     const { name, value } = e.target;
-    setBusinessDetails((prev) => ({
-      ...prev,
-      socialLinks: {
-        ...prev.socialLinks,
-        [name]: value,
-      },
-    }));
+
+    // Check if the link type is WhatsApp and transform if it's a number
+    if (name === 'whatsapp' && /^\d+$/.test(value)) {
+      setBusinessDetails((prev) => ({
+        ...prev,
+        socialLinks: {
+          ...prev.socialLinks,
+          whatsapp: value && `https://wa.me/${value}`
+        },
+      }));
+    } else {
+      setBusinessDetails((prev) => ({
+        ...prev,
+        socialLinks: {
+          ...prev.socialLinks,
+          [name]: value,
+        },
+      }));
+    }
   };
 
   return (
