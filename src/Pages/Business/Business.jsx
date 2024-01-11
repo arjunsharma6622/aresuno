@@ -607,14 +607,15 @@ const Business = () => {
                                                 We accept
                                             </p>
 
-                                            <div className="flex flex-wrap gap-2">
-                                                {business.modeOfPayment?.map((payment, index) => (
+                                            <div className="flex flex-wrap gap-6">
+                                                {business.modeOfPayment?.map(({name, icon}, index) => (
                                                     <div
-                                                        key={index}
-                                                        className="flex items-center mb-2 bg-gray-300 rounded-full justify-center px-3 md:px-4 py-1"
+                                                        key={name}
+                                                        className="flex items-center mb-2 bg-gray-100 rounded-lg justify-center px-2 md:px-3"
                                                     >
                                                         <span className="text-gray-800 text-xs md:text-sm">
-                                                            {payment}
+                                                            <img src={icon} alt={name} className="w-8 md:w-10" />
+                                                            {/* {name} */}
                                                         </span>
                                                     </div>
                                                 ))}
