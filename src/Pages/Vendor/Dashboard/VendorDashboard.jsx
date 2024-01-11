@@ -14,10 +14,10 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "../../../Components/Header/Header";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../state/slices/userSlice";
+import { API_URL } from "../../../utils/util";
 
 const api = axios.create({
-  // baseURL: "http://localhost:8000/api/vendor/",
-  baseURL: "https://aresuno-server.vercel.app/api/vendor/",
+  baseURL: `${API_URL}/api/vendor/`,
 });
 
 const VendorDashboard = () => {

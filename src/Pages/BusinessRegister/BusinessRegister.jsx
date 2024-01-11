@@ -16,6 +16,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Input from "../../Components/Input";
 import { MdOutlineDone } from "react-icons/md";
 import Review from "./components/Review";
+import { API_URL } from "../../utils/util";
 
 const BusinessRegister = () => {
   const navigate = useNavigate();
@@ -72,7 +73,11 @@ const BusinessRegister = () => {
     modeOfPayment: [],
     iframe: { embedLink: 'src="example link"', extractedLink: "example link" },
     services: [],
-    photosGallery: [],
+    images : {
+      logo : "",
+      cover : "",
+      gallery : []
+    }
   });
 
   const [notFilledError, setNotFilledError] = useState("");
@@ -82,7 +87,7 @@ const BusinessRegister = () => {
       setBusinessRegisterLoading(true);
       const token = localStorage.getItem("token");
       const vendorRes = await axios.get(
-        "https://aresuno-server.vercel.app/api/vendor/",
+        `${API_URL}/api/vendor/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,7 +109,7 @@ const BusinessRegister = () => {
       };
 
       const res = await axios.post(
-        "https://aresuno-server.vercel.app/api/business/register",
+        `${API_URL}/api/business/register`,
         updatedBusinessDetails,
         {
           headers: {
@@ -218,9 +223,9 @@ const BusinessRegister = () => {
     }
 
     if (currentSectionIndex === 8) {
-      const { photosGallery } = businessDetails;
+      const { images } = businessDetails;
 
-      if (photosGallery.length < 3) {
+      if (images.gallery.length < 3) {
         toast.error("Please add at least 3 image");
         return; // Exit the function if there's an error
       }

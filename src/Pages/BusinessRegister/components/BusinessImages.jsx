@@ -7,7 +7,7 @@ import EasyCrop from "../../Vendor/Dashboard/components/EasyCrop";
 
 const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
   const [images, setImages] = useState([]);
-  const [featuredImage, setFeaturedImage] = useState(null); // [image, setImage
+  const [coverImage, setCoverImage] = useState(null); // [image, setImage
   const [logoImage, setLogoImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
@@ -34,11 +34,11 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
     reader.readAsDataURL(file);
   }
 
-  const handleFeaturedImageChange = (e) => {
+  const handleCoverImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      setFeaturedImage(reader.result);
+      setCoverImage(reader.result);
     };
     reader.readAsDataURL(file);
   }
@@ -63,9 +63,54 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
       });
 
       const uploadedUrls = await Promise.all(uploadPromises);
+
+
+      const uploadedLogoImage = async () => {
+        if(logoImage){
+          const logoImageData = new FormData();
+          logoImageData.append("file", logoImage);
+          logoImageData.append("folder", `aresuno/businessImages/${businessDetails.name}/logo`);
+          logoImageData.append("upload_preset", "ml_default");
+
+          const logoUploadResponse = await axios.post(
+            "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+            logoImageData
+          )
+
+          return logoUploadResponse.data.secure_url;
+        }
+
+      }
+
+      const uploadedCoverImage = async () => {
+        if(coverImage){
+          const coverImageData = new FormData();
+          coverImageData.append("file", coverImage);
+          coverImageData.append("folder", `aresuno/businessImages/${businessDetails.name}/cover`);
+          coverImageData.append("upload_preset", "ml_default");
+
+          const coverUploadResponse = await axios.post(
+            "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+            coverImageData
+          )
+
+          return coverUploadResponse.data.secure_url;
+        }
+      }
+
+      const [logoImageUrl, coverImageUrl] = await Promise.all([
+        uploadedLogoImage(),
+        uploadedCoverImage(),
+      ])
+
       setBusinessDetails((prev) => ({
         ...prev,
-        photosGallery: [...prev.photosGallery, ...uploadedUrls],
+        images : {
+          ...prev.images,
+          logo : logoImageUrl,
+          cover : coverImageUrl,
+          gallery : [...prev.images.gallery, ...uploadedUrls]
+        }
       }));
       
       setIsUploaded(true);
@@ -89,7 +134,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
       <div className="w-full mt-4 flex flex-col gap-6">
 
       <div className="w-full mt-2 flex flex-col gap-4">
-        <h1>Add your business Logo</h1>
+        <h1 className="text-lg font-semibold">Add your business Logo</h1>
 
         <div className="flex gap-6 flex-wrap">
 
@@ -107,7 +152,11 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             className=" hidden"
           />
         </div>
-        {logoImage && (
+        {businessDetails.images.logo ? 
+                          <div className="relative rounded-md">
+                          <img src={businessDetails.images.logo} alt="" className="w-24 h-24 rounded-md object-cover"/>
+                        </div>
+        : logoImage && (
                   <div className="relative rounded-md">
                   <img src={logoImage} alt="" className="w-24 h-24 rounded-md object-cover"/>
                   <div className="absolute -top-2 -right-2 flex gap-2 items-center bg-white rounded-full">
@@ -121,27 +170,30 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
 
 
       <div className="w-full mt-2 flex flex-col gap-4">
-        <h1>Add your business featured images</h1>
+        <h1 className="text-lg font-semibold">Add your business Cover Image</h1>
         <div className="flex gap-6 flex-wrap">
         <div className="w-fit">
-          <label htmlFor="featuredImage" className="cursor-pointer w-24 h-24">
+          <label htmlFor="coverImage" className="cursor-pointer w-24 h-24">
             <div className="flex justify-center items-center w-[300px] h-[150px] border-dashed border border-gray-500 rounded-md">
-              <span className="text-gray-500">{featuredImage ? <MdOutlineCloudDone className="w-6 h-6"/> : <FiUploadCloud className="w-6 h-6"/>}</span>
+              <span className="text-gray-500">{coverImage ? <MdOutlineCloudDone className="w-6 h-6"/> : <FiUploadCloud className="w-6 h-6"/>}</span>
             </div>
           </label>
           <input
             type="file"
-            id="featuredImage"
+            id="coverImage"
             accept="image/*"
             className=" hidden"
-            onChange={handleFeaturedImageChange}
+            onChange={handleCoverImageChange}
           />
         </div>
-{featuredImage &&
+{businessDetails.images.cover ?        
+ <div className="relative shadow-lg rounded-lg">
+          <img src={businessDetails.images.cover} alt="" className="w-[300px] h-[150px] rounded-lg object-cover"/>
+        </div> : coverImage &&
         <div className="relative shadow-lg rounded-lg">
-          <img src={featuredImage} alt="" className="w-[300px] h-[150px] rounded-lg object-cover"/>
+          <img src={coverImage} alt="" className="w-[300px] h-[150px] rounded-lg object-cover"/>
           <div className="absolute -top-2 -right-2 flex gap-2 items-center rounded-full bg-white">
-          <FiXCircle className=" text-red-500 w-6 h-6 cursor-pointer" onClick={() => setFeaturedImage(null)}/>
+          <FiXCircle className=" text-red-500 w-6 h-6 cursor-pointer" onClick={() => setCoverImage(null)}/>
           </div>
         </div>
 }
@@ -152,7 +204,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
       </div>
 
       <div className="w-full mt-2 flex flex-col gap-4">
-      <h1>Add your business gallery images</h1>
+      <h1 className="text-lg font-semibold">Add your business gallery images</h1>
         <div className="flex flex-col items-start">
           {images.length > 0 && <span>{images.length} Images Added</span>}
 
@@ -172,42 +224,69 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             {images.length > 0 ? "Add Another" : "Add Image"}
           </label>
 
-          {businessDetails.photosGallery.length > 0 ? (
+          {businessDetails.images.gallery.length > 0 && images.length > 0 ? (
             <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
-              {businessDetails.photosGallery.map((image, index) => (
+              {businessDetails.images?.gallery.map((image, index) => (
                 <div className="relative rounded-xl w-full" key={index}>
                   <img
                     key={index}
                     src={image}
                     alt={`Selected Image ${index}`}
-                    className="object-cover h-full rounded-xl"
+                    className="object-cover aspect-[16/10] rounded-xl"
+                  />
+                </div>
+              ))}
+
+              {images.map((image, index) => (
+                <div className="relative rounded-xl w-full" key={index}>
+                  <img  key={index} src={image} alt={`Selected Image ${index}`} className="object-cover aspect-[16/10] rounded-xl"/>
+                  <div className="absolute -top-2 -right-2 flex gap-2 items-center bg-white rounded-full">
+                  <FiXCircle className=" text-red-500 w-6 h-6 cursor-pointer" onClick={() => setImages((prev) => prev.filter((_, i) => i !== index))}/>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : businessDetails.images.gallery.length > 0 ? (
+            <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
+                            {businessDetails.images?.gallery.map((image, index) => (
+                <div className="relative rounded-xl w-full" key={index}>
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Selected Image ${index}`}
+                    className="object-cover aspect-[16/10] rounded-xl"
                   />
                 </div>
               ))}
             </div>
-          ) : 
+
+          )
+
+            :
+
           (
             <div className="mb-4 grid grid-cols-3 w-full gap-4 mt-6">
               {images.map((image, index) => (
                 <div className="relative rounded-xl w-full" key={index}>
-                  {/* <img
+                  <img
                     key={index}
                     src={image}
                     alt={`Selected Image ${index}`}
-                    className="object-cover h-full rounded-xl"
-                  /> */}
-                  <EasyCrop image={image} setImages={setImages} aspectRatio={16/10} widthOfImg={"w-full"}/>
+                    className="object-cover aspect-[16/10] rounded-xl"
+                  />
 
-                  <FiX
-                    className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+<div className="absolute -top-2 -right-2 flex gap-2 items-center bg-white rounded-full">
+
+                  <FiXCircle
+                    className="w-6 h-6 text-red-500 cursor-pointer  rounded-full"
                     onClick={() => {
                       setImages((prev) => prev.filter((_, i) => i !== index));
                     }}
                   />
+                  </div>
                 </div>
               ))}
             </div>
-            // null
           )}
 
 

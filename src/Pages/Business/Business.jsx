@@ -42,6 +42,7 @@ import { Helmet } from "react-helmet-async";
 import { Person } from "schema-dts";
 import { JsonLd } from "react-schemaorg";
 import NotFound from "../NotFound/NotFound";
+import { API_URL } from "../../utils/util";
 
 
 
@@ -81,8 +82,7 @@ const Business = () => {
             setIsReviewLoading(true);
             const token = localStorage.getItem("token");
             const res = await axios.post(
-                // `http://localhost:8000/api/rating/create/${business._id}`,
-                `https://aresuno-server.vercel.app/api/rating/create/${business._id}`,
+                `${API_URL}/api/rating/create/${business._id}`,
                 { rating: selectedStars, review: review },
                 {
                     headers: {
@@ -109,19 +109,16 @@ const Business = () => {
     const fetchBusiness = async () => {
         try {
             const res = await axios.get(
-                // "http://localhost:8000/api/business/getBusinessByName/" + businessName
-                "https://aresuno-server.vercel.app/api/business/getBusinessByName/" +
-                businessName
+                `${API_URL}/api/business/getBusinessByName/${businessName}`
             );
             setBusiness(res.data);
             const postsRes = await axios.get(
-                `https://aresuno-server.vercel.app/api/post/all-posts/${res.data._id}`
+                `${API_URL}/api/post/all-posts/${res.data._id}`
             );
             setPosts(postsRes.data);
 
             const ratingsRes = await axios.get(
-                // `http://localhost:8000/api/rating/${res.data._id}`
-                `https://aresuno-server.vercel.app/api/rating/${res.data._id}`
+                `${API_URL}/api/rating/${res.data._id}`
             );
             setRatings(ratingsRes.data);
             console.log(res.data);
@@ -353,7 +350,7 @@ const Business = () => {
                                         modules={[Autoplay, Pagination]}
                                         className="mySwiper rounded-xl"
                                     >
-                                        {business.photosGallery?.map((slide, index) => (
+                                        {business.images?.gallery.map((slide, index) => (
                                             <SwiperSlide className="rounded-xl" key={index}>
                                                 <img loading="lazy" src={slide} alt="" className="rounded-xl" />
                                             </SwiperSlide>

@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 import { FiEye, FiEyeOff, FiMail } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
+import { API_URL } from "../../utils/util";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Login = () => {
     setIsLoading(true);
     try {
       const res = await axios.post(
-        "https://aresuno-server.vercel.app/api/login",
+        `${API_URL}/api/login`,
         formData
       );
 

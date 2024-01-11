@@ -37,6 +37,7 @@ import {
 } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { API_URL } from "../../utils/util";
 
 const BusinessEdit = () => {
   const navigate = useNavigate();
@@ -521,7 +522,7 @@ const BusinessEdit = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `https://aresuno-server.vercel.app/api/business/${id}`,
+          `${API_URL}/api/business/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -544,7 +545,7 @@ const BusinessEdit = () => {
       setIsBusinessUpdating(true);
 
       const res = await axios.put(
-        `https://aresuno-server.vercel.app/api/business/${id}`,
+        `${API_URL}/api/business/${id}`,
         businessDetails
       );
       console.log(res);

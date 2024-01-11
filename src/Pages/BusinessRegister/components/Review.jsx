@@ -23,7 +23,7 @@ const Review = ({ businessDetails }) => {
       {/* Address */}
       <div className="mb-6">
         <h3 className="text-xl font-semibold mb-2">Address</h3>
-        <p>{businessDetails.address}</p>
+        <p>{businessDetails.address.street}</p>
       </div>
 
       {/* Timings */}
@@ -52,8 +52,8 @@ const Review = ({ businessDetails }) => {
       <div className="mb-6">
         <h3 className="text-xl font-semibold mb-2">Mode of Payment</h3>
         <ul>
-          {businessDetails.modeOfPayment.map((payment, index) => (
-            <li key={index}>{payment}</li>
+          {businessDetails.modeOfPayment.map(({name, icon}, index) => (
+            <li key={index}>{name}</li>
           ))}
         </ul>
       </div>
@@ -71,10 +71,23 @@ const Review = ({ businessDetails }) => {
       {/* Photos Gallery */}
       <div>
         <h3 className="text-xl font-semibold mb-2">Photos Gallery</h3>
+        <div>
+          <span>Business Logo</span>
+          <img src={businessDetails.images.logo} alt="" className='w-24 h-24 object-cover rounded-full'/>
+        </div>
+
+        <div>
+          <span>Business Cover Image</span>
+          <img src={businessDetails.images.cover} alt="" className='w-64 object-cover rounded'/>
+        </div>
+
+        <div>
+          <span>Business Gallery</span>
         <div className="grid grid-cols-3 gap-4">
-          {businessDetails.photosGallery.map((photo, index) => (
+          {businessDetails.images.gallery.map((photo, index) => (
             <img key={index} src={photo} alt={`Gallery ${index + 1}`} className="w-full h-64 object-cover rounded" />
           ))}
+        </div>
         </div>
       </div>
     </div>
