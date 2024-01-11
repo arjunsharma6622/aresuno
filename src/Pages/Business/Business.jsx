@@ -641,7 +641,7 @@ const Business = () => {
                                     className="rounded-lg m-2 w-64"
                                 /> */}
 
-                                    {business.photosGallery?.map((image) => (
+                                    {business.images?.gallery.map((image) => (
                                         <img
                                             loading="lazy"
                                             key={image}
