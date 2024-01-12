@@ -32,6 +32,7 @@ import TermsAndConditions from "./Pages/Terms/Terms";
 import NotFound from "./Pages/NotFound/NotFound";
 import AboutUs from "./Pages/AboutUs/AboutUs";
 import { API_URL } from "./utils/util";
+import MapComponent from "./Pages/BusinessRegister/components/MapComponent";
 
 function App() {
 
@@ -66,6 +67,7 @@ function Main() {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
 
   return (
     <>
@@ -109,6 +111,7 @@ function Main() {
           <Route path={"/:city/:subCategoryName"} element={<Services />} />
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/map" element={<MapComponent />} />
           <Route path="/business/register" element={<BusinessRegister />} />
         </Routes>
       </div>

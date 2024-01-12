@@ -1,0 +1,33 @@
+MERN
+
+M - MongoDB (noSQL Databse)
+E - ExpressJs (for creating server)
+R - ReactJS (frontend js library)
+N - NodeJS (runtime env for js)
+
+JSX - JavaScript XML (Js + HTML)
+
+APP
+
+-> Client
+    -> src
+        -> Components
+            -> StudentCard.jsx
+        -> Pages
+            -> Login.jsx
+            -> Signup.jsx
+            -> StudentDashbaord.jsx
+            -> FacultyDashboard.jsx
+
+-> Server
+    -> Models
+        -> User.js
+    -> Routes
+        -> Student.js
+        -> Faculty.js
+        -> Auth.js
+
+
+
+mongDB -> localMachine
+    -> Cloud instance 

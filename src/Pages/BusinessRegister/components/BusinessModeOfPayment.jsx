@@ -1,4 +1,5 @@
 import React from 'react'
+import { FiCheck, FiCheckCircle } from 'react-icons/fi';
 import { MdPayment } from 'react-icons/md';
 
 const BusinessModeOfPayment = ({businessDetails, setBusinessDetails}) => {
@@ -87,7 +88,7 @@ const BusinessModeOfPayment = ({businessDetails, setBusinessDetails}) => {
           <div className="flex flex-wrap gap-12 mt-6">
             {paymentModes.map(({ name, icon }, index) => (
               <span
-                className={`flex flex-col items-start border-[1.5px] rounded-lg md:px-3 px-2 py-1 md:py-2  text-sm md:text-base cursor-pointer  ${
+                className={`relative flex flex-col items-start border-[1.5px] rounded-lg md:px-3 px-2 py-1 md:py-2  text-sm md:text-base cursor-pointer  ${
                   businessDetails.modeOfPayment.some(
                     (item) => item.name === name
                   )
@@ -104,6 +105,17 @@ const BusinessModeOfPayment = ({businessDetails, setBusinessDetails}) => {
                     src={icon}
                     alt={name}
                     className="w-20 h-20 inline-block object-contain"
+                  />
+                </div>
+                <div className={`bg-white rounded-full absolute -right-2 -top-2 ${
+                      businessDetails.modeOfPayment.some(
+                        (item) => item.name === name
+                      )
+                        ? 'block'
+                        : 'hidden'
+                    }`}>
+                  <FiCheckCircle
+                    className={`w-5 h-5 md:w-6 md:h-6 `}
                   />
                 </div>
               </span>

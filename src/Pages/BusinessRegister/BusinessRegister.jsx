@@ -33,7 +33,7 @@ const BusinessRegister = () => {
     "reviewDetails",
   ];
 
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(4);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [businessRegisterLoading, setBusinessRegisterLoading] = useState(false);
 
   const [businessDetails, setBusinessDetails] = useState({
@@ -71,7 +71,6 @@ const BusinessRegister = () => {
       youtube: "",
     },
     modeOfPayment: [],
-    iframe: { embedLink: 'src="example link"', extractedLink: "example link" },
     services: [],
     images : {
       logo : "",
@@ -155,15 +154,6 @@ const BusinessRegister = () => {
 
       if (!category) {
         toast.error("Please enter the category");
-        return; // Exit the function if there's an error
-      }
-    }
-
-    // Check if it's the fourth section and if iframe details are missing
-    if (currentSectionIndex === 3) {
-      const { iframe } = businessDetails;
-      if (!iframe.embedLink || !iframe.extractedLink) {
-        toast.error("Please enter valid iframe link");
         return; // Exit the function if there's an error
       }
     }

@@ -4,6 +4,9 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import MapComponent from "./MapComponent";
+import {API_URL} from "../../../utils/util"
+import axios from "axios"
 
 const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
   const [address, setAddress] = useState({
@@ -15,55 +18,56 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
     state : ""
   });
 
-  const handleSelect = async (value) => {
-    const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
-    console.log("Selected Address:", value);
-    console.log("Latitude and Longitude:", latLng);
-  };
+  const [validatedLatLng, setValidatedLatLng] = useState({
+    lat: null,
+    lng: null
+  })
 
-  // handle address
-  const handleAddressSelect = async (address) => {
-    try {
-      const results = await geocodeByAddress(address);
-      const latLng = await getLatLng(results[0]);
-      setBusinessDetails((prev) => ({
-        ...prev,
-        address: address,
-        coordinates: [latLng.lng, latLng.lat],
-      }));
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
-  
 
   const [isAddressValidated, setIsAddressValidated] = useState(false)
 
   const [isAddressValidationLoading, setisAddressValidationLoading] = useState(true)
 
 
-  const handleAddressValidation = () => {
-    setTimeout(() => {
+  const handleAddressValidation = async () => {
+    const address = `${businessDetails.address.street} ${businessDetails.address.landmark} ${businessDetails.address.pincode} ${businessDetails.address.city} ${businessDetails.address.district} ${businessDetails.address.state} India`
+    try{
+
+      const res = await axios.get(`${API_URL}/api/getLatLongFromAddress?address=${address}`)
+      console.log(res.data)
+
+
+      setBusinessDetails((prev) => {
+        return {
+          ...prev,
+          address : {
+            ...prev.address,
+            coordinates : [res.data.lng, res.data.lat]
+          }
+        }
+      })
+
+      setIsAddressValidated(true)
       setisAddressValidationLoading(false)
-    }, 1500)
-    setIsAddressValidated(true)
+
+    }catch(error){
+      console.log(error)
+      setIsAddressValidated(false)
+      setisAddressValidationLoading(false)
+    }
+
   }
 
   const handleAddressChange = (e) => {
     const {name, value} = e.target
 
-    setAddress((prev) => {
-      return {
-        ...prev,
-        [name] : value
-      }
-    })
-
     setBusinessDetails((prev) => {
       return {
         ...prev,
-        address : address
+        address : {
+          ...prev.address,
+          [name] : value
+        }
       }
     })
   }
@@ -145,7 +149,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
           <input
             type="text"
             name="street"
-            value={address.street}
+            value={businessDetails.address.street}
             className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
             onChange = {handleAddressChange}
           />        
@@ -158,7 +162,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
             <input
             type="text"
             name="landmark"
-            value={address.landmark}
+            value={businessDetails.address.landmark}
             className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
             onChange = {handleAddressChange}
           />
@@ -180,7 +184,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
               type="number"
               name="pincode"
               maxLength={6}
-              value={address.pincode}
+              value={businessDetails.address.pincode}
               className="mt-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               onChange = {handleAddressChange}
             />
@@ -194,7 +198,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
             <input
               type="text"
               name = "city"
-              value={address.city}
+              value={businessDetails.address.city}
               className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               onChange = {handleAddressChange}
             />
@@ -211,7 +215,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
             <input
               type="text"
               name = "district"
-              value={address.district}
+              value={businessDetails.address.district}
               className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               onChange = {handleAddressChange}
             />
@@ -223,7 +227,7 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
             <input
               type="text"
               name="state"
-              value={address.state}
+              value={businessDetails.address.state}
               className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               onChange = {handleAddressChange}
             />
@@ -232,32 +236,41 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
 
 
         </div>
-{ !isAddressValidated &&
+{/* { !isAddressValidated && */}
         <button className="bg-blue-500 text-white mt-4 py-2 px-4 rounded-md" onClick={handleAddressValidation}>Validate Address</button>
-}
+{/* } */}
       </div>
 
 <div className="flex-[6] mt-6">
 <div className="flex flex-col w-full gap-4">
-<h2 className="text-lg font-medium">Pin Point Location <span className="text-sm text-gray-500 ml-3">( Step - 2 )</span></h2>  { !isAddressValidated ? 
-      <p>After validating your address you will get a map here and you will be asked to exactly pin point the location of your business</p>
-      : isAddressValidationLoading ? 
+<h2 className="text-lg font-medium">Pin Point Location <span className="text-sm text-gray-500 ml-3">( Step - 2 )</span></h2>  
 
-<div className="flex flex-col gap-4">
-<div className="h-80 w-full bg-gray-300 animate-pulse rounded-lg"></div>
-<div className="h-12 w-full bg-gray-300 animate-pulse rounded-lg"></div>
-</div>
 
-      :
+
+
+
+{ !isAddressValidated ?
+
+<p>After validating your address you will get a map here and you will be asked to exactly pin point the location of your business</p>
+
+
+:
+
+<p>Drag the marker to the exact location of your business</p>
+}
+
+
+
+      {  businessDetails.address.coordinates[0] && businessDetails.address.coordinates[1] &&
 
       <div className="flex flex-col gap-4">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15229.124557242834!2d78.4825873!3d17.3982906!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb994eaaaa3b7d%3A0x4aa420ccb9c38e00!2sBox-fitt11%20-%209247877888!5e0!3m2!1sen!2sin!4v1704905139696!5m2!1sen!2sin"  className="w-full h-80 rounded-lg" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-      <button className="bg-blue-500 w-full text-white py-2 px-4 rounded-md" onClick={handleAddressValidation}>Done</button>
+      <MapComponent businessDetails={businessDetails} setBusinessDetails={setBusinessDetails}/>
       </div>
+}
 
 
 
-  }
+
 
       </div>
       </div>
