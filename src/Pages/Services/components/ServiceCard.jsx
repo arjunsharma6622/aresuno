@@ -39,7 +39,7 @@ const ServiceCard = ({ business }) => {
 
             <div className=''>
 
-                <img loading='lazy' src={business.images.cover} alt="" className='w-full aspect-[16/10] object-cover rounded-xl' />
+                <img loading='lazy' src={business.images.cover} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' />
             </div>
 
 
@@ -49,7 +49,7 @@ const ServiceCard = ({ business }) => {
                     
                     <div className='flex gap-3 items-center border-b-[1px] border-gray-200 pb-4'>
                         <div>
-                            <img loading='lazy' src={business.images.logo} alt="test img" className='w-7 h-7 object-cover rounded-full' />
+                            <img loading='lazy' src={business.images.logo} alt="test img" className='w-12 h-12 object-cover rounded-full' />
                         </div>
                         <div className='border-l-[1.4px] border-gray-300 pl-2'>{business.name}</div>
                         <div className='ml-2'>

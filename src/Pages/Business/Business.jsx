@@ -371,7 +371,7 @@ const Business = () => {
 
                                     <div className="flex items-center text-xs">
                                         <span className="text-gray-600 text-xs font-normal">
-                                            Hyderabad
+                                            {business.address?.city}
                                         </span>
                                     </div>
                                 </div>
@@ -675,32 +675,22 @@ const Business = () => {
                             <div className="flex items-center gap-3 md:gap-4">
                                 <FiNavigation className="text-black w-5 h-5 md:w-6 md:h-6" />
                                 <h2 className="text-lg md:text-2xl font-bold text-black">Address</h2>
-
-                                {/* <iframe
-                                width="600"
-                                height="450"
-                                loading="lazy"
-                                allowFullScreen
-                                referrerPolicy="no-referrer-when-downgrade"
-                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDaaCWy7vsFxmPd5zHmapYuO5KH8kaw67M&q=Space+Needle,Seattle+WA">
-                            </iframe> */}
                             </div>
                             <div className="my-4">
                                 <p className="text-gray-600 text-sm md:text-base">
-                                    H.No.185 Maruti City Mauza Kahrai, Shamshabad Road,
-                                    Kahrai, Agra - 282001 (Near All Sent School)
+                                   {`${business.address?.street}, ${business.address?.city}, ${business.address?.pincode}, ${business.address?.state}, India`}
                                 </p>
                             </div>
 
-                            <iframe
-                                loading="lazy"
-                                src={business.iframe?.extractedLink}
-                                width="100%"
-                                // height="400"
-                                allowFullScreen=""
-                                referrerPolicy="no-referrer-when-downgrade"
-                                className="rounded-xl h-[240px] md:h-[400px]"
-                            ></iframe>
+<iframe
+  width="100%"
+  height="400"
+  loading="lazy"
+  allowFullScreen
+  className="rounded-xl h-[240px] md:h-[400px] border-none"
+  referrerPolicy="no-referrer-when-downgrade"
+  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyABgLLjLKkUT86jshhsoWlWY8VXV8hi9oY&q=${business.address.coordinates[1]},${business.address.coordinates[0]}`}>
+</iframe>
                         </div>
 
                         {/* posts */}
