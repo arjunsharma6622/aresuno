@@ -73,6 +73,7 @@ const Services = () => {
                     <ServiceCardSkeleton />
                     <ServiceCardSkeleton />
                     <ServiceCardSkeleton />
+                    <ServiceCardSkeleton />
                   </div>
 
                   </div>

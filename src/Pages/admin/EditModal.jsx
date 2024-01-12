@@ -4,13 +4,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FiCamera, FiEdit3, FiX } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
+import { API_URL } from "../../utils/util";
 
 export default function EditModal({ category, onClose, categoryTitle }) {
   const [open, setOpen] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
-  // const editUrl = category ? `https://aresuno-server.vercel.app/api/category/${category._id}` : `https://aresuno-server.vercel.app/api/category-title/${categoryTitle._id}`;
-  // const editUrl = category ? `http://localhost:8000/api/category/${category._id}` : `http://localhost:8000/api/category-title/${categoryTitle._id}`;
-  const editUrl = category ? `https://aresuno-server.vercel.app/api/category/${category._id}` : `http://localhost:8000/api/category-title/${categoryTitle._id}`;
+
+  const editUrl = category ? `${API_URL}/api/category/${category._id}` : `${API_URL}/api/category-title/${categoryTitle._id}`;
 
   const [imageToUpdate, setImageToUpdate] = useState(null);
   const [imageToShow, setImageToShow] = useState(null);
@@ -46,7 +46,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
       const imageData = new FormData()
       imageData.append('file', imageToUpdate)
       imageData.append("upload_preset", "ml_default")
-      imageData.append("folder", "aresuno/category")
+      imageData.append("folder", `aresuno/category/${category.name}`)
 
       const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", imageData)
       const imageUrl = uploadResponse.data.secure_url
@@ -63,7 +63,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
       const iconData = new FormData()
       iconData.append('file', icon)
       iconData.append("upload_preset", "ml_default")
-      iconData.append("folder", "aresuno/category")
+      iconData.append("folder", `aresuno/category/${category.name}`)
         
         const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", iconData)
         const iconUrl = uploadResponse.data.secure_url

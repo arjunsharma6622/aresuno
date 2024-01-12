@@ -22,7 +22,7 @@ const AllListings = ({ businesses }) => {
             </span>
             <div className="flex gap-2 flex-col text-xs md:text-sm">
               <span>
-                <span className="font-semibold">Category : </span> {business.mainCategory}
+                <span className="font-semibold">Category : </span> {business.category.name}
               </span>
               <span>
                 <span className="font-semibold"> Phone : </span> {business.phone}

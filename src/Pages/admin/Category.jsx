@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
+import { API_URL } from "../../utils/util";
 
 const CategoryInput = ({
   index,
@@ -304,87 +305,6 @@ const AllCategories = () => {
         </div>
       </div>
 
-      {/* <div>
-        <h1 className="text-2xl font-medium mb-5">Sub Categories</h1>
-  
-        {categoriesTitles.map((categoryTitle, index) => (
-            
-          <div key={index} className="mb-8">
-              {categoryTitle && <h2 className="text-lg font-semibold mt-4 mb-2">{categoryTitle.title}</h2>}
-
-            <div className="mt-2 rounded-xl grid grid-cols-4 gap-4">
-            {categories
-            .filter((category) => category.categoryTitle === categoryTitle._id)
-            .map((category, index) => (
-
-                            <div key={index} className="bg-white relative shadow rounded-xl p-5 py-6 flex justify-between items-center">
-                            <div className="justify-start flex gap-10 items-center">
-                              <div >
-                                  <div>
-                                      <img src={category.icon} alt="" className='w-10 h-10'/>
-                                  </div>
-                                <h2 className="text-sm font-base mt-1">{category.name}</h2>
-                              </div>
-                            </div>
-            
-                            <div className="flex flex-col justify-start gap-2">
-                            <FiEdit3 className="w-5 h-5 text-gray-500 cursor-pointer" onClick={() => setSelectedCategoryToEdit(category)} />
-                            {selectedCategoryToEdit && selectedCategoryToEdit._id === category._id && (
-                                <EditModal categoryId={category._id} subCategory={selectedCategoryToEdit} onClose={() => setSelectedCategoryToEdit(null)} />
-                              )}
-          
-                              <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => setSelectedCategory(category)} />
-                              {selectedCategory && selectedCategory._id === category._id && (
-                                <DeleteModal categoryId={category._id} subCategory={selectedCategory} onClose={() => setSelectedCategory(null)} />
-                              )}
-          
-                            </div>
-                          </div>
-
-        ))}
-            </div>
-          </div>
-
-
-
-
-                    
-
-
-
-        ))}
-
-        {categories.map((category, index) => (
-                        <div className="mt-2 rounded-xl grid grid-cols-4 gap-4">
-
-                            <div key={index} className="bg-white relative shadow rounded-xl p-5 py-6 flex justify-between items-center">
-                            <div className="justify-start flex gap-10 items-center">
-                              <div >
-                                  <div>
-                                      <img src={category.icon} alt="" className='w-10 h-10'/>
-                                  </div>
-                                <h2 className="text-sm font-base mt-1">{category.name}</h2>
-                              </div>
-                            </div>
-            
-                            <div className="flex flex-col justify-start gap-2">
-                            <FiEdit3 className="w-5 h-5 text-gray-500 cursor-pointer" onClick={() => setSelectedCategoryToEdit(category)} />
-                            {selectedCategoryToEdit && selectedCategoryToEdit._id === category._id && (
-                                <EditModal categoryId={category._id} subCategory={selectedCategoryToEdit} onClose={() => setSelectedCategoryToEdit(null)} />
-                              )}
-          
-                              <FiTrash2 className="w-5 h-5 text-red-500 cursor-pointer" onClick={() => setSelectedCategory(category)} />
-                              {selectedCategory && selectedCategory._id === category._id && (
-                                <DeleteModal categoryId={category._id} subCategory={selectedCategory} onClose={() => setSelectedCategory(null)} />
-                              )}
-          
-                            </div>
-                          </div>
-
-                          </div>
-        ))}
-      </div> */}
-
       <div>
         <h1 className="text-2xl font-medium mb-5">Category Titles</h1>
 
@@ -495,7 +415,7 @@ const Category = ({}) => {
             const imageData = new FormData();
             imageData.append("file", img);
             imageData.append("upload_preset", "ml_default");
-            imageData.append("folder", "aresuno/category");
+            imageData.append("folder", `aresuno/category/${category.name}`);
 
             const uploadResponse = await axios.post(
               "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
@@ -538,15 +458,11 @@ const Category = ({}) => {
         };
       });
 
-      // const res = await axios.post("https://aresuno-server.vercel.app/api/category/addsubcategories", updatedCategories);
       const res = await axios.post(
-        "https://aresuno-server.vercel.app/api/category/create",
+        `${API_URL}/api/category/create`,
         updatedCategories
       );
-    //   const res = await axios.post(
-    //     "http://localhost:8000/api/category/create",
-    //     updatedCategories
-    //   );
+
       console.log(res.data);
       toast.success("Categories added successfully");
 
@@ -562,15 +478,10 @@ const Category = ({}) => {
 
   const createNewCategoryTitle = async () => {
     try {
-      // const res = await axios.post("https://aresuno-server.vercel.app/api/category/add", { title: newCategoryTitle })
       const res = await axios.post(
-        "https://aresuno-server.vercel.app/api/category-title/create",
+        `${API_URL}/api/category-title/create`,
         { title: newCategoryTitle }
       );
-    //   const res = await axios.post(
-    //     "http://localhost:8000/api/category-title/create",
-    //     { title: newCategoryTitle }
-    //   );
       console.log(res.data);
       toast.success("Category created successfully");
       setNewCategoryTitle("");

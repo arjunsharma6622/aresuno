@@ -63,8 +63,8 @@ const ServiceCard = ({ business }) => {
 
 
                     <div className='flex gap-2 items-center mt-4'>
-                            <FiMapPin className='w-4 h-4' />
-                            <span className='text-sm'>Hitech city, Hyderabad</span>
+                            <FiMapPin className='w-4 h-4 text-blue-500' />
+                            <span className='text-sm'>{business.address.city}</span>
                         </div>
 
                     <div className='flex flex-col gap-3 mt-4'>

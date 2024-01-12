@@ -9,20 +9,6 @@ import {API_URL} from "../../../utils/util"
 import axios from "axios"
 
 const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
-  const [address, setAddress] = useState({
-    street: "",
-    landmark: "",
-    pincode: "",
-    city : "",
-    district : "",
-    state : ""
-  });
-
-  const [validatedLatLng, setValidatedLatLng] = useState({
-    lat: null,
-    lng: null
-  })
-
 
   const [isAddressValidated, setIsAddressValidated] = useState(false)
 
@@ -96,55 +82,6 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
         <div className="flex gap-6 w-full flex-col">
         <div className="flex flex-col w-full">
           <label htmlFor="">Street / Locality / Colony</label>
-
-          {/* <PlacesAutocomplete
-            value={address}
-            onChange={setAddress}
-            onSelect={handleSelect}
-          >
-            {({
-              getInputProps,
-              suggestions,
-              getSuggestionItemProps,
-              loading,
-            }) => (
-              <div className="relative">
-                <input
-                  {...getInputProps({
-                    placeholder: "Enter your address...",
-                    className: "location-search-input",
-                  })}
-                  className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
-                />
-
-                { suggestions.length > 0 &&
-                <div className="absolute z-50 w-full px-5 py-4 bg-gray-200 rounded-lg">
-                  {loading ? <div>Loading...</div> : null}
-
-                  {suggestions.map((suggestion, index) => {
-                    const style = {
-                      backgroundColor: suggestion.active ? "#f7f7f7" : "",
-                      cursor: suggestion.active ? "pointer" : "",
-                      padding: "12px",
-                      borderRadius: "10px",
-                      // borderBottom: `${index === suggestions.length - 1 ? "none" : "1px solid #f7f7f7"}`,
-                    };
-                    return (
-                      <div
-                        {...getSuggestionItemProps(suggestion, { style })}
-                        key={index}
-                      >
-                        {suggestion.description}
-                      </div>
-                    );
-                  })}
-                </div>
-}
-              </div>
-            )}
-          </PlacesAutocomplete> */}
-
-          {/* street, landmark, pincode, city, state */}
 
           <input
             type="text"
@@ -236,16 +173,12 @@ const BusinessAddress = ({businessDetails, setBusinessDetails}) => {
 
 
         </div>
-{/* { !isAddressValidated && */}
         <button className="bg-blue-500 text-white mt-4 py-2 px-4 rounded-md" onClick={handleAddressValidation}>Validate Address</button>
-{/* } */}
       </div>
 
 <div className="flex-[6] mt-6">
 <div className="flex flex-col w-full gap-4">
 <h2 className="text-lg font-medium">Pin Point Location <span className="text-sm text-gray-500 ml-3">( Step - 2 )</span></h2>  
-
-
 
 
 

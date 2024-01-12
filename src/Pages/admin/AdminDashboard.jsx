@@ -35,10 +35,14 @@ import Category from "./Category";
 import AdminHome from "./AdminHome";
 import Footer from "./Footer";
 import { FaGripLines } from "react-icons/fa";
+import { API_URL } from "../../utils/util";
 // import {setAllCategories} from "../../categoriesSlice"
 
 
 const AllBusiness = ({ businesses, categories }) => {
+
+
+
 
     const handleDelete = async (id) => {
         try {
@@ -262,7 +266,7 @@ const AdminDashboard = () => {
             setLoading(true);
 
             const resBusinesses = await axios.get(
-                "https://aresuno-server.vercel.app/api/business/");
+                `${API_URL}/api/business/`);
             const businesses = resBusinesses.data;
 
             console.log(businesses);
@@ -278,9 +282,9 @@ const AdminDashboard = () => {
             setLoading(true);
 
             const resUsers = await axios.get(
-                "https://aresuno-server.vercel.app/api/user/all-users");
+                `${API_URL}/api/user/all-users`);
             const resVendors = await axios.get(
-                "https://aresuno-server.vercel.app/api/vendor/all-vendors",
+                `${API_URL}/api/vendor/all-vendors`,
             )
             const users = resUsers.data
             const vendors = resVendors.data
@@ -299,13 +303,24 @@ const AdminDashboard = () => {
         }
     }
 
+    const fetchAllCategories = async () => {
+        try {
+            const res = await axios.get(
+                `${API_URL}/api/category/`
+            );
+            dispatch(setAllCategories(res.data));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
 
 
 
     useEffect(() => {
         fetchBusinessesData();
         fetchUsersData();
-        // fetchAllCategories()
+        fetchAllCategories()
     }, []);
 
     return (

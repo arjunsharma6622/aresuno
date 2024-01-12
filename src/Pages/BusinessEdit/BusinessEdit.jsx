@@ -888,7 +888,7 @@ const BusinessEdit = () => {
                       <div className="relative mt-2">
                         <select
                           name="category"
-                          value={businessDetails.category}
+                          value={businessDetails.category._id}
                           onChange={handleBusinessDetailsChange}
                           className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 bg-white focus:border-indigo-500 focus:z-10 sm:text-sm"
                           disabled={businessCategoryUpdate}
@@ -923,60 +923,45 @@ const BusinessEdit = () => {
                   </div>
 
                   <div className="flex flex-col gap-4 mt-6">
-                    <div className="flex flex-col">
-                      <label htmlFor="">Address</label>
-
-                      <PlacesAutocomplete
-                        value={
-                          address ? address : businessDetails.address?.place
-                        }
-                        onChange={setAddress}
-                        onSelect={handleSelect}
-                      >
-                        {({
-                          getInputProps,
-                          suggestions,
-                          getSuggestionItemProps,
-                          loading,
-                        }) => (
-                          <div>
-                            <input
-                              {...getInputProps({
-                                placeholder: "Enter your address...",
-                                className: "location-search-input",
-                              })}
-                              className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text"
-                            />
-                            <div className="bg-gray-200">
-                              {loading ? <div>Loading...</div> : null}
-
-                              {suggestions.map((suggestion, index) => {
-                                const style = {
-                                  backgroundColor: suggestion.active
-                                    ? "#fafafa"
-                                    : "",
-                                  cursor: suggestion.active ? "pointer" : "",
-                                  padding: "12px",
-                                  borderRadius: "10px",
-                                };
-                                return (
-                                  <div
-                                    {...getSuggestionItemProps(suggestion, {
-                                      style,
-                                    })}
-                                    key={index}
-                                  >
-                                    {suggestion.description}
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        )}
-                      </PlacesAutocomplete>
-                    </div>
-
                     <div className="flex">
+                      <div className="flex flex-col">
+                        <label htmlFor="" className="">
+                          Street
+                        </label>
+                        <input
+                          type="text"
+                          className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                          onChange={(e) =>
+                            setBusinessDetails((prev) => ({
+                              ...prev,
+                              address: {
+                                ...prev.address,
+                                street: e.target.value,
+                              },
+                            }))
+                          }
+                          value={businessDetails.address?.street}
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <label htmlFor="" className="">
+                          Landmark
+                        </label>
+                        <input
+                          type="text"
+                          className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                          onChange={(e) =>
+                            setBusinessDetails((prev) => ({
+                              ...prev,
+                              address: {
+                                ...prev.address,
+                                landmark: e.target.value,
+                              },
+                            }))
+                          }
+                          value={businessDetails.address?.landmark}
+                        />
+                      </div>
                       <div className="flex flex-col">
                         <label htmlFor="" className="">
                           City
@@ -999,6 +984,27 @@ const BusinessEdit = () => {
 
                       <div className="flex flex-col">
                         <label htmlFor="" className="">
+                          District
+                        </label>
+                        <input
+                          type="text"
+                          className="mt-2 ml-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                          value={businessDetails.address?.district}
+                          onChange={(e) =>
+                            setBusinessDetails((prev) => ({
+                              ...prev,
+                              address: {
+                                ...prev.address,
+                                district: e.target.value,
+                              },
+                            }))
+                          }
+                        />
+                      </div>
+
+
+                      <div className="flex flex-col">
+                        <label htmlFor="" className="">
                           Zip Code
                         </label>
                         <input
@@ -1017,6 +1023,31 @@ const BusinessEdit = () => {
                           }
                         />
                       </div>
+
+
+                      <div className="flex flex-col">
+                        <label htmlFor="" className="">
+                          State
+                        </label>
+                        <input
+                          type="number"
+                          maxLength={6}
+                          className="mt-2 ml-2 mappearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                          value={businessDetails.address?.pincode}
+                          onChange={(e) =>
+                            setBusinessDetails((prev) => ({
+                              ...prev,
+                              address: {
+                                ...prev.address,
+                                pincode: e.target.value,
+                              },
+                            }))
+                          }
+                        />
+                      </div>
+
+
+
                     </div>
                   </div>
                 </div>

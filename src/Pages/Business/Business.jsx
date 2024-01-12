@@ -893,7 +893,7 @@ const Business = () => {
                             <div className="flex flex-col gap-5 mt-4 text-sm md:text-base">
                                 {business.timing?.map((time, index) => (
 
-                                    time.isOpen && time.from && time.to && (
+                                    time.isOpen && time.from && time.to ? (
                                         <div className="flex flex-col gap-1">
                                             <span className="font-medium">{time.day}</span>
                                             <div className=" flex items-center gap-2">
@@ -901,6 +901,11 @@ const Business = () => {
                                                 to
                                                 <span>{time.to}</span>
                                             </div>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col gap-1">
+                                            <span className="font-medium">{time.day}</span>
+                                            <span className="text-gray-500">Closed</span>
                                         </div>
                                     )
 

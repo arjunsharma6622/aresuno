@@ -2,11 +2,12 @@ import { useState } from "react";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { API_URL } from "../../utils/util";
 
 export default function DeleteModal({ categoryId, subCategory, onClose, mainCategory }) {
   const [open, setOpen] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
-  const deleteUrl = subCategory ? `https://aresuno-server.vercel.app/api/category/deletesubcategory/${categoryId}/${subCategory._id}` : `https://aresuno-server.vercel.app/api/category/${mainCategory._id}`;
+  const deleteUrl = subCategory ? `${API_URL}/api/category/${subCategory._id}` : `${API_URL}/api/category-title/${mainCategory._id}`;
   
 
   console.log(`The cat is ${subCategory ? subCategory.name : mainCategory.name}`)
