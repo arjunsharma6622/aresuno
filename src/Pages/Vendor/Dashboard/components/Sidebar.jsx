@@ -14,7 +14,7 @@ import {
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../../state/slices/userSlice";
-import { FiArrowLeft, FiArrowRight, FiBell, FiLogOut, FiMenu, FiStar, FiX } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight, FiBell, FiHome, FiLogOut, FiMenu, FiStar, FiX } from "react-icons/fi";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Sidebar = ({ user }) => {
@@ -22,7 +22,7 @@ const Sidebar = ({ user }) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const sidebarLinks = [
     {
@@ -90,9 +90,14 @@ const Sidebar = ({ user }) => {
     >
       <div className={`h-full transition-all duration-[400ms]  flex flex-col justify-between overflow-y-auto ${isSidebarCollapsed ? " w-20 p-2" : " w-48"
         }`}>
-      <div className="flex flex-col gap-8 w-full">
-        <div className="flex flex-col items-center justify-start gap-6 w-full">
+      <div className="flex flex-col gap-7 w-full">
+        <div className="flex flex-col px-3 items-start justify-start gap-2 w-full">
 
+
+        {/* <div className="flex items-center gap-2">
+            <FiArrowLeft className="w-5 h-5"/>
+            <span>Home</span>
+          </div> */}
 
 
 
@@ -108,9 +113,11 @@ const Sidebar = ({ user }) => {
               className="rounded-full w-10 h-10 object-cover"
             />
             {!isSidebarCollapsed && (
-              <h2 className="text-2xl font-semibold">{user.name}</h2>
+              <h2 className="text-xl font-semibold">{user.name}</h2>
             )}
           </div>
+
+          
         </div>
 
         <hr className="w-full border-gray-300" />
@@ -152,19 +159,17 @@ const Sidebar = ({ user }) => {
 
       </div>
 
-      <div className="absolute -right-5 w-10 top-1/2 transform -translate-y-1/2 z-[20] flex items-center cursor-pointer gap-2">
+      <div className="absolute -right-1 bg-gray-300 rounded-l-xl px-1 pl-0 top-1/2 transform -translate-y-1/2 z-[1] flex items-center cursor-pointer gap-2">
             {!isSidebarCollapsed && (
-              <div className=" p-1 rounded-2xl bg-gray-300 pr-2 flex items-center gap-1" onClick={toggleSidebar}>
-                <FaAngleLeft className="w-4 h-4 text-gray-600" />
-                {/* <span>Hide</span> */}
+              <div className=" p-1  flex items-center gap-1" onClick={toggleSidebar}>
+                <FaAngleLeft className="w-4 h-4 " />
               </div>
             )}
 
 
             {isSidebarCollapsed && (
-              <div className=" p-1 rounded-2xl bg-gray-300 pr-2 flex items-center gap-1" onClick={toggleSidebar}>
-                {/* <span>Open</span> */}
-                <FaAngleRight className="w-4 h-4 text-gray-600" />
+              <div className=" p-1   flex items-center gap-1" onClick={toggleSidebar}>
+                <FaAngleRight className="w-4 h-4 " />
               </div>
             )}
           </div>
