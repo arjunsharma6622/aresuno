@@ -1,29 +1,71 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillStar } from 'react-icons/ai';
 import { FiExternalLink, FiMapPin, FiMessageCircle, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
+import { API_URL } from '../../../utils/util';
+import axios from "axios"
 
 const ServiceCard = ({ business }) => {
 
     const businessRating = business.ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) / business.ratings?.length;
     const roundedAvgRating = Number.isNaN(businessRating) ? 0 : Math.round(businessRating);
+    const [ratings, setRatings] = useState([]);
+
 
     
     console.log(businessRating)
 
+    const avgRating = ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) / ratings?.length;
+
+    const openingHours = business.timing?.map(hour => {
+        if (hour.isOpen) {
+            return `${hour.day.slice(0, 2)} ${hour.from}-${hour.to}`; // Assuming 17:00 as a fixed closing time
+        } else {
+            return `${hour.day.slice(0, 2)} Closed`;
+        }
+    });
+
     const businessStrDataStructure = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress" : business.address?.street ? business.address?.street : business.address?.landmark ? business.address?.landmark : "",
+          "addressLocality": business.address?.district,
+          "addressRegion": business.address?.state,
+          "postalCode": business.address?.pincode,
+          "addressCountry": "IN"
+        },
+        "geo" : {
+            "@type": "GeoCoordinates",
+            "latitude": business.address?.coordinates[1],
+            "longitude": business.address?.coordinates[0]
+        },
+        "description": business.description,
         "name": business.name,
         "telephone": business.phone,
+        "openingHours": openingHours,
         "email": business.email,
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": roundedAvgRating,
+            "ratingValue": avgRating,
             "reviewCount": business.ratings?.length
         },
-        "description": business.description,
       }
+
+
+
+
+      useEffect( () => {
+        const fetchRatings = async () => {
+        const ratingsRes = await axios.get(
+            `${API_URL}/api/rating/${business._id}`
+        );
+        setRatings(ratingsRes.data);
+        }
+        fetchRatings()
+
+    }, [])
 
 
     return (

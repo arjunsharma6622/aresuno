@@ -287,12 +287,19 @@ const Business = () => {
     const businessStrDataStructure = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        // "address": {
-        //   "@type": "PostalAddress",
-        //   "addressLocality": "Mexico Beach",
-        //   "addressRegion": "FL",
-        //   "streetAddress": "3102 Highway 98"
-        // },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress" : business.address?.street ? business.address?.street : business.address?.landmark ? business.address?.landmark : "",
+          "addressLocality": business.address?.district,
+          "addressRegion": business.address?.state,
+          "postalCode": business.address?.pincode,
+          "addressCountry": "IN"
+        },
+        "geo" : {
+            "@type": "GeoCoordinates",
+            "latitude": business.address?.coordinates[1],
+            "longitude": business.address?.coordinates[0]
+        },
         "description": business.description,
         "name": business.name,
         "telephone": business.phone,
