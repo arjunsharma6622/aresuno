@@ -6,6 +6,7 @@ import ServiceCard from "./components/ServiceCard";
 import ServiceCardSkeleton from "./components/ServiceCardSkeleton";
 import NotFound from "../NotFound/NotFound";
 import { API_URL } from "../../utils/util";
+import EnquiryForm from "../../Components/EnquiryForm";
 
 const Services = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
@@ -56,7 +57,7 @@ const Services = () => {
   }, []);
 
   return (
-    <div>
+    <div className="relative">
       {
         isLoading ? (
 
@@ -82,6 +83,7 @@ const Services = () => {
         allBusinesses.length > 0 && (
 
           <div>
+            {/* <EnquiryForm /> */}
           <h1 className="text-2xl md:text-3xl font-semibold text-center md:mt-10 mt-6 md:mb-4">
             Find the service you want
           </h1>

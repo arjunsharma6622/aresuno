@@ -4,12 +4,18 @@ import { FiExternalLink, FiMapPin, FiMessageCircle, FiMessageSquare, FiPhoneCall
 import { Link } from 'react-router-dom';
 import { API_URL } from '../../../utils/util';
 import axios from "axios"
+import CallClick from '../../../Components/CallClickForm';
+import { useSelector } from 'react-redux';
 
 const ServiceCard = ({ business }) => {
+
+    const user = useSelector((state) => state.user)
+
 
     const businessRating = business.ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) / business.ratings?.length;
     const roundedAvgRating = Number.isNaN(businessRating) ? 0 : Math.round(businessRating);
     const [ratings, setRatings] = useState([]);
+    const [callClick, setCallClick] = useState(false);
 
 
     
@@ -66,6 +72,37 @@ const ServiceCard = ({ business }) => {
         fetchRatings()
 
     }, [])
+
+
+    const handleCallClick = async () => {
+
+        setCallClick(true)
+        if(user.name){
+            try{
+                const res = await axios.post(
+                    `${API_URL}/api/call-lead/create`,
+                    {
+                        name : user.name,
+                        phone : user.phone ? user.phone : '0',
+                        business : business._id
+                    }
+                )
+
+                console.log(res.data)
+
+                window.location.href = `tel:${business.phone}`
+
+
+            }catch(err){
+                console.log(err)
+            }
+
+        }
+    }
+
+    const onClose = () => {
+        setCallClick(false)
+    }
 
 
     return (
@@ -158,9 +195,9 @@ const ServiceCard = ({ business }) => {
 
 
                 <div className='flex w-full'>
-                    <button className='w-full px-2 py-[10px] border-t-[1px] border-gray-200  text-blue-500'>
+                    <button className='w-full px-2 py-[10px] border-t-[1px] border-gray-200  text-blue-500' onClick={handleCallClick}>
 
-                        <a href={`tel:${business.phone}`} className='flex items-center gap-4 justify-center'>
+                        <a className='flex items-center gap-4 justify-center'>
                             <FiPhoneCall className=' w-5 h-5' />
                             Call Now
                         </a>
@@ -171,6 +208,9 @@ const ServiceCard = ({ business }) => {
                         Enquire
                     </button>
                 </div>
+
+
+                {callClick && !user.name && <CallClick onClose={onClose} business={business}/>}
             </div>
         </div>
     )

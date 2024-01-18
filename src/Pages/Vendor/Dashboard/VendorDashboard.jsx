@@ -94,7 +94,7 @@ const VendorDashboard = () => {
             path="/reviews"
             element={<Reviews businesses={businesses} />}
           />
-          <Route path="/leads" element={<Leads />} />
+          <Route path="/leads" element={<Leads businesses={businesses}/>} />
           <Route path="/subscriptions" element={<Subscriptions />} />
         </Routes>
 
