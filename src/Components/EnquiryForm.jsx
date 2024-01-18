@@ -12,7 +12,7 @@ const EnquiryForm = () => {
                 <h1 className='text-xl font-semibold'>Enquiry</h1>
             </div>
             <div>
-                <FiXCircle className='w-5 h-5 cursor-pointer' />
+                <FiX className='w-5 h-5 cursor-pointer' />
             </div>
             
         </div>
