@@ -106,19 +106,14 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
         <div className="flex flex-col gap-2">
           <h1 className="text-lg font-semibold">Add your business Logo</h1>
 
-          <div className="flex gap-5">
+          <div className="flex relative w-fit">
             {!businessImagesUpdate && (
               <div className="w-fit">
+                <div>
                 <label htmlFor="logo" className="cursor-pointer w-24 h-24">
-                  <div className="flex justify-center items-center w-24 h-24 border-dashed border border-gray-500 rounded-md">
-                    <span className="text-gray-500 text-sm">
-                      {logoImage ? (
-                        <MdOutlineCloudDone className="w-6 h-6" />
-                      ) : (
-                        <FiUploadCloud className="w-6 h-6" />
-                      )}
-                    </span>
-                  </div>
+                    <div className="bg-blue-500 absolute p-2 rounded-full -right-3 -bottom-3">
+                    <FiEdit2 className="w-5 h-5 text-white" />
+                    </div>
                 </label>
                 <input
                   type="file"
@@ -127,13 +122,15 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                   onChange={handleLogoImageChange}
                   className=" hidden"
                 />
+                
+              </div>
               </div>
             )}
             <div>
               <img
-                src={businessDetails.images?.logo}
+                src={logoImage ? logoImage : businessDetails.images?.logo}
                 alt=""
-                className="w-20 h-20"
+                className="w-20 h-20 object-cover"
               />
             </div>
           </div>
@@ -144,22 +141,17 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             Add your business Cover image
           </h1>
 
-          <div className="grid grid-cols-3 gap-5">
+          <div className="w-[300px] relative">
             {!businessImagesUpdate && (
               <div className="w-fit">
                 <label
                   htmlFor="coverImage"
                   className="cursor-pointer w-24 h-24"
                 >
-                  <div className="flex justify-center items-center w-[300px] h-[150px] border-dashed border border-gray-500 rounded-md">
-                    <span className="text-gray-500">
-                      {coverImage ? (
-                        <MdOutlineCloudDone className="w-6 h-6" />
-                      ) : (
-                        <FiUploadCloud className="w-6 h-6" />
-                      )}
-                    </span>
-                  </div>
+                    <div className="bg-blue-500 absolute p-2 rounded-full -right-3 -bottom-3">
+                    <FiEdit2 className="w-5 h-5 text-white" />
+                    </div>
+
                 </label>
                 <input
                   type="file"
@@ -191,7 +183,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
         <div className="flex flex-col gap-2 items-start">
           <h1 className="text-lg font-semibold">Add your business gallery</h1>
 
-          {images.length > 0 && <span>{images.length} Images Added</span>}
+          {images.length > 0 && <span>{images.length + businessDetails.images?.gallery?.length} Images Added</span>}
 
           <div className="mb-4 grid grid-cols-4 w-full gap-4">
             {businessDetails.images?.gallery?.map((image, index) => (
@@ -207,17 +199,26 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                   <FiX
                     className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
                     onClick={() => {
-                      setImages((prev) => prev.filter((_, i) => i !== index));
-                      setImagesToShow((prev) =>
-                        prev.filter((_, i) => i !== index)
-                      );
+                      setBusinessDetails((prev) => ({
+                        ...prev,
+                        images: {
+                          ...prev.images,
+                          gallery: prev.images.gallery.filter(
+                            (_, i) => i !== index
+                          ),
+                        },
+                      }));
                     }}
+
+
                   />
                 )}
               </div>
             ))}
+
+
             {images &&
-              imagesToShow.map((image, index) => (
+              imagesToShow?.map((image, index) => (
                 <div className="relative rounded-xl w-full" key={index}>
                   <img
                     key={index}
@@ -225,6 +226,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                     alt={`Selected Image ${index}`}
                     className="object-cover h-full rounded-xl aspect-[16/10]"
                   />
+                  { !businessImagesUpdate &&
                   <FiX
                     className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
                     onClick={() => {
@@ -234,6 +236,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                       );
                     }}
                   />
+                  }
                 </div>
               ))}
           </div>
@@ -256,9 +259,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             </label>
           )}
 
-          {images.length > 0 ||
-            logoImage ||
-            (coverImage && (
+          {images.length > 0 &&
               <button
                 className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onClick={handleImagesUpload}
@@ -266,7 +267,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                 <FiUploadCloud className="w-6 h-6" />
                 Upload All Images
               </button>
-            ))}
+            }
         </div>
       </div>
     </div>

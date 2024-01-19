@@ -10,6 +10,7 @@ const EnquiryForm = () => {
         <div className='flex justify-between'>
             <div>
                 <h1 className='text-xl font-semibold'>Enquiry</h1>
+                <p>We will get back to you in some time</p>
             </div>
             <div>
                 <FiX className='w-5 h-5 cursor-pointer' />

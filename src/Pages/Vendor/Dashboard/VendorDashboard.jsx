@@ -25,6 +25,7 @@ const VendorDashboard = () => {
   const [businesses, setBusinesses] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
   const [allRatings, setAllRatings] = useState([]);
+  const [allCallLeads, setAllCallLeads] = useState([]);
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -40,6 +41,10 @@ const VendorDashboard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
+      const { data: callLeads } = await api.get("/getAllCallLeads", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
 
       // Extract all posts from businesses array
       const allPosts = businesses.flatMap((business) => business.posts);
@@ -49,6 +54,7 @@ const VendorDashboard = () => {
       setBusinesses(businesses);
       setAllPosts(allPosts);
       setAllRatings(allRatings);
+      setAllCallLeads(callLeads);
     } catch (error) {
       console.error("An error occurred:", error);
       console.error("An error occurred:", error.response.data.message);
@@ -78,7 +84,7 @@ const VendorDashboard = () => {
         <Routes>
           <Route
             path="/"
-            element={<Overview businesses={businesses} posts={allPosts} ratings={allRatings}/>}
+            element={<Overview businesses={businesses} posts={allPosts} ratings={allRatings} callLeads={allCallLeads}/>}
           />
           <Route path="/profile" element={<Profile user={user} />} />
           <Route

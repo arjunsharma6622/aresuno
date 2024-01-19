@@ -25,7 +25,7 @@ const iconMapping = {
 
 // import getcropppe from 'react-easy-crop/utils'
 
-const Overview = ({ businesses, posts, ratings }) => {
+const Overview = ({ businesses, posts, ratings, callLeads }) => {
   const user = useSelector((state) => state.user);
 
 
@@ -66,10 +66,10 @@ const Overview = ({ businesses, posts, ratings }) => {
       </div>
 
       <div className="">
-        <h2 className="text-lg md:text-2xl font-semibold md:mb-6 mb-3">Leads History</h2>
+        <h2 className="text-lg md:text-2xl font-semibold md:mb-6 mb-3">Call Leads History</h2>
         <div className={"bg-white md:p-8 rounded-lg shadow-lg hidden md:block"}>
         <ResponsiveContainer width="100%" height={350} >
-          <LineChart data={graphData} className="text-sm  font-light">
+          <LineChart data={callLeads} className="text-sm  font-light">
             <Line type="monotone" dataKey="Leads" stroke="#007bff" strokeWidth={1.5}/>
             <CartesianGrid stroke="#ddd" strokeDasharray="5 5" />
             <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
@@ -81,7 +81,7 @@ const Overview = ({ businesses, posts, ratings }) => {
 
         <div className={"bg-white rounded-lg shadow-lg md:hidden"}>
         <ResponsiveContainer width="100%" height={180} >
-          <LineChart data={graphData} className="text-xs  font-light">
+          <LineChart data={callLeads} className="text-xs  font-light">
             <Line type="monotone" dataKey="Leads" stroke="#007bff" strokeWidth={1} dot={false}/>
             <CartesianGrid stroke="#ddd" strokeDasharray="2 2" />
             <XAxis dataKey="name" />
