@@ -17,6 +17,8 @@ const Services = () => {
   console.log(extractedName);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [showEnquiryForm, setShowEnquiryForm] = useState(false);
+
   const coordinates = useSelector((state) => {
     return state.user.coordinates;
   })
@@ -53,6 +55,10 @@ const Services = () => {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      setShowEnquiryForm(true);
+    }, 20000);
+
     fetchAllBusinessesByCategory();
   }, []);
 
@@ -83,7 +89,7 @@ const Services = () => {
         allBusinesses.length > 0 && (
 
           <div>
-            <EnquiryForm />
+            {showEnquiryForm && <EnquiryForm onClose={() => setShowEnquiryForm(false)}/>}
           <h1 className="text-2xl md:text-3xl font-semibold text-center md:mt-10 mt-6 md:mb-4">
             Find the service you want
           </h1>

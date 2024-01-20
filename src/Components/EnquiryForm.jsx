@@ -1,7 +1,7 @@
 import React from 'react'
 import { FiX, FiXCircle } from 'react-icons/fi'
 
-const EnquiryForm = () => {
+const EnquiryForm = ({onClose}) => {
   return (
 <div>
     <div className='z-[40] fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm'>
@@ -13,7 +13,7 @@ const EnquiryForm = () => {
                 <p>We will get back to you in some time</p>
             </div>
             <div>
-                <FiX className='w-5 h-5 cursor-pointer' />
+                <FiX className='w-5 h-5 cursor-pointer' onClick={onClose}/>
             </div>
             
         </div>

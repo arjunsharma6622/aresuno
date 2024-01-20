@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FiEdit2, FiImage, FiUploadCloud, FiX } from "react-icons/fi";
 import { MdOutlineCloudDone } from "react-icons/md";
+import axios from "axios"
 
 const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
   //   handle image gallery
@@ -40,45 +41,186 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
     });
   };
 
+  console.log(images)
+  console.log(logoImage)
+  console.log(coverImage)
+
   const handleImagesUpload = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const imageData = new FormData();
-
-      images.forEach(async (image, index) => {
+      const uploadPromises = images.map(async (image, index) => {
+        const imageData = new FormData();
+  
         imageData.append(`file`, image);
         imageData.append(
           "folder",
           `aresuno/businessImages/${businessDetails.name}/gallery`
         );
         imageData.append("upload_preset", "ml_default");
-
+  
         const uploadResponse = await axios.post(
           "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
           imageData
         );
-
-        console.log(uploadResponse.data.secure_url);
-        setBusinessDetails((prev) => ({
-          ...prev,
-          photosGallery: [
-            ...prev.photosGallery,
-            uploadResponse.data.secure_url,
-          ],
-        }));
-
-        // console.log("This is the business details", businessDetails)
+  
+        return uploadResponse.data.secure_url;
       });
-
-      // console.log(uploadResponse.data);
-      // const imageUrls = uploadResponse.data.resources.map((resource) => resource.secure_url);
-      // return imageUrls;
+  
+      const uploadedUrls = await Promise.all(uploadPromises);
+  
+      const uploadLogoImage = async () => {
+        if (logoImage) {
+          try {
+            const logoImageData = new FormData();
+            logoImageData.append(`file`, logoImage);
+            logoImageData.append(
+              "folder",
+              `aresuno/businessImages/${businessDetails.name}/logo`
+            );
+            logoImageData.append("upload_preset", "ml_default");
+  
+            const logoUploadResponse = await axios.post(
+              "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+              logoImageData
+            );
+  
+            return logoUploadResponse.data.secure_url;
+          } catch (error) {
+            console.error("Error uploading logo image:", error);
+            return null;
+          }
+        }
+      };
+  
+      const uploadCoverImage = async () => {
+        if (coverImage) {
+          try {
+            const coverImageData = new FormData();
+            coverImageData.append(`file`, coverImage);
+            coverImageData.append(
+              "folder",
+              `aresuno/businessImages/${businessDetails.name}/cover`
+            );
+            coverImageData.append("upload_preset", "ml_default");
+  
+            const coverUploadResponse = await axios.post(
+              "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+              coverImageData
+            );
+  
+            return coverUploadResponse.data.secure_url;
+          } catch (error) {
+            console.error("Error uploading cover image:", error);
+            return null;
+          }
+        }
+      };
+  
+      const [logoImageUrl, coverImageUrl] = await Promise.all([
+        uploadLogoImage(),
+        uploadCoverImage(),
+      ]);
+  
+      console.log(logoImageUrl, coverImageUrl);
+      console.log(uploadedUrls);
+  
+      setBusinessDetails((prev) => ({
+        ...prev,
+        images: {
+          ...prev.images,
+          logo: logoImageUrl ? logoImageUrl : prev.images.logo,
+          cover: coverImageUrl ? coverImageUrl : prev.images.cover,
+          gallery: [...prev.images.gallery, ...uploadedUrls],
+        },
+      }));
     } catch (err) {
       console.error("Error uploading images to Cloudinary:", err);
-      setIsLoading(false);
+      // Handle the error appropriately, e.g., show an error message to the user
     }
   };
+  
+
+//   const handleImagesUpload = async (e) => {
+//     e.preventDefault();
+
+//     try {
+
+//     const uploadPromises = images.map(async (image, index) => {
+//         const imageData = new FormData();
+
+//         imageData.append(`file`, image);
+//         imageData.append(
+//           "folder",
+//           `aresuno/businessImages/${businessDetails.name}/gallery`
+//         );
+//         imageData.append("upload_preset", "ml_default");
+
+//         const uploadResponse = await axios.post(
+//           "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+//           imageData
+//         );
+
+//         return uploadResponse.data.secure_url;
+//       });
+
+//       const uploadedUrls = await Promise.all(uploadPromises)
+
+
+//       const uploadLogoImage = async () => {
+//         if(logoImage){
+//             const logoImageData = new FormData();
+//             logoImageData.append(`file`, logoImage);
+//             logoImageData.append(
+//               "folder",
+//               `aresuno/businessImages/${businessDetails.name}/logo`
+//             );
+//             logoImageData.append("upload_preset", "ml_default");
+
+//             const logoUploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", logoImageData);
+//             return logoUploadResponse.secure_url;
+//         }
+//       }
+
+
+//       const uploadCoverImage = async () => {
+//         if(coverImage){
+//             const coverImageData = new FormData();
+//             coverImageData.append(`file`, coverImage);
+//             coverImageData.append(
+//               "folder",
+//               `aresuno/businessImages/${businessDetails.name}/cover`
+//             );
+//             coverImageData.append("upload_preset", "ml_default");
+
+//             const coverUploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", coverImageData);
+//             return coverUploadResponse.secure_url;
+//         }
+//       }
+
+
+//       const [ logoImageUrl, coverImageUrl ] = await Promise.all([uploadLogoImage(), uploadCoverImage()])
+
+//         console.log(logoImageUrl, coverImageUrl)
+//         console.log(uploadedUrls)
+
+
+//       setBusinessDetails((prev) => ({
+//         ...prev,
+//         images : {
+//           ...prev.images,
+//           logo : logoImageUrl ? logoImageUrl : prev.images.logo,
+//           cover : coverImageUrl ? coverImageUrl : prev.images.cover,
+//           gallery : [...prev.images.gallery, ...uploadedUrls]
+//         }
+//       }));
+
+
+//     } catch (err) {
+//       console.error("Error uploading images to Cloudinary:", err);
+//       setIsLoading(false);
+//     }
+//   };
 
   const [businessImagesUpdate, setBusinessImagesUpdate] = useState(true);
   return (
@@ -259,13 +401,13 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             </label>
           )}
 
-          {images.length > 0 &&
+          {(images.length > 0 || logoImage || coverImage)  &&
               <button
                 className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onClick={handleImagesUpload}
               >
                 <FiUploadCloud className="w-6 h-6" />
-                Upload All Images
+                Upload Changes
               </button>
             }
         </div>
