@@ -33,6 +33,7 @@ import NotFound from "./Pages/NotFound/NotFound";
 import AboutUs from "./Pages/AboutUs/AboutUs";
 import { API_URL } from "./utils/util";
 import MapComponent from "./Pages/BusinessRegister/components/MapComponent";
+import ForgetPassword from "./Components/ForgetPassword";
 
 function App() {
 
@@ -113,6 +114,7 @@ function Main() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/map" element={<MapComponent />} />
           <Route path="/business/register" element={<BusinessRegister />} />
+          <Route path="/forget-password" element={<ForgetPassword/>} />
         </Routes>
       </div>
       {!isLoginPage &&

@@ -36,7 +36,9 @@ import AdminHome from "./AdminHome";
 import Footer from "./Footer";
 import { FaGripLines } from "react-icons/fa";
 import { API_URL } from "../../utils/util";
-// import {setAllCategories} from "../../categoriesSlice"
+import Sidebar from "./Sidebar";
+import Enquiries from "./Enquiries";
+import CallLeads from "./CallLeads";
 
 
 const AllBusiness = ({ businesses, categories }) => {
@@ -87,18 +89,12 @@ const AllBusiness = ({ businesses, categories }) => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex gap-2 items-center">
                                         {business.name}
-                                        <Link to={`/business/${business._id}`}><FiExternalLink className="text-blue-500 w-4 h-4 cursor-pointer" /></Link>
+                                        <Link to={`/business/${business.name.split(' ').join('-').toLowerCase()}`}><FiExternalLink className="text-blue-500 w-4 h-4 cursor-pointer" /></Link>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.vendorName}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.type}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{categories.map((category) => {
-                                    if(category._id === business.mainCategory){
-                                        const subCat = category.subcategories.find((subCat) => subCat._id === business.subCategory)
-                                        // return `${category.title} - ${subCat.name}`
-                                        return `${subCat?.name}`
-                                    }
-                                })}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{business.category.name}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(business._id)} />
@@ -205,6 +201,7 @@ const AllVendors = ({ users }) => {
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
                         </tr>
@@ -218,7 +215,7 @@ const AllVendors = ({ users }) => {
                                     {user.name}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
-                                {/* <td className="px-6 py-4 whitespace-nowrap">{user.type}</td> */}
+                                <td className="px-6 py-4 whitespace-nowrap">{user.phone}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)} />
@@ -248,10 +245,12 @@ const AdminDashboard = () => {
     const [users, setUsers] = useState([]);
     const [vendors, setVendors] = useState([]);
     const [businesses, setBusinesses] = useState([]);
+    const [callLeads, setCallLeads] = useState([]);
+    const [enquiries, setEnquiries] = useState([]);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
 
-    const [selectedField, setSelectedField] = useState("adminHome");
+    const [selectedField, setSelectedField] = useState("Home");
 
     const categories = useSelector(state => state.categories);
 
@@ -314,123 +313,45 @@ const AdminDashboard = () => {
         }
     };
 
+    const fetchCallLeads = async () => {
+        try{
+            const res = await axios.get(`${API_URL}/api/call-lead`)
+            setCallLeads(res.data)
+        }catch(err){
+            console.log(err)
+        }
+
+        }
+
+
+        const fetchEnquiries = async () => {
+            try{
+                const res = await axios.get(`${API_URL}/api/enquiry`)
+                setEnquiries(res.data)
+            }catch(err){
+                console.log(err)
+            }
+    
+            }
 
 
 
     useEffect(() => {
         fetchBusinessesData();
         fetchUsersData();
-        fetchAllCategories()
+        fetchAllCategories();
+        fetchCallLeads();
+        fetchEnquiries();
     }, []);
 
     return (
         <div className="flex h-screen">
             <div className="flex-[2] overflow-y-auto border-r border-gray-300 p-10 flex flex-col justify-between items-start">
-                <div className="flex flex-col gap-10 w-full">
                     <div className="flex items-center gap-4">
                         <h2 className="text-2xl font-semibold">ARESUNO ADMIN</h2>
                     </div>
 
-                    <div className="text-sm flex flex-col gap-6 w-full">
-                        <div
-                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "adminHome"
-                                ? "text-blue-500"
-                                : "text-gray-700"
-                                }`}
-                            onClick={() => handleSelectedField("adminHome")}
-                        >
-                            <FiHome className="w-6 h-6" />
-                            <span className="">Home</span>
-                        </div>
-
-
-                    </div>
-
-                    <div className="text-sm flex flex-col gap-6 w-full">
-                        <div
-                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "allBusinesses"
-                                ? "text-blue-500"
-                                : "text-gray-700"
-                                }`}
-                            onClick={() => handleSelectedField("allBusinesses")}
-                        >
-                            <LuLayoutDashboard className="w-6 h-6" />
-                            <span className="">Businesses</span>
-                        </div>
-
-
-                    </div>
-
-                    <div className="text-sm flex flex-col gap-6 w-full">
-                        <div
-                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "allUsers"
-                                ? "text-blue-500"
-                                : "text-gray-700"
-                                }`}
-                            onClick={() => handleSelectedField("allUsers")}
-                        >
-                            <FiUsers className="w-6 h-6" />
-                            <span className="">Users</span>
-                        </div>
-
-                    </div>
-
-
-                    <div className="text-sm flex flex-col gap-6 w-full">
-                        <div
-                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "allVendors"
-                                ? "text-blue-500"
-                                : "text-gray-700"
-                                }`}
-                            onClick={() => handleSelectedField("allVendors")}
-                        >
-                            <FiUsers className="w-6 h-6" />
-                            <span className="">Vendors</span>
-                        </div>
-
-                    </div>
-
-
-                    <div className="text-sm flex flex-col gap-6 w-full">
-                        <div
-                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "banner"
-                                ? "text-blue-500"
-                                : "text-gray-700"
-                                }`}
-                            onClick={() => handleSelectedField("banner")}
-                        >
-                            <FiImage className="w-6 h-6" />
-                            <span className="">Banner</span>
-                        </div>
-
-                    </div>
-                    <div className="text-sm flex flex-col gap-6 w-full">
-                        <div
-                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "allCategories"
-                                ? "text-blue-500"
-                                : "text-gray-700"
-                                }`}
-                            onClick={() => handleSelectedField("allCategories")}
-                        >
-                            <BiCategory className="w-6 h-6" />
-                            <span className="">Categories</span>
-                        </div>
-
-                    </div>
-                    <div className="text-sm flex flex-col gap-6 w-full">
-                        <div
-                            className={`flex items-center cursor-pointer gap-2 ${selectedField === "footer"
-                                ? "text-blue-500"
-                                : "text-gray-700"
-                                }`}
-                            onClick={() => handleSelectedField("footer")}
-                        >
-                            <FaGripLines className="w-6 h-6" />
-                            <span className="">Footer</span>
-                        </div>
-
-                    </div>
-                </div>
+                <Sidebar handleSelectedField={handleSelectedField} selectedField={selectedField}/>
 
                 <div className="w-full">
                     <button className="w-full px-4 py-1 border text-red-500 border-red-500">
@@ -451,13 +372,15 @@ const AdminDashboard = () => {
                             </div>
                         ) : (
                             <div className="">
-                                {selectedField === "allBusinesses" && <AllBusiness businesses={businesses} categories={categories}/>}
-                                {selectedField === "allUsers" && <AllUsers users={users} />}
-                                {selectedField === "allVendors" && <AllVendors users={vendors} />}
-                                {/* {selectedField === "adminHome" && <AdminHome/>} */}
-                                {selectedField === "banner" && <Banner />}
-                                {selectedField === "allCategories" && <Category />}
-                                {selectedField === "footer" && <Footer />}
+                                {selectedField === "Businesses" && <AllBusiness businesses={businesses} categories={categories}/>}
+                                {selectedField === "Users" && <AllUsers users={users} />}
+                                {selectedField === "Vendors" && <AllVendors users={vendors} />}
+                                {selectedField === "Home" && <AdminHome/>}
+                                {selectedField === "Enquiries" && <Enquiries enquiries={enquiries}/>}
+                                {selectedField === "Call Leads" && <CallLeads callLeads={callLeads}/>}
+                                {selectedField === "Banner" && <Banner />}
+                                {selectedField === "Categories" && <Category />}
+                                {selectedField === "Footer" && <Footer />}
                             </div>
                         )}
                     </div>

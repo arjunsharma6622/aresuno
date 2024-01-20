@@ -6,16 +6,19 @@ import { API_URL } from '../../../utils/util';
 import axios from "axios"
 import CallClick from '../../../Components/CallClickForm';
 import { useSelector } from 'react-redux';
+import EnquiryForm from '../../../Components/EnquiryForm';
 
 const ServiceCard = ({ business }) => {
 
     const user = useSelector((state) => state.user)
 
 
+
     const businessRating = business.ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) / business.ratings?.length;
     const roundedAvgRating = Number.isNaN(businessRating) ? 0 : Math.round(businessRating);
     const [ratings, setRatings] = useState([]);
     const [callClick, setCallClick] = useState(false);
+    const [showEnquiryForm, setShowEnquiryForm] = useState(false);
 
 
     
@@ -203,11 +206,15 @@ const ServiceCard = ({ business }) => {
                         </a>
 
                     </button>
-                    <button className='w-full px-2 py-[10px] text-white bg-blue-500 flex items-center justify-center gap-4 rounded-br-lg'>
+                    <button onClick={() => setShowEnquiryForm(true)} className='w-full px-2 py-[10px] text-white bg-blue-500 flex items-center justify-center gap-4 rounded-br-lg'>
                         <FiMessageSquare className='w-5 h-5' /> 
                         Enquire
                     </button>
                 </div>
+
+                {
+                    showEnquiryForm && <EnquiryForm business={business} onClose={() => setShowEnquiryForm(false)} categoryId={business.category}/>
+                }
 
 
                 {callClick && !user.name && <CallClick onClose={onClose} business={business}/>}

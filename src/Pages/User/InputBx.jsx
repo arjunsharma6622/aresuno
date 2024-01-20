@@ -23,7 +23,7 @@ const InputBx = ({type, placeholder, value, onChange, name}) => {
     <input
       className={`rounded-md input border border-gray-300 w-full py-3 px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500`}
       id={type}
-      type="text"
+      type={type}
       name={name}
       value={value}
       onChange={onChange}

@@ -162,9 +162,14 @@ const Register = () => {
                   <FiArrowLeft strokeWidth={2} className="h-5 w-5" />
                 </button>
               </div>
-              <p className="text-3xl font-bold mb-6 text-center text-blue-500">
+
+              <div className="flex mb-6 gap-4 items-center justify-center">
+                <img src="./assets/logo.png" alt="" className="w-16"/>
+              {/* <p className="text-3xl font-bold text-center text-blue-500">
+                
                 Aresuno
-              </p>
+              </p> */}
+              </div>
 
               <h2 className="text-2xl font-bold mb-4 text-center">
                 Get Started as {role}
@@ -209,35 +214,18 @@ const Register = () => {
                 </div>
 
                 <div className="field input-field mb-6 ">
-                  {/* <div className="relative">
-                    <span
-                      className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
-                        focusedField === "email" || formData.email
-                          ? "top-0 scale-90 text-blue-500 text-sm"
-                          : "text-gray-400 top-1/2  text-base"
-                      } ${
-                        focusedField === "email"
-                          ? "text-blue-500"
-                          : "text-gray-500"
-                      }`}
-                      onFocus={handleFocus}
-                      onBeforeInput={handleBlur}
-                    >
-                      Email
-                    </span>
-                    <input
-                      className={`${
-                        errors.email ? "border-red-500" : ""
-                      }  rounded-md input border border-gray-300 w-full py-3 px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500`}
-                      id="email"
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      onFocus={() => handleFocus("email")}
-                      onBlur={handleBlur}
-                    />
-                  </div> */}
+
+
+                  <InputBx type={"number"} value={formData.phone} onChange={handleChange} placeholder={"Phone"} name={"phone"}/>
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs italic">
+                      {errors.phone}
+                    </p>
+                  )}
+                </div>
+
+                <div className="field input-field mb-6 ">
+
 
                   <InputBx type={"email"} value={formData.email} onChange={handleChange} placeholder={"Email"} name={"email"}/>
                   {errors.email && (
