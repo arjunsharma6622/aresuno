@@ -57,7 +57,7 @@ const Services = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowEnquiryForm(true);
-    }, 1000);
+    }, 10000);
 
     fetchAllBusinessesByCategory();
   }, []);
