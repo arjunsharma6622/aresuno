@@ -112,14 +112,14 @@ const Register = () => {
 
   return (
     <div className="flex w-full justify-between h-screen">
-    <div className="flex-[5]">
+    <div className="flex-[5] hidden md:flex">
       <img src="https://images.pexels.com/photos/19896578/pexels-photo-19896578/free-photo-of-a-small-wooden-building-on-the-side-of-the-road.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className="w-full h-full object-cover"/>
     </div>
 
 
-    <div className="flex flex-[5] mx-44 items-center justify-center h-screen">
+    <div className="flex w-full md:flex-[5] md:mx-44 mt-12 items-start justify-center">
       {!next ? (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <div className="mb-4">
             <div className="flex items-center mb-4">
               <input
@@ -177,12 +177,11 @@ const Register = () => {
           </div>
         </div>
       )
-       : !otpSent ? (
+       :  (
 
-        <section className="w-full flex items-start ">
-          <div className={` login w-full`}>
-            {/* <InputBx type={"text"} value={formData.name} onChange={handleChange}/> */}
-            <div className="shadow-lg w-full p-8 bg-white rounded-xl">
+        <section className="w-full flex items-center md:items-start ">
+          <div className={`w-full`}>
+            <div className="md:shadow-lg w-full p-4 md:p-8 bg-white rounded-xl">
               <div>
                 <button
                   onClick={() => {
@@ -197,13 +196,13 @@ const Register = () => {
 
               <div className="flex mb-6 gap-4 items-center justify-center">
                 <img src="./assets/logo.png" alt="" className="w-16"/>
-              {/* <p className="text-3xl font-bold text-center text-blue-500">
-                
-                Aresuno
-              </p> */}
               </div>
 
-              <h2 className="text-2xl font-bold mb-4 text-center">
+
+              {
+ !otpSent ? (
+              <div>
+                              <h2 className="text-2xl font-bold mb-4 text-center">
                 Get Started as {role}
               </h2>
               <form onSubmit={handleSubmit} className="w-full">
@@ -354,13 +353,12 @@ const Register = () => {
                   <span>Signup with Google</span>
                 </a>
               </div>
-            </div>
-          </div>
 
-          <ToastContainer />
-        </section>
-      ) : !otpVerified ?  (
-        <div className="shadow-lg w-full p-8 bg-white rounded-xl">
+              </div>
+)
+
+              : !otpVerified ? (
+                <div className=" w-full mt-10">
           <div>
             <div className="flex flex-col gap-4">
               <div>
@@ -388,21 +386,21 @@ const Register = () => {
 
           </div>
         </div>
-      ) : (
-        <div className="flex flex-col gap-4 shadow-lg w-full p-8 bg-white rounded-xl">
-          <div className="flex justify-start gap-4">
+              )
+
+              : (
+
+                <div className="flex flex-col gap-4 mt-10 w-full">
           <div className="flex flex-col gap-1">
-          <h2 className="text-start text-3xl font-semibold">Registration Successful</h2>
+            
+          <h2 className="text-start text-lg font-semibold">Registration Successful</h2>
           <p className="text-start text-sm">Your account has been created successfully</p>
           </div>
 
-          <FiCheckCircle className="text-center w-14 h-14 text-green-500" />
-          </div>
 
 
 
           <div className="flex gap-4">
-
             <Link to={"/dashboard"} className="bg-blue-500 flex items-center gap-2 text-white w-fit py-3  px-4 rounded-lg focus:outline-none">
                 <LuLayoutDashboard className="w-6 h-6" />
                 <span className="">Dashboard</span>
@@ -414,11 +412,23 @@ const Register = () => {
           </div>
           </div>
 
-      )}
 
 
+              )
+              }
+            </div>
+          </div>
+
+          <ToastContainer />
+        </section>
+
+  )}
+
+      
 
       </div>
+
+      
 
 <ToastContainer />
     </div>
