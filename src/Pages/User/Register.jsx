@@ -117,7 +117,7 @@ const Register = () => {
     </div>
 
 
-    <div className="flex w-full md:flex-[5] md:mx-44 mt-12 items-start justify-center">
+    <div className="flex w-full md:flex-[5] md:mx-44 md:mt-12 items-start justify-center">
       {!next ? (
         <div className="flex flex-col w-full">
           <div className="mb-4">
