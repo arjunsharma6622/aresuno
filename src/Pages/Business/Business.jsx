@@ -81,6 +81,11 @@ const Business = () => {
         try {
             setIsReviewLoading(true);
             const token = localStorage.getItem("token");
+            if(!token) {
+                toast.error("Please login to post a review");
+                setIsReviewLoading(false);
+                return;
+            }
             const res = await axios.post(
                 `${API_URL}/api/rating/create/${business._id}`,
                 { rating: selectedStars, review: review },
@@ -584,7 +589,7 @@ const Business = () => {
 
 
 
-                                    <div className="flex flex-col justify-start items-start">
+                                    <div className="flex flex-col justify-start w-full items-start">
 
 
 
@@ -606,19 +611,19 @@ const Business = () => {
                                             ))}
                                         </div>
 
-                                        <div className="">
+                                        <div className="w-full">
                                             <p className="text-base font-medium mb-1 mt-2">
                                                 We accept
                                             </p>
 
-                                            <div className="flex flex-wrap gap-6">
+                                            <div className="grid grid-cols-4 gap-2 w-full md:flex md:flex-wrap md:items-center md:justify-start md:gap-5">
                                                 {business.modeOfPayment?.map(({name, icon}, index) => (
                                                     <div
                                                         key={name}
-                                                        className="flex items-center mb-2 bg-gray-100 rounded-lg justify-center px-2 md:px-3"
+                                                        className="flex items-center mb-2 bg-gray-100 rounded-lg justify-center px-2 md:px-3 py-2"
                                                     >
                                                         <span className="text-gray-800 text-xs md:text-sm">
-                                                            <img src={icon} alt={name} className="w-8 md:w-10" />
+                                                            <img src={icon} alt={name} className="w-[55px] md:w-[70px] aspect-[2/1] object-cover" />
                                                             {/* {name} */}
                                                         </span>
                                                     </div>

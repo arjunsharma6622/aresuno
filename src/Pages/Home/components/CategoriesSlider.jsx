@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Navigation } from 'swiper/modules';
 import { SwiperSlide, Swiper } from 'swiper/react';
@@ -8,6 +9,8 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
   const [swiper, setSwiper] = useState(null);
   const [isStart, setIsStart] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
+   const userLocationName = useSelector((state) => state.user.locationName);
 
   console.log(categories)
 
@@ -57,7 +60,7 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
         {categories?.map((subCategory, index) => (
           <SwiperSlide key={index} className="">
             <Link
-              to={`/${subCategory.name.replace(/\s+/g, "-").toLowerCase()}`}
+              to={`/${userLocationName.toLowerCase()}/${subCategory.name.replace(/\s+/g, "-").toLowerCase()}`}
               className="w-full flex flex-col items-center max-md:w-full max-md:ml-0"
             >
               <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
