@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL } from '../../utils/util'
 import axios from 'axios'
+import { FiCheckCircle, FiXCircle } from 'react-icons/fi'
 
 const CallLeads = ({callLeads}) => {
 
@@ -9,6 +10,7 @@ const CallLeads = ({callLeads}) => {
         "Date",
         "Name",
         "Phone",
+        "Verified",
         "Business",
     ]
   return (
@@ -34,6 +36,19 @@ const CallLeads = ({callLeads}) => {
 
                         <td className='px-6 py-4 whitespace-nowrap'>{callLead.name}</td>
                         <td className='px-6 py-4 whitespace-nowrap'>{callLead.phone}</td>
+                        <td className='px-6 py-4 whitespace-nowrap'>{callLead.verified ? 
+                        <div className='flex items-center gap-2'>
+                            <FiCheckCircle className='w-5 h-5 text-green-500' />
+                            <span>Yes</span>
+                        </div>
+
+                        :
+                        <div className='flex items-center gap-2'>
+                            <FiXCircle className='w-5 h-5 text-red-500' />
+                            <span>No</span>
+                        </div>
+                        
+                    }</td>
                         <td className='px-6 py-4 whitespace-nowrap'>{callLead.business.name}</td>
                     </tr>
                 ))
