@@ -84,11 +84,11 @@ function Main() {
           <Route path="/" element={<Home />} />
           <Route
             path="/login"
-            element={user.name ? <Navigate to={`/`} /> : <Login />}
+            element={user.name ? <Navigate to={`/dashboard`} /> : <Login />}
           />
           <Route
             path="/signup"
-            element={user.name ? <Navigate to={`/`} /> : <Register />}
+            element={<Register />}
           />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />

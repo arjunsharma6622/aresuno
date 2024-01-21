@@ -39,16 +39,14 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
   return (
     <div>
       <div className='z-[40] fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm'>
-        <div className='w-[90%] md:w-[40%] bg-white p-8 flex flex-col gap-6 rounded-xl'>
-          <div className='flex justify-between'>
+        <div className='relative w-[90%] md:w-[70%] bg-white flex gap-6  rounded-xl'>
+
+          <div className='flex-[7] p-8 flex flex-col gap-6 '>
             <div>
               <h1 className='text-xl font-semibold'>Enquiry</h1>
               <p>We will get back to you in some time</p>
             </div>
-            <div>
-              <FiX className='w-5 h-5 cursor-pointer' onClick={onClose} />
-            </div>
-          </div>
+
           <form
             onSubmit={handleEnquirySubmit}
             className='flex flex-col gap-4'
@@ -95,6 +93,17 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
               Submit Enquiry
             </button>
           </form>
+          </div>
+
+          <div className='flex flex-[5]'>
+            <img src="https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w1200/2023/10/free-images.jpg" alt="" className='rounded-xl object-cover'/>
+          </div>
+
+
+
+          <div className='absolute top-4 right-4'>
+              <FiX className='w-5 h-5 cursor-pointer' onClick={onClose} />
+            </div>
         </div>
       </div>
     </div>

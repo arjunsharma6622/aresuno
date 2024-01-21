@@ -4,14 +4,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 // import { userLogin } from "../../userSlice";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { FiArrowLeft, FiArrowRight, FiEye, FiEyeOff } from "react-icons/fi";
+import { Link, useSearchParams } from "react-router-dom";
+import { FiArrowLeft, FiArrowRight, FiCheckCircle, FiEye, FiEyeOff, FiHome } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
 import InputBx from "./InputBx";
 import {API_URL} from "../../utils/util";
+import { AiFillLayout } from "react-icons/ai";
+import { LuLayoutDashboard } from "react-icons/lu";
 
 const Register = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
@@ -30,12 +31,42 @@ const Register = () => {
   const [role, setRole] = useState("");
   const [next, setNext] = useState(false);
 
+  const [otp, setOtp] = useState("")
+  const [otpSent, setOtpSent] = useState(false)
+  const [otpVerified, setOtpVerified] = useState(false)
+  const [otpVefiryLoading, setOtpVefiryLoading] = useState(false)
+
+  const handleSubmitOtp = async (e) => {
+    e.preventDefault();
+    setOtpVefiryLoading(true)
+    try {
+      const response = await axios.patch(`${API_URL}/api/${role}/verify-otp`, {
+        _id: formData._id,
+        otp : otp,
+        phone: formData.phone,
+      })
+
+      console.log(response.data)
+
+      toast.success(response.data.message)
+      toast.success("OTP Verified")
+      setOtpVerified(true)
+      setOtpVefiryLoading(false)
+    }
+    catch(err) {
+      setOtpVefiryLoading(false)
+      toast.error(err.response.data.message)
+      console.log(err)
+    }
+  }
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
+    e.preventDefault();  // Prevent the default form submission behavior
     setIsLoading(true);
-    e.preventDefault();
+  
     try {
       const res = await axios.post(
         `${API_URL}/api/${role}/register`,
@@ -45,7 +76,7 @@ const Register = () => {
       const token = res.data.token;
       localStorage.setItem("token", token);
 
-      toast.success("success");
+      toast.success("OTP sent");
 
       dispatch(
         userLogin({
@@ -55,13 +86,8 @@ const Register = () => {
       );
 
       setIsLoading(false);
+      setOtpSent(true)
 
-      if (role === "vendor") {
-        console.log('goingo to onboarding')
-        navigate(`/`);
-      } else {
-        navigate(`/`);
-      }
     } catch (err) {
       console.log(err)
       toast.error(err.response.data.message);
@@ -85,8 +111,14 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      {!next && (
+    <div className="flex w-full justify-between h-screen">
+    <div className="flex-[5]">
+      <img src="https://images.pexels.com/photos/19896578/pexels-photo-19896578/free-photo-of-a-small-wooden-building-on-the-side-of-the-road.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className="w-full h-full object-cover"/>
+    </div>
+
+
+    <div className="flex flex-[5] mx-44 items-center justify-center h-screen">
+      {!next ? (
         <div className="flex flex-col">
           <div className="mb-4">
             <div className="flex items-center mb-4">
@@ -144,10 +176,10 @@ const Register = () => {
             </button>
           </div>
         </div>
-      )}
+      )
+       : !otpSent ? (
 
-      {next && (
-        <section className="w-full max-w-md">
+        <section className="w-full flex items-start ">
           <div className={` login w-full`}>
             {/* <InputBx type={"text"} value={formData.name} onChange={handleChange}/> */}
             <div className="shadow-lg w-full p-8 bg-white rounded-xl">
@@ -174,57 +206,28 @@ const Register = () => {
               <h2 className="text-2xl font-bold mb-4 text-center">
                 Get Started as {role}
               </h2>
-              <form onSubmit={handleSubmit} className="w-full max-w-md">
-                <div className="field input-field mb-6 ">
-                  {/* <div className="relative">
-                    <span
-                      className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3  transition-all duration-75 ease-in ${
-                        focusedField === "name" || formData.name
-                          ? "top-0 scale-90 text-blue-500 text-sm"
-                          : "text-gray-400 top-1/2  text-base"
-                      } ${
-                        focusedField === "name"
-                          ? "text-blue-500"
-                          : "text-gray-500"
-                      }`}
-                      onFocus={handleFocus}
-                      onBeforeInput={handleBlur}
-                    >
-                      Name
-                    </span>
+              <form onSubmit={handleSubmit} className="w-full">
+                <div className="flex md:flex-row flex-col gap-2 w-full">
+                  <div className="field input-field mb-6 w-full">
+                    <InputBx type={"text"} value={formData.name} onChange={handleChange} placeholder={"Name"} name={"name"}/>
+                    {errors?.name && (
+                      <p className="text-red-500 text-xs italic">{errors?.name}</p>
+                    )}
+                  </div>
 
-                    <input
-                      className={`${
-                        errors.name ? "border-red-500" : ""
-                      }  rounded-md input border border-gray-300 w-full py-3 px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500`}
-                      id="name"
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      onFocus={() => handleFocus("name")}
-                      onBlur={handleBlur}
-                    />
-                  </div> */}
+                  <div className="field input-field mb-6 w-full">
 
-                  <InputBx type={"text"} value={formData.name} onChange={handleChange} placeholder={"Name"} name={"name"}/>
-                  {errors.name && (
-                    <p className="text-red-500 text-xs italic">{errors.name}</p>
-                  )}
+
+                    <InputBx type={"number"} value={formData.phone} onChange={handleChange} placeholder={"Phone"} name={"phone"}/>
+                    {errors.phone && (
+                      <p className="text-red-500 text-xs italic">
+                        {errors.phone}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
-                <div className="field input-field mb-6 ">
-
-
-                  <InputBx type={"number"} value={formData.phone} onChange={handleChange} placeholder={"Phone"} name={"phone"}/>
-                  {errors.phone && (
-                    <p className="text-red-500 text-xs italic">
-                      {errors.phone}
-                    </p>
-                  )}
-                </div>
-
-                <div className="field input-field mb-6 ">
+                <div className="field input-field mb-6  w-full">
 
 
                   <InputBx type={"email"} value={formData.email} onChange={handleChange} placeholder={"Email"} name={"email"}/>
@@ -235,7 +238,7 @@ const Register = () => {
                   )}
                 </div>
 
-                <div className="field input-field mb-5">
+                <div className="field input-field mb-6 w-full">
                   <div className="relative">
                     <span
                       className={`bg-white pointer-events-none px-2 z-10  absolute transform -translate-y-1/2 left-3 transition-all duration-75 ease-in ${
@@ -285,25 +288,27 @@ const Register = () => {
                     </p>
                   )}
                 </div>
+                {/* </div> */}
+
 
                 <div className="field button-field">
-                  <button
-                    className=" bg-blue-700 text-white font-bold w-full py-3  px-4 rounded-lg focus:outline-none"
-                    type="submit"
-                  >
-                    {isLoading ? (
-                      <div
-                        class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                        role="status"
-                      >
-                        <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                          Loading...
-                        </span>
-                      </div>
-                    ) : (
-                      "Sign Up"
-                    )}
-                  </button>
+                <button
+      type="submit"  // This line is optional since the default type of a button inside a form is 'submit'
+      className="bg-blue-700 text-white font-bold w-full py-3 px-4 rounded-lg focus:outline-none"
+    >
+      {isLoading ? (
+        <div
+          class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            Loading...
+          </span>
+        </div>
+      ) : (
+        "Sign Up"
+      )}
+    </button>
                 </div>
               </form>
 
@@ -354,7 +359,68 @@ const Register = () => {
 
           <ToastContainer />
         </section>
+      ) : !otpVerified ?  (
+        <div className="shadow-lg w-full p-8 bg-white rounded-xl">
+          <div>
+            <div className="flex flex-col gap-4">
+              <div>
+              <h2 className="text-start text-lg font-semibold">Enter OTP</h2>
+              <p className="text-start text-sm">Enter the OTP sent to your phone number - {formData.phone}</p>
+              </div>
+              <div className="flex items-center gap-4">
+              <input type="text" pattern={"\d*"} name="otp" maxLength="4" max={9999} onChange={(e) => setOtp(e.target.value)} className="flex-[8] border border-gray-300 w-full py-3 px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500 rounded-lg"/>
+              <button className="bg-blue-500 flex-[4] text-white w-full py-3  px-4 rounded-lg focus:outline-none" onClick={handleSubmitOtp}>
+              {otpVefiryLoading ? (
+        <div
+          class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            Loading...
+          </span>
+        </div>
+      ) : (
+        "Verify OTP"
       )}
+              </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4 shadow-lg w-full p-8 bg-white rounded-xl">
+          <div className="flex justify-start gap-4">
+          <div className="flex flex-col gap-1">
+          <h2 className="text-start text-3xl font-semibold">Registration Successful</h2>
+          <p className="text-start text-sm">Your account has been created successfully</p>
+          </div>
+
+          <FiCheckCircle className="text-center w-14 h-14 text-green-500" />
+          </div>
+
+
+
+          <div className="flex gap-4">
+
+            <Link to={"/dashboard"} className="bg-blue-500 flex items-center gap-2 text-white w-fit py-3  px-4 rounded-lg focus:outline-none">
+                <LuLayoutDashboard className="w-6 h-6" />
+                <span className="">Dashboard</span>
+            </Link>
+            <Link to={"/"} className="bg-gray-500 flex items-center gap-2 text-white w-fit py-3  px-4 rounded-lg focus:outline-none">
+                <FiHome className="w-6 h-6" />
+                <span className="">Home</span>
+            </Link>
+          </div>
+          </div>
+
+      )}
+
+
+
+      </div>
+
+<ToastContainer />
     </div>
   );
 };

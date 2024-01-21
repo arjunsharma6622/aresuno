@@ -14,7 +14,7 @@ import {
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../../state/slices/userSlice";
-import { FiArrowLeft, FiArrowRight, FiBell, FiHome, FiLogOut, FiMenu, FiStar, FiX } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight, FiBell, FiHome, FiLogOut, FiMenu, FiMessageSquare, FiStar, FiX } from "react-icons/fi";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Sidebar = ({ user }) => {
@@ -61,6 +61,11 @@ const Sidebar = ({ user }) => {
       path: "leads",
     },
     {
+      name: "Enquiries",
+      icon: <FiMessageSquare className="w-5 h-5 md:w-6 md:h-6 " />,
+      path: "enquiries",
+    },
+    {
       name: "Subscriptions",
       icon: <BiDollar className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "subscriptions",
@@ -86,7 +91,7 @@ const Sidebar = ({ user }) => {
   return (
     <div>
     <div
-      className={`relative h-screen hidden md:flex  overflow-y-auto ${isSidebarCollapsed ? "p-2 pr-6" : "p-4 pr-8"} py-8 shadow-lg border-r flex justify-between items-start  `}
+      className={`relative h-screen hidden md:flex  overflow-y-auto ${isSidebarCollapsed ? "p-2 pr-6" : "p-4 pr-8"} py-4 shadow-lg border-r flex justify-between items-start  `}
     >
       <div className={`h-full transition-all duration-[400ms]  flex flex-col justify-between overflow-y-auto ${isSidebarCollapsed ? " w-20 p-2" : " w-48"
         }`}>
@@ -94,15 +99,15 @@ const Sidebar = ({ user }) => {
         <div className="flex flex-col px-3 items-start justify-start gap-2 w-full">
 
 
-        {/* <div className="flex items-center gap-2">
-            <FiArrowLeft className="w-5 h-5"/>
-            <span>Home</span>
-          </div> */}
+<Link to={"/"} className="flex items-center gap-2 mb-4">
+    <img src="/assets/logo.png" alt="Aresuno" className="w-14" />
+
+</Link>
 
 
 
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <img
               src={
                 user.image
@@ -110,15 +115,18 @@ const Sidebar = ({ user }) => {
                   : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
               }
               alt=""
-              className="rounded-full w-10 h-10 object-cover"
+              className="rounded-full w-9 h-9 object-cover"
             />
             {!isSidebarCollapsed && (
-              <h2 className="text-xl font-semibold">{user.name}</h2>
+              <h2 className="text-lg font-semibold">{user.name}</h2>
             )}
           </div>
 
+
           
         </div>
+
+
 
         <hr className="w-full border-gray-300" />
 

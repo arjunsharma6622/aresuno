@@ -6,52 +6,52 @@ const BusinessModeOfPayment = ({ businessDetails, setBusinessDetails }) => {
   // handle mode of payment
   const paymentModes = [
     {
-      name: "Cash",
-      icon: "https://cdn-icons-png.flaticon.com/512/3566/3566403.png",
+    name : "Cash",
+    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/pwgkaicbn4oiqlmbdu4y.png"
     },
     {
-      name: "Card",
-      icon: "https://cdn-icons-png.flaticon.com/512/6963/6963703.png",
+    name : "Card",
+    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817173/aresuno/paymentModes/dy4nsy9gl6m6bnb2nfmd.png"
     },
     {
-      name: "Visa",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png",
+    name : "Visa",
+    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/xoinunrckkg3rww8k77b.png"
     },
     {
-      name: "Rupay",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Rupay-Logo.png/1200px-Rupay-Logo.png",
+    name : "Rupay",
+    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/obi22zyxsbq5xlzlp0ws.png"
     },
     {
-      name: "Mastercard",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/2560px-Mastercard-logo.svg.png",
+    name : "Mastercard",
+    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/hhqomnbw4qrwdwhob5mp.png"
     },
     {
-      name: "UPI",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/1024px-UPI-Logo-vector.svg.png",
+    name : "UPI",
+    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xkiu9aow2dqy0rr7dtrn.png"
     },
     {
-      name: "Google Pay",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/1200px-Google_Pay_Logo.svg.png",
+    name : "Google Pay",
+    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/fvpdyuhabbvdkqdyu0ob.png"
     },
     {
-      name: "PhonePe",
-      icon: "https://seeklogo.com/images/P/phonepe-logo-B9E7D6F75F-seeklogo.com.png",
+      name : "PhonePe",
+      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/cbazb5dpnijmc488pvbx.png"
     },
     {
-      name: "Patym",
-      icon: "https://cdn.iconscout.com/icon/free/png-256/free-paytm-226448.png",
+      name : "Patym",
+      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/rs14sxkqwwnbxshhrbbw.png"
     },
     {
-      name: "Apple Pay",
-      icon: "https://cdn.iconscout.com/icon/free/png-256/free-applepay-226446.png",
+      name : "Apple Pay",
+      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xkiu9aow2dqy0rr7dtrn.png"
     },
     {
-      name: "Razorpay",
-      icon: "https://cdn.iconscout.com/icon/free/png-256/free-razorpay-1649771-1399875.png",
+      name : "Razorpay",
+      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/vlkap6xgiua5svwbjkpm.png"
     },
     {
-      name: "American Express",
-      icon: "https://cdn.iconscout.com/icon/free/png-256/free-american-express-7-711815.png",
+      name : "American Express",
+      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xr6kdw1itposojv1bsw0.png"
     },
   ];
 
@@ -115,7 +115,7 @@ const BusinessModeOfPayment = ({ businessDetails, setBusinessDetails }) => {
               <img
                 src={icon}
                 alt={name}
-                className="w-20 h-20 inline-block object-contain"
+                className="w-24 aspect-[2/1] inline-block object-contain"
               />
             </div>
             <div

@@ -44,7 +44,7 @@ const Login = () => {
 
       console.log(res.data);
       toast.success("Logged In Successfully");
-      navigate(`/${res.data.userType}/dashboard/`);
+      // navigate(`/${res.data.userType}/dashboard/`);
     } catch (err) {
       toast.error("Login Failed");
     }

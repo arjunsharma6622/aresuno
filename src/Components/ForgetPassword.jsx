@@ -3,6 +3,7 @@ import OtpForm from './OtpForm';
 import { API_URL } from '../utils/util';
 import axios from 'axios';
 import { FiEye, FiEyeOff, FiLock } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ForgetPassword = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -47,6 +48,7 @@ const ForgetPassword = () => {
         setOtpSent(true)
     }catch(err){
         console.log(err)
+        toast.error(err.response.data.message);
     }
   };
 
@@ -56,7 +58,7 @@ const ForgetPassword = () => {
       <h2 className="text-2xl font-semibold mb-8">Forget Password</h2>
 
 
-{ otpSent ?
+{ !otpSent ?
 
         <div>
         <div className='w-full'>
@@ -173,6 +175,7 @@ const ForgetPassword = () => {
 
 }
       </div>
+      <ToastContainer />
     </div>
   );
 };

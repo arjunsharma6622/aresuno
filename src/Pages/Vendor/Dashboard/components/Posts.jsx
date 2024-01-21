@@ -205,18 +205,13 @@ const Posts = ({ posts, businesses }) => {
               {image && (
                 <div>
                   <div className="w-full relative">
-                    <img src={imageToShow} alt="" />
-      {/* Check if cropping is needed */}
-      {isCropping && (
+                    {/* <img src={imageToShow} alt="" /> */}
         <EasyCrop
           image={imageToShow}
           setImage={handleCroppedImage}
           aspectRatio={1 / 1}
           widthOfImg={"w-64"}
         />
-      )}
-                    <button onClick={() => setIsCropping(true)}>crop</button>
-
                     <FiXCircle
                       className="w-6 h-6 z-20 absolute top-2 right-2 cursor-pointer bg-red-200 rounded-full text-red-500 "
                       onClick={() => setImage(null)}

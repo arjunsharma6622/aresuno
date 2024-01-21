@@ -41,6 +41,42 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
   //   }));
   // };
 
+  const [wordCount, setWordCount] = useState(0);
+const maxWordCount = 100;
+
+// const handleBusinessDescriptionChange = (e) => {
+//   const inputText = e.target.value;
+//   const words = inputText.trim().split(/\s+/);
+//   const currentWordCount = words.length;
+  
+//   // Ensure that the word count doesn't exceed the maximum
+//   if (currentWordCount <= maxWordCount) {
+//     setBusinessDetails({ description: inputText });
+//     setWordCount(currentWordCount);
+//   }
+// };
+
+const handleBusinessDescriptionChange = (e) => {
+  const inputText = e.target.value;
+
+  // Check if the input is empty
+  if (!inputText.trim()) {
+    setBusinessDetails({ ...businessDetails, description: inputText });
+    setWordCount(0); // Set word count to 0 for an empty description
+    return;
+  }
+
+  const words = inputText.trim().split(/\s+/);
+  const currentWordCount = words.length;
+
+  // Ensure that the word count doesn't exceed the maximum
+  if (currentWordCount <= maxWordCount) {
+    setBusinessDetails({ ...businessDetails, description: inputText });
+    setWordCount(currentWordCount);
+  }
+};
+
+
 
   const handlePhoneChange = (value) => {
     if (value && value.length >= 2 && value.length <= 14) {
@@ -114,6 +150,7 @@ const [descriptionError, setDescriptionError] = useState("");
               value={businessDetails.name}
               onChange={handleBusinessDetailsChange}
               className="mt-2 rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
+              placeholder="Enter business name"
             />
 
           </div>
@@ -157,7 +194,8 @@ const [descriptionError, setDescriptionError] = useState("");
           <div className="flex gap-2 items-center">
             <label htmlFor="phone">Business Phone <span className="text-red-500 text-sm">*</span></label>
             {phoneError && <p className="text-red-500 text-xs">{phoneError}</p>}
-            </div>            <PhoneInput
+            </div>            
+            {/* <PhoneInput
               international
               defaultCountry="in"
               value={businessDetails.phone}
@@ -181,6 +219,14 @@ const [descriptionError, setDescriptionError] = useState("");
                 width: "100%",
                 height: "100%",
               }}
+            /> */}
+
+            <input
+              type="text"
+              name="phone"
+              value={businessDetails.phone}
+              onChange={handleBusinessDetailsChange}
+              className="mt-2 rounded-md input border text-base border-gray-300 w-full py-3 px-4 text-gray-600 leading-tight focus:outline-none"
             />
           </div>
 
@@ -203,7 +249,7 @@ const [descriptionError, setDescriptionError] = useState("");
 
 
 
-        <div className="flex flex-col w-full">
+        {/* <div className="flex flex-col w-full">
         <div className="flex gap-2 items-center">
             <label htmlFor="">About your business <span className="text-red-500 text-sm">*</span></label>
             {descriptionError && <p className="text-red-500 text-xs">{descriptionError}</p>}
@@ -218,9 +264,35 @@ const [descriptionError, setDescriptionError] = useState("");
             className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border  placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             onChange={handleBusinessDetailsChange}
           ></textarea>
-        </div>
+        </div> */}
 
-
+<div className="flex flex-col w-full">
+      <div className="flex gap-2 items-center">
+        <label htmlFor="description">
+          About your business
+          <span className="text-red-500 text-sm">*</span>
+          <span className="text-gray-500 text-xs ml-2">give your business description in 100 words</span>
+        </label>
+        {wordCount > maxWordCount && (
+          <p className="text-red-500 text-xs">
+            Exceeded maximum word count.
+          </p>
+        )}
+        <p className="text-gray-500 text-sm ml-auto">
+          {wordCount}/{maxWordCount}
+        </p>
+      </div>
+      <textarea
+        name="description"
+        value={businessDetails.description}
+        id="description"
+        cols="30"
+        rows="4"
+        placeholder="Enter a brief description about your business"
+        className="mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+        onChange={(e) => handleBusinessDescriptionChange(e)}
+      ></textarea>
+    </div>
 
         <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-[3] w-full">
@@ -262,7 +334,7 @@ const [descriptionError, setDescriptionError] = useState("");
           )}
 
           <div className="mt-6 flex flex-wrap gap-4 w-full">
-            {businessDetails.services.map((service, index) => (
+            {businessDetails.services?.map((service, index) => (
               <div
                 key={index}
                 className="relative flex items-center gap-4 mt-2"

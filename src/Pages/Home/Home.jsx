@@ -62,7 +62,7 @@ const Home = () => {
   useEffect(() => {
     fetchUserData()
     fetchBanner();
-  }, [dispatch]);
+  }, []);
 
 
   const fetchAllCategories = async () => {

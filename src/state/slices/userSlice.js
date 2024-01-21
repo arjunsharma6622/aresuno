@@ -3,19 +3,20 @@ import {createSlice} from "@reduxjs/toolkit"
 const userSlice = createSlice({
     name : "User",
     initialState : {
-        name : "",
+        name : "sdafds",
         userType : "",
         image : "",
         coordinates : {
             lat : "17.3666403",
             lng : "78.5205603"
         },
-        locationName : "Hyderabad"
+        locationName : "Hyderaba"
     },
     reducers : {
         userLogin  : (state, action) => {
             const {name, userType, image} = action.payload
-            console.log(action.payload)
+             console.log("xxxxxxxxxxxxxxxxxxxxxxx")
+             console.log(name, userType, image)
             state.name = name
             state.userType = userType
             state.image = image
