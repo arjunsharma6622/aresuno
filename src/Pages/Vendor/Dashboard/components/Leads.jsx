@@ -42,6 +42,7 @@ const Leads = ({businesses}) => {
     <th className='px-6 py-3 text-left font-medium text-gray-500'>Name</th>
     <th className='px-6 py-3 text-left font-medium text-gray-500'>Phone</th>
     <th className='px-6 py-3 text-left font-medium text-gray-500'>Business</th>
+    <th className='px-6 py-3 text-left font-medium text-gray-500'>Message</th>
   </tr>
   <tbody className='bg-white divide-y divide-gray-200 text-xs md:text-sm'>
     

@@ -15,7 +15,6 @@ import Header from "../../../Components/Header/Header";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../state/slices/userSlice";
 import { API_URL } from "../../../utils/util";
-import Enquiries from "./components/Enquiries";
 
 const api = axios.create({
   baseURL: `${API_URL}/api/vendor/`,
