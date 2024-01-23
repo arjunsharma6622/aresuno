@@ -16,7 +16,7 @@ const CallLeads = ({callLeads}) => {
   return (
     <div>
 
-        <table className='table table-auto w-full'>
+        <table className='table text-sm table-auto w-full'>
             <thead className='bg-gray-300'>
             <tr>
                 {

@@ -73,12 +73,12 @@ const AllBusiness = ({ businesses, categories }) => {
                 <table className="w-full text-sm table-auto">
                     <thead className="">
                         <tr className="bg-gray-300">
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
+                            <th className="px-2 text-center py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owned by</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owned</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email/Phone</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
                         </tr>
                     </thead>
@@ -86,7 +86,7 @@ const AllBusiness = ({ businesses, categories }) => {
                     <tbody className="bg-white divide-y divide-gray-200">
                         {businesses.map((business, index) => (
                             <tr key={index}>
-                                <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                                <td className="px-2 text-center py-4 whitespace-nowrap">{index + 1}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex gap-2 items-center">
                                         {business.name}
@@ -94,9 +94,13 @@ const AllBusiness = ({ businesses, categories }) => {
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.vendorName}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{business.type}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{new Date( business.createdAt).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{business.category.name}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{business.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap flex flex-col">
+                                <span>{business.phone}</span>
+                                    <span>{business.email}</span>
+                                    
+                                </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(business._id)} />
                                 </td>
@@ -141,7 +145,7 @@ const AllUsers = ({ users }) => {
                         <tr className="bg-gray-300">
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
                         </tr>
@@ -154,8 +158,7 @@ const AllUsers = ({ users }) => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {user.name}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
-                                {/* <td className="px-6 py-4 whitespace-nowrap">{user.type}</td> */}
+                                <td className="px-6 py-4 whitespace-nowrap">{new Date( user.createdAt).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)} />
@@ -201,7 +204,7 @@ const AllVendors = ({ users }) => {
                         <tr className="bg-gray-300">
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
@@ -215,7 +218,7 @@ const AllVendors = ({ users }) => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {user.name}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">{user.gender ? user.gender : "N/A"}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : "N/A"}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.phone}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
