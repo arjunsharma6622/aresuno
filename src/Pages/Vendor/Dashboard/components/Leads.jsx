@@ -55,6 +55,7 @@ const Leads = ({businesses}) => {
           <td className='px-6 py-3 text-left '>{enquiry.name}</td>
           <td className='px-6 py-3 text-left '>{enquiry.phone}</td>
           <td className='px-6 py-3 text-left '>{business.name}</td>
+          <td className='px-6 py-3 text-left w-20 h-3 overflow-y-auto'>{enquiry.message}</td>
         </tr>
       ))
     ))
