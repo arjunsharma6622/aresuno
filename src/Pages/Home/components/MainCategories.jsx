@@ -10,12 +10,14 @@ const MainCategories = () => {
   const categories = useSelector((state) => state.categories);
   const categoriesToShowOnHome = categories.length > 0 && categories.filter((category) => category.showOnHome);
   const categoryTitles = useSelector((state) => state.categoriestitle);
-
-
+  
   const categoryTitlesToShowOnHome = categoryTitles.length > 0 && categoryTitles.filter((categoryTitle) => categoryTitle.showOnHome);
   const userLocationName = useSelector((state) => state.user.locationName);
 
   console.log(categoryTitlesToShowOnHome)
+
+  const isMobile = window.innerWidth < 450;
+  const numberOfIconsToShow = isMobile ? 15 : 14;
 
 
   return (
@@ -26,7 +28,7 @@ const MainCategories = () => {
       <div className="m-auto self-center w-full  max-w-[1200px] mt-12 max-md:max-w-full max-md:mt-10">
         <div className="flex flex-wrap gap-4 md:gap-10 justify-center items-start">
           {
-            categoriesToShowOnHome.map((category, index) => (
+            categoriesToShowOnHome.slice(0, numberOfIconsToShow).map((category, index) => (
               <Link key={index} to={`${userLocationName?.toLowerCase()}/${category.name.split(" ").join("-").toLowerCase()}`} className="">
               <div
                 key={index}
