@@ -7,6 +7,7 @@ import ServiceCardSkeleton from "./components/ServiceCardSkeleton";
 import NotFound from "../NotFound/NotFound";
 import { API_URL } from "../../utils/util";
 import EnquiryForm from "../../Components/EnquiryForm";
+import { Helmet } from "react-helmet-async";
 
 const Services = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
@@ -64,6 +65,19 @@ const Services = () => {
 
   return (
     <div className="relative">
+                  {/* <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(businessStrDataStructure),
+                }}
+            /> */}
+
+            <Helmet>
+                <title>{subCategoryName}</title>
+                <meta name="description" content={`Find Best ${subCategoryName} Near ${extractedCity}`} />
+                <meta name="keywords" content={[subCategoryName, extractedCity]} />
+                {/* <link rel="icon" href="/" /> */}
+            </Helmet>
       {
         isLoading ? (
 
