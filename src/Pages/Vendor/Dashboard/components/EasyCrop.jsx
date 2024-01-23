@@ -118,7 +118,7 @@ import { useCallback, useState } from "react";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./Crop";
 
-const EasyCrop = ({ image }) => {
+const EasyCrop = ({ image, aspectRatio }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -161,7 +161,7 @@ const EasyCrop = ({ image }) => {
           display: image === null || croppedImage !== null ? "none" : "block",
         }}
       >
-        <div className="flex justify-center w-64 h-64">
+        <div className={`flex justify-center w-96 aspect-[${aspectRatio}] h-64`}>
           <Cropper
             image={image}
             crop={crop}
@@ -171,7 +171,7 @@ const EasyCrop = ({ image }) => {
             maxZoom={3}
             zoomWithScroll={true}
             showGrid={true}
-            aspect={1/1}
+            aspect={aspectRatio}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
@@ -197,7 +197,7 @@ const EasyCrop = ({ image }) => {
       {croppedImage && (
       <div className=" flex flex-col items-start gap-3">
         <div className="flex">
-          <img className="rounded-lg w-64" src={croppedImage} alt="cropped" />
+          <img className={`rounded-lg w-96 aspect-[${aspectRatio}]`} src={croppedImage} alt="cropped" />
           </div>
         <button onClick={onClose} className="bg-blue-500 w-full text-white py-2 px-4 rounded">Crop</button>
       </div>

@@ -10,13 +10,11 @@ const userSlice = createSlice({
             lat : "17.3666403",
             lng : "78.5205603"
         },
-        locationName : "Hyderaba"
+        locationName : "Hyderabad"
     },
     reducers : {
         userLogin  : (state, action) => {
             const {name, userType, image} = action.payload
-             console.log("xxxxxxxxxxxxxxxxxxxxxxx")
-             console.log(name, userType, image)
             state.name = name
             state.userType = userType
             state.image = image

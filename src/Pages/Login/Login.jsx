@@ -18,6 +18,7 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    phone : ""
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -82,10 +83,10 @@ const Login = () => {
                   onFocus={handleFocus}
                   onBeforeInput={handleBlur}
                 >
-                  Email
+                  Email / Phone
                 </span>
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   id="email"
                   value={formData.email}

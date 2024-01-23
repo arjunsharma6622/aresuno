@@ -20,6 +20,7 @@ import Cropper from "react-easy-crop";
 import { getCroppedImg } from "./getCroppedImage";
 import { BiImageAdd } from "react-icons/bi";
 import EasyCrop from "./EasyCrop";
+import { API_URL } from "../../../../utils/util";
 
 const Posts = ({ posts, businesses }) => {
 
@@ -117,7 +118,7 @@ const Posts = ({ posts, businesses }) => {
       console.log("The image url is" + imageUrl);
 
       const createPostResponse = await axios.post(
-        "https://aresuno-server.vercel.app/api/post/create",
+        `${API_URL}/api/post/create`,
         {
           image: imageUrl,
           description: post.description,
@@ -209,7 +210,7 @@ const Posts = ({ posts, businesses }) => {
         <EasyCrop
           image={imageToShow}
           setImage={handleCroppedImage}
-          aspectRatio={1 / 1}
+          aspectRatio={2/1}
           widthOfImg={"w-64"}
         />
                     <FiXCircle

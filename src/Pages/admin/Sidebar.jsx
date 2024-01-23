@@ -3,6 +3,7 @@ import { BiCategory, BiImage } from 'react-icons/bi'
 import { FaGripLines } from 'react-icons/fa'
 import { FiHome, FiMessageSquare, FiPhoneCall, FiUsers } from 'react-icons/fi'
 import { LuLayoutDashboard } from 'react-icons/lu'
+import { MdOutlineArticle } from 'react-icons/md'
 
 const Sidebar = ({handleSelectedField, selectedField}) => {
     const sidebarItems = [
@@ -13,6 +14,10 @@ const Sidebar = ({handleSelectedField, selectedField}) => {
         {
             name : "Banner",
             icon : <BiImage className="w-6 h-6" />
+        },
+        {
+            name : "Blogs",
+            icon : <MdOutlineArticle className="w-6 h-6" />
         },
         {
             name : "Categories",
@@ -38,10 +43,7 @@ const Sidebar = ({handleSelectedField, selectedField}) => {
             name : "Vendors",
             icon : <FiUsers className="w-6 h-6" />
         },
-        {
-            name : "Footer",
-            icon : <FaGripLines className="w-6 h-6" />
-        }
+
         
     ]
   return (

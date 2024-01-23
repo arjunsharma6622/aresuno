@@ -39,6 +39,7 @@ import { API_URL } from "../../utils/util";
 import Sidebar from "./Sidebar";
 import Enquiries from "./Enquiries";
 import CallLeads from "./CallLeads";
+import Blog from "./Blog";
 
 
 const AllBusiness = ({ businesses, categories }) => {
@@ -380,7 +381,7 @@ const AdminDashboard = () => {
                                 {selectedField === "Call Leads" && <CallLeads callLeads={callLeads}/>}
                                 {selectedField === "Banner" && <Banner />}
                                 {selectedField === "Categories" && <Category />}
-                                {selectedField === "Footer" && <Footer />}
+                                {selectedField === "Blogs" && <Blog />}
                             </div>
                         )}
                     </div>

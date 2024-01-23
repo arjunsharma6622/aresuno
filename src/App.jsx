@@ -34,6 +34,7 @@ import AboutUs from "./Pages/AboutUs/AboutUs";
 import { API_URL } from "./utils/util";
 import MapComponent from "./Pages/BusinessRegister/components/MapComponent";
 import ForgetPassword from "./Components/ForgetPassword";
+import Blog from "./Pages/Blog/Blog";
 
 function App() {
 
@@ -113,6 +114,7 @@ function Main() {
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/map" element={<MapComponent />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/business/register" element={<BusinessRegister />} />
           <Route path="/forget-password" element={<ForgetPassword/>} />
         </Routes>
