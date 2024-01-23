@@ -119,8 +119,11 @@ const Register = () => {
 
     <div className="flex w-full md:flex-[5] md:mx-44 md:mt-12 items-start justify-center">
       {!next ? (
-        <div className="flex flex-col w-full">
-          <div className="mb-4">
+        <div className="flex md:items-start flex-col mx-6 gap-4 justify-start mt-12 w-full h-full">
+          <p className="text-base md:text-lg">Before creating an account, please tell us your role</p>
+        <div className="flex w-full flex-col">
+
+          <div className="text-sm md:text-base">
             <div className="flex items-center mb-4">
               <input
                 type="radio"
@@ -131,13 +134,13 @@ const Register = () => {
                 onChange={(e) => setRole(e.target.value)}
                 className="mr-2"
               />
-              <label htmlFor="client" className="text-lg">
+              <label htmlFor="client" className="">
                 I'm a User
               </label>
             </div>
           </div>
 
-          <div className="mb-4">
+          <div className="text-sm md:text-base">
             <div className="flex items-center mb-4">
               <input
                 type="radio"
@@ -148,7 +151,7 @@ const Register = () => {
                 onChange={(e) => setRole(e.target.value)}
                 className="mr-2"
               />
-              <label htmlFor="vendor" className="text-lg">
+              <label htmlFor="vendor" className="">
                 I'm a vendor
               </label>
             </div>
@@ -160,7 +163,7 @@ const Register = () => {
                 setNext(true);
                 console.log(role);
               }}
-              className={`bg-gray-400 group flex justify-center items-center py-2 px-4 text-white font-medium rounded-md text-base`}
+              className={`bg-blue-500 group flex justify-center items-center py-2 px-4 text-white font-medium rounded-md text-base`}
             >
               {!role ? (
                 "Please Select"
@@ -175,6 +178,7 @@ const Register = () => {
               )}
             </button>
           </div>
+        </div>
         </div>
       )
        :  (
