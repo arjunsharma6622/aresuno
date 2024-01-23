@@ -100,7 +100,7 @@ const Banner = () => {
     };
 
     fetchBanner();
-  }, [dispatch]);
+  }, []);
 
   const filteredSubcategories = categories.filter((category) => category.name.toLowerCase().includes(searchQuery.toLowerCase()));
 

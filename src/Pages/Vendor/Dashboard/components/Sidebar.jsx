@@ -61,11 +61,6 @@ const Sidebar = ({ user }) => {
       path: "leads",
     },
     {
-      name: "Enquiries",
-      icon: <FiMessageSquare className="w-5 h-5 md:w-6 md:h-6 " />,
-      path: "enquiries",
-    },
-    {
       name: "Subscriptions",
       icon: <BiDollar className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "subscriptions",
