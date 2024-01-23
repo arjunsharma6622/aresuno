@@ -107,9 +107,9 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
                 </form>
                 </div>
       
-                {/* <div className='flex flex-[5] bg-blue-100 rounded-xl pl-4'>
+                <div className='flex flex-[5] bg-blue-100 rounded-xl pl-4'>
                   <img src="/assets/form.png" alt="" className='rounded-xl object-cover'/>
-                </div> */}
+                </div>
       
       
       
