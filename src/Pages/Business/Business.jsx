@@ -111,6 +111,8 @@ const Business = () => {
         fetchBusiness();
     }, []);
 
+
+
     const fetchBusiness = async () => {
         try {
             const res = await axios.get(
@@ -249,6 +251,49 @@ const Business = () => {
 
         return false;
     };
+
+    console.log(business._id)
+
+
+    const [isEnquiryLoading, setIsEnquiryLoading] = useState(false)
+    const [isEnquirySent, setIsEnquirySent] = useState(false)
+
+
+    const [enquiry, setEnquiry] = useState({
+        name: "",
+        phone: "",
+        message: "",
+    })
+
+    const handleEnquirySubmit = async () => {
+        setIsEnquiryLoading(true)
+        
+        try {
+            const enquiryToSend = {
+                ...enquiry
+            }
+                enquiryToSend.business = business._id
+                enquiryToSend.category = business.category
+            const res = await axios.post(`${API_URL}/api/enquiry/create`, enquiryToSend)
+            console.log(res)
+            toast.success('Enquiry Sent')
+            setEnquiry({
+                name: "",
+                phone: "",
+                message: "",
+            })
+            setIsEnquiryLoading(false)
+            setIsEnquirySent(true)
+            
+        } catch (err) {
+          console.error(err);
+
+          toast.error('Something went wrong')
+          setIsEnquiryLoading(false)
+        }
+      };
+
+    console.log(enquiry)
 
     const openTimingToday = (business) => {
         const currentDate = new Date();
@@ -1058,21 +1103,20 @@ const Business = () => {
                         <p className="text-gray-500 text-sm my-2">
                             Write to us and we will get back to you
                         </p>
-                        <div className="flex items-center flex-col gap-2">
+                        <div className="flex items-center flex-col gap-4">
                             <input
                                 type="text"
                                 placeholder="Name"
                                 className="w-full h-10 bg-gray-100 rounded-md px-4"
+                                value={enquiry.name}
+                                onChange={(e) => setEnquiry({ ...enquiry, name: e.target.value })}
                             />
                             <input
                                 type="text"
                                 placeholder="Phone Number"
                                 className="w-full h-10 bg-gray-100 rounded-md px-4"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Email"
-                                className="w-full h-10 bg-gray-100 rounded-md px-4"
+                                value={enquiry.phone}
+                                onChange={(e) => setEnquiry({ ...enquiry, phone: e.target.value })}
                             />
                             <textarea
                                 name="text"
@@ -1081,9 +1125,24 @@ const Business = () => {
                                 placeholder="Message"
                                 rows="10"
                                 className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"
+                                value={enquiry.message}
+                                onChange={(e) => setEnquiry({ ...enquiry, message: e.target.value })}
                             ></textarea>
-                            <button className="bg-blue-600 text-white w-full h-10 rounded-md">
-                                Submit
+                            <button onClick={handleEnquirySubmit} className="bg-blue-600 text-white w-full h-10 rounded-md">
+                                {
+                                    isEnquiryLoading ? (
+                                        <div
+                                            className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                            role="status"
+                                        >
+                                            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                                Loading...
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        "Send"
+                                    )
+                                }
                             </button>
                         </div>
                     </div>
