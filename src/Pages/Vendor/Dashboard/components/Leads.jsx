@@ -58,11 +58,31 @@ const Leads = ({businesses}) => {
   ]
 
 
-  const [allCallLeads, setAllCallLeads] = useState(businesses.flatMap((business) => {
-    return {...business.callLeads, business: business.name}}));
+  // const [allCallLeads, setAllCallLeads] = useState(businesses.flatMap((business) => {
+  //   console.log(business)
+  //   return {...business.callLeads, business: business.name}}));
 
-  const [allEnquiries, setAllEnquiries] = useState(businesses.flatMap((business) => business.enquiries));
+  const [allCallLeads, setAllCallLeads] = useState(
+    businesses.flatMap((business) =>
+      business.callLeads.map((callLead) => ({
+        ...callLead,
+        business: business.name,
+      }))
+    )
+  );
+  
+  const [allEnquiries, setAllEnquiries] = useState(
+    businesses.flatMap((business) =>
+      business.enquiries.map((enquiry) => ({
+        ...enquiry,
+        business: business.name,
+      }))
+    )
+  );
+  
 
+
+  console.log(allCallLeads)
 
   const handleFilterCallLeads = (filter) => {
     setAllCallLeads(businesses.flatMap((business) => business.callLeads.filter((lead) => {
@@ -84,7 +104,8 @@ const Leads = ({businesses}) => {
       if(filter.value === "this year"){
         return new Date(lead.createdAt).getFullYear() === new Date().getFullYear()
       }
-    })))
+    }).map((lead) => ({ ...lead, business: business.name }))
+    ))
   }
 
   const handleFilterEnquiries = (filter) => {
@@ -107,7 +128,8 @@ const Leads = ({businesses}) => {
       if(filter.value === "this year"){
         return new Date(enquiry.createdAt).getFullYear() === new Date().getFullYear()
       }
-    })))
+    }).map((enquiry) => ({ ...enquiry, business: business.name }))
+    ))
   }
 
   
@@ -217,7 +239,7 @@ const Leads = ({businesses}) => {
         <td className='px-6 py-3 text-left '>{new Date(enquiry.createdAt).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}</td>
         <td className='px-6 py-3 text-left '>{enquiry.name}</td>
         <td className='px-6 py-3 text-left '>{enquiry.phone}</td>
-        <td className='px-6 py-3 text-left '>{}</td>
+        <td className='px-6 py-3 text-left '>{enquiry.business}</td>
         <td className='px-6 py-3 text-left w-20 h-3 overflow-y-auto'>{enquiry.message}</td>
       </tr>
     ))
