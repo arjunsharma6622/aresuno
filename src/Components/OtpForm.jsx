@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { API_URL } from '../utils/util';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const OtpForm = ({phone, setIsOtpVerified}) => {
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -32,6 +33,7 @@ const OtpForm = ({phone, setIsOtpVerified}) => {
     }
     catch(err){
         console.log(err)
+        toast.error(err.response.data.message);
     }
   };
 

@@ -32,6 +32,7 @@ const ForgetPassword = () => {
       toast.success("Password Updated");
     } catch (err) {
       console.log(err);
+      
       toast.error("Error Updating Password");
     }
   };
@@ -47,7 +48,7 @@ const ForgetPassword = () => {
         console.log(response.data)
         setOtpSent(true)
     }catch(err){
-        console.log(err)
+        console.log(err.response.data.message)
         toast.error(err.response.data.message);
     }
   };

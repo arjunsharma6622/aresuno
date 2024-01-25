@@ -65,12 +65,12 @@ const Services = () => {
 
   return (
     <div className="relative">
-                  {/* <script
+                  <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(businessStrDataStructure),
+                    // __html: JSON.stringify(businessStrDataStructure),
                 }}
-            /> */}
+            />
 
             <Helmet>
                 <title>{subCategoryName}</title>
