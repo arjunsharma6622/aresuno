@@ -270,6 +270,7 @@ const AllCategories = () => {
 
       </div>
 
+{ selectedBusinessType === "service" &&
       <div>
         <h1 className="text-2xl font-medium mb-5">Category Titles</h1>
 
@@ -320,6 +321,8 @@ const AllCategories = () => {
           ))}
         </div>
       </div>
+
+                  }
     </div>
   );
 };
@@ -547,7 +550,9 @@ const Category = ({}) => {
 
 
           <div className="w-1/2 bg-white rounded-xl">
-            {/* <h2 className="text-xl font-semibold mb-4">
+            { selectedBusinessType === "service" &&
+            <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-4">
               Add Category Title
             </h2>
 
@@ -567,7 +572,9 @@ const Category = ({}) => {
                   Create
                 </button>
               </div>
-            </div> */}
+            </div>
+            </div>
+}
 
             <div className="flex flex-col gap-4">
               <span className="text-2xl font-semibold">Recently added</span>
