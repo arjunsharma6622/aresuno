@@ -27,11 +27,12 @@ const CategoryInput = ({
   onCategoryTitleChange,
 }) => {
   const [category, setCategory] = useState({
-    categoryTitle: "",
     name: "",
     image: { url: null, altTag: "" },
+    businessType : ""
   });
   const [imageToShow, setImageToShow] = useState(null);
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -71,24 +72,14 @@ const CategoryInput = ({
     onUpdateCategory(index, categoryName);
   };
 
-  const handleCategoryTitleChange = (e) => {
-    const categoryId = e.target.value;
-    setCategory((prevCategory) => ({
-      ...prevCategory,
-      categoryTitle: categoryId,
-    }));
-    onCategoryTitleChange(index, categoryId);
-  };
 
-  // const [categoryTitles, setCategoryTitles] = useState([])
-  const categoryTitles = useSelector((state) => state.categoriestitle);
 
   console.log(category);
 
   return (
     <div className="border rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
       <div className="flex flex-col gap-5">
-        <div className="flex items-start gap-3 flex-col justify-between w-full">
+        {/* <div className="flex items-start gap-3 flex-col justify-between w-full">
           <label htmlFor="" className="flex flex-col gap-3">
             Category Title
           </label>
@@ -108,7 +99,7 @@ const CategoryInput = ({
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
 
         <div className="flex items-center justify-between w-full">
           <label htmlFor="" className="flex flex-col gap-3 w-full">
@@ -175,6 +166,8 @@ const CategoryInput = ({
   );
 };
 
+
+
 const AllCategories = () => {
   const categories = useSelector((state) => state.categories);
   const categoriesTitles = useSelector((state) => state.categoriestitle);
@@ -185,25 +178,42 @@ const AllCategories = () => {
   const [selectedMainCategoryToEdit, setSelectedMainCategoryToEdit] =
     useState(null);
 
+  const [selectedBusinessType, setSelectedBusinessType] = useState("service");
+
   console.log("Selected category", selectedCategory);
 
   return (
     <div className="flex flex-col gap-10">
       <div>
-        <h1 className="text-2xl font-medium mb-5">Sub Categories</h1>
+        <h1 className="text-2xl font-semibold mb-5">View All Categories</h1>
 
-        {categoriesTitles.map((categoryTitle, titleIndex) => (
-          <div key={titleIndex} className="mb-8">
-            {categoryTitle && (
+        <div className="flex items-center gap-6">
+          <div>
+            <input type="radio" name="businessTypeToShow" id="service" value={"service"} onChange={(e) => setSelectedBusinessType(e.target.value)} checked={selectedBusinessType === "service"}/>
+            <label htmlFor="service" className="ml-2" >Service</label>
+          </div>
+          <div>
+            <input type="radio" name="businessTypeToShow" id="doctor" value={"doctor"} onChange={(e) => setSelectedBusinessType(e.target.value)} checked={selectedBusinessType === "doctor"}/>
+            <label htmlFor="doctor" className="ml-2" >Doctor</label>
+          </div>
+          <div>
+            <input type="radio" name="businessTypeToShow" id="manufacturing" value={"manufacturing"} onChange={(e) => setSelectedBusinessType(e.target.value)} checked={selectedBusinessType === "manufacturing"}/>
+            <label htmlFor="manufacturing" className="ml-2" >Manufacturing</label>
+          </div>
+        </div>
+
+        {/* {categoriesTitles.map((categoryTitle, titleIndex) => ( */}
+          <div className="mb-8">
+            {/* {categoryTitle && (
               <h2 className="text-lg font-semibold mt-4 mb-2">
                 {categoryTitle.title}
               </h2>
-            )}
+            )} */}
 
             <div className="mt-2 rounded-xl grid grid-cols-4 gap-4">
               {categories
                 .filter(
-                  (category) => category.categoryTitle === categoryTitle._id
+                  (category) => category.businessType === selectedBusinessType
                 )
                 .map((category, categoryIndex) => (
                   <div
@@ -256,53 +266,8 @@ const AllCategories = () => {
                 ))}
             </div>
           </div>
-        ))}
+        {/* ))} */}
 
-        {/* If you still want to display uncategorized categories, you can use the following section */}
-        <div className="mt-2 rounded-xl grid grid-cols-4 gap-4">
-          {categories
-            .filter((category) => !category.categoryTitle) // Assuming categories without a categoryTitle are considered uncategorized
-            .map((category, categoryIndex) => (
-              <div
-                key={categoryIndex}
-                className="bg-white relative shadow rounded-xl p-5 py-6 flex justify-between items-center"
-              >
-                <div className="justify-start flex gap-10 items-center">
-                  <div>
-                    <img src={category.icon} alt="" className="w-10 h-10" />
-                  </div>
-                  <h2 className="text-sm font-base mt-1">{category.name}</h2>
-                </div>
-
-                <div className="flex flex-col justify-start gap-2">
-                  <FiEdit3
-                    className="w-5 h-5 text-gray-500 cursor-pointer"
-                    onClick={() => setSelectedCategoryToEdit(category)}
-                  />
-                  {selectedCategoryToEdit &&
-                    selectedCategoryToEdit._id === category._id && (
-                      <EditModal
-                        categoryTitle={selectedCategoryToEdit}
-                        onClose={() => setSelectedCategoryToEdit(null)}
-                      />
-                    )}
-
-                  <FiTrash2
-                    className="w-5 h-5 text-red-500 cursor-pointer"
-                    onClick={() => setSelectedCategory(category)}
-                  />
-                  {selectedCategory &&
-                    selectedCategory._id === category._id && (
-                      <DeleteModal
-                        categoryId={category._id}
-                        subCategory={selectedCategory}
-                        onClose={() => setSelectedCategory(null)}
-                      />
-                    )}
-                </div>
-              </div>
-            ))}
-        </div>
       </div>
 
       <div>
@@ -361,7 +326,7 @@ const AllCategories = () => {
 
 const Category = ({}) => {
   const [categories, setCategories] = useState([
-    { categoryTitle: "", name: "", image: { url: null, altTag: "" } },
+    { name: "", image: { url: null, altTag: "" }, businessType : "" },
   ]);
 
   const categoriesToShow = useSelector((state) => state.categories);
@@ -455,6 +420,7 @@ const Category = ({}) => {
         return {
           ...category,
           image: { url: imgUrls[index], altTag: category.image.altTag },
+          businessType : selectedBusinessType
         };
       });
 
@@ -494,14 +460,39 @@ const Category = ({}) => {
 
   const categoriesFromState = useSelector((state) => state.categories);
 
+  const businessTypes = [
+    "Service",
+    "Doctor",
+    "Manufacturing",
+  ]
+
+  const [selectedBusinessType, setSelectedBusinessType] = useState("service")
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="bg-white rounded-xl">
+
+
+
+
+      <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-10">
+      <div className="flex flex-col gap-2">
+        <h2 className="text-xl font-semibold">Select the business type in which you want to add categories</h2>
+        <div className="flex gap-8 ">
+          {
+            businessTypes.map((businessType, index) => (
+              <div className="flex gap-2">
+                <input type="radio" id={businessType} name="businessType" value={businessType.toLowerCase()} checked={selectedBusinessType === businessType.toLowerCase()} onChange={() => setSelectedBusinessType(businessType.toLowerCase())}/>
+                <label htmlFor={businessType}>{businessType}</label>
+              </div>
+            ))
+          }
+        </div>
+      </div>
         <div className="flex gap-4">
 
 
-        <div className="w-1/2 bg-white p-5 rounded-xl">
-            <h2 className="text-2xl font-semibold mb-6">Add Categories</h2>
+        <div className="w-1/2 bg-white rounded-xl">
+            <h2 className="text-xl font-semibold mb-4">Add Categories</h2>
 
             <div className="flex flex-col gap-5">
               {categories.map((category, index) => (
@@ -555,8 +546,8 @@ const Category = ({}) => {
           </div>
 
 
-          <div className="w-1/2 bg-white p-5 rounded-xl">
-            <h2 className="text-2xl font-semibold mb-6">
+          <div className="w-1/2 bg-white rounded-xl">
+            {/* <h2 className="text-xl font-semibold mb-4">
               Add Category Title
             </h2>
 
@@ -576,9 +567,9 @@ const Category = ({}) => {
                   Create
                 </button>
               </div>
-            </div>
+            </div> */}
 
-            <div className="mt-6 flex flex-col gap-4">
+            <div className="flex flex-col gap-4">
               <span className="text-2xl font-semibold">Recently added</span>
 
               <div className="flex flex-col gap-4 overflow-y-auto h-72 border px-4 py-4 rounded-lg">

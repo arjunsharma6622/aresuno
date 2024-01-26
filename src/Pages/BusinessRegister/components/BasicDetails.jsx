@@ -173,6 +173,7 @@ const [descriptionError, setDescriptionError] = useState("");
                     -
                   </option>
                   <option value="service">Service</option>
+                  <option value="doctor">Doctor</option>
                   <option value="manufacturing">Manufacturing</option>
                 </select>
 

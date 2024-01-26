@@ -49,6 +49,7 @@ const BusinessCategory = ({ businessDetails, setBusinessDetails }) => {
                     {searchQuery && showDropdown && (
                         <div className="absolute w-full bg-white flex flex-col gap-3 py-6 px-6 shadow-lg overflow-y-auto rounded-lg">
                             {categories
+                                .filter((category) => category.businessType === businessDetails.type)
                                 .filter((category) =>
                                     category.name.toLowerCase().includes(searchQuery.toLowerCase())
                                 )

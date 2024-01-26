@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { FiCamera, FiEdit3, FiX } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
 import { API_URL } from "../../utils/util";
+import { useSelector } from "react-redux";
 
 export default function EditModal({ category, onClose, categoryTitle }) {
   const [open, setOpen] = useState(true);
@@ -25,6 +26,16 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
   console.log(`SubCategoryToEdit is`)
   console.log(subCategoryToEdit)
+
+  const categoryTitles = useSelector((state) => state.categoriestitle)
+
+  const handleCategoryTitleChange = (e) => {
+    const categoryTitleId = e.target.value;
+    setMainCategoryToEdit((prevCategory) => ({
+      ...prevCategory,
+      categoryTitle: categoryTitleId,
+    }));
+  };
   
 
   console.log(`The cat is ${category ? category.name : categoryTitle.title}`)
@@ -214,6 +225,8 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 {subCategoryToEdit ? 
 
 <div className="w-full flex flex-col gap-4 text-sm">
+
+
   <div className="w-full flex flex-col gap-1 text-sm">
     <label htmlFor="subCategoryName" className="font-medium text-base">Name</label>
     <input type="text" id="subCategoryName" value={subCategoryToEdit.name} onChange={e => setSubCategoryToEdit({...subCategoryToEdit, name: e.target.value})} className="text-base w-full border border-gray-300 p-2 rounded-md"/>
@@ -224,6 +237,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
   <input type="text" id="altTag" value={subCategoryToEdit.image.altTag} className="text-base w-full border border-gray-300 p-2 rounded-md" onChange={e => setSubCategoryToEdit({...subCategoryToEdit, image: {...subCategoryToEdit.image, altTag: e.target.value}})}/>
   </div>
+
 
   <div className="w-full flex flex-col gap-1 text-sm">
     <label htmlFor="showOnHome" className="font-medium text-base">Show on Home Page</label>
