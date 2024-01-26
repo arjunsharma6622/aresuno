@@ -40,6 +40,7 @@ import Sidebar from "./Sidebar";
 import Enquiries from "./Enquiries";
 import CallLeads from "./CallLeads";
 import Blog from "./Blog";
+import { Helmet } from "react-helmet-async";
 
 
 const AllBusiness = ({ businesses, categories }) => {
@@ -350,6 +351,9 @@ const AdminDashboard = () => {
 
     return (
         <div className="flex h-screen">
+            <Helmet>
+                <title>Aresuno - Admin</title>
+            </Helmet>
             <div className="flex-[2] overflow-y-auto border-r border-gray-300 p-10 flex flex-col justify-between items-start">
                     <div className="flex items-center gap-4">
                         <h2 className="text-2xl font-semibold">ARESUNO ADMIN</h2>
