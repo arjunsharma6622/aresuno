@@ -20,6 +20,7 @@ const AboutUs = () => {
               loading="lazy"
               srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/6b5bcd7e-25c3-40be-8e27-085db9f6d6f6?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/6b5bcd7e-25c3-40be-8e27-085db9f6d6f6?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/6b5bcd7e-25c3-40be-8e27-085db9f6d6f6?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/6b5bcd7e-25c3-40be-8e27-085db9f6d6f6?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/6b5bcd7e-25c3-40be-8e27-085db9f6d6f6?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/6b5bcd7e-25c3-40be-8e27-085db9f6d6f6?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/6b5bcd7e-25c3-40be-8e27-085db9f6d6f6?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/6b5bcd7e-25c3-40be-8e27-085db9f6d6f6?apiKey=6cec7478ae1440e78dbfa80fa92a8aaa&"
               className="aspect-[1.22] object-contain object-center w-full overflow-hidden grow max-md:max-w-full"
+              alt="about-us"
             />
           </div>
           <div className="flex flex-col items-stretch w-[59%] ml-5 max-md:w-full max-md:ml-0">

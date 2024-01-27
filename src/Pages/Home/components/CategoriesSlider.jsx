@@ -92,6 +92,7 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
           className={`arrow-right-${categoryTitle.title} arrow shadow-lg bg-gray-100/30 backdrop-blur-lg rounded-full p-[6px] absolute top-1/2 transform -translate-y-1/2 -left-4 z-[20] cursor-pointer `}
           onClick={() => swiper.slidePrev()}
         >
+          
           <FiChevronLeft className="w-5 h-5" />
         </button>
 

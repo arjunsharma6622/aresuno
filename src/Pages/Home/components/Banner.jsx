@@ -139,6 +139,7 @@ const Banner = () => {
         loading="lazy"
         src={bannerUrl}
         className="absolute h-full w-full object-cover object-center inset-0"
+        alt="banner"
       />
       <div className="absolute -bottom-6 md:bottom-4 z-[10] m-auto px-5 md:px-0  max-w-[1100px] flex w-full flex-col max-md:max-w-full max-md:my-10 gap-4 md:gap-10 items-start justify-start">
         <div className="text-white   max-md:max-w-full flex flex-col gap-1 md:gap-2">

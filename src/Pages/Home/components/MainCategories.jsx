@@ -35,7 +35,7 @@ const MainCategories = () => {
                 className="flex flex-col gap-3 items-center justify-center w-24 md:w-32 h-full"
               >
                 <div className="">
-                  <img loading="lazy" src={category.icon} alt="" className="bg-gray-100 p-4 rounded-xl w-20 md:w-24"/>
+                  <img loading="lazy" src={category.icon} alt={category.name} className="bg-gray-100 p-4 rounded-xl w-20 md:w-24"/>
                 </div>
                 <span className="text-xs md:text-sm text-center leading-4 ">
                 {category.name}
