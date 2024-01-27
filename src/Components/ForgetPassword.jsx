@@ -55,11 +55,11 @@ const ForgetPassword = () => {
 
   return (
     <div className="h-[70vh] w-full flex items-start justify-center">
-      <div className="bg-white p-8 w-full md:w-1/2 mx-auto my-10 rounded">
+      <div className="bg-white shadow-lg p-8 w-full md:w-1/2 mx-auto my-10 rounded">
       <h2 className="text-2xl font-semibold mb-8">Forget Password</h2>
 
 
-{ !otpSent ?
+{ otpSent ?
 
         <div>
         <div className='w-full'>
