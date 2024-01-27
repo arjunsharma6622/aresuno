@@ -1,4 +1,3 @@
-=User-agent: *
-Disallow: /admin/
-Disallow: /dashboard/
-
+user-agent: *
+disallow: /admin/
+disallow: /dashboard/
