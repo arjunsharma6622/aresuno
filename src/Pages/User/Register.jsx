@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +20,32 @@ const Register = () => {
     password: "",
     phone: "",
   });
+
+  const [resendTimer, setResendTimer] = useState(60);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if(resendTimer > 0){
+        setResendTimer(resendTimer - 1);
+      }
+      else if(resendTimer === 0){
+        return
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [resendTimer]);
+
+  const handleResendOtp = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/api/forgetPassword-otp`, { phone: formData.phone });
+      console.log(response.data);
+      toast.success('OTP Sent');
+    } catch (err) {
+      console.log(err);
+      // toast.error(err.response.data.message);
+    }
+  };
 
   const [queryParams] = useSearchParams()
 
@@ -204,7 +230,7 @@ const Register = () => {
 
 
               {
- !otpSent ? (
+ otpSent ? (
               <div>
                               <h2 className="text-2xl font-bold mb-4 text-center">
                 Get Started as {role}
@@ -386,7 +412,18 @@ const Register = () => {
       )}
               </button>
               </div>
-            </div>
+              <p className="text-sm text-gray-600 mb-4">
+          Didn't receive the OTP?{' '}
+          <button
+            type="button"
+            disabled={resendTimer > 0}
+            onClick={handleResendOtp}
+            className={`${resendTimer > 0 ? 'cursor-not-allowed text-gray-500' : 'text-blue-500'}`}
+          >
+            Resend
+          </button>{' '}
+          {resendTimer > 0 && <span>{resendTimer}</span>}
+        </p>            </div>
 
           </div>
         </div>
