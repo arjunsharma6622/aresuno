@@ -47,6 +47,7 @@ const ForgetPassword = () => {
         const response = await axios.post(`${API_URL}/api/forgetPassword-otp`, { phone : phoneNumber });
         console.log(response.data)
         setOtpSent(true)
+        toast.success('OTP Sent');
     }catch(err){
         console.log(err.response.data.message)
         toast.error(err.response.data.message);
@@ -59,7 +60,7 @@ const ForgetPassword = () => {
       <h2 className="text-2xl font-semibold mb-8">Forget Password</h2>
 
 
-{ otpSent ?
+{ !otpSent ?
 
         <div>
         <div className='w-full'>
@@ -95,7 +96,7 @@ const ForgetPassword = () => {
           </div>
 
           : 
-          <div className="px-3 py-3 w-full md:w-full bg-white md:p-6 md:py-10 rounded-xl border md:shadow-lg">
+          <div className="px-3 py-3 w-full md:w-full bg-white md:p-6 md:py-10 rounded-xl">
           <div className="flex justify-between items-center">
             <h2 className="text-base md:text-lg font-medium my-0">Change Password - <span className="text-gray-500 text-sm ml-2">{phoneNumber}</span></h2>
 
