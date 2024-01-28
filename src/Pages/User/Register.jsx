@@ -230,7 +230,7 @@ const Register = () => {
 
 
               {
- otpSent ? (
+ !otpSent ? (
               <div>
                               <h2 className="text-2xl font-bold mb-4 text-center">
                 Get Started as {role}

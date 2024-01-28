@@ -162,7 +162,7 @@ const OtpForm = ({ phone, setIsOtpVerified }) => {
             type="button"
             disabled={resendTimer > 0}
             onClick={handleResendOtp}
-            className={`text-blue-500 ${resendTimer > 0 ? 'cursor-not-allowed' : ''}`}
+            className={` ${resendTimer > 0 ? 'cursor-not-allowed text-gray-500' : 'text-blue-500'}`}
           >
             Resend
           </button>{' '}
