@@ -384,7 +384,9 @@ const Business = () => {
                 <meta name="description" content={business.description} />
                 <meta name="keywords" content={business.name} />
                 <meta name="author" content="aresuno" />
-                <link rel="icon" href="/vite.svg" />
+                <script type="application/ld+json">
+                    {JSON.stringify(businessStrDataStructure)}
+                </script>
             </Helmet>
 
 
