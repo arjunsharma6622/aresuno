@@ -151,3 +151,8 @@ body {
   height: 100%;
   background-color: white;
 }
+
+
+.ql-tooltip {
+  left: 0!important;
+}

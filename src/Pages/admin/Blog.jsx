@@ -8,6 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import { API_URL } from '../../utils/util';
 import BlogCard from './BlogCard';
+import { toast } from 'react-toastify';
 
 const Blog = () => {
     const [image, setImage] = useState(null);
@@ -95,16 +96,19 @@ const Blog = () => {
       console.log("blog is", post);
 
       const modules = {
-        toolbar : [
-            { 'header': [1, 2, 3, 4, 5, 6, false]},        
-            { 'list': 'ordered'},
-            { 'list': 'bullet'},
-            { 'indent': '-1'},
-            { 'indent': '+1'},
-            // { 'align': []},
-
-        ]
-      }
+        toolbar: [
+          [{ header: [1, 2, false] }],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          [
+            { list: 'ordered' },
+            { list: 'bullet' },
+            { indent: '-1' },
+            { indent: '+1' },
+          ],
+          ['link', 'image'],
+          ['clean'],
+        ],
+      };
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -157,12 +161,21 @@ const Blog = () => {
                 className="w-full p-2 rounded border focus:outline-none resize-none text-sm md:text-base"
                 rows="4"
               ></textarea> */}
+              <div className='flex flex-col gap-3'>
+              <p>Blog Title</p>
                 <div>
                     <input type="text" placeholder='Blog Title' className='w-full p-2 rounded border focus:outline-none ' value={post.title} onChange={(e) => setPost({ ...post, title: e.target.value })}/>
                 </div>
+                </div>
+
+                <div className='flex flex-col gap-3'>
+                <p>Blog Description</p>
 
               <ReactQuill theme="snow" value={post.description} onChange={(value) => setPost({ ...post, description: value })} modules={modules}/>
+              </div>
 
+<div className='flex flex-col gap-3'>
+<p>Blog Category</p>
               <div className="flex gap-6 justify-between items-center">
                 <div className="relative flex-[2]">
                   <select
@@ -173,8 +186,9 @@ const Blog = () => {
                       setPost({ ...post, category: e.target.value })
                     }
                     placeholder='Blog Category'
+                    value={post.category}
                   >
-                    <option value="" disabled={true}>Blog Category</option>
+                    <option disabled value={""}>-</option>
                     {categories.map((category) => (
                       <option key={category._id} value={category._id}>
                         {category.name}
@@ -201,6 +215,8 @@ const Blog = () => {
                 <label htmlFor="postImage" className="cursor-pointer">
                   <FiLink2 className="w-6 h-6" />
                 </label>
+              </div>
+
               </div>
 
               <button

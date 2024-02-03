@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiCheckCircle, FiMessageSquare, FiX } from 'react-icons/fi';
 import { API_URL } from '../utils/util';
 import axios from 'axios'
@@ -45,9 +45,17 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
     });
   };
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
-    <div>
-      <div className='z-[40] fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm'>
+    <div className='overflow-hidden'>
+      <div className='z-[40]  inset-0 h-[100%] overflow-y-hidden flex overflow-hidden items-center justify-center bg-gray-500 fixed bg-opacity-50 backdrop-filter backdrop-blur-sm top-0 right-0 bottom-0 left-0'>
         { !isSent ? (
                 <div className='flex flex-col md:flex-row relative w-[90%] md:w-[70%] bg-white  gap-6  rounded-xl'>
 
