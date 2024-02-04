@@ -92,6 +92,7 @@ const Home = () => {
         <meta name="description" content="Aresuno - Home" />
         <meta name="keywords" content="Aresuno - Home" />
         <meta name="author" content="Aresuno - Home" />
+        <link rel="canonical" href="https://www.aresuno.com" />
       </Helmet>
 
       <Banner />

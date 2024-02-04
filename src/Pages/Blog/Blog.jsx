@@ -85,6 +85,7 @@ const Blog = () => {
     <div>
     <Helmet>
     <title>Aresuno - Blog</title>
+    <link rel="canonical" href="https://www.aresuno.com/blog" />
     <script type='application/ld+json'>
         {
             JSON.stringify(blogsSchema)
