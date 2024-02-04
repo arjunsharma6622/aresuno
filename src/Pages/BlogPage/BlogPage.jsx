@@ -74,6 +74,14 @@ const BlogPage = () => {
                                 remove_duplicates: true,
                             })}/>
             <script type="application/ld+json">{JSON.stringify(blogPageSchema)}</script>
+
+            <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="" />
+  <meta property="og:title" content={blog?.title} />
+  <meta property="og:description"
+    content={blog?.description.replace(/<[^>]+>/g, '')} />
+  <meta property="og:url" content={`https://aresuno.com/blog/${categoryName}/${blogId}`} />
+  <meta property="og:site_name" content="Aresuno" />
         </Helmet>
         <div className='w-[60%] my-10 flex justify-center flex-col gap-10 items-center'>
             <div>

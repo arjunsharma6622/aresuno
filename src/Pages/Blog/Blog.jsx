@@ -125,6 +125,14 @@ const Blog = ({categoryBlogPage}) => {
             JSON.stringify(blogsSchema)
         }
     </script>
+
+    <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Aresuno - Blog" />
+  <meta property="og:description"
+    content="Aresuno - Blog" />
+  <meta property="og:url" content="https://aresuno.com/blog" />
+  <meta property="og:site_name" content="Aresuno" />
   </Helmet>
     <div className='w-[75%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
 

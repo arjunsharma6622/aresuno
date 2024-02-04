@@ -93,6 +93,16 @@ const Home = () => {
         <meta name="keywords" content="Aresuno - Home" />
         <meta name="author" content="Aresuno - Home" />
         <link rel="canonical" href="https://www.aresuno.com" />
+        <meta name="description"
+    content="Explore and discover a wide range of services on Aresuno. Find ratings, reviews, images, and addresses for different services. Your go-to platform for service recommendations." />
+  <meta name="keywords" content="services, ratings, reviews, images, addresses, Aresuno, discover services" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Aresuno - Discover and Rate Services" />
+  <meta property="og:description"
+    content="and discover a wide range of services on Aresuno. Find ratings, reviews, images, and addresses for different services. Your go-to platform for service recommendations." />
+  <meta property="og:url" content="https://www.aresuno.com/" />
+  <meta property="og:site_name" content="Aresuno" />
       </Helmet>
 
       <Banner />
