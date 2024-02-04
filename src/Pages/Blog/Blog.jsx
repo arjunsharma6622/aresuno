@@ -84,6 +84,7 @@ const Blog = () => {
   return (
     <div>
     <Helmet>
+    <title>Aresuno - Blog</title>
     <script type='application/ld+json'>
         {
             JSON.stringify(blogsSchema)
