@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL } from '../../utils/util';
-import BlogCard from '../admin/BlogCard';
+import BlogCard from './BlogCard';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import keyword_extractor from 'keyword-extractor';

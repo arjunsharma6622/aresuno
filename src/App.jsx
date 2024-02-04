@@ -35,6 +35,7 @@ import { API_URL } from "./utils/util";
 import MapComponent from "./Pages/BusinessRegister/components/MapComponent";
 import ForgetPassword from "./Components/ForgetPassword";
 import Blog from "./Pages/Blog/Blog";
+import BlogPage from "./Pages/BlogPage/BlogPage";
 
 function App() {
 
@@ -115,6 +116,7 @@ function Main() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/map" element={<MapComponent />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:blogId" element={<BlogPage />} />
           <Route path="/business/register" element={<BusinessRegister />} />
           <Route path="/forget-password" element={<ForgetPassword/>} />
         </Routes>
