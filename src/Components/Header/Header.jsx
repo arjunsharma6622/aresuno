@@ -134,7 +134,7 @@ const Header = ({homePage}) => {
 
     <div className={`${homePage && 'text-white shadow-none'} text-black shadow-md relative flex justify-between items-center px-4 py-4 md:hidden`}>
         <div className="text-xl font-medium text-blue-500">
-            <Link to="/">
+            <Link to="/" aria-label="Aresuno Home">
             {/* <span>A.s</span> */}
             <img src="/assets/logo.png" alt="" className=" w-14 object-cover"/>
             </Link>
