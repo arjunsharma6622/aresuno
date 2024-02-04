@@ -36,6 +36,7 @@ import MapComponent from "./Pages/BusinessRegister/components/MapComponent";
 import ForgetPassword from "./Components/ForgetPassword";
 import Blog from "./Pages/Blog/Blog";
 import BlogPage from "./Pages/BlogPage/BlogPage";
+import BlogEdit from "./Pages/BlogEdit/BlogEdit";
 
 function App() {
 
@@ -115,8 +116,10 @@ function Main() {
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/map" element={<MapComponent />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:blogId" element={<BlogPage />} />
+          <Route path="/blog/:categoryName" element={<Blog categoryBlogPage={true}/>} />
+          <Route path="/blog/" element={<Blog categoryBlogPage={false}/>} />
+          <Route path="/blog/:categoryName/:blogId" element={<BlogPage />} />
+          <Route path="/blog/edit/:blogId" element={<BlogEdit />} />
           <Route path="/business/register" element={<BusinessRegister />} />
           <Route path="/forget-password" element={<ForgetPassword/>} />
         </Routes>

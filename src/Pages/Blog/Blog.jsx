@@ -4,9 +4,25 @@ import BlogCard from './BlogCard';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import keyword_extractor from 'keyword-extractor';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllCategories } from '../../state/slices/categoriesSlice';
+import { setAllCategoryTitle } from '../../state/slices/categoriestitleSlice';
 
-const Blog = () => {
+const Blog = ({categoryBlogPage}) => {
     const [allBlogs, setAllBlogs] = useState([])
+    const {categoryName} = useParams()
+    const dispatch = useDispatch();
+    const fetchAllCategoryBlogs = async () => {
+        try{
+            const response = await axios.get(`${API_URL}/api/blog/category/${categoryName}`);
+            setAllBlogs(response.data);
+            console.log(response.data)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
 
     const fetchAllBlogs = async () => {
         try{
@@ -18,8 +34,31 @@ const Blog = () => {
             console.log(err)
         }
     }
+
+    const fetchAllCategories = async () => {
+        try {
+          console.log('fetching........')
+          const res = await axios.get(`${API_URL}/api/category/`);
+          const resTitles = await axios.get(`${API_URL}/api/category-title/`);
+          dispatch(setAllCategories(res.data));
+          dispatch(setAllCategoryTitle(resTitles.data));
+          console.log("Categories fetched:", res.data);
+        } catch (err) {
+          console.error("Error fetching categories:", err);
+        }
+      };
+      useEffect(() => {
+        fetchAllCategories();
+      }, []);
+
+
     useEffect(() => {
-        fetchAllBlogs();
+        if(!categoryBlogPage){
+            fetchAllBlogs();
+        }
+        else{
+        fetchAllCategoryBlogs();
+        }
     }, [])
 
     const blogsSchema = 
@@ -60,10 +99,6 @@ const Blog = () => {
                         },
                         "url": `https://aresuno.com/blog/${blog._id}`,
                         "keywords": [
-                            "Blog",
-                            "Aresuno",
-                            "Blog Post",
-                            "Blog Page",
                             blog.title,
                             keyword_extractor.extract(blog.description, {
                                 language: "english",
@@ -78,11 +113,10 @@ const Blog = () => {
         ]
 
     }
-
-
+    
 
   return (
-    <div>
+    <div className='flex w-full justify-center items-center'>
     <Helmet>
     <title>Aresuno - Blog</title>
     <link rel="canonical" href="https://www.aresuno.com/blog" />
@@ -92,11 +126,11 @@ const Blog = () => {
         }
     </script>
   </Helmet>
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+    <div className='w-[75%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
 
         {
             allBlogs.map((blog) => {
-                return <BlogCard blog={blog} />
+                return <BlogCard blog={blog} key={blog._id} categoryName={categoryName}/>
             })
         }
 

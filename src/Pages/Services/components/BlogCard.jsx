@@ -3,18 +3,13 @@ import { FiExternalLink, FiUser } from 'react-icons/fi'
 import { FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import dateFormat, { masks } from "dateformat";
-import { useSelector } from 'react-redux';
 
 
-const BlogCard = ({blog, categoryName}) => {
-    const categories = useSelector((state) => state.categories);
-    const category = categories.find(category => category._id === blog.category);
-    const categoryNameFormatted = categoryName ? categoryName : category.name.toLowerCase().split(' ').join('-');
-    
+const BlogCard = ({blog}) => {
   return (
     <div>
         <div className="flex flex-col gap-4">
-        <Link to={`/blog/${categoryNameFormatted}/${blog._id}`} className="text-xl font-bold w-full h-full">
+        <Link to={`/blog/${blog._id}`} className="text-xl font-bold w-full h-full">
                 <img src={blog.image} alt="" className='w-full h-full rounded-lg'/>
             </Link>
 
@@ -28,10 +23,10 @@ const BlogCard = ({blog, categoryName}) => {
 
 
 <div className='flex flex-col gap-2'>
-            <Link to={`/blog/${categoryNameFormatted}/${blog._id}`} className="text-lg font-semibold blog-title">{blog.title}</Link>
+            <Link to={`/blog/${blog._id}`} className="text-lg font-semibold blog-title">{blog.title}</Link>
 
 
-<Link to={`/blog/${categoryNameFormatted}/${blog._id}`}>
+<Link to={`/blog/${blog._id}`}>
 
             <div className='blog-description text-sm blog-page-description' key={blog._id} dangerouslySetInnerHTML={{ __html: blog.description }} />
             </Link>

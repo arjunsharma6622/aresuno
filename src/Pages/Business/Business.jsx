@@ -23,7 +23,7 @@ import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
 import { PiCalendarCheckLight } from "react-icons/pi";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
-import { BiCheckShield, BiStar } from "react-icons/bi";
+import { BiCheckShield, BiLoader, BiStar } from "react-icons/bi";
 import axios from "axios";
 import Accordion from "./components/Accordion";
 
@@ -43,6 +43,7 @@ import { Person } from "schema-dts";
 import { JsonLd } from "react-schemaorg";
 import NotFound from "../NotFound/NotFound";
 import { API_URL } from "../../utils/util";
+import { LuLoader } from "react-icons/lu";
 
 
 
@@ -56,6 +57,7 @@ const Business = () => {
     const [isReviewLoading, setIsReviewLoading] = useState(false);
     const [hoveredStars, setHoveredStars] = useState(0);
     const { businessName } = useParams();
+    const [isBusinessFetching, setIsBusinessFetching] = useState(true);
 
     const avgRating =
         ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) /
@@ -108,12 +110,16 @@ const Business = () => {
     };
 
     useEffect(() => {
+
         fetchBusiness();
     }, []);
 
 
 
     const fetchBusiness = async () => {
+
+
+        setIsBusinessFetching(true);
         try {
             const res = await axios.get(
                 `${API_URL}/api/business/getBusinessByName/${businessName}`
@@ -129,7 +135,9 @@ const Business = () => {
             );
             setRatings(ratingsRes.data);
             console.log(res.data);
+            setIsBusinessFetching(false);
         } catch (e) {
+            setIsBusinessFetching(false);
             console.log(e);
         }
     };
@@ -368,7 +376,13 @@ const Business = () => {
 
         <div>
 
-            {business.name &&
+            {isBusinessFetching && 
+            <div className="w-full h-[80vh] flex items-center justify-center">
+                <LuLoader className="w-10 h-10 animate-spin"/>
+            </div>
+            }
+
+            {!isBusinessFetching && business &&
             
         <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-10">
 
@@ -1155,7 +1169,7 @@ const Business = () => {
 
         }
 
-{ !business._id &&
+{ (!isBusinessFetching && !business) &&
         <NotFound />
 }
 
