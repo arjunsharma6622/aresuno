@@ -22,7 +22,7 @@ const Header = ({homePage}) => {
     <div className={`w-[100%] h-16 ${!homePage && "bg-white"}  items-center justify-between px-4 sm:px-6 lg:px-8 shadow-md ${homePage && "shadow-none text-white"} text-black hidden md:flex`} >
       <div className={` text-2xl font-semibold`}>
         {/* <Link to="/">Aresuno</Link> */}
-        <Link to={"/"}>
+        <Link to={"/"} aria-label="Aresuno Home">
           <img src="/assets/logo.png" alt="" className=" w-20 object-cover"/>
         </Link>
       </div>
