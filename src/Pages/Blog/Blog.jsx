@@ -119,6 +119,8 @@ const Blog = ({categoryBlogPage}) => {
     <div className='flex w-full justify-center items-center'>
     <Helmet>
     <title>Aresuno - Blog</title>
+    <meta name="description" content="Aresuno - Blog" />
+    <meta name='title' content='Aresuno - Blog'/>
     <link rel="canonical" href="https://www.aresuno.com/blog" />
     <script type='application/ld+json'>
         {

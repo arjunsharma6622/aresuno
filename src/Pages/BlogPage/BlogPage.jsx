@@ -64,6 +64,10 @@ const BlogPage = () => {
   return (
     <div className='w-full flex items-center justify-center'>
         <Helmet>
+            <meta name='title' content={blog?.title}/>
+            <meta name='description' content={blog?.description.replace(/<[^>]+>/g, '')}/>
+            <meta name='image' content={blog?.image}/>
+            
             <meta name='twitter:title' content={blog?.title}/>
             <meta name='twitter:description' content={blog?.description.replace(/<[^>]+>/g, '')}/>
             <meta name='twitter:image' content={blog?.image}/>
