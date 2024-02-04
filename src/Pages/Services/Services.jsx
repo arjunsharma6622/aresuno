@@ -8,6 +8,7 @@ import NotFound from "../NotFound/NotFound";
 import { API_URL } from "../../utils/util";
 import EnquiryForm from "../../Components/EnquiryForm";
 import { Helmet } from "react-helmet-async";
+import BlogCard from "../Blog/BlogCard";
 
 const Services = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
@@ -17,6 +18,26 @@ const Services = () => {
   const extractedName = subCategoryName.split("-").join(" ");
   console.log(extractedName);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [blogs, setBlogs] = useState([]);
+
+  const fetchCategoryBlogs = async () => {
+    try {
+      const res = await axios.get(
+        `${API_URL}/api/blog/category/${extractedName}`
+      )
+      setBlogs(res.data);
+      console.log(res.data);
+    } catch (e) {
+      console.log(e);
+      setIsLoading(false)
+    }
+  };
+
+  useEffect(() => {
+    fetchCategoryBlogs();
+  }, [extractedName]);
+  
 
   const [showEnquiryForm, setShowEnquiryForm] = useState(false);
 
@@ -125,6 +146,20 @@ const Services = () => {
             <NotFound />
           )
         }
+
+        <div>
+          <h1 className="text-2xl md:text-3xl font-semibold text-center md:mt-10 mt-6 md:mb-4">
+            Blogs
+          </h1>
+          <p className="md:mb-8 mb-6 text-center ">
+            Total of {blogs.length} blogs available
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8">
+          {blogs?.map((blog) => (
+            <BlogCard key={blog._id} blog={blog} />
+          ))}
+        </div>
+        </div>
     </div>
   );
 };

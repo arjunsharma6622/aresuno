@@ -147,7 +147,7 @@ const BlogEdit = () => {
                     </span>
                   </div>
                 ) : (
-                  "blog"
+                  "Update Blog"
                 )}
               </button>
             </div>

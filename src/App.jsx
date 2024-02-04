@@ -37,6 +37,7 @@ import ForgetPassword from "./Components/ForgetPassword";
 import Blog from "./Pages/Blog/Blog";
 import BlogPage from "./Pages/BlogPage/BlogPage";
 import BlogEdit from "./Pages/BlogEdit/BlogEdit";
+import Doctor from "./Pages/Doctor/Doctor";
 
 function App() {
 
@@ -63,6 +64,7 @@ function Main() {
   const userType = useSelector((state) => state.user.userType);
   const isHomepage = location.pathname === "/";
   const isBusinessEditPage = location.pathname.match(/\/business\/edit/);
+  const isDoctorsPage = location.pathname === "/doctors";
 
   const user = useSelector((state) => state.user);
 
@@ -81,10 +83,12 @@ function Main() {
         !isOnboarding &&
         !isHomepage &&
         !isBusinessEditPage &&
+        !isDoctorsPage &&
         !isAdminPage && <Header />}
       <div className="app">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/doctors" element={<Doctor />} />
           <Route
             path="/login"
             element={user.name ? <Navigate to={`/dashboard`} /> : <Login />}
