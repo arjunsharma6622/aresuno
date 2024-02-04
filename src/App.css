@@ -156,3 +156,22 @@ body {
 .ql-tooltip {
   left: 0!important;
 }
+
+
+.blog-description{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-description p{
+  margin: 0;
+}
+
+.blog-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
