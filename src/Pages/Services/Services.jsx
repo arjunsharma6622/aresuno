@@ -97,7 +97,6 @@ const Services = () => {
                 <title>{subCategoryName}</title>
                 <meta name="description" content={`Find Best ${subCategoryName} Near ${extractedCity}`} />
                 <meta name="keywords" content={[subCategoryName, extractedCity]} />
-                {/* <link rel="icon" href="/" /> */}
             </Helmet>
       {
         isLoading ? (
