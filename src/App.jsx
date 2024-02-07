@@ -35,6 +35,9 @@ import { API_URL } from "./utils/util";
 import MapComponent from "./Pages/BusinessRegister/components/MapComponent";
 import ForgetPassword from "./Components/ForgetPassword";
 import Blog from "./Pages/Blog/Blog";
+import BlogPage from "./Pages/BlogPage/BlogPage";
+import BlogEdit from "./Pages/BlogEdit/BlogEdit";
+import Doctor from "./Pages/Doctor/Doctor";
 
 function App() {
 
@@ -61,6 +64,7 @@ function Main() {
   const userType = useSelector((state) => state.user.userType);
   const isHomepage = location.pathname === "/";
   const isBusinessEditPage = location.pathname.match(/\/business\/edit/);
+  const isDoctorsPage = location.pathname === "/doctors";
 
   const user = useSelector((state) => state.user);
 
@@ -79,10 +83,12 @@ function Main() {
         !isOnboarding &&
         !isHomepage &&
         !isBusinessEditPage &&
+        !isDoctorsPage &&
         !isAdminPage && <Header />}
       <div className="app">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/doctors" element={<Doctor />} />
           <Route
             path="/login"
             element={user.name ? <Navigate to={`/dashboard`} /> : <Login />}
@@ -114,7 +120,10 @@ function Main() {
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/map" element={<MapComponent />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:categoryName" element={<Blog categoryBlogPage={true}/>} />
+          <Route path="/blog/" element={<Blog categoryBlogPage={false}/>} />
+          <Route path="/blog/:categoryName/:blogId" element={<BlogPage />} />
+          <Route path="/blog/edit/:blogId" element={<BlogEdit />} />
           <Route path="/business/register" element={<BusinessRegister />} />
           <Route path="/forget-password" element={<ForgetPassword/>} />
         </Routes>

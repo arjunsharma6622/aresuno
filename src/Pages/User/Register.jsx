@@ -102,17 +102,31 @@ const Register = () => {
       const token = res.data.token;
       localStorage.setItem("token", token);
 
+      setOtpSent(true)
       toast.success("OTP sent");
 
+
+      if(role === "vendor"){
       dispatch(
         userLogin({
           name: res.data.vendor.name,
           userType: role,
         })
       );
+      }
+
+      if(role === "user"){
+      dispatch(
+        userLogin({
+          name: res.data.user.name,
+          userType: role,
+        })
+      );
+      }
+
+
 
       setIsLoading(false);
-      setOtpSent(true)
 
     } catch (err) {
       console.log(err)

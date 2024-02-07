@@ -103,6 +103,7 @@ const Banner = () => {
     <div className=" bg-white p-6 rounded-xl">
     <h2 className="text-2xl font-semibold mb-6">Banner</h2>
 
+<div>
 
     {(!bannerImage && !banner.image) && (
         <label
@@ -143,11 +144,11 @@ const Banner = () => {
                 {bannerImage &&
                     <div className='cursor-pointer p-3 rounded-full bg-white text-red-500' onClick={() => { setBannerImage(null); setBannerImageToShow(null) }}>
                         <FiX className='text-2xl' />
-                    </div>}
+                    </div>
+                    
+                }
             </div>
         </div>
-
-
     }
 
     {bannerImage &&
@@ -173,6 +174,7 @@ const Banner = () => {
         </button>
 
     }
+    </div>
 </div>  )
 }
 

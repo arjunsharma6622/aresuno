@@ -151,3 +151,152 @@ body {
   height: 100%;
   background-color: white;
 }
+
+
+.ql-tooltip {
+  left: 0!important;
+}
+
+
+.blog-description{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-description p{
+  margin: 0;
+}
+
+.blog-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-page-description h2{
+  font-size: 20px;
+
+}
+
+
+
+.blog-page-description blockquote{
+  margin-left: 30px;
+  border-left: 3px solid #ccc;
+  padding-left: 10px;
+  font-style: italic;
+}
+
+.blog-page-description li{
+  list-style: disc;
+  margin-bottom: 10px;
+}
+
+.blog-page-description ul{
+  margin-left: 30px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+
+/* Body text */
+.blog-page-description p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* Bold text */
+.blog-page-description strong {
+  font-weight: bold;
+}
+
+/* Italics */
+.blog-page-description em {
+  font-style: italic;
+}
+
+/* Underline */
+.blog-page-description u {
+  text-decoration: underline;
+}
+
+/* Links */
+.blog-page-description a {
+  color: #005cbf;
+  text-decoration: underline;
+}
+
+.blog-page-description a:hover {
+  color: #005cbf;
+  text-decoration: none;
+}
+
+/* Code blocks */
+.blog-page-description code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #f8f9fa;
+  padding: 2px 5px;
+  border: 1px solid #dae0e5;
+  border-radius: 4px;
+}
+
+/* Images */
+.blog-page-description img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+/* Ordered lists */
+.blog-page-description ol {
+  margin-left: 30px;
+  margin-bottom: 15px;
+}
+
+/* Heading styles */
+.blog-page-description h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.blog-page-description h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.blog-page-description h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+/* Horizontal line */
+.blog-page-description hr {
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+/* Tables */
+.blog-page-description table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.blog-page-description th, .blog-page-description td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .blog-page-description {
+    padding: 0 15px;
+  }
+}
+
+/* Add any additional styles based on your design preferences */

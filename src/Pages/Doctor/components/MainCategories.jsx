@@ -7,7 +7,7 @@ import { API_URL } from "../../../utils/util";
 import { setAllCategories } from "../../../state/slices/categoriesSlice";
 
 const MainCategories = () => {
-  const categories = useSelector((state) => state.categories);
+  const categories = useSelector((state) => state.categories.filter((category) => category.businessType === "doctor"));
   const categoriesToShowOnHome = categories.length > 0 && categories.filter((category) => category.showOnHome);
   const categoryTitles = useSelector((state) => state.categoriestitle);
   
@@ -23,7 +23,7 @@ const MainCategories = () => {
   return (
     <div className="self-center w-full max-w-[1314px] mt-6 md:mt-16">
       <div className="text-bold text-center font-bold text-xl md:text-2xl lg:text-3xl leading-10 self-center whitespace-nowrap max-md:max-w-full">
-        Explore all the categories
+        Explore all the doctor categories
       </div>
       <div className="m-auto self-center w-full  max-w-[1200px] mt-12 max-md:max-w-full max-md:mt-10">
         <div className="flex flex-wrap gap-4 md:gap-10 justify-center items-start">

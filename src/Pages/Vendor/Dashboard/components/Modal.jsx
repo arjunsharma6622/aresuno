@@ -33,8 +33,8 @@ export default function Modal({ business, onClose }) {
   return (
     <div>
       {open && (
-        <div className="fixed inset-0 z-[10] flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm">
-          <div className="bg-white p-6 rounded-lg w-[40%]">
+        <div className="fixed inset-0 overflow-hidden   z-[10] flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm top-0 left-0 right-0 bottom-0">
+          <div className="bg-white overflow-hidden fixed p-6 rounded-lg w-[40%]">
             <div className="flex items-center justify-center">
               <div className="h-12 w-12 flex items-center justify-center rounded-full bg-red-100">
                 <AiFillExclamationCircle className="h-6 w-6 text-red-600" />

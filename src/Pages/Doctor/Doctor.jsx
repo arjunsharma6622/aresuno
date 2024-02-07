@@ -20,7 +20,7 @@ import { setAllCategories } from "../../state/slices/categoriesSlice";
 import { setAllCategoryTitle } from "../../state/slices/categoriestitleSlice";
 
 
-const Home = () => {
+const Doctor = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -79,7 +79,7 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    fetchAllCategories(); 
+    fetchAllCategories();
   }, []);
 
 
@@ -107,7 +107,7 @@ const Home = () => {
 
       <Banner />
       <MainCategories />
-      <ServiceCategories />
+      {/* <ServiceCategories /> */}
       <div className="bg-gray-300 h-[120px] md:h-[300px] w-full mt-5">
   </div>
 
@@ -117,4 +117,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Doctor;

@@ -252,6 +252,8 @@ const AdminDashboard = () => {
     const [businesses, setBusinesses] = useState([]);
     const [callLeads, setCallLeads] = useState([]);
     const [enquiries, setEnquiries] = useState([]);
+    const [blogs, setBlogs] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
 
@@ -339,6 +341,17 @@ const AdminDashboard = () => {
     
             }
 
+    const fetchAllBlogs = async () => {
+        try{
+            const response = await axios.get(`${API_URL}/api/blog/`);
+            setBlogs(response.data);
+            console.log(response.data)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
 
 
     useEffect(() => {
@@ -347,6 +360,7 @@ const AdminDashboard = () => {
         fetchAllCategories();
         fetchCallLeads();
         fetchEnquiries();
+        fetchAllBlogs();
     }, []);
 
     return (
@@ -388,7 +402,7 @@ const AdminDashboard = () => {
                                 {selectedField === "Call Leads" && <CallLeads callLeads={callLeads}/>}
                                 {selectedField === "Banner" && <Banner />}
                                 {selectedField === "Categories" && <Category />}
-                                {selectedField === "Blogs" && <Blog />}
+                                {selectedField === "Blogs" && <Blog blogs={blogs}/>}
                             </div>
                         )}
                     </div>
