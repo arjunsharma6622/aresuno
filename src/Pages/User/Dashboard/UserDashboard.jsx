@@ -1,106 +1,218 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import DashboardLayout from "./DashboardLayout";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import Overview from "./components/Overview";
+import Profile from "./components/Profile";
+import Inquiries from "./components/Inquiries";
+import Reviews from "./components/Reviews";
 
 const UserDashboard = () => {
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
-    const [user, setUser] = useState({});
-    const [loading, setLoading] = useState(true);
-
-
-
-
-    const fetchUserData = async () => {
-        try {
-            setLoading(true);
-            const token = localStorage.getItem("token");
-            const res = await axios.get("https://aresuno-server.vercel.app/api/user/", { headers: { Authorization: `Bearer ${token}` } });
-            const user = res.data;
-            console.log(user)
-            setUser(user);
-            setLoading(false);
-        }
-        catch (err) {
-            console.log(err);
-        }
+  const fetchUserData = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      const res = await axios.get(
+        "https://aresuno-server.vercel.app/api/user/",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const user = res.data;
+      console.log(user);
+      setUser(user);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    useEffect(() => {
-        fetchUserData();
-    }, [])
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
+  const [editMode, setEditMode] = useState(false);
 
-    const [editMode, setEditMode] = useState(false);
+  const [userEnquiries, setUserEnquiries] = useState([
+    {
+      "id": 1,
+      "name": "John Doe",
+      "phone": "123-456-7890",
+      "message": "I would like to inquire about your products."
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "phone": "987-654-3210",
+      "message": "Could you provide me with a price quotation?"
+    },
+    {
+      "id": 3,
+      "name": "Alice Johnson",
+      "phone": "555-123-4567",
+      "message": "I need more information about your shipping policies."
+    },
+    {
+      "id": 4,
+      "name": "Bob Thompson",
+      "phone": "444-555-6666",
+      "message": "I am interested in your services. Can you provide more details?"
+    },
+    {
+      "id": 5,
+      "name": "Eve Wilson",
+      "phone": "777-888-9999",
+      "message": "Can you confirm if the item I'm interested in is currently available?"
+    },
+    {
+      "id": 6,
+      "name": "Michael Brown",
+      "phone": "123-555-7890",
+      "message": "I have a technical issue with your software product. Can you assist?"
+    },
+    {
+      "id": 7,
+      "name": "Emily Davis",
+      "phone": "555-777-3333",
+      "message": "I would like to customize your product to fit my specific requirements."
+    },
+    {
+      "id": 8,
+      "name": "David Martinez",
+      "phone": "888-999-1111",
+      "message": "Here's my feedback on the recent service I received from your company."
+    },
+    {
+      "id": 9,
+      "name": "Sophia Anderson",
+      "phone": "111-222-3333",
+      "message": "I have encountered an issue with your website. Can you help resolve it?"
+    },
+    {
+      "id": 10,
+      "name": "William Wilson",
+      "phone": "333-444-5555",
+      "message": "I am interested in partnership opportunities with your organization."
+    }
+  ]
+  );
+  const [userReviews, setUserReviews] = useState([
+    {
+      id: 1,
+      title: "Great Service",
+      content:
+        "I had a wonderful experience with this business. The staff was friendly and helpful. Would highly recommend.",
+      rating: 5,
+    },
+    {
+      id: 2,
+      title: "Quality Products",
+      content:
+        "The products offered by this business are top-notch. I am extremely satisfied with my purchase.",
+      rating: 4,
+    },
+    {
+      id: 3,
+      title: "Prompt Delivery",
+      content:
+        "Received my order earlier than expected. Impressed with the efficiency of this business.",
+      rating: 5,
+    },
+    {
+      id: 4,
+      title: "Excellent Customer Support",
+      content:
+        "The customer support team went above and beyond to assist me with my inquiries. Very impressed.",
+      rating: 5,
+    },
+    {
+      id: 5,
+      title: "Room for Improvement",
+      content:
+        "While the service was satisfactory, there is still room for improvement in terms of product variety.",
+      rating: 3,
+    },
+    {
+      id: 6,
+      title: "Friendly Atmosphere",
+      content:
+        "The atmosphere in this business is warm and welcoming. Makes me want to come back again.",
+      rating: 4,
+    },
+    {
+      id: 7,
+      title: "Quick Response",
+      content:
+        "Had an issue with my order, but it was quickly resolved by the responsive customer service team.",
+      rating: 4,
+    },
+    {
+      id: 8,
+      title: "Value for Money",
+      content:
+        "The prices are reasonable considering the quality of the products. Great value for money.",
+      rating: 5,
+    },
+    {
+      id: 9,
+      title: "Efficient Service",
+      content:
+        "The service provided by this business is efficient and hassle-free. Will definitely return.",
+      rating: 5,
+    },
+    {
+      id: 10,
+      title: "Disappointing Experience",
+      content:
+        "Unfortunately, my experience with this business was disappointing. Product quality did not meet expectations.",
+      rating: 2,
+    },
+  ]);
 
+  const handleEditProfile = () => {
+    setEditMode(!editMode);
+  };
 
-    const [userEnquiries, setUserEnquiries] = useState([
-        {
-            id: 1,
-            title: 'Enquiry 1',
-            description: 'Description of Enquiry 1',
-            // other fields for enquiries
-        },
-        // other enquiries
-    ]);
-    const [userReviews, setUserReviews] = useState([
-        {
-            id: 1,
-            title: 'Review 1',
-            content: 'Content of Review 1',
-            // other fields for reviews
-        },
-        // other reviews
-    ]);
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
-    const handleEditProfile = () => {
-        setEditMode(!editMode);
-    };
+  const saveProfile = () => {
+    // Send an API request to save the updated profile data
+    // You can implement this part based on your backend
+    setEditMode(false);
+  };
 
-    const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-    };
-
-    const saveProfile = () => {
-        // Send an API request to save the updated profile data
-        // You can implement this part based on your backend
-        setEditMode(false);
-    };
-
-    return (
-        <div className="container mx-auto p-6 flex justify-between gap-8">
-            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 flex-[3]">
-                <h2 className="text-2xl font-bold mb-4">Profile Section</h2>
-
-
-                {loading ? <div role="status" class="max-w-sm animate-pulse">
-                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-32 mb-4"></div>
-                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-48 mb-4"></div>
-                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-300 w-32 mb-4"></div>
-                    <span className="sr-only">Loading...</span>
-                </div> :
-                    <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-                            Name
-                        </label>
-                        <p className="text-gray-700">{user.name}</p>
-                        <p className="text-gray-700">{user.email}</p>
-                        <p className="text-gray-700">{user.phone}</p>
-                    </div>
-                }
-            </div>
-
-
-            <div className="bg-white rounded-lg border border-gray-300 p-6 mb-6 flex-[9]">
-                <h2 className="text-2xl font-bold mb-4">Enquiries Section</h2>
-                {userEnquiries.map((enquiry) => (
-                    <div key={enquiry.id} className="mb-4">
-                        <p className="text-gray-700 font-semibold">Title: {enquiry.title}</p>
-                        <p className="text-gray-700 font-semibold">Description: {enquiry.description}</p>
-                    </div>
-                ))}
-            </div>
-
-        </div >
-    );
+  return (
+    <>
+      <div className="relative h-screen">
+        <DashboardLayout user={user}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Overview
+                  user={user}
+                  Enquiries={userEnquiries}
+                  Reviews={userReviews}
+                />
+              }
+            />
+            <Route path="/profile" element={<Profile user={user} />} />
+            <Route
+              path="/inquiries"
+              element={<Inquiries user={user} Enquiries={userEnquiries} />}
+            />
+            <Route
+              path="/reviews"
+              element={<Reviews user={user} Reviews={userReviews} />}
+            />
+          </Routes>
+        </DashboardLayout>
+      </div>
+    </>
+  );
 };
 
 export default UserDashboard;
