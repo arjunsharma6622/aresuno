@@ -33,7 +33,7 @@ const BusinessRegister = () => {
     "reviewDetails",
   ];
 
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(1);
   const [businessRegisterLoading, setBusinessRegisterLoading] = useState(false);
 
   const [businessDetails, setBusinessDetails] = useState({
