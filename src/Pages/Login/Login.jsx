@@ -40,12 +40,11 @@ const Login = () => {
       localStorage.setItem("token", token);
 
       dispatch(
-        userLogin({ name: res.data.user.name, userType: res.data.userType, image : res.data.user.image })
+        userLogin({ user : res.data.user })
       );
 
       console.log(res.data);
       toast.success("Logged In Successfully");
-      // navigate(`/${res.data.userType}/dashboard/`);
     } catch (err) {
       toast.error("Login Failed");
     }

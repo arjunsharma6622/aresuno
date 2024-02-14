@@ -34,7 +34,7 @@ const VendorDashboard = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const { data: user } = await api.get("/", {
+      const { data: user } = await axios.get(`${API_URL}/api/user/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const { data: businesses } = await api.get("/businesses", {

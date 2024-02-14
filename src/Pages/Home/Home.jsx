@@ -47,10 +47,6 @@ const Home = () => {
         console.log(res.data)
     }
     catch (err) {
-
-      // console.log(err.response.data.message);
-      toast.error(err.response.data.message);
-
       if(err.response.data.message === "Unauthorized"){
         localStorage.removeItem("token");
         dispatch(userLogout())

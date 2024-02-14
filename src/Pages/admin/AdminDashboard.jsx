@@ -41,6 +41,8 @@ import Enquiries from "./Enquiries";
 import CallLeads from "./CallLeads";
 import Blog from "./Blog";
 import { Helmet } from "react-helmet-async";
+import BusinessRegister from "../BusinessRegister/BusinessRegister";
+import AdminListings from "./AdminListings";
 
 
 const AllBusiness = ({ businesses, categories }) => {
@@ -253,6 +255,7 @@ const AdminDashboard = () => {
     const [callLeads, setCallLeads] = useState([]);
     const [enquiries, setEnquiries] = useState([]);
     const [blogs, setBlogs] = useState([]);
+    const [adminBusinesses, setAdminBusinesses] = useState([]);
 
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
@@ -288,9 +291,17 @@ const AdminDashboard = () => {
             setLoading(true);
 
             const resUsers = await axios.get(
-                `${API_URL}/api/user/all-users`);
+                `${API_URL}/api/user/all-users`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
             const resVendors = await axios.get(
-                `${API_URL}/api/vendor/all-vendors`,
+                `${API_URL}/api/vendor/all-vendors`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
             )
             const users = resUsers.data
             const vendors = resVendors.data
@@ -352,6 +363,20 @@ const AdminDashboard = () => {
         }
     }
 
+    const fetchAdminBusinesses = async () => {
+        try{
+            const token = localStorage.getItem("token");
+            const response = await axios.get(`${API_URL}/api/vendor/businesses`, {
+                headers: { Authorization: `Bearer ${token}` },
+              });            
+              setAdminBusinesses(response.data);
+            console.log(response.data)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
 
 
     useEffect(() => {
@@ -361,6 +386,7 @@ const AdminDashboard = () => {
         fetchCallLeads();
         fetchEnquiries();
         fetchAllBlogs();
+        fetchAdminBusinesses();
     }, []);
 
     return (
@@ -403,6 +429,8 @@ const AdminDashboard = () => {
                                 {selectedField === "Banner" && <Banner />}
                                 {selectedField === "Categories" && <Category />}
                                 {selectedField === "Blogs" && <Blog blogs={blogs}/>}
+                                {selectedField === "Add Listing" && <BusinessRegister />}
+                                {selectedField === "My Listings" && <AdminListings businesses={adminBusinesses}/>}
                             </div>
                         )}
                     </div>

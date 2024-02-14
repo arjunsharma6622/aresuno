@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiCheckCircle, FiEye, FiEyeOff, FiHome } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
-import InputBx from "./InputBx";
+import InputBx from "../User/InputBx";
 import {API_URL} from "../../utils/util";
 import { AiFillLayout } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
@@ -19,6 +19,7 @@ const Register = () => {
     email: "",
     password: "",
     phone: "",
+    role : ""
   });
 
   const [resendTimer, setResendTimer] = useState(60);
@@ -54,7 +55,6 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [role, setRole] = useState("");
   const [next, setNext] = useState(false);
 
   const [otp, setOtp] = useState("")
@@ -66,7 +66,7 @@ const Register = () => {
     e.preventDefault();
     setOtpVefiryLoading(true)
     try {
-      const response = await axios.patch(`${API_URL}/api/${role}/verify-otp`, {
+      const response = await axios.patch(`${API_URL}/api/user/verify-otp`, {
         _id: formData._id,
         otp : otp,
         phone: formData.phone,
@@ -95,7 +95,7 @@ const Register = () => {
   
     try {
       const res = await axios.post(
-        `${API_URL}/api/${role}/register`,
+        `${API_URL}/api/user/register`,
         formData
       );
       console.log(res.data);
@@ -106,23 +106,24 @@ const Register = () => {
       toast.success("OTP sent");
 
 
-      if(role === "vendor"){
+      if(formData.role === "vendor"){
       dispatch(
         userLogin({
           name: res.data.vendor.name,
-          userType: role,
+          userType: formData.role,
         })
       );
       }
 
-      if(role === "user"){
+      if(formData.role === "user"){
       dispatch(
         userLogin({
           name: res.data.user.name,
-          userType: role,
+          userType: formData.role,
         })
       );
       }
+
 
 
 
@@ -141,6 +142,8 @@ const Register = () => {
       setErrors(err.response.data.message);
     }
   };
+
+  
 
   const handleFocus = (fieldName) => {
     setFocusedField(fieldName);
@@ -170,8 +173,8 @@ const Register = () => {
                 id="client"
                 name="role"
                 value="user"
-                checked={role === "user"}
-                onChange={(e) => setRole(e.target.value)}
+                checked={formData.role === "user"}
+                onChange={(e) => setFormData({...formData, role: e.target.value})}
                 className="mr-2"
               />
               <label htmlFor="client" className="">
@@ -187,8 +190,8 @@ const Register = () => {
                 id="vendor"
                 name="role"
                 value="vendor"
-                checked={role === "vendor"}
-                onChange={(e) => setRole(e.target.value)}
+                checked={formData.role === "vendor"}
+                onChange={(e) => setFormData({...formData, role: e.target.value})}
                 className="mr-2"
               />
               <label htmlFor="vendor" className="">
@@ -198,18 +201,18 @@ const Register = () => {
           </div>
           <div>
             <button
-              disabled={!role}
+              disabled={!formData.role}
               onClick={() => {
                 setNext(true);
-                console.log(role);
+                console.log(formData.role);
               }}
               className={`bg-blue-500 group flex justify-center items-center py-2 px-4 text-white font-medium rounded-md text-base`}
             >
-              {!role ? (
+              {!formData.role ? (
                 "Please Select"
               ) : (
                 <div className="flex items-center">
-                  Continue as {role}
+                  Continue as {formData.role}
                   <FiArrowRight
                     strokeWidth={2}
                     className=" text-white w-5 h-5 ml-2"
@@ -230,7 +233,7 @@ const Register = () => {
                 <button
                   onClick={() => {
                     setNext(!next);
-                    console.log(role);
+                    console.log(formData.role);
                   }}
                   className=""
                 >
@@ -247,7 +250,7 @@ const Register = () => {
  !otpSent ? (
               <div>
                               <h2 className="text-2xl font-bold mb-4 text-center">
-                Get Started as {role}
+                Get Started as {formData.role}
               </h2>
               <form onSubmit={handleSubmit} className="w-full">
                 <div className="flex md:flex-row flex-col gap-2 w-full">

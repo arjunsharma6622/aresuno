@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BsFillCameraFill } from "react-icons/bs";
 import { FiCamera, FiEdit, FiEdit2, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { API_URL } from "../../../../utils/util";
 
 const Profile = ({ user }) => {
   const [image, setImage] = useState(null);
@@ -24,7 +25,7 @@ const Profile = ({ user }) => {
 
     try {
       const res = await axios.patch(
-        "https://aresuno-server.vercel.app/api/vendor/",
+        `${API_URL}/api/user/`,
         { password: updatedPassword?.newPassword },
         {
           headers: {
@@ -77,7 +78,7 @@ const Profile = ({ user }) => {
 
     try{
       const res = await axios.patch(
-        "https://aresuno-server.vercel.app/api/vendor/",
+        `${API_URL}/api/user/`,
         {
           image: imageUrl
         },
@@ -105,7 +106,7 @@ const Profile = ({ user }) => {
 
     try {
       const res = await axios.patch(
-        "https://aresuno-server.vercel.app/api/vendor/",
+        `${API_URL}/api/user/`,
         {
           name: userEdit?.name
         },

@@ -33,7 +33,7 @@ const BusinessRegister = () => {
     "reviewDetails",
   ];
 
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(1);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [businessRegisterLoading, setBusinessRegisterLoading] = useState(false);
 
   const [businessDetails, setBusinessDetails] = useState({
@@ -85,15 +85,15 @@ const BusinessRegister = () => {
     try {
       setBusinessRegisterLoading(true);
       const token = localStorage.getItem("token");
-      const vendorRes = await axios.get(
-        `${API_URL}/api/vendor/`,
+      const userRes = await axios.get(
+        `${API_URL}/api/user/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      const { _id: vendorId, name: vendorName } = vendorRes.data;
+      const { _id: vendorId, name: vendorName } = userRes.data;
 
       setBusinessDetails((prev) => ({
         ...prev,
@@ -118,7 +118,14 @@ const BusinessRegister = () => {
       );
 
       toast.success("Business Registered");
-      navigate("/dashboard");
+      if(userRes.data.role === "admin"){
+        setBusinessRegisterLoading(false);
+        window.location.reload();
+        navigate(`/admin`);
+      }
+      else{
+        navigate(`/dashboard`);
+      }
 
       console.log(res.data);
     } catch (error) {

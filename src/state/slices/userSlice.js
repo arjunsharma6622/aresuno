@@ -4,8 +4,9 @@ const userSlice = createSlice({
     name : "User",
     initialState : {
         name : "sdafds",
-        userType : "",
         image : "",
+        role : "",
+        phone : "",
         coordinates : {
             lat : "17.3666403",
             lng : "78.5205603"
@@ -14,10 +15,13 @@ const userSlice = createSlice({
     },
     reducers : {
         userLogin  : (state, action) => {
-            const {name, userType, image} = action.payload
-            state.name = name
-            state.userType = userType
-            state.image = image
+            const {user} = action.payload
+
+            state.name = user.name
+            state.role = user.role
+            state.image = user.image
+            state.phone = user.phone
+            
         },
         userLogout : (state) => {
             state.name = "",
