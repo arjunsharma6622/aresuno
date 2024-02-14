@@ -2,7 +2,7 @@ import React from 'react'
 import { AiOutlineAppstore } from 'react-icons/ai'
 import { BiCategory, BiImage } from 'react-icons/bi'
 import { FaGripLines } from 'react-icons/fa'
-import { FiHome, FiMessageSquare, FiPhoneCall, FiPlus, FiPlusCircle, FiUsers } from 'react-icons/fi'
+import { FiHome, FiMap, FiMapPin, FiMessageSquare, FiPhoneCall, FiPlus, FiPlusCircle, FiUsers } from 'react-icons/fi'
 import { LuLayoutDashboard } from 'react-icons/lu'
 import { MdOutlineArticle } from 'react-icons/md'
 
@@ -19,6 +19,10 @@ const Sidebar = ({handleSelectedField, selectedField}) => {
         {
             name : "My Listings",
             icon : <AiOutlineAppstore className="w-6 h-6" />
+        },
+        {
+            name : "Location Data",
+            icon : <FiMapPin className="w-6 h-6" />
         },
         {
             name : "Banner",

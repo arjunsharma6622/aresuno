@@ -43,6 +43,7 @@ import Blog from "./Blog";
 import { Helmet } from "react-helmet-async";
 import BusinessRegister from "../BusinessRegister/BusinessRegister";
 import AdminListings from "./AdminListings";
+import LocationData from "./LocationData";
 
 
 const AllBusiness = ({ businesses, categories }) => {
@@ -431,6 +432,7 @@ const AdminDashboard = () => {
                                 {selectedField === "Blogs" && <Blog blogs={blogs}/>}
                                 {selectedField === "Add Listing" && <BusinessRegister />}
                                 {selectedField === "My Listings" && <AdminListings businesses={adminBusinesses}/>}
+                                {selectedField === "Location Data" && <LocationData />}
                             </div>
                         )}
                     </div>
