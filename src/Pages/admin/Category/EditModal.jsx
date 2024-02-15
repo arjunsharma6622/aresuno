@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FiCamera, FiEdit3, FiX } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
-import { API_URL } from "../../utils/util";
+import { API_URL } from "../../../utils/util";
 import { useSelector } from "react-redux";
 
 export default function EditModal({ category, onClose, categoryTitle }) {

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi';
 import { FiChevronDown, FiLink2, FiXCircle } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
-import EasyCrop from '../Vendor/Dashboard/components/EasyCrop';
+import EasyCrop from '../../Vendor/Dashboard/components/EasyCrop';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-import { API_URL } from '../../utils/util';
+import { API_URL } from '../../../utils/util';
 import BlogCard from './BlogCard';
 import { toast } from 'react-toastify';
 

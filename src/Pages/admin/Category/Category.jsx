@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
-import { API_URL } from "../../utils/util";
+import { API_URL } from "../../../utils/util";
 
 const CategoryInput = ({
   index,

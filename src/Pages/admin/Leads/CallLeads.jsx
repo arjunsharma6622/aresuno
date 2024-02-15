@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { API_URL } from '../../utils/util'
+import { API_URL } from '../../../utils/util'
 import axios from 'axios'
 import { FiCheckCircle, FiXCircle } from 'react-icons/fi'
 

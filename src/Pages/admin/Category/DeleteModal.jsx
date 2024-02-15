@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { API_URL } from "../../utils/util";
+import { API_URL } from "../../../utils/util";
 
 export default function DeleteModal({ categoryId, subCategory, onClose, mainCategory }) {
   const [open, setOpen] = useState(true);

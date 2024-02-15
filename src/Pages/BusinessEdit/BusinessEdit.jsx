@@ -104,7 +104,12 @@ const BusinessEdit = () => {
 
       const res = await axios.put(
         `${API_URL}/api/business/${id}`,
-        businessDetails
+        businessDetails,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       console.log(res);
       toast.success("Business Details Updated");
