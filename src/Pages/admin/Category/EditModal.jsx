@@ -27,7 +27,9 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
   const [subCategoryToEdit, setSubCategoryToEdit] = useState(category);
   //in category.keywords is array, we want comma seperated keywords
-  const [keywords, setKeywords] = useState(category.keywords ? category.keywords.join(", ") : null);
+  const [keywords, setKeywords] = useState(
+    category.keywords ? category.keywords.join(", ") : null
+  );
   const [mainCategoryToEdit, setMainCategoryToEdit] = useState(categoryTitle);
 
   console.log(`SubCategoryToEdit is`);
@@ -210,11 +212,11 @@ export default function EditModal({ category, onClose, categoryTitle }) {
             </div>
 
             <div className="mt-8 flex items-start gap-2 flex-col w-[90%] m-auto justify-center">
-              {subCategoryToEdit && (
-                <div className="flex w-full items-center justify-start gap-6">
-                <div className="flex justify-start gap-6 items-end">
-                  
-                  {/* <div className="flex items-center gap-2 relative">
+              {subCategoryToEdit ? (
+                <div className="w-full flex flex-col gap-6 text-sm">
+                  <div className="flex w-full items-center justify-start gap-6">
+                    <div className="flex justify-start gap-6 items-end">
+                      {/* <div className="flex items-center gap-2 relative">
                     <img
                       src={
                         imageToShow ? imageToShow : subCategoryToEdit.image?.url
@@ -247,86 +249,78 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                     )}
                   </div> */}
 
-                  <div className="flex items-center gap-2 relative">
-                    {iconToShow ? (
-                      <img
-                        src={iconToShow ? iconToShow : subCategoryToEdit.icon}
-                        alt=""
-                        className=" w-20 rounded-md"
-                      />
-                    ) : (
-                      <span>Click on green cam to add icon</span>
-                    )}
-                    <label
-                      htmlFor="subCategoryIcon"
-                      className="cursor-pointer absolute bottom-1 right-1 bg-green-500 p-[6px] rounded-full"
-                    >
-                      <BsFillCameraFill className="h-5 w-5 text-white" />
-                      <input
-                        type="file"
-                        id="subCategoryIcon"
-                        className="hidden"
-                        onChange={handleIconChange}
-                      />
-                    </label>
-                    {icon && (
-                      <div
-                        className="absolute cursor-pointer top-1 right-1 bg-red-200 rounded-full p-[2px]"
-                        onClick={() => {
-                          setIcon(null);
-                          setIconToShow(null);
-                        }}
-                      >
-                        <FiX className="h-4 w-4 text-red-500 " />
+                      <div className="flex items-center gap-2 relative">
+                        {iconToShow ? (
+                          <img
+                            src={
+                              iconToShow ? iconToShow : subCategoryToEdit.icon
+                            }
+                            alt=""
+                            className=" w-20 rounded-md"
+                          />
+                        ) : (
+                          <span>Click on green cam to add icon</span>
+                        )}
+                        <label
+                          htmlFor="subCategoryIcon"
+                          className="cursor-pointer absolute bottom-1 right-1 bg-green-500 p-[6px] rounded-full"
+                        >
+                          <BsFillCameraFill className="h-5 w-5 text-white" />
+                          <input
+                            type="file"
+                            id="subCategoryIcon"
+                            className="hidden"
+                            onChange={handleIconChange}
+                          />
+                        </label>
+                        {icon && (
+                          <div
+                            className="absolute cursor-pointer top-1 right-1 bg-red-200 rounded-full p-[2px]"
+                            onClick={() => {
+                              setIcon(null);
+                              setIconToShow(null);
+                            }}
+                          >
+                            <FiX className="h-4 w-4 text-red-500 " />
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </div>
+
+                    <div className="w- flex flex-col gap-1 text-sm">
+                      <label
+                        htmlFor="showOnHome"
+                        className="font-medium text-base"
+                      >
+                        Show on Home Page
+                      </label>
+                      <div className="flex items-center gap-3 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="showOnHome"
+                          id="show"
+                          value={true}
+                          checked={showOnHome === true}
+                          onChange={(e) => setShowOnHome(true)}
+                          className="cursor-pointer"
+                        />
+                        <label htmlFor="show">Show</label>
+                      </div>
+
+                      <div className="flex items-center gap-3 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="showOnHome"
+                          id="dontShow"
+                          value={false}
+                          checked={showOnHome === false}
+                          onChange={(e) => setShowOnHome(false)}
+                          className="cursor-pointer"
+                        />
+                        <label htmlFor="dontShow">Don't Show</label>
+                      </div>
+                    </div>
                   </div>
-
-                 
-                </div>
-
-<div className="w- flex flex-col gap-1 text-sm">
-<label
-  htmlFor="showOnHome"
-  className="font-medium text-base"
->
-  Show on Home Page
-</label>
-<div className="flex items-center gap-3 cursor-pointer">
-  <input
-    type="radio"
-    name="showOnHome"
-    id="show"
-    value={true}
-    checked={showOnHome === true}
-    onChange={(e) => setShowOnHome(true)}
-    className="cursor-pointer"
-  />
-  <label htmlFor="show">Show</label>
-</div>
-
-<div className="flex items-center gap-3 cursor-pointer">
-  <input
-    type="radio"
-    name="showOnHome"
-    id="dontShow"
-    value={false}
-    checked={showOnHome === false}
-    onChange={(e) => setShowOnHome(false)}
-    className="cursor-pointer"
-  />
-  <label htmlFor="dontShow">Don't Show</label>
-</div>
-</div>
-
-</div>
-
-
-
-              )}
-
-              {subCategoryToEdit ? (
-                <div className="w-full flex flex-col gap-4 text-sm">
                   <div className="w-full flex justify-start items-center gap-4">
                     <div className="w-full flex flex-col gap-1 text-sm">
                       <label
@@ -374,7 +368,10 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
                   <div className="w-full flex flex-col gap-1 text-sm">
                     <label htmlFor="altTag" className="font-medium text-base">
-                      Keywords
+                      Keywords{" "}
+                      <span className="text-gray-500 text-sm font-normal">
+                        - add comma separated keywords
+                      </span>
                     </label>
 
                     <textarea
@@ -383,9 +380,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                       placeholder="eg. electronics, mobile, laptop, tv"
                       value={keywords}
                       className="text-base w-full border border-gray-300 p-2 rounded-md"
-                      onChange={(e) =>
-                        setKeywords(e.target.value)
-                      }
+                      onChange={(e) => setKeywords(e.target.value)}
                     />
                   </div>
                 </div>
