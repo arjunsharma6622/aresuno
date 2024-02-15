@@ -44,6 +44,8 @@ import { JsonLd } from "react-schemaorg";
 import NotFound from "../NotFound/NotFound";
 import { API_URL } from "../../utils/util";
 import { LuLoader } from "react-icons/lu";
+import CallClickForm from "../../Components/CallClickForm";
+import EnquiryForm from "../../Components/EnquiryForm";
 
 
 
@@ -58,6 +60,12 @@ const Business = () => {
     const [hoveredStars, setHoveredStars] = useState(0);
     const { businessName } = useParams();
     const [isBusinessFetching, setIsBusinessFetching] = useState(true);
+    const [callClick, setCallClick] = useState(false);
+    const [enquiryClick ,setEnquiryClick] = useState(false);
+
+    const user = useSelector((state) => state.user);
+
+
 
     const avgRating =
         ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) /
@@ -113,6 +121,33 @@ const Business = () => {
 
         fetchBusiness();
     }, []);
+
+    const handleCallNow = async () => {
+        if(user.name){
+            try{
+                const res = await axios.post(
+                    `${API_URL}/api/call-lead/createLoggedInLead`,
+                    {
+                        name : user.name,
+                        phone : user.phone ? user.phone : '-',
+                        business : business._id
+                    }
+                )
+
+                console.log(res.data)
+
+                window.location.href = `tel:${business.phone}`
+
+
+            }catch(err){
+                console.log(err)
+            }
+
+        }
+        else{
+            setCallClick(true)
+        }
+    }
 
 
 
@@ -582,16 +617,28 @@ const Business = () => {
                     </div>
 
                     <div className="w-full flex md:flex-col flex-row items-center gap-4 md:gap-2">
-                        <button className="w-full flex items-center justify-center gap-2 p-2  rounded-full border border-solid border-blue-600 text-sm md:text-base">
+                        <button 
+                            className="w-full flex items-center justify-center gap-2 p-2  rounded-full border border-solid border-blue-600 text-sm md:text-base"    
+                            onClick={handleCallNow}
+                        >
                             <FiPhone className="text-blue-600 w-5 h-5 md:w-6 md:h-6" />
                             <span className="text-blue-600 font-semibold">
-                                <a href={`tel:${business?.phone}`}>Call Now</a>
+                                <span>Call Now</span>
                             </span>
                         </button>
-                        <button className="w-full flex items-center justify-center gap-2 p-2  rounded-full bg-blue-600 text-sm md:text-base">
+                        { callClick &&
+                        <CallClickForm business={business} onClose={() => setCallClick(false)}/>
+}
+                        <button 
+                            className="w-full flex items-center justify-center gap-2 p-2  rounded-full bg-blue-600 text-sm md:text-base"
+                            onClick={() => setEnquiryClick(true)}
+                        >
                             <FiMessageSquare className="text-white w-5 h-5 md:w-6 md:h-6" />
                             <span className="text-white font-semibold">Enquire Now</span>
                         </button>
+                        { enquiryClick &&
+                        <EnquiryForm onClose={() => setEnquiryClick(false)}/> 
+                        }
                     </div>
                 </div>
             </div>

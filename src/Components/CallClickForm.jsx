@@ -160,7 +160,7 @@ const CallClickForm = ({ onClose, business }) => {
             </form>
           </div>
         ) : !isOtpVerified ? (
-          <div className=" flex justify-start bg-white rounded-xl items-center w-[40%] py-10 px-10">
+          <div className=" flex justify-start bg-white rounded-xl items-center w-[90%] md:w-[40%] py-8 md:py-10 px-8 md:px-10">
             <div className="bg-white rounded w-full">
               <div className='flex justify-between items-start'>
               <h2 className="text-2xl font-semibold">Enter OTP</h2>
@@ -192,20 +192,20 @@ const CallClickForm = ({ onClose, business }) => {
             </div>
           </div>
         ) : (
-          <div className="bg-white p-6 rounded-xl w-[40%] px-10 py-10">
+          <div className="bg-white p-6 rounded-xl w-[90%] md:w-[40%] px-6 py-6 md:px-10 md:py-10">
             <div className="flex justify-between items-start">
               <div>
-                <h2 className="text-xl font-bold">
+                <h2 className=" md:text-xl font-bold">
                   <span className="text-blue-500 mr-1">{business.name} </span>{' '}
                   Phone Number
                 </h2>
                 <p className=" text-gray-900 mt-1 text-lg font-medium">
                   {business.phone}
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 mt-1">
                   Call this number to get more details about this business
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 mt-1">
                   You can also visit this business by clicking on the{' '}
                   <Link
                     target="_blank"
@@ -222,7 +222,7 @@ const CallClickForm = ({ onClose, business }) => {
               />
             </div>
 
-            <div className="flex items-center justify-center gap-6 w-full mt-6 bg-blue-500 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded focus:outline-none focus:shadow-outline">
+            <div className="flex items-center justify-center gap-6 w-full mt-4 md:mt-6 bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-3 md:py-3 md:px-4 rounded focus:outline-none focus:shadow-outline">
               <button
                 className=""
                 onClick={() => {
