@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from "axios"
-import { API_URL } from '../../utils/util'
+import { API_URL, ToastParams } from '../../utils/util'
 import EasyCrop from '../Vendor/Dashboard/components/EasyCrop'
 import ReactQuill from 'react-quill'
 import { useSelector } from 'react-redux'
@@ -52,13 +52,13 @@ const BlogEdit = () => {
       try{
         const response = await axios.put(`${API_URL}/api/blog/${blogId}`, blog);
 
-        toast.success(response.data.message);
+        toast.success(response.data.message, ToastParams);
         console.log(response.data);
         setLoading(false)
       }
       catch(err){
         setLoading(false)
-        toast.error(err.response.data.message);
+        toast.error(err.response.data.message, ToastParams);
         console.log(err.response.data);
 
         console.log(err)

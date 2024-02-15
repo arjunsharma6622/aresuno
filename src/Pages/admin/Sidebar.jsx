@@ -35,7 +35,11 @@ const Sidebar = ({handleSelectedField, selectedField, selectedSubField, setSelec
         },
         {
             name : "Categories",
-            icon : <BiCategory className="w-6 h-6" />
+            icon : <BiCategory className="w-6 h-6" />,
+            subMenu : [
+                "All Categories",
+                "Add Categories"
+            ]
         },
         {
             name : "Leads",

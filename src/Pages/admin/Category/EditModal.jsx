@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FiCamera, FiEdit3, FiX } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
-import { API_URL } from "../../../utils/util";
+import { API_URL, ToastParams } from "../../../utils/util";
 import { useSelector } from "react-redux";
 
 export default function EditModal({ category, onClose, categoryTitle }) {
@@ -59,7 +59,11 @@ export default function EditModal({ category, onClose, categoryTitle }) {
       imageData.append("upload_preset", "ml_default")
       imageData.append("folder", `aresuno/category/${category.name}`)
 
-      const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", imageData)
+      const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", imageData, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       const imageUrl = uploadResponse.data.secure_url
 
       return imageUrl
@@ -89,13 +93,17 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   const handleMainCategoryUpdate = async () => {
     try {
       setIsUpdating(true);
-      const res = await axios.put(editUrl, {...mainCategoryToEdit, showOnHome : showOnHome} );
+      const res = await axios.put(editUrl, {...mainCategoryToEdit, showOnHome : showOnHome}, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem('token')}`
+        }
+      } );
       console.log(res);
-      toast.success("Main Category Updated");
+      toast.success("Main Category Updated", ToastParams);
       onClose();
     } catch (err) {
       console.log(err);
-      toast.error(err);
+      toast.error(err, ToastParams);
     }
   };
 
@@ -141,13 +149,17 @@ export default function EditModal({ category, onClose, categoryTitle }) {
       console.log(subCatToEdit);
 
 
-      const res = await axios.put(editUrl, {...subCatToEdit, showOnHome : showOnHome} );
+      const res = await axios.put(editUrl, {...subCatToEdit, showOnHome : showOnHome}, {
+        headers : {
+          Authorization : `Bearer ${localStorage.getItem('token')}`
+        }
+      } );
       console.log(res);
-      toast.success("Sub Category Updated");
+      toast.success("Sub Category Updated", ToastParams);
       onClose();
     } catch (err) {
       console.log(err);
-      toast.error(err);
+      toast.error(err, ToastParams);
     }
   };
 

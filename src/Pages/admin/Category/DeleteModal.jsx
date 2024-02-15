@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { API_URL } from "../../../utils/util";
+import { API_URL, ToastParams } from "../../../utils/util";
 
 export default function DeleteModal({ categoryId, subCategory, onClose, mainCategory }) {
   const [open, setOpen] = useState(true);
@@ -17,13 +17,18 @@ export default function DeleteModal({ categoryId, subCategory, onClose, mainCate
       setIsDeleting(true);
       const res = await axios.delete(
         deleteUrl,
+        {
+          headers : {
+            Authorization : `Bearer ${localStorage.getItem('token')}`
+          }
+        }
       );
       console.log(res);
-      toast.success("Category Deleted");
+      toast.success("Category Deleted", ToastParams);
       onClose();
     } catch (err) {
       console.log(err);
-      toast.error(err);
+      toast.error(err, ToastParams);
     }
   };
 

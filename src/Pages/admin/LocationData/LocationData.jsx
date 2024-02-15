@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
-import { API_URL } from '../../../utils/util'
+import { API_URL, ToastParams } from '../../../utils/util'
 import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 import EditLocation from './EditLocation'
 import DeleteModal from '../Category/DeleteModal'
@@ -51,32 +51,12 @@ const LocationData = ({allLocations}) => {
                 longitude : ''
             })
             
-            toast.success("Location Added", {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-                theme: "light",
-                closeButton: false,                
-            })
+            toast.success("Location Added", ToastParams )
 
         }catch(err){
             console.log(err)
             setIsLoading(false)
-            toast.error("Something went wrong", {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-                theme: "light",
-                closeButton: false,                
-            })
+            toast.error("Something went wrong", ToastParams)
         }
     }
 

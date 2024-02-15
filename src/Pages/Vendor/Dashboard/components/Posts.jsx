@@ -20,7 +20,7 @@ import Cropper from "react-easy-crop";
 import { getCroppedImg } from "./getCroppedImage";
 import { BiImageAdd } from "react-icons/bi";
 import EasyCrop from "./EasyCrop";
-import { API_URL } from "../../../../utils/util";
+import { API_URL, ToastParams } from "../../../../utils/util";
 
 const Posts = ({ posts, businesses }) => {
 
@@ -127,7 +127,7 @@ const Posts = ({ posts, businesses }) => {
       );
 
       console.log(createPostResponse.data);
-      toast.success("Post Created");
+      toast.success("Post Created", ToastParams);
       setIsLoading(false);
       setPost({
         image: "",
@@ -138,7 +138,7 @@ const Posts = ({ posts, businesses }) => {
       setImage(null);
     } catch (err) {
       console.error(err);
-      toast.error("Something went wrong");
+      toast.error("Something went wrong", ToastParams);
       setIsLoading(false);
     }
   };

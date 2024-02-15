@@ -8,7 +8,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiCheckCircle, FiEye, FiEyeOff, FiHome } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
 import InputBx from "../User/InputBx";
-import {API_URL} from "../../utils/util";
+import {API_URL, ToastParams} from "../../utils/util";
 import { AiFillLayout } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
 
@@ -41,10 +41,9 @@ const Register = () => {
     try {
       const response = await axios.post(`${API_URL}/api/forgetPassword-otp`, { phone: formData.phone });
       console.log(response.data);
-      toast.success('OTP Sent');
+      toast.success('OTP Sent', ToastParams);
     } catch (err) {
       console.log(err);
-      // toast.error(err.response.data.message);
     }
   };
 
@@ -74,14 +73,13 @@ const Register = () => {
 
       console.log(response.data)
 
-      toast.success(response.data.message)
-      toast.success("OTP Verified")
+      toast.success("OTP Verified", ToastParams)
       setOtpVerified(true)
       setOtpVefiryLoading(false)
     }
     catch(err) {
       setOtpVefiryLoading(false)
-      toast.error(err.response.data.message)
+      toast.error(err.response.data.message, ToastParams)
       console.log(err)
     }
   }
@@ -103,7 +101,7 @@ const Register = () => {
       localStorage.setItem("token", token);
 
       setOtpSent(true)
-      toast.success("OTP sent");
+      toast.success("OTP sent", ToastParams);
 
 
       if(formData.role === "vendor"){
@@ -131,7 +129,7 @@ const Register = () => {
 
     } catch (err) {
       console.log(err)
-      toast.error(err.response.data.message);
+      toast.error(err.response.data.message, ToastParams);
       setIsLoading(false);
       setFormData({
         name: "",

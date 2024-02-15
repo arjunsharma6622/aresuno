@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FiEdit3 } from 'react-icons/fi'
-import { API_URL } from '../../../utils/util'
+import { API_URL, ToastParams } from '../../../utils/util'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 
@@ -25,17 +25,7 @@ const EditLocation = ({ loc, onClose }) => {
       })
 
       if(res.status === 200){
-        toast.success("Location updated successfully", {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          theme: "light",
-          closeButton: false,  
-        })
+        toast.success("Location updated successfully", ToastParams)
         setIsLoading(false)
         onClose()
       }
@@ -44,17 +34,7 @@ const EditLocation = ({ loc, onClose }) => {
     }
     catch(err){
       setIsLoading(false)
-      toast.error(err.response.data, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "light",
-        closeButton: false,
-      })
+      toast.error(err.response.data, ToastParams)
       console.log(err)
     }
     setIsLoading(false)

@@ -4,21 +4,17 @@ import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import Banner from "./Banner/Banner";
-import Category from "./Category/Category";
 import AdminHome from "./AdminHome";
 import { API_URL } from "../../utils/util";
 import Sidebar from "./Sidebar";
 import Enquiries from "./Leads/Enquiries";
-import CallLeads from "./Leads/CallLeads";
 import Blog from "./Blog/Blog";
 import { Helmet } from "react-helmet-async";
-import BusinessRegister from "../BusinessRegister/BusinessRegister";
-import AdminListings from "./Business/AdminListings";
 import LocationData from "./LocationData/LocationData";
 import AllUsers from "./AllUsers/AllUsers";
-import AllBusinesses from "./Business/AllBusinesses";
-import BusinessDashboard from "./Business/BusinessDashboard";
+import BusinessDashboard from "./Listings/BusinessDashboard";
 import LeadsDashboard from "./Leads/LeadsDashboard";
+import CategoryDashboard from "./Category/CategoryDashboard";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -214,12 +210,8 @@ const AdminDashboard = () => {
                   <LeadsDashboard callLeads={callLeads} enquiries={enquiries} subField={selectedSubField}/>
                 )}
                 {selectedField === "Banner" && <Banner />}
-                {selectedField === "Categories" && <Category />}
+                {selectedField === "Categories" && <CategoryDashboard subField={selectedSubField}/>}
                 {selectedField === "Blogs" && <Blog blogs={blogs} />}
-                {/* {selectedField === "Add Listing" && <BusinessRegister />} */}
-                {/* {selectedField === "My Listings" && (
-                  <AdminListings businesses={adminBusinesses} />
-                )} */}
                 {selectedField === "Location Data" && (
                   <LocationData allLocations={allLocations} />
                 )}

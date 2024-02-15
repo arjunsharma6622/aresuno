@@ -3,6 +3,7 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import axios from "axios";
 import { FiEdit2, FiEdit3, FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { ToastParams } from "../../../../utils/util";
 
 export default function ModalEdit({ onClose, post }) {
   const [open, setOpen] = useState(true);
@@ -26,12 +27,12 @@ export default function ModalEdit({ onClose, post }) {
           },
         }
       );
-      toast.success("Post Updated");
+      toast.success("Post Updated", ToastParams);
       console.log(res.data);
       onClose();
     } catch (err) {
       console.log(err);
-      toast.error("Error Updating Post");
+      toast.error("Error Updating Post", ToastParams);
     }
 
   };

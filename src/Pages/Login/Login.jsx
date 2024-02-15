@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 import { FiEye, FiEyeOff, FiMail } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
-import { API_URL } from "../../utils/util";
+import { API_URL, ToastParams } from "../../utils/util";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,9 +44,9 @@ const Login = () => {
       );
 
       console.log(res.data);
-      toast.success("Logged In Successfully");
+      toast.success("Logged In Successfully", ToastParams);
     } catch (err) {
-      toast.error("Login Failed");
+      toast.error("Login Failed", ToastParams);
     }
     setIsLoading(false);
   };

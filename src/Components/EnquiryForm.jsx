@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiCheckCircle, FiMessageSquare, FiX } from 'react-icons/fi';
-import { API_URL } from '../utils/util';
+import { API_URL, ToastParams } from '../utils/util';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -30,7 +30,7 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
         console.log(res)
         setIsSending(false)
         setIsSent(true)
-        toast.success('Enquiry Sent')
+        toast.success('Enquiry Sent', ToastParams)
         
     } catch (err) {
         setIsSending(false)

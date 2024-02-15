@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BsFillCameraFill } from "react-icons/bs";
 import { FiCamera, FiEdit, FiEdit2, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
-import { API_URL } from "../../../../utils/util";
+import { API_URL, ToastParams } from "../../../../utils/util";
 
 const Profile = ({ user }) => {
   const [image, setImage] = useState(null);
@@ -38,10 +38,10 @@ const Profile = ({ user }) => {
         confirmPassword: "",
       });
       console.log(res.data);
-      toast.success("Password Updated");
+      toast.success("Password Updated", ToastParams);
     } catch (err) {
       console.log(err);
-      toast.error("Error Updating Password");
+      toast.error("Error Updating Password", ToastParams);
     }
   };
 
@@ -89,12 +89,12 @@ const Profile = ({ user }) => {
         }
       );
       console.log(res.data);
-      toast.success("Profile Image Updated");
+      toast.success("Profile Image Updated", ToastParams);
       setIsImageUploading(false);
     }
     catch(err){
       console.log(err);
-      toast.error("Error uploading image");
+      toast.error("Error uploading image", ToastParams);
     }
 
   }
@@ -119,10 +119,10 @@ const Profile = ({ user }) => {
         }
       );
       console.log(res.data);
-      toast.success("Profile Updated");
+      toast.success("Profile Updated", ToastParams);
     } catch (err) {
       console.log(err);
-      toast.error("Error Updating Profile");
+      toast.error("Error Updating Profile", ToastParams);
     }
   };
 

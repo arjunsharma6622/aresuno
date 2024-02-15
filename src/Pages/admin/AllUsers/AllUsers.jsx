@@ -10,11 +10,9 @@ const AllUsers = ({users, vendors}) => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            // toast.success(res.data.message);
             window.location.reload();
         }
         catch (err) {
-            // toast.error(err.response.data.message);
             console.log(err)
         }
     }

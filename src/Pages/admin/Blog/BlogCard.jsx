@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { FiDelete, FiEdit2, FiExternalLink, FiTrash2 } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import { API_URL } from '../../../utils/util'
+import { API_URL, ToastParams } from '../../../utils/util'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 
@@ -17,7 +17,7 @@ const BlogCard = ({blog}) => {
       // Check if the user clicked "OK"
       if (userConfirmed) {
         const response = await axios.delete(`${API_URL}/api/blog/${blog._id}`);
-        toast.success(response.data.message);
+        toast.success(response.data.message, ToastParams);
         console.log(response.data);
       } else {
         // User clicked "Cancel", do nothing or show a message
@@ -26,7 +26,7 @@ const BlogCard = ({blog}) => {
     }
     catch(err){
       console.log(err)
-      toast.error("Error deleting blog")
+      toast.error("Error deleting blog", ToastParams)
     }
   }
 

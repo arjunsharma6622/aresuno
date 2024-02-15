@@ -42,7 +42,7 @@ import { Helmet } from "react-helmet-async";
 import { Person } from "schema-dts";
 import { JsonLd } from "react-schemaorg";
 import NotFound from "../NotFound/NotFound";
-import { API_URL } from "../../utils/util";
+import { API_URL, ToastParams } from "../../utils/util";
 import { LuLoader } from "react-icons/lu";
 import CallClickForm from "../../Components/CallClickForm";
 import EnquiryForm from "../../Components/EnquiryForm";
@@ -92,7 +92,7 @@ const Business = () => {
             setIsReviewLoading(true);
             const token = localStorage.getItem("token");
             if(!token) {
-                toast.error("Please login to post a review");
+                toast.error("Please login to post a review", ToastParams);
                 setIsReviewLoading(false);
                 return;
             }
@@ -109,11 +109,11 @@ const Business = () => {
             setReview("");
             setSelectedStars(4);
             setIsReviewLoading(false);
-            toast.success("Thank you for your feedback");
+            toast.success("Thank you for your feedback", ToastParams);
         } catch (e) {
             console.log(e);
             setIsReviewLoading(false);
-            toast.error("Something went wrong");
+            toast.error("Something went wrong", ToastParams);
         }
     };
 
@@ -319,7 +319,7 @@ const Business = () => {
                 enquiryToSend.category = business.category
             const res = await axios.post(`${API_URL}/api/enquiry/create`, enquiryToSend)
             console.log(res)
-            toast.success('Enquiry Sent')
+            toast.success('Enquiry Sent', ToastParams)
             setEnquiry({
                 name: "",
                 phone: "",
@@ -331,7 +331,7 @@ const Business = () => {
         } catch (err) {
           console.error(err);
 
-          toast.error('Something went wrong')
+          toast.error('Something went wrong', ToastParams)
           setIsEnquiryLoading(false)
         }
       };
