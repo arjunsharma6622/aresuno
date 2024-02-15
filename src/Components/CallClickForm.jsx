@@ -80,6 +80,15 @@ const CallClickForm = ({ onClose, business }) => {
     return () => clearInterval(timer);
   }, [count]);
 
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <div>
       <div className="z-[40] fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm">
