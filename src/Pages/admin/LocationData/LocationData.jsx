@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
-import { API_URL } from '../../utils/util'
+import { API_URL } from '../../../utils/util'
+import { FiEdit2, FiTrash2 } from 'react-icons/fi'
+import EditLocation from './EditLocation'
+import DeleteModal from '../DeleteModal'
+import DeleteLocation from './DeleteLocation'
 
-const LocationData = () => {
+const LocationData = ({allLocations}) => {
     const [location, setLocation] = useState({
         name : '',
         latitude : '',
         longitude : ''
     })
 
-    const [allLocations, setAllLocations] = useState([])
+    const [openEditLocationModal, setOpenEditLocationModal] = useState(false)
+    const [locationToEdit, setLocationToEdit] = useState(null)
+
+    const [openDeleteLocationModal, setOpenDeleteLocationModal] = useState(false)
+    const [locationToDelete, setLocationToDelete] = useState(null)
+
 
 
     const [isLoading, setIsLoading] = useState(false)
@@ -71,26 +80,16 @@ const LocationData = () => {
         }
     }
 
-    const fetchAllLocations = async () => {
-        try{
-            const res = await axios.get(`${API_URL}/api/city/`)
-            console.log(res.data)
-            setAllLocations(res.data)
-        }catch(err){
-            console.log(err)
-        }
 
-    }
-
-    useEffect(() => {
-        fetchAllLocations()
-    }, [])
 
 
     const tableHeaders = [
+        "Id",
         "Name",
         "Latitude",
-        "Longitude"
+        "Longitude",
+        "Edit",
+        "Delete"
     ]
   return (
     <div>
@@ -98,6 +97,8 @@ const LocationData = () => {
             <h1 className="text-2xl font-medium mb-5">LOCATION DATA</h1>
 
         </div>
+
+        <div className='flex flex-col gap-10'>
         <div className='w-1/2 bg-white px-5 py-5 shadow-md rounded-lg'>
             <h1 className="text-2xl font-medium mb-5">Add Location</h1>
             <div className='flex flex-col gap-4'>
@@ -136,7 +137,8 @@ const LocationData = () => {
 
         </div>
 
-        <div>
+        <div className=''>
+            <h1 className="text-2xl font-medium mb-5">All Locations</h1>
         <table className='table text-sm table-auto w-full'>
             <thead className='bg-gray-300'>
             <tr>
@@ -153,15 +155,38 @@ const LocationData = () => {
             {
                 [...allLocations].reverse().map((location, index) => (
                     <tr key={index}>
+                        <td className='px-6 py-4 whitespace-nowrap'>{location._id}</td>
                         <td className='px-6 py-4 whitespace-nowrap'>{location.name}</td>
-                        <td className='px-6 py-4 whitespace-nowrap'>{location.coordinates[0]}</td>
                         <td className='px-6 py-4 whitespace-nowrap'>{location.coordinates[1]}</td>
+                        <td className='px-6 py-4 whitespace-nowrap'>{location.coordinates[0]}</td>
+                        <td className="px-2 py-4">
+                            <FiEdit2 className="text-gray-500 w-5 h-5 cursor-pointer" onClick={() => {
+                                setOpenEditLocationModal(true)
+                                setLocationToEdit(location)
+                            }}/>
+                        </td>
+                        <td className="px-0 py-4 whitespace-nowrap items-center">
+                            <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => {
+                                setOpenDeleteLocationModal(true)
+                                setLocationToDelete(location)
+                            }}/>
+                        </td>
                     </tr>
                 ))
             }
             </tbody>
+
+            {openEditLocationModal && (
+                <EditLocation loc={locationToEdit} onClose={() => setOpenEditLocationModal(false)}/>
+            )}
+
+            {openDeleteLocationModal && (
+                <DeleteLocation loc={locationToDelete} onClose={() => setOpenDeleteLocationModal(false)}/>
+            )}
             
         </table>
+        </div>
+
         </div>
         <ToastContainer />
     </div>

@@ -51,13 +51,7 @@ const Sidebar = ({handleSelectedField, selectedField}) => {
         {
             name : "Users",
             icon : <FiUsers className="w-6 h-6" />
-        },
-        {
-            name : "Vendors",
-            icon : <FiUsers className="w-6 h-6" />
-        },
-
-        
+        },        
     ]
   return (
                 <div className="flex my-4 mt-6 flex-col gap-8 justify-start items-start h-full overflow-y-scroll w-full">

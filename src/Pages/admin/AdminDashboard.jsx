@@ -43,7 +43,8 @@ import Blog from "./Blog";
 import { Helmet } from "react-helmet-async";
 import BusinessRegister from "../BusinessRegister/BusinessRegister";
 import AdminListings from "./AdminListings";
-import LocationData from "./LocationData";
+import LocationData from "./LocationData/LocationData";
+import AllUsers from "./AllUsers";
 
 
 const AllBusiness = ({ businesses, categories }) => {
@@ -119,65 +120,7 @@ const AllBusiness = ({ businesses, categories }) => {
         </div>
     );
 };
-const AllUsers = ({ users }) => {
 
-    const handleDelete = async (id) => {
-        try {
-
-            const res = await axios.delete(`https://aresuno-server.vercel.app/api/user/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            });
-            // toast.success(res.data.message);
-            window.location.reload();
-        }
-        catch (err) {
-            // toast.error(err.response.data.message);
-            console.log(err)
-        }
-    }
-
-
-
-    return (
-        <div>
-            <div className="bg-white rounded-xl">
-
-                <table className="w-full text-sm table-auto">
-                    <thead className="">
-                        <tr className="bg-gray-300">
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SNo</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
-                        </tr>
-                    </thead>
-
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {users.map((user, index) => (
-                            <tr key={index}>
-                                <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    {user.name}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">{new Date( user.createdAt).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" onClick={() => handleDelete(user._id)} />
-                                </td>
-
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-
-            </div>
-
-        </div>
-    );
-};
 const AllVendors = ({ users }) => {
 
     const handleDelete = async (id) => {
@@ -257,6 +200,8 @@ const AdminDashboard = () => {
     const [enquiries, setEnquiries] = useState([]);
     const [blogs, setBlogs] = useState([]);
     const [adminBusinesses, setAdminBusinesses] = useState([]);
+    const [allLocations, setAllLocations] = useState([])
+
 
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
@@ -298,7 +243,7 @@ const AdminDashboard = () => {
                     },
                 });
             const resVendors = await axios.get(
-                `${API_URL}/api/vendor/all-vendors`, {
+                `${API_URL}/api/user/all-vendors`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -379,6 +324,19 @@ const AdminDashboard = () => {
     }
 
 
+    const fetchAllLocations = async () => {
+        try{
+            const res = await axios.get(`${API_URL}/api/city/`)
+            console.log(res.data)
+            setAllLocations(res.data)
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+
+
+
 
     useEffect(() => {
         fetchBusinessesData();
@@ -388,6 +346,7 @@ const AdminDashboard = () => {
         fetchEnquiries();
         fetchAllBlogs();
         fetchAdminBusinesses();
+        fetchAllLocations();
     }, []);
 
     return (
@@ -422,8 +381,7 @@ const AdminDashboard = () => {
                         ) : (
                             <div className="">
                                 {selectedField === "Businesses" && <AllBusiness businesses={businesses} categories={categories}/>}
-                                {selectedField === "Users" && <AllUsers users={users} />}
-                                {selectedField === "Vendors" && <AllVendors users={vendors} />}
+                                {selectedField === "Users" && <AllUsers users={users} vendors={vendors}/>}
                                 {selectedField === "Home" && <AdminHome/>}
                                 {selectedField === "Enquiries" && <Enquiries enquiries={enquiries}/>}
                                 {selectedField === "Call Leads" && <CallLeads callLeads={callLeads}/>}
@@ -432,7 +390,7 @@ const AdminDashboard = () => {
                                 {selectedField === "Blogs" && <Blog blogs={blogs}/>}
                                 {selectedField === "Add Listing" && <BusinessRegister />}
                                 {selectedField === "My Listings" && <AdminListings businesses={adminBusinesses}/>}
-                                {selectedField === "Location Data" && <LocationData />}
+                                {selectedField === "Location Data" && <LocationData allLocations={allLocations}/>}
                             </div>
                         )}
                     </div>
