@@ -156,7 +156,7 @@ const BlogPage = ({ categoryBlogPage }) => {
         <meta property="og:site_name" content="Aresuno" />
       </Helmet>
 
-      <div className="blog-page w-full flex flex-col md:flex-row py-8  md:px-16 px-6 md:gap-20 gap-2">
+      <div className="blog-page w-full flex flex-col md:flex-row py-8  md:px-16 px-6 md:gap-0 gap-2">
         <div className="md:w-[60%] w-full md:my-10 my-0 flex  flex-col gap-6 flex-3 ">
           <div>
             <h1 className="text-3xl font-bold">{blog?.title}</h1>
@@ -181,9 +181,9 @@ const BlogPage = ({ categoryBlogPage }) => {
           />
         </div>
 
-        <div className="flex flex-col my-16 flex-1">
-          <div className="flex flex-col gap-12 px-8">
-            <h1 className="text-xl font-semibold">More like this</h1>
+        <div className="flex flex-col my-6 md:my-24 flex-1">
+          <div className="flex flex-col gap-4 md:px-24 px-2">
+            <h1 className="text-lg font-semibold">More like this</h1>
             {allBlogs.map((blog) => {
               return (
                 <BlogCard
