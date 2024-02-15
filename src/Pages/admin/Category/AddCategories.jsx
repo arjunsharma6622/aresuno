@@ -22,14 +22,17 @@ const CategoryInput = ({
   index,
   onRemove,
   onImageChange,
-  onUpdateCategory,
+  onUpdateCategoryName,
+  onUpdateCategoryKeywords,
   onUpdateCategoryImageAltTag,
   onCategoryTitleChange,
 }) => {
   const [category, setCategory] = useState({
     name: "",
     image: { url: null, altTag: "" },
-    businessType : ""
+    businessType : "",
+    icon : "",
+    keywords : ""
   });
   const [imageToShow, setImageToShow] = useState(null);
 
@@ -69,7 +72,13 @@ const CategoryInput = ({
   const handleCategoryNameChange = (e) => {
     const categoryName = e.target.value;
     setCategory((prevCategory) => ({ ...prevCategory, name: categoryName }));
-    onUpdateCategory(index, categoryName);
+    onUpdateCategoryName(index, categoryName);
+  };
+
+  const handleCategoryKeywordsChange = (e) => {
+    const categoryKeywords = e.target.value;
+    setCategory((prevCategory) => ({ ...prevCategory, keywords: categoryKeywords }));
+    onUpdateCategoryKeywords(index, categoryKeywords);
   };
 
 
@@ -77,29 +86,9 @@ const CategoryInput = ({
   console.log(category);
 
   return (
-    <div className="border rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
-      <div className="flex flex-col gap-5">
-        {/* <div className="flex items-start gap-3 flex-col justify-between w-full">
-          <label htmlFor="" className="flex flex-col gap-3">
-            Category Title
-          </label>
+    <div className="border w-full rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
+      <div className="w-full flex flex-col gap-5">
 
-          <select
-            name=""
-            id=""
-            className="w-full bg-white border py-2 px-2 rounded-lg focus:outline-none"
-            onChange={handleCategoryTitleChange}
-          >
-            <option value="" defaultChecked>
-              -
-            </option>
-            {categoryTitles.map((categoryTitle, index) => (
-              <option key={index} value={categoryTitle._id}>
-                {categoryTitle.title}
-              </option>
-            ))}
-          </select>
-        </div> */}
 
         <div className="flex items-center justify-between w-full">
           <label htmlFor="" className="flex flex-col gap-3 w-full">
@@ -113,7 +102,76 @@ const CategoryInput = ({
           </label>
         </div>
 
-        <div className="flex items-center justify-between w-full">
+
+
+
+
+
+        <div className="w-full flex flex-col gap-1 text-sm">
+                    <label htmlFor="altTag" className="font-medium text-base">
+                      Keywords{" "}
+                      <span className="text-gray-500 text-sm font-normal">
+                        - add comma separated keywords
+                      </span>
+                    </label>
+
+                    <textarea
+                      type="text"
+                      id="altTag"
+                      placeholder="eg. electronics, mobile, laptop, tv"
+                      value={category.keywords}
+                      className="border rounded-lg py-2 px-4 focus:outline-none"
+                      onChange={(e) => handleCategoryKeywordsChange(e)}
+                    />
+                  </div>
+
+
+<div className="w-full flex items-end">
+
+        <div className="flex flex-col gap-2 flex-[3]">
+        {!category.image.url && (
+
+        <label
+          htmlFor="categoryImage"
+          className="flex mb-2 flex-col w-fit gap-2 cursor-pointer"
+        >
+          <span className="text-gray-700">Category Image</span>
+          <div className="flex items-center gap-2 border text-gray-700 border-dashed p-6 w-fit border-gray-500 rounded-lg">
+            <FiUploadCloud className="w-6 h-6" />
+          </div>
+          <input
+            type="file"
+            id="categoryImage"
+            multiple={false}
+            className="hidden"
+            onChange={handleImageChange}
+          />
+        </label>
+              )}
+
+{category.image.url && (
+        <div className="relative w-fit">
+          <img
+            src={imageToShow}
+            alt=""
+            className=" w-24 h-24 object-cover rounded-xl"
+          />
+          <FiXCircle className="absolute bg-white rounded-full -top-2 -right-2 w-5 h-5 text-red-500 cursor-pointer" onClick={() => {
+            setCategory((prevCategory) => ({
+              ...prevCategory,
+              image: { ...prevCategory.image, url: null },
+            }));
+            setImageToShow(null);            
+          }}/>
+        </div>
+      )}
+
+      </div>
+
+
+
+
+<div className="flex items-center justify-between flex-[9]">
           <label htmlFor="" className="flex flex-col gap-3  w-full">
             Describe your image (helps in SEO)
             <input
@@ -124,35 +182,15 @@ const CategoryInput = ({
             />
           </label>
         </div>
+
+        </div>
+
+
+
+
       </div>
 
-      {!category.image.url && (
-        <label
-          htmlFor="categoryImage"
-          className="flex mb-2 flex-col gap-3 cursor-pointer text-gray-500"
-        >
-          <div className="flex items-center gap-2">
-            <FiImage className="w-6 h-6" />
-          </div>
-          <input
-            type="file"
-            id="categoryImage"
-            multiple={false}
-            className="hidden"
-            onChange={handleImageChange}
-          />
-        </label>
-      )}
 
-      {category.image.url && (
-        <div className="relative">
-          <img
-            src={imageToShow}
-            alt=""
-            className=" w-20 h-20 object-cover rounded-xl"
-          />
-        </div>
-      )}
 
       {onRemove && (
         <button
@@ -172,7 +210,7 @@ const CategoryInput = ({
 
 const AddCategories = ({}) => {
   const [categories, setCategories] = useState([
-    { name: "", image: { url: null, altTag: "" }, businessType : "" },
+    { name: "", image: { url: null, altTag: "" }, businessType : "", icon : "", keywords : ""  },
   ]);
 
   const categoriesToShow = useSelector((state) => state.categories);
@@ -210,6 +248,15 @@ const AddCategories = ({}) => {
       )
     );
   };
+
+  const updateCategoryKeywords = (index, keywords) => {
+    setCategories((prevCategories) =>
+      prevCategories.map((cat, i) =>
+        i === index ? { ...cat, keywords: keywords } : cat
+      )
+    );
+  };
+
 
   console.log("categories");
   console.log(categories);
@@ -347,7 +394,7 @@ const AddCategories = ({}) => {
         <div className="flex gap-4">
 
 
-        <div className="w-1/2 bg-white rounded-xl">
+        <div className="w-[70%] bg-white rounded-xl">
             <h2 className="text-xl font-semibold mb-4">Add Categories</h2>
 
             <div className="flex flex-col gap-5">
@@ -361,8 +408,11 @@ const AddCategories = ({}) => {
                       image: { ...category.image, url: image },
                     })
                   }
-                  onUpdateCategory={(index, name) =>
+                  onUpdateCategoryName={(index, name) =>
                     updateCategoryName(index, name)
+                  }
+                  onUpdateCategoryKeywords={(index, keywords) =>
+                    updateCategoryKeywords(index, keywords)
                   }
                   onUpdateCategoryImageAltTag={(index, altTag) =>
                     updateCategory(index, {
@@ -402,7 +452,7 @@ const AddCategories = ({}) => {
           </div>
 
 
-          <div className="w-1/2 bg-white rounded-xl">
+          {/* <div className="w-1/2 bg-white rounded-xl">
             { selectedBusinessType === "service" &&
             <div className="mb-6">
             <h2 className="text-xl font-semibold mb-4">
@@ -429,16 +479,7 @@ const AddCategories = ({}) => {
             </div>
 }
 
-            <div className="flex flex-col gap-4">
-              <span className="text-2xl font-semibold">Recently added</span>
-
-              <div className="flex flex-col gap-4 overflow-y-auto h-72 border px-4 py-4 rounded-lg">
-                {[...categoriesToShow].reverse().map((category, index) => (
-                  <p key={category._id}>{category.name}</p>
-                ))}
-              </div>
-            </div>
-          </div>
+          </div> */}
 
 
 

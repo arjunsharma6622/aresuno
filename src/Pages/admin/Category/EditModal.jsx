@@ -26,10 +26,8 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   const [iconToShow, setIconToShow] = useState(category ? category.icon : null);
 
   const [subCategoryToEdit, setSubCategoryToEdit] = useState(category);
-  //in category.keywords is array, we want comma seperated keywords
-  const [keywords, setKeywords] = useState(
-    category.keywords ? category.keywords.join(", ") : null
-  );
+
+
   const [mainCategoryToEdit, setMainCategoryToEdit] = useState(categoryTitle);
 
   console.log(`SubCategoryToEdit is`);
@@ -153,13 +151,6 @@ export default function EditModal({ category, onClose, categoryTitle }) {
         subCatToEdit = {
           ...subCategoryToEdit,
           icon: iconUrl,
-        };
-      }
-
-      if (keywords) {
-        subCatToEdit = {
-          ...subCategoryToEdit,
-          keywords: keywords.split(/,\s*/),
         };
       }
 
@@ -378,9 +369,14 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                       type="text"
                       id="altTag"
                       placeholder="eg. electronics, mobile, laptop, tv"
-                      value={keywords}
+                      value={subCategoryToEdit.keywords ? subCategoryToEdit.keywords : ""}
                       className="text-base w-full border border-gray-300 p-2 rounded-md"
-                      onChange={(e) => setKeywords(e.target.value)}
+                      onChange={(e) => {
+                        setSubCategoryToEdit({
+                          ...subCategoryToEdit,
+                          keywords: e.target.value,
+                        });
+                      } }
                     />
                   </div>
                 </div>
