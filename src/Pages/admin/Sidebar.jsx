@@ -38,12 +38,12 @@ const Sidebar = ({handleSelectedField, selectedField, selectedSubField, setSelec
             icon : <BiCategory className="w-6 h-6" />
         },
         {
-            name : "Enquiries",
-            icon : <FiMessageSquare className="w-6 h-6" />
-        },
-        {
-            name : "Call Leads",
-            icon : <FiPhoneCall className="w-6 h-6" />
+            name : "Leads",
+            icon : <FiMessageSquare className="w-6 h-6" />,
+            subMenu : [
+                "Call Leads",
+                "Enquiry Leads",
+            ]
         },
         {
             name : "Users",

@@ -18,6 +18,7 @@ import LocationData from "./LocationData/LocationData";
 import AllUsers from "./AllUsers/AllUsers";
 import AllBusinesses from "./Business/AllBusinesses";
 import BusinessDashboard from "./Business/BusinessDashboard";
+import LeadsDashboard from "./Leads/LeadsDashboard";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -209,8 +210,8 @@ const AdminDashboard = () => {
                 {selectedField === "Enquiries" && (
                   <Enquiries enquiries={enquiries} />
                 )}
-                {selectedField === "Call Leads" && (
-                  <CallLeads callLeads={callLeads} />
+                {selectedField === "Leads" && (
+                  <LeadsDashboard callLeads={callLeads} enquiries={enquiries} subField={selectedSubField}/>
                 )}
                 {selectedField === "Banner" && <Banner />}
                 {selectedField === "Categories" && <Category />}

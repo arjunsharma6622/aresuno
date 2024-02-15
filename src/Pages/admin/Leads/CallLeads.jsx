@@ -49,7 +49,7 @@ const CallLeads = ({callLeads}) => {
                         </div>
                         
                     }</td>
-                        <td className='px-6 py-4 whitespace-nowrap'>{callLead.business.name}</td>
+                        <td className='px-6 py-4 whitespace-nowrap'>{callLead.business?.name}</td>
                     </tr>
                 ))
             }
