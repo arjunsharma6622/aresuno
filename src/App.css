@@ -298,5 +298,10 @@ body {
     padding: 0 15px;
   }
 }
-
+@media (max-width: 480px){
+  .blog-page{
+    display: flex;
+    flex-direction: col;
+  }
+}
 /* Add any additional styles based on your design preferences */

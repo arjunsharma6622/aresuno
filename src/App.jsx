@@ -40,11 +40,6 @@ import BlogEdit from "./Pages/BlogEdit/BlogEdit";
 import Doctor from "./Pages/Doctor/Doctor";
 
 function App() {
-
-
-
-
-
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -68,12 +63,11 @@ function Main() {
 
   const user = useSelector((state) => state.user);
 
-  console.log('ssssss in app jsx')
+  console.log("ssssss in app jsx");
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-
 
   return (
     <>
@@ -93,10 +87,7 @@ function Main() {
             path="/login"
             element={user.name ? <Navigate to={`/dashboard`} /> : <Login />}
           />
-          <Route
-            path="/signup"
-            element={<Register />}
-          />
+          <Route path="/signup" element={<Register />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route
@@ -120,12 +111,18 @@ function Main() {
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/map" element={<MapComponent />} />
-          <Route path="/blog/:categoryName" element={<Blog categoryBlogPage={true}/>} />
-          <Route path="/blog/" element={<Blog categoryBlogPage={false}/>} />
-          <Route path="/blog/:categoryName/:blogId" element={<BlogPage />} />
+          <Route
+            path="/blog/:categoryName"
+            element={<Blog categoryBlogPage={true} />}
+          />
+          <Route path="/blog/" element={<Blog categoryBlogPage={false} />} />
+          <Route
+            path="/blog/:categoryName/:blogId"
+            element={<BlogPage categoryBlogPage={false} />}
+          />
           <Route path="/blog/edit/:blogId" element={<BlogEdit />} />
           <Route path="/business/register" element={<BusinessRegister />} />
-          <Route path="/forget-password" element={<ForgetPassword/>} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
         </Routes>
       </div>
       {!isLoginPage &&
