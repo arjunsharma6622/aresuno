@@ -13,10 +13,11 @@ import CallLeads from "./Leads/CallLeads";
 import Blog from "./Blog/Blog";
 import { Helmet } from "react-helmet-async";
 import BusinessRegister from "../BusinessRegister/BusinessRegister";
-import AdminListings from "./Listings/AdminListings";
+import AdminListings from "./Business/AdminListings";
 import LocationData from "./LocationData/LocationData";
 import AllUsers from "./AllUsers/AllUsers";
-import AllBusinesses from "./Listings/AllBusinesses";
+import AllBusinesses from "./Business/AllBusinesses";
+import BusinessDashboard from "./Business/BusinessDashboard";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -32,6 +33,7 @@ const AdminDashboard = () => {
   const dispatch = useDispatch();
 
   const [selectedField, setSelectedField] = useState("Home");
+  const [selectedSubField, setSelectedSubField] = useState("");
 
   const categories = useSelector((state) => state.categories);
 
@@ -169,6 +171,8 @@ const AdminDashboard = () => {
         <Sidebar
           handleSelectedField={handleSelectedField}
           selectedField={selectedField}
+          selectedSubField={selectedSubField}
+          setSelectedSubField={setSelectedSubField}
         />
 
         <div className="w-full">
@@ -191,9 +195,11 @@ const AdminDashboard = () => {
             ) : (
               <div className="">
                 {selectedField === "Businesses" && (
-                  <AllBusinesses
+                  <BusinessDashboard
                     businesses={businesses}
                     categories={categories}
+                    subField={selectedSubField}
+                    adminBusinesses={adminBusinesses}
                   />
                 )}
                 {selectedField === "Users" && (
@@ -209,10 +215,10 @@ const AdminDashboard = () => {
                 {selectedField === "Banner" && <Banner />}
                 {selectedField === "Categories" && <Category />}
                 {selectedField === "Blogs" && <Blog blogs={blogs} />}
-                {selectedField === "Add Listing" && <BusinessRegister />}
-                {selectedField === "My Listings" && (
+                {/* {selectedField === "Add Listing" && <BusinessRegister />} */}
+                {/* {selectedField === "My Listings" && (
                   <AdminListings businesses={adminBusinesses} />
-                )}
+                )} */}
                 {selectedField === "Location Data" && (
                   <LocationData allLocations={allLocations} />
                 )}
