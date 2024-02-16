@@ -113,7 +113,7 @@ const Sidebar = ({ user }) => {
               className="rounded-full w-9 h-9 object-cover"
             />
             {!isSidebarCollapsed && (
-              <h2 className="text-lg font-semibold">{user.name}</h2>
+              <h2 className="text-lg font-semibold">{user.name?.split(" ")[0]}</h2>
             )}
           </div>
 

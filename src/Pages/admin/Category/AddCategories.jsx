@@ -16,20 +16,23 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
-import { API_URL } from "../../utils/util";
+import { API_URL, ToastParams } from "../../../utils/util";
 
 const CategoryInput = ({
   index,
   onRemove,
   onImageChange,
-  onUpdateCategory,
+  onUpdateCategoryName,
+  onUpdateCategoryKeywords,
   onUpdateCategoryImageAltTag,
   onCategoryTitleChange,
 }) => {
   const [category, setCategory] = useState({
     name: "",
     image: { url: null, altTag: "" },
-    businessType : ""
+    businessType : "",
+    icon : "",
+    keywords : ""
   });
   const [imageToShow, setImageToShow] = useState(null);
 
@@ -43,7 +46,7 @@ const CategoryInput = ({
           e.target.files[0].size /
           1000 /
           1024
-        ).toFixed(2)} MB`
+        ).toFixed(2)} MB`, ToastParams
       );
       return false;
     } else {
@@ -69,7 +72,13 @@ const CategoryInput = ({
   const handleCategoryNameChange = (e) => {
     const categoryName = e.target.value;
     setCategory((prevCategory) => ({ ...prevCategory, name: categoryName }));
-    onUpdateCategory(index, categoryName);
+    onUpdateCategoryName(index, categoryName);
+  };
+
+  const handleCategoryKeywordsChange = (e) => {
+    const categoryKeywords = e.target.value;
+    setCategory((prevCategory) => ({ ...prevCategory, keywords: categoryKeywords }));
+    onUpdateCategoryKeywords(index, categoryKeywords);
   };
 
 
@@ -77,29 +86,9 @@ const CategoryInput = ({
   console.log(category);
 
   return (
-    <div className="border rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
-      <div className="flex flex-col gap-5">
-        {/* <div className="flex items-start gap-3 flex-col justify-between w-full">
-          <label htmlFor="" className="flex flex-col gap-3">
-            Category Title
-          </label>
+    <div className="border w-full rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
+      <div className="w-full flex flex-col gap-5">
 
-          <select
-            name=""
-            id=""
-            className="w-full bg-white border py-2 px-2 rounded-lg focus:outline-none"
-            onChange={handleCategoryTitleChange}
-          >
-            <option value="" defaultChecked>
-              -
-            </option>
-            {categoryTitles.map((categoryTitle, index) => (
-              <option key={index} value={categoryTitle._id}>
-                {categoryTitle.title}
-              </option>
-            ))}
-          </select>
-        </div> */}
 
         <div className="flex items-center justify-between w-full">
           <label htmlFor="" className="flex flex-col gap-3 w-full">
@@ -113,7 +102,76 @@ const CategoryInput = ({
           </label>
         </div>
 
-        <div className="flex items-center justify-between w-full">
+
+
+
+
+
+        <div className="w-full flex flex-col gap-1 text-sm">
+                    <label htmlFor="altTag" className="font-medium text-base">
+                      Keywords{" "}
+                      <span className="text-gray-500 text-sm font-normal">
+                        - add comma separated keywords
+                      </span>
+                    </label>
+
+                    <textarea
+                      type="text"
+                      id="altTag"
+                      placeholder="eg. electronics, mobile, laptop, tv"
+                      value={category.keywords}
+                      className="border rounded-lg py-2 px-4 focus:outline-none"
+                      onChange={(e) => handleCategoryKeywordsChange(e)}
+                    />
+                  </div>
+
+
+<div className="w-full flex items-end">
+
+        <div className="flex flex-col gap-2 flex-[3]">
+        {!category.image.url && (
+
+        <label
+          htmlFor="categoryImage"
+          className="flex mb-2 flex-col w-fit gap-2 cursor-pointer"
+        >
+          <span className="text-gray-700">Category Image</span>
+          <div className="flex items-center gap-2 border text-gray-700 border-dashed p-6 w-fit border-gray-500 rounded-lg">
+            <FiUploadCloud className="w-6 h-6" />
+          </div>
+          <input
+            type="file"
+            id="categoryImage"
+            multiple={false}
+            className="hidden"
+            onChange={handleImageChange}
+          />
+        </label>
+              )}
+
+{category.image.url && (
+        <div className="relative w-fit">
+          <img
+            src={imageToShow}
+            alt=""
+            className=" w-24 h-24 object-cover rounded-xl"
+          />
+          <FiXCircle className="absolute bg-white rounded-full -top-2 -right-2 w-5 h-5 text-red-500 cursor-pointer" onClick={() => {
+            setCategory((prevCategory) => ({
+              ...prevCategory,
+              image: { ...prevCategory.image, url: null },
+            }));
+            setImageToShow(null);            
+          }}/>
+        </div>
+      )}
+
+      </div>
+
+
+
+
+<div className="flex items-center justify-between flex-[9]">
           <label htmlFor="" className="flex flex-col gap-3  w-full">
             Describe your image (helps in SEO)
             <input
@@ -124,35 +182,15 @@ const CategoryInput = ({
             />
           </label>
         </div>
+
+        </div>
+
+
+
+
       </div>
 
-      {!category.image.url && (
-        <label
-          htmlFor="categoryImage"
-          className="flex mb-2 flex-col gap-3 cursor-pointer text-gray-500"
-        >
-          <div className="flex items-center gap-2">
-            <FiImage className="w-6 h-6" />
-          </div>
-          <input
-            type="file"
-            id="categoryImage"
-            multiple={false}
-            className="hidden"
-            onChange={handleImageChange}
-          />
-        </label>
-      )}
 
-      {category.image.url && (
-        <div className="relative">
-          <img
-            src={imageToShow}
-            alt=""
-            className=" w-20 h-20 object-cover rounded-xl"
-          />
-        </div>
-      )}
 
       {onRemove && (
         <button
@@ -168,168 +206,11 @@ const CategoryInput = ({
 
 
 
-const AllCategories = () => {
-  const categories = useSelector((state) => state.categories);
-  const categoriesTitles = useSelector((state) => state.categoriestitle);
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedMainCategory, setSelectedMainCategory] = useState(null);
-  const [selectedCategoryToEdit, setSelectedCategoryToEdit] = useState(null);
-  const [selectedMainCategoryToEdit, setSelectedMainCategoryToEdit] =
-    useState(null);
 
-  const [selectedBusinessType, setSelectedBusinessType] = useState("service");
-
-  console.log("Selected category", selectedCategory);
-
-  return (
-    <div className="flex flex-col gap-10">
-      <div>
-        <h1 className="text-2xl font-semibold mb-5">View All Categories</h1>
-
-        <div className="flex items-center gap-6">
-          <div>
-            <input type="radio" name="businessTypeToShow" id="service" value={"service"} onChange={(e) => setSelectedBusinessType(e.target.value)} checked={selectedBusinessType === "service"}/>
-            <label htmlFor="service" className="ml-2" >Service</label>
-          </div>
-          <div>
-            <input type="radio" name="businessTypeToShow" id="doctor" value={"doctor"} onChange={(e) => setSelectedBusinessType(e.target.value)} checked={selectedBusinessType === "doctor"}/>
-            <label htmlFor="doctor" className="ml-2" >Doctor</label>
-          </div>
-          <div>
-            <input type="radio" name="businessTypeToShow" id="manufacturing" value={"manufacturing"} onChange={(e) => setSelectedBusinessType(e.target.value)} checked={selectedBusinessType === "manufacturing"}/>
-            <label htmlFor="manufacturing" className="ml-2" >Manufacturing</label>
-          </div>
-        </div>
-
-        {/* {categoriesTitles.map((categoryTitle, titleIndex) => ( */}
-          <div className="mb-8">
-            {/* {categoryTitle && (
-              <h2 className="text-lg font-semibold mt-4 mb-2">
-                {categoryTitle.title}
-              </h2>
-            )} */}
-
-            <div className="mt-2 rounded-xl grid grid-cols-4 gap-4">
-              {categories
-                .filter(
-                  (category) => category.businessType === selectedBusinessType
-                )
-                .map((category, categoryIndex) => (
-                  <div
-                    key={categoryIndex}
-                    className="bg-white relative shadow rounded-xl p-5 py-5 flex justify-between items-center"
-                  >
-                    <div className="justify-start flex-col flex gap-2 items-start">
-                      <div>
-                        <img src={category.icon} alt="" className="w-12 h-12" />
-                      </div>
-                      <div className="flex flex-col gap-0">
-                        <h2 className="text-md font-medium">{category.name}</h2>
-                        <div className="text-sm text-gray-500 flex gap-2 items-center">
-                          <span>Show on Home </span>
-                          {category.showOnHome ? (
-                            <FiCheckCircle className="text-green-600 w-5 h-5" />
-                          ) : (
-                            <FiXCircle className="text-red-600 w-5 h-5" />
-                          )}
-                        </div>
-                        <div className="flex justify-start gap-2 mt-3">
-                          <FiEdit3
-                            className="w-5 h-5 text-gray-500 cursor-pointer"
-                            onClick={() => setSelectedCategoryToEdit(category)}
-                          />
-                          {selectedCategoryToEdit &&
-                            selectedCategoryToEdit._id === category._id && (
-                              <EditModal
-                                category={selectedCategoryToEdit}
-                                onClose={() => setSelectedCategoryToEdit(null)}
-                              />
-                            )}
-
-                          <FiTrash2
-                            className="w-5 h-5 text-red-500 cursor-pointer"
-                            onClick={() => setSelectedCategory(category)}
-                          />
-                          {selectedCategory &&
-                            selectedCategory._id === category._id && (
-                              <DeleteModal
-                                categoryId={category._id}
-                                subCategory={selectedCategory}
-                                onClose={() => setSelectedCategory(null)}
-                              />
-                            )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        {/* ))} */}
-
-      </div>
-
-{ selectedBusinessType === "service" &&
-      <div>
-        <h1 className="text-2xl font-medium mb-5">Category Titles</h1>
-
-        <div className="relative grid grid-cols-4 gap-4">
-          {categoriesTitles.map((category, index) => (
-            <div
-              key={index}
-              className=" flex flex-col items-start justify-start gap-4 bg-white px-5 py-6 rounded-lg"
-            >
-              <div className="flex flex-col gap-0">
-                <h2 className="text-md font-base">{category.title}</h2>
-                <div className="text-sm text-gray-500 flex gap-2 items-center">
-                  <span>Show on Home </span>
-                  {category.showOnHome ? (
-                    <FiCheckCircle className="text-green-600 w-5 h-5" />
-                  ) : (
-                    <FiXCircle className="text-red-600 w-5 h-5" />
-                  )}
-                </div>
-              </div>
-
-              <div className=" flex items-center justify-center gap-4">
-                <FiEdit3
-                  className="w-5 h-5 text-gray-500 cursor-pointer"
-                  onClick={() => setSelectedMainCategoryToEdit(category)}
-                />
-                {selectedMainCategoryToEdit &&
-                  selectedMainCategoryToEdit._id === category._id && (
-                    <EditModal
-                      categoryTitle={category}
-                      onClose={() => setSelectedMainCategoryToEdit(null)}
-                    />
-                  )}
-                <FiTrash2
-                  className="w-5 h-5 text-red-500 cursor-pointer"
-                  onClick={() => setSelectedMainCategory(category)}
-                />
-
-                {selectedMainCategory &&
-                  selectedMainCategory._id === category._id && (
-                    <DeleteModal
-                      mainCategory={selectedMainCategory}
-                      onClose={() => setSelectedMainCategory(null)}
-                    />
-                  )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-                  }
-    </div>
-  );
-};
-
-const Category = ({}) => {
+const AddCategories = ({}) => {
   const [categories, setCategories] = useState([
-    { name: "", image: { url: null, altTag: "" }, businessType : "" },
+    { name: "", image: { url: null, altTag: "" }, businessType : "", icon : "", keywords : ""  },
   ]);
 
   const categoriesToShow = useSelector((state) => state.categories);
@@ -368,6 +249,15 @@ const Category = ({}) => {
     );
   };
 
+  const updateCategoryKeywords = (index, keywords) => {
+    setCategories((prevCategories) =>
+      prevCategories.map((cat, i) =>
+        i === index ? { ...cat, keywords: keywords } : cat
+      )
+    );
+  };
+
+
   console.log("categories");
   console.log(categories);
   const uploadAllCategoryImages = async () => {
@@ -400,7 +290,7 @@ const Category = ({}) => {
           return category;
         } catch (err) {
           console.log("some err : ", err.response.data.error.message);
-          toast.error(err.response.data.error.message);
+          toast.error(err.response.data.error.message, ToastParams);
         }
       });
 
@@ -429,11 +319,16 @@ const Category = ({}) => {
 
       const res = await axios.post(
         `${API_URL}/api/category/create`,
-        updatedCategories
+        updatedCategories, {
+            headers : {
+                Authorization : `Bearer ${localStorage.getItem("token")}`
+            }
+        }
+      
       );
 
       console.log(res.data);
-      toast.success("Categories added successfully");
+      toast.success("Categories added successfully", ToastParams);
 
       setIsCategoryLoading(false);
       setCategories([]);
@@ -441,7 +336,7 @@ const Category = ({}) => {
       setIsCategoryLoading(false);
 
       console.log(err);
-      toast.error("Categories add failed");
+      toast.error("Categories add failed", ToastParams);
     }
   };
 
@@ -449,14 +344,19 @@ const Category = ({}) => {
     try {
       const res = await axios.post(
         `${API_URL}/api/category-title/create`,
-        { title: newCategoryTitle }
+        { title: newCategoryTitle },
+        {
+            headers : {
+                Authorization : `Bearer ${localStorage.getItem("token")}`
+            }
+        }
       );
       console.log(res.data);
-      toast.success("Category created successfully");
+      toast.success("Category created successfully", ToastParams);
       setNewCategoryTitle("");
     } catch (err) {
       console.log(err);
-      toast.error("Problem creating category");
+      toast.error("Problem creating category", ToastParams);
       setNewCategoryTitle("");
     }
   };
@@ -494,7 +394,7 @@ const Category = ({}) => {
         <div className="flex gap-4">
 
 
-        <div className="w-1/2 bg-white rounded-xl">
+        <div className="w-[70%] bg-white rounded-xl">
             <h2 className="text-xl font-semibold mb-4">Add Categories</h2>
 
             <div className="flex flex-col gap-5">
@@ -508,8 +408,11 @@ const Category = ({}) => {
                       image: { ...category.image, url: image },
                     })
                   }
-                  onUpdateCategory={(index, name) =>
+                  onUpdateCategoryName={(index, name) =>
                     updateCategoryName(index, name)
+                  }
+                  onUpdateCategoryKeywords={(index, keywords) =>
+                    updateCategoryKeywords(index, keywords)
                   }
                   onUpdateCategoryImageAltTag={(index, altTag) =>
                     updateCategory(index, {
@@ -549,7 +452,7 @@ const Category = ({}) => {
           </div>
 
 
-          <div className="w-1/2 bg-white rounded-xl">
+          {/* <div className="w-1/2 bg-white rounded-xl">
             { selectedBusinessType === "service" &&
             <div className="mb-6">
             <h2 className="text-xl font-semibold mb-4">
@@ -576,16 +479,7 @@ const Category = ({}) => {
             </div>
 }
 
-            <div className="flex flex-col gap-4">
-              <span className="text-2xl font-semibold">Recently added</span>
-
-              <div className="flex flex-col gap-4 overflow-y-auto h-72 border px-4 py-4 rounded-lg">
-                {[...categoriesToShow].reverse().map((category, index) => (
-                  <p key={category._id}>{category.name}</p>
-                ))}
-              </div>
-            </div>
-          </div>
+          </div> */}
 
 
 
@@ -593,9 +487,8 @@ const Category = ({}) => {
         </div>
       </div>
 
-      <AllCategories />
     </div>
   );
 };
 
-export default Category;
+export default AddCategories;

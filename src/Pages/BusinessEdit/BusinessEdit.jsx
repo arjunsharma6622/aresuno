@@ -11,7 +11,7 @@ import {
   BiQuestionMark,
 } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
-import { API_URL } from "../../utils/util";
+import { API_URL, ToastParams } from "../../utils/util";
 import BasicDetails from "./components/BasicDetails";
 import BusinessCategory from "./components/BusinessCategory";
 import BusinessAddress from "./components/BusinessAddress";
@@ -104,15 +104,20 @@ const BusinessEdit = () => {
 
       const res = await axios.put(
         `${API_URL}/api/business/${id}`,
-        businessDetails
+        businessDetails,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       console.log(res);
-      toast.success("Business Details Updated");
+      toast.success("Business Details Updated", ToastParams);
       setIsBusinessUpdating(false);
     } catch (err) {
       setIsBusinessUpdating(false);
       console.log(err);
-      toast.error("Business Update Failed");
+      toast.error("Business Update Failed", ToastParams);
     }
   };
 

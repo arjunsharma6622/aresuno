@@ -13,7 +13,7 @@ const Blog = ({ categoryBlogPage }) => {
   const [allBlogs, setAllBlogs] = useState([]);
   const { categoryName } = useParams();
   const dispatch = useDispatch();
-  
+
   const fetchAllCategoryBlogs = async () => {
     try {
       const response = await axios.get(

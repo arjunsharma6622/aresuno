@@ -14,7 +14,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "../../../Components/Header/Header";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../state/slices/userSlice";
-import { API_URL } from "../../../utils/util";
+import { API_URL, ToastParams } from "../../../utils/util";
 
 const api = axios.create({
   baseURL: `${API_URL}/api/vendor/`,
@@ -34,7 +34,7 @@ const VendorDashboard = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const { data: user } = await api.get("/", {
+      const { data: user } = await axios.get(`${API_URL}/api/user/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const { data: businesses } = await api.get("/businesses", {
@@ -61,7 +61,7 @@ const VendorDashboard = () => {
 
       if(error.response.data.message === "Unauthorized"){
         localStorage.removeItem("token");
-        toast.error("Session Expired, Please Login")
+        toast.error("Session Expired, Please Login", ToastParams)
         dispatch(userLogout())
         navigate("/")
       }

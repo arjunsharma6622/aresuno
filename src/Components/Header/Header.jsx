@@ -62,7 +62,7 @@ const Header = ({homePage}) => {
             {profileOpen && (
               <div className="z-[999] shadow-md border border-gray-600 absolute top-10 right-0 rounded-xl bg-white  text-black w-[200px] py-5">
                 <div className="flex flex-col gap-2 items-start text-[14px]">
-                  <div className="px-4 w-full py-3 hover:bg-gray-100">
+                  {/* <div className="px-4 w-full py-3 hover:bg-gray-100">
                     <Link
                       to={`/dashboard`}
                       className="flex items-center gap-4"
@@ -70,11 +70,11 @@ const Header = ({homePage}) => {
                       <FiUser className="w-5 h-5" />
                       <span>Manage Profile</span>
                     </Link>
-                  </div>
+                  </div> */}
 
                   <div className="px-4 w-full py-3 hover:bg-gray-100">
                     <Link
-                      to={`/dashboard`}
+                      to={`/${user.role === "admin" ? "admin" : "dashboard"}/`}
                       className="flex items-center gap-4"
                     >
                       <LuLayoutDashboard className="w-5 h-5" />
@@ -82,7 +82,7 @@ const Header = ({homePage}) => {
                     </Link>
                   </div>
 
-                  <div className="px-4 w-full py-3 hover:bg-gray-100">
+                  {/* <div className="px-4 w-full py-3 hover:bg-gray-100">
                     <Link
                       to={`/dashboard/`}
                       className="flex items-center gap-4"
@@ -90,7 +90,7 @@ const Header = ({homePage}) => {
                       <FiDollarSign className="w-5 h-5" />
                       <span>Subscriptions</span>
                     </Link>
-                  </div>
+                  </div> */}
 
                   <div className="px-4 w-full py-3 hover:bg-gray-100">
                     <div
@@ -216,12 +216,12 @@ const Header = ({homePage}) => {
         </div>
 
 
-        <div className="mt-5">
+        {/* <div className="mt-5">
             <Link to={`/dashboard`} className="flex items-center gap-4">
             <FiUser className="w-5 h-5" />
             <span>Manage Profile</span>
             </Link>
-        </div>
+        </div> */}
 
         <div>
             <Link to={`/dashboard`} className="flex items-center gap-4">
@@ -230,12 +230,12 @@ const Header = ({homePage}) => {
             </Link>
         </div>
 
-        <div>
+        {/* <div>
             <Link to={`/dashboard`} className="flex items-center gap-4">
             <FiDollarSign className="w-5 h-5" />
             <span>Subscriptions</span>
             </Link>
-        </div>
+        </div> */}
 
         <div>
             <div

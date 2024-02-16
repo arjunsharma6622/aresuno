@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { FiEdit2, FiPlus, FiUploadCloud, FiX } from 'react-icons/fi';
 import { toast } from 'react-toastify';
+import { ToastParams } from '../../../utils/util';
 
 const Banner = () => {
 
@@ -86,13 +87,13 @@ const Banner = () => {
             }
 
             setIsLoading(false)
-            toast.success("Banner uploaded successfully")
+            toast.success("Banner uploaded successfully", ToastParams)
 
         }
         catch (err) {
             console.log(err)
             setIsLoading(false)
-            toast.error("Banner upload failed")
+            toast.error("Banner upload failed", ToastParams)
         }
     }
 

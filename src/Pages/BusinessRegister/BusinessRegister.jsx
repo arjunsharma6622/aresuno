@@ -16,7 +16,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Input from "../../Components/Input";
 import { MdOutlineDone } from "react-icons/md";
 import Review from "./components/Review";
-import { API_URL } from "../../utils/util";
+import { API_URL, ToastParams } from "../../utils/util";
 
 const BusinessRegister = () => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const BusinessRegister = () => {
     "reviewDetails",
   ];
 
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(1);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [businessRegisterLoading, setBusinessRegisterLoading] = useState(false);
 
   const [businessDetails, setBusinessDetails] = useState({
@@ -85,15 +85,15 @@ const BusinessRegister = () => {
     try {
       setBusinessRegisterLoading(true);
       const token = localStorage.getItem("token");
-      const vendorRes = await axios.get(
-        `${API_URL}/api/vendor/`,
+      const userRes = await axios.get(
+        `${API_URL}/api/user/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      const { _id: vendorId, name: vendorName } = vendorRes.data;
+      const { _id: vendorId, name: vendorName } = userRes.data;
 
       setBusinessDetails((prev) => ({
         ...prev,
@@ -117,14 +117,21 @@ const BusinessRegister = () => {
         }
       );
 
-      toast.success("Business Registered");
-      navigate("/dashboard");
+      toast.success("Business Registered", ToastParams);
+      if(userRes.data.role === "admin"){
+        setBusinessRegisterLoading(false);
+        window.location.reload();
+        navigate(`/admin`);
+      }
+      else{
+        navigate(`/dashboard`);
+      }
 
       console.log(res.data);
     } catch (error) {
       setBusinessRegisterLoading(false);
       console.error("Error", error);
-      toast.error("Business Registration Failed");
+      toast.error("Business Registration Failed", ToastParams);
     }
   };
 
@@ -143,7 +150,7 @@ const BusinessRegister = () => {
         !foundedIn ||
         services.length === 0
       ) {
-        toast.error("Please enter all details");
+        toast.error("Please enter all details", ToastParams);
         return; // Exit the function if there's an error
       }
     }
@@ -153,7 +160,7 @@ const BusinessRegister = () => {
       const { category } = businessDetails;
 
       if (!category) {
-        toast.error("Please enter the category");
+        toast.error("Please enter the category", ToastParams);
         return; // Exit the function if there's an error
       }
     }
@@ -178,7 +185,7 @@ const BusinessRegister = () => {
 
       // Check if at least 3 links are entered
       if (filledLinks.length < 3) {
-        toast.error("Please enter at least 3 valid social links");
+        toast.error("Please enter at least 3 valid social links", ToastParams);
         return; // Exit the function if there's an error
       }
     }
@@ -188,7 +195,7 @@ const BusinessRegister = () => {
 
       // Check if there's at least one FAQ
       if (faqs.length === 0) {
-        toast.error("Please add at least one FAQ");
+        toast.error("Please add at least one FAQ", ToastParams);
         return; // Exit the function if there's an error
       }
 
@@ -197,7 +204,7 @@ const BusinessRegister = () => {
 
       if (hasIncompleteFAQ) {
         toast.error(
-          "Please ensure all FAQs have both a question and an answer"
+          "Please ensure all FAQs have both a question and an answer", ToastParams
         );
         return; // Exit the function if there's an error
       }
@@ -207,7 +214,7 @@ const BusinessRegister = () => {
       const { modeOfPayment } = businessDetails;
 
       if (modeOfPayment.length < 3) {
-        toast.error("Please select at least 3 mode of payment");
+        toast.error("Please select at least 3 mode of payment", ToastParams);
         return; // Exit the function if there's an error
       }
     }
@@ -216,7 +223,7 @@ const BusinessRegister = () => {
       const { images } = businessDetails;
 
       if (images.gallery.length < 3) {
-        toast.error("Please add at least 3 image");
+        toast.error("Please add at least 3 image", ToastParams);
         return; // Exit the function if there's an error
       }
     }

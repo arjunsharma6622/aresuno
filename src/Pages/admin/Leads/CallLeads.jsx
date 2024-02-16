@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { API_URL } from '../../utils/util'
+import { API_URL } from '../../../utils/util'
 import axios from 'axios'
 import { FiCheckCircle, FiXCircle } from 'react-icons/fi'
 
@@ -49,7 +49,7 @@ const CallLeads = ({callLeads}) => {
                         </div>
                         
                     }</td>
-                        <td className='px-6 py-4 whitespace-nowrap'>{callLead.business.name}</td>
+                        <td className='px-6 py-4 whitespace-nowrap'>{callLead.business?.name}</td>
                     </tr>
                 ))
             }

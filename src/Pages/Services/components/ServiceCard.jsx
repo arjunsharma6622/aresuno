@@ -78,15 +78,13 @@ const ServiceCard = ({ business }) => {
 
 
     const handleCallClick = async () => {
-
-        setCallClick(true)
         if(user.name){
             try{
                 const res = await axios.post(
-                    `${API_URL}/api/call-lead/create`,
+                    `${API_URL}/api/call-lead/createLoggedInLead`,
                     {
                         name : user.name,
-                        phone : user.phone ? user.phone : '0',
+                        phone : user.phone ? user.phone : '-',
                         business : business._id
                     }
                 )
@@ -100,6 +98,9 @@ const ServiceCard = ({ business }) => {
                 console.log(err)
             }
 
+        }
+        else{
+            setCallClick(true)
         }
     }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiCheckCircle, FiMessageSquare, FiX } from 'react-icons/fi';
-import { API_URL } from '../utils/util';
+import { API_URL, ToastParams } from '../utils/util';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -30,7 +30,7 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
         console.log(res)
         setIsSending(false)
         setIsSent(true)
-        toast.success('Enquiry Sent')
+        toast.success('Enquiry Sent', ToastParams)
         
     } catch (err) {
         setIsSending(false)
@@ -59,9 +59,9 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
         { !isSent ? (
                 <div className='flex flex-col md:flex-row relative w-[90%] md:w-[70%] bg-white  gap-6  rounded-xl'>
 
-                <div className='flex-[7] p-8 md:px-12 flex flex-col gap-6 '>
+                <div className='flex-[7] p-8 md:px-12 flex flex-col gap-4 md:gap-6 '>
                   <div>
-                    <h1 className='text-2xl font-semibold'><FiMessageSquare className='inline w-8 h-8 mr-2' /> Enquiry</h1>
+                    <h1 className='text-xl md:text-2xl font-semibold'><FiMessageSquare className='inline w-6 h-6 md:w-8 md:h-8 mr-2' /> Enquiry</h1>
                     <p className='text-gray-600 text-sm md:text-base mt-2'>Fill out the form below to get in touch with us for more details.</p>
                   </div>
       
@@ -76,7 +76,7 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
                       id='name'
                       name='name'
                       value={enquiry.name}
-                      className='rounded-md border text-base border-gray-300 w-full py-3 px-4 text-gray-600 focus:outline-none focus:border-blue-500'
+                      className='rounded-md border text-base border-gray-300 w-full py-2 px-3 md:py-3 md:px-4 text-gray-600 focus:outline-none focus:border-blue-500'
                       onChange={(e) => handleFormChange(e)}
                     />
                   </div>
@@ -87,7 +87,7 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
                       id='phone'
                       name='phone'
                       value={enquiry.phone}
-                      className='rounded-md border text-base border-gray-300 w-full py-3 px-4 text-gray-600 focus:outline-none focus:border-blue-500'
+                      className='rounded-md border text-base border-gray-300 w-full py-2 px-3 md:py-3 md:px-4 text-gray-600 focus:outline-none focus:border-blue-500'
                       onChange={(e) => handleFormChange(e)}
                     />
                   </div>
@@ -100,7 +100,7 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
                       id='message'
                       name='message'
                       value={enquiry.message}
-                      className='rounded-md border text-base border-gray-300 w-full py-3 px-4 text-gray-600 focus:outline-none focus:border-blue-500'
+                      className='rounded-md border text-base border-gray-300 w-full py-2 px-3 md:py-3 md:px-4 text-gray-600 focus:outline-none focus:border-blue-500'
                       onChange={(e) => handleFormChange(e)}
                     />
                   </div>

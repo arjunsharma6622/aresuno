@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 import { FiEye, FiEyeOff, FiMail } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
-import { API_URL } from "../../utils/util";
+import { API_URL, ToastParams } from "../../utils/util";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,14 +40,13 @@ const Login = () => {
       localStorage.setItem("token", token);
 
       dispatch(
-        userLogin({ name: res.data.user.name, userType: res.data.userType, image : res.data.user.image })
+        userLogin({ user : res.data.user })
       );
 
       console.log(res.data);
-      toast.success("Logged In Successfully");
-      // navigate(`/${res.data.userType}/dashboard/`);
+      toast.success("Logged In Successfully", ToastParams);
     } catch (err) {
-      toast.error("Login Failed");
+      toast.error("Login Failed", ToastParams);
     }
     setIsLoading(false);
   };
