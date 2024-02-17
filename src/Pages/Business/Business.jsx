@@ -383,7 +383,7 @@ const Business = () => {
         "address": {
           "@type": "PostalAddress",
           "streetAddress" : business.address?.street ? business.address?.street : business.address?.landmark ? business.address?.landmark : "",
-          "addressLocality": business.address?.district,
+          "addressLocality": business.address?.city,
           "addressRegion": business.address?.state,
           "postalCode": business.address?.pincode,
           "addressCountry": "IN"
@@ -429,7 +429,7 @@ const Business = () => {
             />
 
             <Helmet>
-                <title>{business.name}</title>
+                <title>{`${business.name} in ${business.address?.city} - ${businessCategory?.name}`}</title>
                 <meta name="description" content={business.description} />
                 <meta name="keywords" content={business.name} />
                 <meta name="author" content="aresuno" />
