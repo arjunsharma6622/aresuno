@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
@@ -10,11 +10,41 @@ import keyword_extractor from "keyword-extractor";
 import BlogCard from "../Blog/BlogCard";
 import { FaUserCircle } from "react-icons/fa";
 import dateFormat, { masks } from "dateformat";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const BlogPage = ({ categoryBlogPage }) => {
+  const navigate = useNavigate();
+
   const [allBlogs, setAllBlogs] = useState([]);
   const { blogId, categoryName } = useParams();
   const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    number: "",
+    website: "",
+    comment: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setFormData({
+      name: "",
+      number: "",
+      website: "",
+      comment: "",
+    });
+  };
+
   const fetchAllCategoryBlogs = async () => {
     try {
       const response = await axios.get(
@@ -155,18 +185,26 @@ const BlogPage = ({ categoryBlogPage }) => {
         />
         <meta property="og:site_name" content="Aresuno" />
       </Helmet>
-
-      <div className="blog-page w-full flex flex-col md:flex-row py-8  md:px-16 px-6 md:gap-0 gap-2">
-        <div className="md:w-[60%] w-full md:my-10 my-0 flex  flex-col gap-6 flex-3 ">
+      <div className="w-full flex justify-between border-zinc-300 px-28 pt-8">
+        <div></div>
+        <div
+          className="hidden md:flex gap-2 justify-center items-center text-blue-500 font-semibold cursor-pointer"
+          onClick={() => navigate("/blog")}
+        >
+          View All Post <MdKeyboardArrowRight />
+        </div>
+      </div>
+      <div className="blog-page w-full flex flex-col md:flex-row md:py-8  md:px-16 md:pt-0 px-6 md:gap-0 gap-2">
+        <div className="md:w-[65%] w-full md:my-10 my-0 flex  flex-col gap-6 flex-3 ">
           <div>
             <h1 className="text-3xl font-bold">{blog?.title}</h1>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-500 inline-flex gap-2">
-              <FaUserCircle className="w-5 h-5" />
+            <span className="text-xs text-red-500  inline-flex gap-2 bg-red-100 p-2 rounded-xl">
+              <FaUserCircle className="w-4 h-4" />
               {blog?.author}
             </span>
-            <span className="text-sm text-gray-500">
+            <span className="text-xs text-yellow-500 font-semibold bg-orange-100 p-2 rounded-xl">
               {dateFormat(blog?.createdAt, "mmmm dS, yyyy")}
             </span>
           </div>
@@ -182,18 +220,122 @@ const BlogPage = ({ categoryBlogPage }) => {
         </div>
 
         <div className="flex flex-col my-6 md:my-24 flex-1">
-          <div className="flex flex-col gap-4 md:px-24 px-2">
-            <h1 className="text-lg font-semibold">More like this</h1>
+          <div className="flex flex-col gap-4 md:px-10 px-2">
+            <h1 className="text-lg mb-4 font-semibold">More like this</h1>
             {allBlogs.map((blog) => {
               return (
-                <BlogCard
-                  blog={blog}
-                  key={blog._id}
-                  categoryName={categoryName}
-                />
+                <div className="py-6 pt-0  rounded-xl border-zinc-300 hover:scale-105 transform duration-200 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
+                  <BlogCard
+                    blog={blog}
+                    key={blog._id}
+                    categoryName={categoryName}
+                  />
+                </div>
               );
             })}
           </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row justify-center items-center gap-12 w-full md:py-8  md:px-16 md:pr-24 md:pt-0 px-6">
+        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
+          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
+            1
+          </div>
+          <h1 className="font-semibold text-3xl">Tell us What You Need</h1>
+          <span className="font-semibold text-md text-zinc-500">
+            We'll help you find Web Designers. Help us refine your search by
+            telling us your requirements and we'll contact service providers in
+            your area to help you.
+          </span>
+        </div>
+        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
+          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
+            2
+          </div>
+          <h1 className="font-semibold text-3xl">Recieve Free Quotes</h1>
+          <span className="font-semibold text-md text-zinc-500">
+            You will get free quotes from professionals and get quick
+            notification via our website or app. We make sure we do the leg work
+            for you
+          </span>
+        </div>
+        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
+          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
+            3
+          </div>
+          <h1 className="font-semibold text-3xl">Choose Your Web Designer</h1>
+          <span className="font-semibold text-md text-zinc-500">
+            Pick from some of the best providers in your area . With easy access
+            to reviews and direct contact with Web designers. You can be
+            confident with your choice.
+          </span>
+        </div>
+      </div>
+
+      <div className="flex justify-center items-center w-full mb-12">
+        <div className="mt-8 p-6 bg-gray-100 rounded-md md:w-2/5 w-5/6">
+          <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block font-medium">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              />
+            </div>
+            <div>
+              <label htmlFor="number" className="block font-medium">
+                Number
+              </label>
+              <input
+                type="tel"
+                id="number"
+                name="number"
+                value={formData.number}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              />
+            </div>
+            <div>
+              <label htmlFor="website" className="block font-medium">
+                Website
+              </label>
+              <input
+                type="url"
+                id="website"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              />
+            </div>
+            <div>
+              <label htmlFor="comment" className="block font-medium">
+                Comment
+              </label>
+              <textarea
+                id="comment"
+                name="comment"
+                value={formData.comment}
+                onChange={handleChange}
+                rows={4}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </>
