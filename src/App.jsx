@@ -85,7 +85,17 @@ function Main() {
           <Route path="/doctors" element={<Doctor />} />
           <Route
             path="/login"
-            element={user.name ? user.role === "admin" ? <Navigate to={`/admin`} /> : <Navigate to={`/dashboard`} /> : <Login />}
+            element={
+              user.name ? (
+                user.role === "admin" ? (
+                  <Navigate to={`/admin`} />
+                ) : (
+                  <Navigate to={`/dashboard`} />
+                )
+              ) : (
+                <Login />
+              )
+            }
           />
           <Route path="/signup" element={<Register />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
@@ -97,8 +107,8 @@ function Main() {
                 <Navigate to={`/login`} />
               ) : userRole === "vendor" ? (
                 <VendorDashboard />
-              ) : userRole === "user" && (
-                <UserDashboard />
+              ) : (
+                userRole === "user" && <UserDashboard />
               )
             }
           />
@@ -106,17 +116,20 @@ function Main() {
           <Route path="*" element={<NotFound />} />
           <Route path={"/business/:businessName"} element={<Business />} />
           <Route path={"/business/edit/:id"} element={<BusinessEdit />} />
-          <Route path={"/admin"} element={
-            !user.name ? (
-              <Navigate to={`/login`} />
-            ) : userRole === "admin" ? (
-              <AdminDashboard />
-            ) : (
-              <div>
-                <h1>You dont have correct previleges to access this page</h1>
-              </div>
-            )
-          } />
+          <Route
+            path={"/admin"}
+            element={
+              !user.name ? (
+                <Navigate to={`/login`} />
+              ) : userRole === "admin" ? (
+                <AdminDashboard />
+              ) : (
+                <div>
+                  <h1>You dont have correct previleges to access this page</h1>
+                </div>
+              )
+            }
+          />
           <Route path={"/:city/:subCategoryName"} element={<Services />} />
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />
