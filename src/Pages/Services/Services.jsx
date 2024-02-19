@@ -12,10 +12,10 @@ import BlogCard from "../Blog/BlogCard";
 
 const Services = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
-  const { subCategoryName, city } = useParams();
+  const { categoryName, city } = useParams();
   const extractedCity = city.split("-").join(" ");
   console.log(city)
-  const extractedName = subCategoryName.split("-").join(" ");
+  const extractedName = categoryName.split("-").join(" ");
   console.log(extractedName);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -65,7 +65,7 @@ const Services = () => {
       setIsLoading(true);
 
       const res = await axios.get(
-        `${API_URL}/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryId=${subCategoryId}`
+        `${API_URL}/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryName=${extractedName}&city=${city}`
       )
       setAllBusinesses(res.data);
       console.log(res.data);
@@ -94,9 +94,9 @@ const Services = () => {
             /> */}
 
             <Helmet>
-                <title>{subCategoryName}</title>
-                <meta name="description" content={`Find Best ${subCategoryName} Near ${extractedCity}`} />
-                <meta name="keywords" content={[subCategoryName, extractedCity]} />
+                <title>{categoryName}</title>
+                <meta name="description" content={`Find Best ${categoryName} Near ${extractedCity}`} />
+                <meta name="keywords" content={[categoryName, extractedCity]} />
             </Helmet>
       {
         isLoading ? (
@@ -154,9 +154,9 @@ const Services = () => {
             Total of {blogs.length} blogs available
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8">
-          {blogs?.map((blog) => (
+          {/* {blogs?.map((blog) => (
             <BlogCard key={blog._id} blog={blog} />
-          ))}
+          ))} */}
         </div>
         </div>
     </div>

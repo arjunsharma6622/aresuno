@@ -130,7 +130,7 @@ function Main() {
               )
             }
           />
-          <Route path={"/:city/:subCategoryName"} element={<Services />} />
+          <Route path={"/:city/:categoryName"} element={<Services />} />
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/map" element={<MapComponent />} />
