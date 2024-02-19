@@ -136,23 +136,20 @@ const Blog = ({ categoryBlogPage }) => {
         <meta property="og:site_name" content="Aresuno" />
       </Helmet>
 
-      <div>
-        <h1 className="text-3xl font-semibold">Recent Blogs</h1>
-      </div>
 
       <div className="md:w-full w-[90%] flex justify-center items-center ">
         <input
           type="text"
-          className=" border-zinc-400 border outline-none w-[90%] md:w-2/5 h-12 rounded-xl rounded-r-none p-2 px-8"
+          className=" border-zinc-400 border outline-none w-[90%] md:w-2/5 h-10 rounded-xl rounded-r-none p-2 px-8"
           placeholder="search blogs"
         />
-        <button className="flex justify-center items-center bg-red-500 rounded-r-xl text-white h-12 px-8">
+        <button className="flex justify-center items-center bg-red-500 rounded-r-xl text-white md:h-12 h-10 px-8">
           <IoMdSearch className="h-7 w-7" />
         </button>
       </div>
 
-      <div className="flex justify-center gap-6 items-center">
-        <div>
+      <div className="flex justify-center gap-2 md:gap-6 items-center px-0 md:px-10">
+        <div className="hidden md:flex">
           <FaChevronCircleLeft className="h-7 w-7 text-blue-500 cursor-pointer" />
         </div>
         <div className="">
@@ -226,7 +223,7 @@ const Blog = ({ categoryBlogPage }) => {
           />
         </div>
 
-        <div>
+        <div className="hidden md:flex">
           <FaChevronCircleRight className="h-7 w-7 text-blue-500 cursor-pointer" />
         </div>
       </div>

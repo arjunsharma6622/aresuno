@@ -197,7 +197,7 @@ const BlogPage = ({ categoryBlogPage }) => {
       <div className="blog-page w-full flex flex-col md:flex-row md:py-8  md:px-16 md:pt-0 px-6 md:gap-0 gap-2">
         <div className="md:w-[65%] w-full md:my-10 my-0 flex  flex-col gap-6 flex-3 ">
           <div>
-            <h1 className="text-3xl font-bold">{blog?.title}</h1>
+            <h1 className="md:text-3xl text-2xl font-bold">{blog?.title}</h1>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-xs text-red-500  inline-flex gap-2 bg-red-100 p-2 rounded-xl">
@@ -237,13 +237,13 @@ const BlogPage = ({ categoryBlogPage }) => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center items-center gap-12 w-full md:py-8  md:px-16 md:pr-24 md:pt-0 px-6">
+      <div className="flex flex-col md:flex-row justify-center items-center md:gap-12 gap-6 w-full md:py-8  md:px-16 md:pr-24 md:pt-0 px-6">
         <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
           <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
             1
           </div>
-          <h1 className="font-semibold text-3xl">Tell us What You Need</h1>
-          <span className="font-semibold text-md text-zinc-500">
+          <h1 className="font-semibold text-2xl md:text-3xl">Tell us What You Need</h1>
+          <span className="font-semibold text-sm md:text-base text-zinc-500">
             We'll help you find Web Designers. Help us refine your search by
             telling us your requirements and we'll contact service providers in
             your area to help you.
@@ -253,8 +253,8 @@ const BlogPage = ({ categoryBlogPage }) => {
           <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
             2
           </div>
-          <h1 className="font-semibold text-3xl">Recieve Free Quotes</h1>
-          <span className="font-semibold text-md text-zinc-500">
+          <h1 className="font-semibold text-2xl md:text-3xl">Recieve Free Quotes</h1>
+          <span className="font-semibold text-sm md:text-base text-zinc-500">
             You will get free quotes from professionals and get quick
             notification via our website or app. We make sure we do the leg work
             for you
@@ -264,8 +264,8 @@ const BlogPage = ({ categoryBlogPage }) => {
           <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
             3
           </div>
-          <h1 className="font-semibold text-3xl">Choose Your Web Designer</h1>
-          <span className="font-semibold text-md text-zinc-500">
+          <h1 className="font-semibold text-2xl md:text-3xl">Choose Your Web Designer</h1>
+          <span className="font-semibold text-sm md:text-base text-zinc-500">
             Pick from some of the best providers in your area . With easy access
             to reviews and direct contact with Web designers. You can be
             confident with your choice.
