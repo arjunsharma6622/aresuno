@@ -136,19 +136,18 @@ const Blog = ({ categoryBlogPage }) => {
         <meta property="og:site_name" content="Aresuno" />
       </Helmet>
 
-
       <div className="md:w-full w-[90%] flex justify-center items-center ">
         <input
           type="text"
-          className=" border-zinc-400 border outline-none w-[90%] md:w-2/5 h-10 rounded-xl rounded-r-none p-2 px-8"
+          className=" shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]  outline-none w-[90%] md:w-2/5 h-10 rounded-md rounded-r-none p-2 px-3"
           placeholder="search blogs"
         />
-        <button className="flex justify-center items-center bg-red-500 rounded-r-xl text-white md:h-12 h-10 px-8">
-          <IoMdSearch className="h-7 w-7" />
+        <button className="flex shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] justify-center items-center bg-blue-500 rounded-r-md text-white  h-10 px-8">
+          <IoMdSearch className="h-6 w-6" />
         </button>
       </div>
 
-      <div className="flex justify-center gap-2 md:gap-6 items-center px-0 md:px-10">
+      <div className="flex justify-center gap-3 px-3 md:gap-6 items-center  md:px-10">
         <div className="hidden md:flex">
           <FaChevronCircleLeft className="h-7 w-7 text-blue-500 cursor-pointer" />
         </div>
@@ -156,70 +155,50 @@ const Blog = ({ categoryBlogPage }) => {
           <img
             src="https://images.unsplash.com/photo-1620783770629-122b7f187703?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2FkZ2V0c3xlbnwwfHwwfHx8MA%3D%3D"
             alt=""
-            className="h-40 rounded-lg cursor-pointer"
+            className="h-60  rounded-lg cursor-pointer"
           />
         </div>
         <div>
           <img
             src="https://images.unsplash.com/photo-1677296860360-cde4366468d5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cG90cmFpdCUyMGFlc3RoZXRpY3xlbnwwfHwwfHx8MA%3D%3D"
             alt=""
-            className="h-40 rounded-lg cursor-pointer"
+            className="h-60  rounded-lg cursor-pointer"
           />
         </div>
-        <div className="">
+        <div className="hidden md:flex">
           <img
             src="https://images.unsplash.com/photo-1676264542565-a6343f36eb8d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
             alt=""
-            className="h-40 rounded-lg cursor-pointer"
+            className="h-60 rounded-lg cursor-pointer"
           />
         </div>
         <div className="hidden md:flex">
           <img
             src="https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
             alt=""
-            className="h-40 rounded-lg cursor-pointer"
+            className="h-60 rounded-lg cursor-pointer"
           />
         </div>
         <div className="hidden md:flex">
           <img
             src="https://images.unsplash.com/photo-1677296860511-540ffaabaf2b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
             alt=""
-            className="h-40 rounded-lg cursor-pointer"
+            className="h-60 rounded-lg cursor-pointer"
           />
         </div>
         <div className="hidden md:flex">
           <img
             src="https://images.unsplash.com/photo-1706978789424-1e498d4cdf39?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
             alt=""
-            className="h-40 rounded-lg cursor-pointer"
+            className="h-60 rounded-lg cursor-pointer"
           />
         </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1676265014693-789205f9c87d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-40 rounded-lg cursor-pointer"
-          />
-        </div>
+
         <div className="hidden md:flex">
           <img
             src="https://images.unsplash.com/photo-1676264542445-aae51f7ca793?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
             alt=""
-            className="h-40 rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1620783770629-122b7f187703?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2FkZ2V0c3xlbnwwfHwwfHx8MA%3D%3D"
-            alt=""
-            className="h-40 rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1656311829263-e001b6e93855?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cG90cmFpdCUyMGFlc3RoZXRpY3xlbnwwfHwwfHx8MA%3D%3D"
-            alt=""
-            className="h-40 rounded-lg cursor-pointer"
+            className="h-60 rounded-lg cursor-pointer"
           />
         </div>
 
@@ -279,8 +258,8 @@ const Blog = ({ categoryBlogPage }) => {
         </button>
       </div>
 
-      <div className="w-[90%] md:w-[80%] flex flex-col md:hidden mt-4">
-        <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+      <div className="w-[90%] md:w-[80%] flex flex-col md:hidden mt-4 rounded-md pr-4 text-zinc-500 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] outline-none">
+        <select className="w-full px-3 py-2 rounded-md focus:outline-none focus:border-blue-500">
           <option value="science">Science</option>
           <option value="arts">Arts</option>
           <option value="technology">Technology</option>

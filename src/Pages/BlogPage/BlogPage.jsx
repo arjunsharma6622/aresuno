@@ -237,42 +237,6 @@ const BlogPage = ({ categoryBlogPage }) => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center items-center md:gap-12 gap-6 w-full md:py-8  md:px-16 md:pr-24 md:pt-0 px-6">
-        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
-          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
-            1
-          </div>
-          <h1 className="font-semibold text-2xl md:text-3xl">Tell us What You Need</h1>
-          <span className="font-semibold text-sm md:text-base text-zinc-500">
-            We'll help you find Web Designers. Help us refine your search by
-            telling us your requirements and we'll contact service providers in
-            your area to help you.
-          </span>
-        </div>
-        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
-          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
-            2
-          </div>
-          <h1 className="font-semibold text-2xl md:text-3xl">Recieve Free Quotes</h1>
-          <span className="font-semibold text-sm md:text-base text-zinc-500">
-            You will get free quotes from professionals and get quick
-            notification via our website or app. We make sure we do the leg work
-            for you
-          </span>
-        </div>
-        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
-          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
-            3
-          </div>
-          <h1 className="font-semibold text-2xl md:text-3xl">Choose Your Web Designer</h1>
-          <span className="font-semibold text-sm md:text-base text-zinc-500">
-            Pick from some of the best providers in your area . With easy access
-            to reviews and direct contact with Web designers. You can be
-            confident with your choice.
-          </span>
-        </div>
-      </div>
-
       <div className="flex justify-center items-center w-full mb-12">
         <div className="mt-8 p-6 bg-gray-100 rounded-md md:w-2/5 w-5/6">
           <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
@@ -336,6 +300,48 @@ const BlogPage = ({ categoryBlogPage }) => {
               Submit
             </button>
           </form>
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row justify-center items-center md:gap-12 gap-6 w-full md:py-8  md:px-16 md:pr-24 md:pt-0 px-6">
+        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
+          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
+            1
+          </div>
+          <h1 className="font-semibold text-2xl md:text-3xl">
+            Tell us What You Need
+          </h1>
+          <span className="font-semibold text-sm md:text-base text-zinc-500">
+            We'll help you find Web Designers. Help us refine your search by
+            telling us your requirements and we'll contact service providers in
+            your area to help you.
+          </span>
+        </div>
+        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
+          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
+            2
+          </div>
+          <h1 className="font-semibold text-2xl md:text-3xl">
+            Recieve Free Quotes
+          </h1>
+          <span className="font-semibold text-sm md:text-base text-zinc-500">
+            You will get free quotes from professionals and get quick
+            notification via our website or app. We make sure we do the leg work
+            for you
+          </span>
+        </div>
+        <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">
+          <div className="font-semibold text-blue-500 bg-blue-100 rounded-full w-max p-1 px-3">
+            3
+          </div>
+          <h1 className="font-semibold text-2xl md:text-3xl">
+            Choose Your Vendor
+          </h1>
+          <span className="font-semibold text-sm md:text-base text-zinc-500">
+            Pick from some of the best providers in your area . With easy access
+            to reviews and direct contact with Web designers. You can be
+            confident with your choice.
+          </span>
         </div>
       </div>
     </>
