@@ -370,7 +370,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                       id="altTag"
                       placeholder="eg. electronics, mobile, laptop, tv"
                       value={subCategoryToEdit.keywords ? subCategoryToEdit.keywords : ""}
-                      className="text-base w-full border border-gray-300 p-2 rounded-md"
+                      className="text-base w-full border border-gray-300 p-2 rounded-md resize-none"
                       onChange={(e) => {
                         setSubCategoryToEdit({
                           ...subCategoryToEdit,
@@ -379,6 +379,31 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                       } }
                     />
                   </div>
+
+
+                  <div className="w-full flex flex-col gap-1 text-sm">
+                    <label htmlFor="altTag" className="font-medium text-base">
+                      Description
+                    </label>
+
+                    <textarea
+                      type="text"
+                      id="altTag"
+                      placeholder="description"
+                      value={subCategoryToEdit.description ? subCategoryToEdit.description : ""}
+                      className="text-base w-full border border-gray-300 p-2 rounded-md resize-none"
+                      onChange={(e) => {
+                        setSubCategoryToEdit({
+                          ...subCategoryToEdit,
+                          description: e.target.value,
+                        });
+                      } }
+                      rows={6}
+                      
+                    />
+                  </div>
+
+
                 </div>
               ) : (
                 <div className="w-full flex flex-col gap-4 text-sm">

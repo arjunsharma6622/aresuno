@@ -160,10 +160,10 @@ const Business = () => {
                 `${API_URL}/api/business/getBusinessByName/${businessName}`
             );
             setBusiness(res.data);
-            const postsRes = await axios.get(
-                `${API_URL}/api/post/all-posts/${res.data._id}`
-            );
-            setPosts(postsRes.data);
+            // const postsRes = await axios.get(
+            //     `${API_URL}/api/post/all-posts/${res.data._id}`
+            // );
+            // setPosts(postsRes.data);
 
             const ratingsRes = await axios.get(
                 `${API_URL}/api/rating/${res.data._id}`
@@ -216,10 +216,7 @@ const Business = () => {
         },
     ];
 
-    const categories = useSelector((state) => state.categories);
-    const businessCategory = categories.find(
-        (category) => category._id === business.category
-    )
+
 
     const daysAgoFormatDate = (dateString) => {
         const currentDate = new Date();
@@ -316,7 +313,7 @@ const Business = () => {
                 ...enquiry
             }
                 enquiryToSend.business = business._id
-                enquiryToSend.category = business.category
+                enquiryToSend.category = business.category?._id
             const res = await axios.post(`${API_URL}/api/enquiry/create`, enquiryToSend)
             console.log(res)
             toast.success('Enquiry Sent', ToastParams)
@@ -429,7 +426,7 @@ const Business = () => {
             />
 
             <Helmet>
-                <title>{`${business.name} in ${business.address?.city} - ${businessCategory?.name}`}</title>
+                <title>{`${business.name} in ${business.address?.city} - ${business.category?.name}`}</title>
                 <meta name="description" content={business.description} />
                 <meta name="keywords" content={business.name} />
                 <meta name="author" content="aresuno" />
@@ -474,7 +471,7 @@ const Business = () => {
                                 <div className="text-black flex-col flex justify-start items-start">
                                     <span className="text-xl md:text-3xl font-bold">{business.name}</span>
                                     <span className="text-gray-800 text-sm md:text-base font-medium">
-                                        {businessCategory?.name}
+                                        {business.category?.name}
                                     </span>
 
                                     <div className="flex items-center text-xs">
@@ -815,7 +812,7 @@ const Business = () => {
 
                         {/* posts */}
 
-                        { posts.length > 0 &&
+                        { business.posts?.length > 0 &&
                         <div
                             id="posts"
                             className="w-full border-b pb-10 border-b-gray-300"
@@ -826,7 +823,7 @@ const Business = () => {
                             </div>
 
                             <div className="grid grid-cols-1 gap-8 mt-8">
-                                {posts?.map((post, index) => (
+                                {business.posts?.map((post, index) => (
                                     <div
                                         key={index}
                                         className="max-w-full gap-4 flex flex-col md:flex-row items-start"
