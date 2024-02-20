@@ -185,13 +185,16 @@ export default function EditModal({ category, onClose, categoryTitle }) {
     <div>
       {open && (
         <div className="z-[40] fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm">
-          <div className="bg-white p-6 rounded-lg w-[50%]">
+          <div className="bg-white flex flex-col gap-6 p-6 rounded-lg w-[55%]">
+
+<div className="flex items-center justify-center gap-6">
             <div className="flex items-center justify-center">
               <div className="h-12 w-12 flex items-center justify-center rounded-full bg-gray-100">
                 <FiEdit3 className="h-6 w-6 text-gray-600" />
               </div>
             </div>
-            <div className="mt-4 text-center">
+
+            <div className="text-center">
               <h3 className="text-lg font-medium">
                 Edit
                 <span className="font-bold underline">
@@ -201,8 +204,9 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                 Category
               </h3>
             </div>
+            </div>
 
-            <div className="mt-8 flex items-start gap-2 flex-col w-[90%] m-auto justify-center">
+            <div className=" flex items-start gap-2 flex-col w-[90%] m-auto justify-center">
               {subCategoryToEdit ? (
                 <div className="w-full flex flex-col gap-6 text-sm">
                   <div className="flex w-full items-center justify-start gap-6">
@@ -398,7 +402,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                           description: e.target.value,
                         });
                       } }
-                      rows={6}
+                      rows={4}
                       
                     />
                   </div>
@@ -464,7 +468,8 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                 </div>
               )}
             </div>
-            <div className="flex justify-center mt-6">
+
+            <div className="flex justify-center">
               <button
                 className="bg-gray-600 text-white px-4 py-2 rounded-md mr-2 hover:bg-gray-500"
                 onClick={
