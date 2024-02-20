@@ -12,10 +12,6 @@ const ServiceCard = ({ business }) => {
 
     const user = useSelector((state) => state.user)
 
-
-
-    const businessRating = business.ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) / business.ratings?.length;
-    const roundedAvgRating = Number.isNaN(businessRating) ? 0 : Math.round(businessRating);
     const [ratings, setRatings] = useState([]);
     const [callClick, setCallClick] = useState(false);
     const [showEnquiryForm, setShowEnquiryForm] = useState(false);
@@ -24,7 +20,6 @@ const ServiceCard = ({ business }) => {
 
 
     
-    console.log(businessRating)
 
 
     const openingHours = business.timing?.map(hour => {
@@ -113,7 +108,7 @@ const ServiceCard = ({ business }) => {
 
 
     return (
-        <div className='' key={business._id}>
+        <div className='flex flex-col gap-2' key={business._id}>
 
 <script
         type="application/ld+json"
@@ -124,56 +119,59 @@ const ServiceCard = ({ business }) => {
 
 
             <div className=''>
+                <Link to={`/business/${business.name.split(" ").join("-").toLowerCase()}`}>
 
-                <img loading='lazy' src={business.images.cover} alt="" className='w-full aspect-[2/1] object-cover rounded-xl' />
+                <img loading='lazy' src={business.images.cover} alt="" className='w-full aspect-[2/1] object-cover rounded-tr-lg rounded-tl-lg' />
+
+                </Link>
             </div>
 
 
-            <div className='bg-white py-4 pb-0 w-full rounded-xl shadow-xl flex flex-col gap-4'>
-                <div className='px-4'>
+            <div className='bg-white pb-0 w-full rounded-xl shadow-xl flex flex-col gap-2'>
+                <div className='px-4 flex flex-col gap-2'>
 
                     
-                    <div className='flex gap-3 items-center border-b-[1px] border-gray-200 pb-4'>
+                    <div className='flex gap-3 items-center border-b-[1px] border-gray-200 pb-2'>
                         <div>
-                            <img loading='lazy' src={business.images.logo} alt="test img" className='w-12 h-12 object-cover rounded-full' />
+                            <img loading='lazy' src={business.images.logo} alt="test img" className='w-10 h-10 object-cover rounded-full' />
                         </div>
-                        <div className='border-l-[1.4px] border-gray-300 pl-2'>{business.name}</div>
-                        <div className='ml-2'>
+                        <div className='border-l-[1.4px] text-sm border-gray-300 pl-2'>{business.name}</div>
+                        {/* <div className='ml-2'>
                             <Link to={`/business/${business.name.split(" ").join("-").toLowerCase()}`} className='flex items-center gap-2 text-sm text-blue-500'>
                             <FiExternalLink className='w-4 h-4' />
                             Visit
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
 
 
 
-                    <div className='flex gap-2 items-center mt-4'>
+                    <div className='flex gap-2 items-center'>
                             <FiMapPin className='w-4 h-4 text-blue-500' />
                             <span className='text-sm'>{business.address.city}</span>
                         </div>
 
-                    <div className='flex flex-col gap-3 mt-4'>
+                    <div className='flex flex-col gap-3'>
                         {/* <div>{business.description}</div> */}
 
-                        <div className='flex gap-2 flex-wrap'>
+                        {/* <div className='flex gap-2 flex-wrap'>
                             {business.services.map((service, index) => (
 
                                 <span key={index} className='text-xs px-3 py-[4px] bg-gray-200 rounded-full'>{service}</span>
                                 ))}
-                        </div>
+                        </div> */}
 
                         <div className='flex gap-2 items-center'>
-                            <span className='text-sm'>{businessRating ? businessRating.toFixed(1) : "No Ratings"}</span>
+                            <span className='text-sm'>{avgRating ? avgRating : "No Ratings"}</span>
 
-                            {businessRating ?
+                            {avgRating ?
 
                                 <div className="flex gap-4">
                                     <div className="flex items-center">
-                                        {[...Array(Math.round(roundedAvgRating))].map((_, index) => (
+                                        {[...Array(Math.round(avgRating))].map((_, index) => (
                                             <AiFillStar key={index} className="text-yellow-500" />
                                         ))}
-                                        {[...Array(5 - Math.round(roundedAvgRating))].map((_, index) => (
+                                        {[...Array(5 - Math.round(avgRating))].map((_, index) => (
                                             <AiFillStar className="text-gray-300" key={index} />
                                         ))}
 
@@ -186,8 +184,8 @@ const ServiceCard = ({ business }) => {
 
                             }
 
-{ businessRating ?
-                            <span className='text-xs ml-2'>{business.ratings?.length} ratings</span>
+{ totalRatings ?
+                            <span className='text-xs ml-2'>{totalRatings} ratings</span>
 
                             :
                             null
@@ -202,16 +200,16 @@ const ServiceCard = ({ business }) => {
 
 
                 <div className='flex w-full'>
-                    <button className='w-full px-2 py-[10px] border-t-[1px] border-gray-200  text-blue-500' onClick={handleCallClick}>
+                    <button className='w-full px-2 py-[6px] border-t-[1px] border-gray-200  text-blue-500' onClick={handleCallClick}>
 
-                        <a className='flex items-center gap-4 justify-center'>
-                            <FiPhoneCall className=' w-5 h-5' />
+                        <a className='flex items-center gap-3 justify-center'>
+                            <FiPhoneCall className=' w-4 h-4' />
                             Call Now
                         </a>
 
                     </button>
-                    <button onClick={() => setShowEnquiryForm(true)} className='w-full px-2 py-[10px] text-white bg-blue-500 flex items-center justify-center gap-4 rounded-br-lg'>
-                        <FiMessageSquare className='w-5 h-5' /> 
+                    <button onClick={() => setShowEnquiryForm(true)} className='w-full px-2 py-[6px] text-white bg-blue-500 flex items-center justify-center gap-3 rounded-br-lg'>
+                        <FiMessageSquare className='w-4 h-4' /> 
                         Enquire
                     </button>
                 </div>
