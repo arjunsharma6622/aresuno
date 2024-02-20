@@ -63,13 +63,16 @@ const Business = () => {
     const [callClick, setCallClick] = useState(false);
     const [enquiryClick ,setEnquiryClick] = useState(false);
 
+    const [totalRatings, setTotalRatings] = useState(0);
+    const [avgRating, setAvgRating] = useState(0);
+
     const user = useSelector((state) => state.user);
 
 
 
-    const avgRating =
-        ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) /
-        ratings?.length;
+    // const avgRating =
+    //     ratings.reduce((acc, item) => acc + (item.rating || 0), 0) /
+    //     ratings.length;
 
     const fullStars = Math.floor(avgRating);
     const hasHalfStar = avgRating % 1 !== 0;
@@ -168,7 +171,9 @@ const Business = () => {
             const ratingsRes = await axios.get(
                 `${API_URL}/api/rating/${res.data._id}`
             );
-            setRatings(ratingsRes.data);
+            setRatings(ratingsRes.data.filteredRatings);
+            setTotalRatings(ratingsRes.data.totalRatings);
+            setAvgRating(ratingsRes.data.avgRating);
             console.log(res.data);
             setIsBusinessFetching(false);
         } catch (e) {
@@ -496,7 +501,7 @@ const Business = () => {
                                     <div className="flex items-center gap-3 md:gap-6">
                                         <div className="flex items-center gap-2">
                                             <span className="text-black text-sm md:text-lg font-semibold">
-                                                {avgRating ? avgRating.toFixed(1) : "-"}
+                                                {avgRating ? avgRating : "-"}
                                             </span>
 
                                             <div className="flex items-center gap-1">
@@ -924,7 +929,7 @@ const Business = () => {
 
                                             <span className="flex items-center gap-2">
                                                 <span className="text-black text-sm md:text-base">
-                                                    {avgRating.toFixed(1)} out of 5
+                                                    {avgRating} out of 5
                                                 </span>
                                             </span>
                                         </div>
