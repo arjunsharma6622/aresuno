@@ -22,6 +22,7 @@ const BlogPage = ({ categoryBlogPage }) => {
   const [formData, setFormData] = useState({
     name: "",
     number: "",
+    email: "",
     website: "",
     comment: "",
   });
@@ -40,6 +41,7 @@ const BlogPage = ({ categoryBlogPage }) => {
     setFormData({
       name: "",
       number: "",
+      email: "",
       website: "",
       comment: "",
     });
@@ -217,6 +219,86 @@ const BlogPage = ({ categoryBlogPage }) => {
             key={blog?._id}
             dangerouslySetInnerHTML={{ __html: blog?.description }}
           />
+          <div className="flex justify-center items-center w-full mb-12">
+            <div className="mt-8 p-6 bg-gray-100 rounded-md w-full">
+              <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block font-medium">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 h-8"
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row md:gap-4 gap-2">
+                  <div className="flex-1">
+                    <label htmlFor="number" className="block font-medium">
+                      Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="number"
+                      name="number"
+                      value={formData.number}
+                      onChange={handleChange}
+                      className="mt-1 block w-full h-8 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <label htmlFor="number" className="block font-medium">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="mt-1 block w-full h-8 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="website" className="block font-medium">
+                    Website
+                  </label>
+                  <input
+                    type="url"
+                    id="website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    className="mt-1 h-8 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="comment" className="block font-medium">
+                    Comment
+                  </label>
+                  <textarea
+                    id="comment"
+                    name="comment"
+                    value={formData.comment}
+                    onChange={handleChange}
+                    rows={4}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="bg-red-500 text-white font-medium py-2 px-4 rounded-md hover:bg-red-600 transition-colors duration-300"
+                >
+                  Post Comment
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col my-6 md:my-24 flex-1">
@@ -234,72 +316,6 @@ const BlogPage = ({ categoryBlogPage }) => {
               );
             })}
           </div>
-        </div>
-      </div>
-
-      <div className="flex justify-center items-center w-full mb-12">
-        <div className="mt-8 p-6 bg-gray-100 rounded-md md:w-2/5 w-5/6">
-          <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block font-medium">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              />
-            </div>
-            <div>
-              <label htmlFor="number" className="block font-medium">
-                Number
-              </label>
-              <input
-                type="tel"
-                id="number"
-                name="number"
-                value={formData.number}
-                onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              />
-            </div>
-            <div>
-              <label htmlFor="website" className="block font-medium">
-                Website
-              </label>
-              <input
-                type="url"
-                id="website"
-                name="website"
-                value={formData.website}
-                onChange={handleChange}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              />
-            </div>
-            <div>
-              <label htmlFor="comment" className="block font-medium">
-                Comment
-              </label>
-              <textarea
-                id="comment"
-                name="comment"
-                value={formData.comment}
-                onChange={handleChange}
-                rows={4}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
-            >
-              Submit
-            </button>
-          </form>
         </div>
       </div>
 
