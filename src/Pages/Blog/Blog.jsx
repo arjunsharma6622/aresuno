@@ -147,7 +147,7 @@ const Blog = ({ categoryBlogPage }) => {
         </button>
       </div>
 
-      <div className="flex justify-center gap-3 px-3 md:gap-6 items-center  md:px-10">
+      <div className="flex justify-center gap-3 px-3 md:gap-8 items-center  md:px-10">
         <div className="hidden md:flex">
           <FaChevronCircleLeft className="h-7 w-7 text-blue-500 cursor-pointer" />
         </div>
@@ -207,7 +207,7 @@ const Blog = ({ categoryBlogPage }) => {
         </div>
       </div>
 
-      <div className="  md:w-[80%] w-[90%] hidden md:flex gap-16 justify-center items-center  ">
+      <div className="  md:w-[80%] w-[90%] hidden md:flex gap-16 justify-center items-center px-10  ">
         <button
           className={`px-3 p-2 w-40 font-semibold duration-200 transition ${
             activeTab === "science" ? "bg-red-500 rounded-xl text-white" : ""
@@ -258,7 +258,7 @@ const Blog = ({ categoryBlogPage }) => {
         </button>
       </div>
 
-      <div className="w-[90%] md:w-[80%] flex flex-col md:hidden mt-4 rounded-md pr-4 text-zinc-500 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] outline-none">
+      <div className="w-[90%] flex flex-col md:hidden mt-4 rounded-md pr-4 text-zinc-500 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] outline-none">
         <select className="w-full px-3 py-2 rounded-md focus:outline-none focus:border-blue-500">
           <option value="science">Science</option>
           <option value="arts">Arts</option>
@@ -269,7 +269,7 @@ const Blog = ({ categoryBlogPage }) => {
         </select>
       </div>
 
-      <div className="w-[90%] md:w-[80%] mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="w-[90%] md:w-[80%] mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-10">
         {allBlogs.map((blog) => {
           return (
             <BlogCard
