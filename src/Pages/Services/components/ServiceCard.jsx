@@ -19,12 +19,13 @@ const ServiceCard = ({ business }) => {
     const [ratings, setRatings] = useState([]);
     const [callClick, setCallClick] = useState(false);
     const [showEnquiryForm, setShowEnquiryForm] = useState(false);
+    const [avgRating, setAvgRating] = useState(0);
+    const [totalRatings, setTotalRatings] = useState(0);
 
 
     
     console.log(businessRating)
 
-    const avgRating = ratings?.reduce((acc, item) => acc + (item.rating || 0), 0) / ratings?.length;
 
     const openingHours = business.timing?.map(hour => {
         if (hour.isOpen) {
@@ -70,7 +71,9 @@ const ServiceCard = ({ business }) => {
         const ratingsRes = await axios.get(
             `${API_URL}/api/rating/${business._id}`
         );
-        setRatings(ratingsRes.data);
+        setRatings(ratingsRes.data.filteredRatings);
+        setAvgRating(ratingsRes.data.avgRating);
+        setTotalRatings(ratingsRes.data.totalRatings);
         }
         fetchRatings()
 
