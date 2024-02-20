@@ -18,6 +18,7 @@ const Services = () => {
   const extractedName = categoryName.split("-").join(" ");
   console.log(extractedName);
   const [isLoading, setIsLoading] = useState(false);
+  const [category, setCategory] = useState({});
 
   const [blogs, setBlogs] = useState([]);
 
@@ -33,9 +34,22 @@ const Services = () => {
       setIsLoading(false)
     }
   };
+  const fetchCategory = async () => {
+    try {
+      const res = await axios.get(
+        `${API_URL}/api/category/${extractedName}`
+      )
+      setCategory(res.data);
+      console.log(res.data);
+    } catch (e) {
+      console.log(e);
+      setIsLoading(false)
+    }
+  };
 
   useEffect(() => {
     fetchCategoryBlogs();
+    fetchCategory();
   }, [extractedName]);
   
 
@@ -94,9 +108,9 @@ const Services = () => {
             /> */}
 
             <Helmet>
-                <title>{categoryName}</title>
-                <meta name="description" content={`Find Best ${categoryName} Near ${extractedCity}`} />
-                <meta name="keywords" content={[categoryName, extractedCity]} />
+                <title>{`Find Best ${extractedName} Near ${extractedCity}`}</title>
+                <meta name="description" content={category.description ? category.description : `Find Best ${extractedName} Near ${extractedCity}`} />
+                <meta name="keywords" content={category.keywords ? category.keywords : `${extractedName}, ${extractedCity}`} />
             </Helmet>
       {
         isLoading ? (

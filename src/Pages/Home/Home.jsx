@@ -84,10 +84,8 @@ const Home = () => {
   return (
     <div className="bg-white flex flex-col gap-4">
       <Helmet>
-        <title>Aresuno - Home</title>
-        <meta name="description" content="Aresuno - Home" />
-        <meta name="keywords" content="Aresuno - Home" />
-        <meta name="author" content="Aresuno - Home" />
+        <title>Aresuno - Discover and Rate Services</title>
+        <meta name="author" content="Aresuno" />
         <link rel="canonical" href="https://www.aresuno.com" />
         <meta name="description"
     content="Explore and discover a wide range of services on Aresuno. Find ratings, reviews, images, and addresses for different services. Your go-to platform for service recommendations." />
