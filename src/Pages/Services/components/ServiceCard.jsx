@@ -67,7 +67,7 @@ const ServiceCard = ({ business }) => {
             `${API_URL}/api/rating/${business._id}`
         );
         setRatings(ratingsRes.data.filteredRatings);
-        setAvgRating(ratingsRes.data.avgRating);
+        setAvgRating(parseInt(ratingsRes.data.avgRating));
         setTotalRatings(ratingsRes.data.totalRatings);
         }
         fetchRatings()
@@ -163,13 +163,6 @@ const ServiceCard = ({ business }) => {
 
                             }
 
-{/* { totalRatings ?
-                            <span className='text-xs ml-2'>{totalRatings} ratings</span>
-
-                            :
-                            null
-
-} */}
 
                         </div>
 
