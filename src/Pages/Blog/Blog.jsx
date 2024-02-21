@@ -269,7 +269,7 @@ const Blog = ({ categoryBlogPage }) => {
         </select>
       </div>
 
-      <div className="w-[90%] md:w-[80%] mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-10">
+      <div className="w-[90%] md:w-[80%] mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:px-10">
         {allBlogs.map((blog) => {
           return (
             <BlogCard
