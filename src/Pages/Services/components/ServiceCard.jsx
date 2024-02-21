@@ -108,7 +108,7 @@ const ServiceCard = ({ business }) => {
 
 
     return (
-        <div className='flex' key={business._id}>
+        <div className='flex flex-col' key={business._id}>
 
 <script
         type="application/ld+json"
@@ -118,37 +118,24 @@ const ServiceCard = ({ business }) => {
       />
 
 
-            {/* <div className='flex-[2] md:flex-[4]'>
+            <div className='flex-[4] md:flex-[4] relative'>
                 <Link to={`/business/${business.name.split(" ").join("-").toLowerCase()}`}>
 
-                <img loading='lazy' src={business.images.cover} alt="" className='h-full object-cover rounded-tl-lg rounded-bl-lg' />
+                <img loading='lazy' src={business.images.cover} alt="" className='h-20 w-full object-cover rounded-tl-lg rounded-bl-lg' />
+                <div className='absolute left-4 -bottom-6'>
+                            <img loading='lazy' src={business.images.logo} alt="test img" className='md:w-12 w-8 h-8 md:h-12 object-cover rounded-full' />
+                        </div>
 
                 </Link>
-            </div> */}
+            </div>
 
 
-            <div className='bg-white flex-[10] md:flex-[8] pt-2 w-full rounded-lg rounded-tr-lg rounded-br-lg border flex flex-col gap-2 md:gap-4'>
+            <div className='bg-white flex-[10] md:flex-[8] pt-2 w-full rounded-tr-lg rounded-br-lg border flex flex-col gap-2 md:gap-4'>
                 <div className='px-4 flex flex-col gap-3'>
+                        <div className='mt-4 text-sm md:text-base font-medium border-gray-300'>{business.name}</div>
 
-                    
-                    <div className='flex gap-3 items-center border-b-[1px] border-gray-200 pb-2'>
-                        <div>
-                            <img loading='lazy' src={business.images.logo} alt="test img" className='md:w-10 w-8 h-8 md:h-10 object-cover rounded-full' />
-                        </div>
-                        <div className='border-l-[1.4px] text-sm md:text-base font-medium border-gray-300 pl-2'>{business.name}</div>
-                        {/* <div className='ml-2'>
-                            <Link to={`/business/${business.name.split(" ").join("-").toLowerCase()}`} className='flex items-center gap-2 text-sm text-blue-500'>
-                            <FiExternalLink className='w-4 h-4' />
-                            Visit
-                            </Link>
-                        </div> */}
-                    </div>
-
-
-
-                    <div className='flex gap-1 md:gap-2 items-center'>
-                            <FiMapPin className='w-4 h-4 text-blue-500' />
-                            <span className='text-xs md:text-sm'>{business.address.city}</span>
+                    <div className='flex  gap-1 md:gap-2 items-center'>
+                        <p className='text-sm truncated-description'>{business.description}</p>
                         </div>
 
                     <div className='flex flex-col gap-2 md:gap-3'>
@@ -176,20 +163,20 @@ const ServiceCard = ({ business }) => {
 
                             }
 
-{ totalRatings ?
+{/* { totalRatings ?
                             <span className='text-xs ml-2'>{totalRatings} ratings</span>
 
                             :
                             null
 
-}
+} */}
 
                         </div>
 
                         <div className='flex gap-2 flex-wrap'>
-                            {business.services.map((service, index) => (
+                            {business.services?.slice(0, 4).map((service, index) => (
 
-                                <span key={index} className='text-xs px-3 py-[4px] bg-gray-200 rounded-full'>{service}</span>
+                                <span key={index} className='text-xs px-3 py-[2px] bg-gray-200 rounded-full'>{service}</span>
                                 ))}
                         </div>
 

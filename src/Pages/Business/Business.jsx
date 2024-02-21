@@ -438,6 +438,9 @@ const Business = () => {
                 <script type="application/ld+json">
                     {JSON.stringify(businessStrDataStructure)}
                 </script>
+                <meta name="geo.position" content={`${business.address.coordinates[1]}; ${business.address.coordinates[0]}`} />
+                <meta name="geo.placename" content="India" />
+                <meta name="geo.region" content={business.address?.city} />
             </Helmet>
 
 

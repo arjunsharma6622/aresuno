@@ -181,6 +181,15 @@ body {
   overflow: hidden;
 }
 
+
+.truncated-description {
+  -webkit-line-clamp: 1; /* Chrome, Safari, Opera browsers */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
 .blog-page-description h2{
   font-size: 20px;
 
