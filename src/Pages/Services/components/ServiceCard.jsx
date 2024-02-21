@@ -108,7 +108,7 @@ const ServiceCard = ({ business }) => {
 
 
     return (
-        <div className='flex flex-col gap-2' key={business._id}>
+        <div className='flex' key={business._id}>
 
 <script
         type="application/ld+json"
@@ -118,24 +118,24 @@ const ServiceCard = ({ business }) => {
       />
 
 
-            <div className=''>
+            {/* <div className='flex-[2] md:flex-[4]'>
                 <Link to={`/business/${business.name.split(" ").join("-").toLowerCase()}`}>
 
-                <img loading='lazy' src={business.images.cover} alt="" className='w-full aspect-[2/1] object-cover rounded-tr-lg rounded-tl-lg' />
+                <img loading='lazy' src={business.images.cover} alt="" className='h-full object-cover rounded-tl-lg rounded-bl-lg' />
 
                 </Link>
-            </div>
+            </div> */}
 
 
-            <div className='bg-white pb-0 w-full rounded-xl shadow-xl flex flex-col gap-2'>
-                <div className='px-4 flex flex-col gap-2'>
+            <div className='bg-white flex-[10] md:flex-[8] pt-2 w-full rounded-lg rounded-tr-lg rounded-br-lg border flex flex-col gap-2 md:gap-4'>
+                <div className='px-4 flex flex-col gap-3'>
 
                     
                     <div className='flex gap-3 items-center border-b-[1px] border-gray-200 pb-2'>
                         <div>
-                            <img loading='lazy' src={business.images.logo} alt="test img" className='w-10 h-10 object-cover rounded-full' />
+                            <img loading='lazy' src={business.images.logo} alt="test img" className='md:w-10 w-8 h-8 md:h-10 object-cover rounded-full' />
                         </div>
-                        <div className='border-l-[1.4px] text-sm border-gray-300 pl-2'>{business.name}</div>
+                        <div className='border-l-[1.4px] text-sm md:text-base font-medium border-gray-300 pl-2'>{business.name}</div>
                         {/* <div className='ml-2'>
                             <Link to={`/business/${business.name.split(" ").join("-").toLowerCase()}`} className='flex items-center gap-2 text-sm text-blue-500'>
                             <FiExternalLink className='w-4 h-4' />
@@ -146,22 +146,14 @@ const ServiceCard = ({ business }) => {
 
 
 
-                    <div className='flex gap-2 items-center'>
+                    <div className='flex gap-1 md:gap-2 items-center'>
                             <FiMapPin className='w-4 h-4 text-blue-500' />
-                            <span className='text-sm'>{business.address.city}</span>
+                            <span className='text-xs md:text-sm'>{business.address.city}</span>
                         </div>
 
-                    <div className='flex flex-col gap-3'>
-                        {/* <div>{business.description}</div> */}
+                    <div className='flex flex-col gap-2 md:gap-3'>
 
-                        {/* <div className='flex gap-2 flex-wrap'>
-                            {business.services.map((service, index) => (
-
-                                <span key={index} className='text-xs px-3 py-[4px] bg-gray-200 rounded-full'>{service}</span>
-                                ))}
-                        </div> */}
-
-                        <div className='flex gap-2 items-center'>
+                    <div className='flex gap-2 items-center'>
                             <span className='text-sm'>{avgRating ? avgRating : "No Ratings"}</span>
 
                             {avgRating ?
@@ -193,6 +185,15 @@ const ServiceCard = ({ business }) => {
 }
 
                         </div>
+
+                        <div className='flex gap-2 flex-wrap'>
+                            {business.services.map((service, index) => (
+
+                                <span key={index} className='text-xs px-3 py-[4px] bg-gray-200 rounded-full'>{service}</span>
+                                ))}
+                        </div>
+
+
                     </div>
 
 
@@ -202,14 +203,14 @@ const ServiceCard = ({ business }) => {
                 <div className='flex w-full'>
                     <button className='w-full px-2 py-[6px] border-t-[1px] border-gray-200  text-blue-500' onClick={handleCallClick}>
 
-                        <a className='flex items-center gap-3 justify-center'>
-                            <FiPhoneCall className=' w-4 h-4' />
+                        <a className='flex text-sm items-center gap-3 justify-center'>
+                            <FiPhoneCall className='w-4 h-4 md:w-5 md:h-5' />
                             Call Now
                         </a>
 
                     </button>
-                    <button onClick={() => setShowEnquiryForm(true)} className='w-full px-2 py-[6px] text-white bg-blue-500 flex items-center justify-center gap-3 rounded-br-lg'>
-                        <FiMessageSquare className='w-4 h-4' /> 
+                    <button onClick={() => setShowEnquiryForm(true)} className='w-full text-sm px-2 py-[6px] text-white bg-blue-500 flex items-center justify-center gap-3 rounded-br-lg'>
+                        <FiMessageSquare className='w-4 h-4 md:w-5 md:h-5' /> 
                         Enquire
                     </button>
                 </div>
