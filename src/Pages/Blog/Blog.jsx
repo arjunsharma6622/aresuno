@@ -147,7 +147,7 @@ const Blog = ({ categoryBlogPage }) => {
         </button>
       </div>
 
-      <div className="flex justify-center gap-3 px-3 md:gap-8 items-center  md:px-10">
+      <div className="flex justify-center gap-3 px-3 md:gap-8 items-center  md:px-32">
         <div className="hidden md:flex">
           <FaChevronCircleLeft className="h-7 w-7 text-blue-500 cursor-pointer" />
         </div>
