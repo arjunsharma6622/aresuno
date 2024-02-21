@@ -144,7 +144,7 @@ const Services = () => {
           <p className="text-sm md:text-base md:mb-8 mb-6 text-center ">
             Total of {allBusinesses.length} {extractedName} available in {extractedCity}
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-4 w-[90%] md:w-[95%] mx-auto mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4 gap-4 w-[90%] md:w-[95%] mx-auto mb-8">
           {allBusinesses?.map((business) => (
             <ServiceCard key={business._id} business={business} />
           ))}
