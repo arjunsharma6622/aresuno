@@ -63,11 +63,7 @@ const BlogCard = ({ type, blog, categoryName }) => {
             to={`/blog/${categoryNameFormatted}/${blog._id}`}
             className="text-xl font-bold w-full h-full"
           >
-            <img
-              src={blog.image}
-              alt=""
-              className="w-full h-52 rounded-xl"
-            />
+            <img src={blog.image} alt="" className="w-full h-52 rounded-xl" />
           </Link>
 
           <div className="flex items-center justify-between px-4">
