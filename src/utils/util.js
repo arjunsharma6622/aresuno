@@ -3,6 +3,7 @@ export const API_URL =
     ? "http://localhost:8000"
     : "https://aresuno-server.vercel.app";
 
+
 export const ToastParams = {
   position: "top-center",
   autoClose: 1000,
