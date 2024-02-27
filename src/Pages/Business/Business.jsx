@@ -772,7 +772,7 @@ const Business = () => {
                                             key={image}
                                             src={image}
                                             alt=""
-                                            className="rounded-lg m-2 w-64 aspect-auto object-cover"
+                                            className="rounded-lg m-2 w-64 h-44 object-cover"
                                         />
                                     ))}
                                 </div>
