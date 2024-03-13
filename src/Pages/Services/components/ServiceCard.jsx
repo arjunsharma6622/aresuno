@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AiFillStar } from 'react-icons/ai';
+import { AiFillStar, AiOutlineWhatsApp } from 'react-icons/ai';
 import { FiExternalLink, FiMapPin, FiMessageCircle, FiMessageSquare, FiPhoneCall } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 import { API_URL } from '../../../utils/util';
@@ -108,7 +108,7 @@ const ServiceCard = ({ business }) => {
 
 
     return (
-        <div className='flex flex-col' key={business._id}>
+        <div className='flex md:flex-row flex-col border rounded-lg relative overflow-hidden' key={business._id}>
 
 <script
         type="application/ld+json"
@@ -118,70 +118,83 @@ const ServiceCard = ({ business }) => {
       />
 
 
-            <div className='flex-[4] md:flex-[4] relative'>
+            <div className='flex-[3.5] relative'>
                 <Link to={`/business/${business.name.split(" ").join("-").toLowerCase()}`}>
 
-                <img loading='lazy' src={business.images.cover} alt="" className='h-20 w-full object-cover rounded-tl-lg rounded-bl-lg' />
-                <div className='absolute left-4 -bottom-6'>
-                            <img loading='lazy' src={business.images.logo} alt="test img" className='md:w-12 w-8 h-8 md:h-12 object-cover rounded-full' />
-                        </div>
+                <img loading='lazy' src={business.images.cover} alt="" className='w-full h-44 md:h-52 object-cover rounded-tl-lg rounded-bl-lg' />
 
                 </Link>
             </div>
 
 
-            <div className='bg-white flex-[10] md:flex-[8] pt-2 w-full rounded-tr-lg rounded-br-lg border flex flex-col gap-2 md:gap-4'>
-                <div className='px-4 flex flex-col gap-3'>
-                        <div className='mt-4 text-sm md:text-base font-medium border-gray-300'>{business.name}</div>
+            <div className='bg-white flex-[8.5] py-2 md:flex-[8] w-full rounded-tr-lg rounded-br-lg flex flex-col justify-between gap-6 md:gap-4'>
+                <div className='flex px-4 flex-col gap-2'>
+                        <div className='text-base md:text-lg font-medium items-center gap-4 border-gray-300'>
+                            {business.name}
+                            <div className='flex gap-2 text-sm font-normal items-center'>
+                        <FiMapPin className='' />
 
-                    <div className='flex  gap-1 md:gap-2 items-center'>
-                        <p className='text-sm truncated-description'>{business.description}</p>
+                            <span className='text-sm font-normal'>{business.address?.district}</span>
                         </div>
-
-                    <div className='flex flex-col gap-2 md:gap-3'>
-
-                    <div className='flex gap-2 items-center'>
-                            <span className='text-sm'>{avgRating ? avgRating : "No Ratings"}</span>
-
-                            {avgRating ?
-
-                                <div className="flex gap-4">
-                                    <div className="flex items-center">
-                                        {[...Array(Math.round(avgRating))].map((_, index) => (
-                                            <AiFillStar key={index} className="text-yellow-500" />
-                                        ))}
-                                        {[...Array(5 - Math.round(avgRating))].map((_, index) => (
-                                            <AiFillStar className="text-gray-300" key={index} />
-                                        ))}
-
-                                    </div>
-                                </div>
-
-                                :
-
-                                null
-
-                            }
-
-
-                        </div>
-
-                        <div className='flex gap-2 flex-wrap'>
-                            {business.services?.slice(0, 4).map((service, index) => (
-
-                                <span key={index} className='text-xs px-3 py-[2px] bg-gray-200 rounded-full'>{service}</span>
-                                ))}
                         </div>
 
 
-                    </div>
+
+                        <div className='flex flex-col gap-2 md:gap-3'>
+
+<div className='flex gap-1 items-center'>
+    {avgRating ? 
+        <span className='text-base font-medium'>{avgRating}</span>
+
+        :
+        <span className='text-sm'>No Ratings</span>
+    }
+
+
+
+        {avgRating ?
+
+            <div className="flex gap-4">
+                <div className="flex items-center">
+                    {[...Array(Math.round(avgRating))].map((_, index) => (
+                        <AiFillStar key={index} className="text-yellow-500" />
+                    ))}
+                    {[...Array(5 - Math.round(avgRating))].map((_, index) => (
+                        <AiFillStar className="text-gray-300" key={index} />
+                    ))}
+
+                </div>
+
+
+            </div>
+
+            :
+
+            null
+
+        }
+
+
+
+    </div>
+
+    <div className='flex gap-2 flex-wrap'>
+        {business.services?.slice(0, 4).map((service, index) => (
+
+            <span key={index} className='text-xs px-3 py-[5px] bg-gray-200 rounded-full'>{service}</span>
+            ))}
+    </div>
+
+
+</div>
 
 
                 </div>
 
 
-                <div className='flex w-full'>
-                    <button className='w-full px-2 py-[6px] border-t-[1px] border-gray-200  text-blue-500' onClick={handleCallClick}>
+                <div className='flex gap-3 px-4 justify-start items-center w-full'>
+
+                    <button className='w-fit h-fit px-3 py-2 md:px-4  md:py-2 bg-blue-500 text-white rounded-lg' onClick={handleCallClick}>
 
                         <a className='flex text-sm items-center gap-3 justify-center'>
                             <FiPhoneCall className='w-4 h-4 md:w-5 md:h-5' />
@@ -189,10 +202,23 @@ const ServiceCard = ({ business }) => {
                         </a>
 
                     </button>
-                    <button onClick={() => setShowEnquiryForm(true)} className='w-full text-sm px-2 py-[6px] text-white bg-blue-500 flex items-center justify-center gap-3 rounded-br-lg'>
+                    <button onClick={() => setShowEnquiryForm(true)} className='w-fit h-fit text-sm  md:px-4 px-3 py-2  md:py-2 text-white bg-blue-500 flex items-center justify-center gap-3 rounded-lg'>
                         <FiMessageSquare className='w-4 h-4 md:w-5 md:h-5' /> 
                         Enquire
                     </button>
+
+                    { business.socialLinks?.whatsapp &&
+                    <button className='w-fit h-fit px-1 py-1 bg-green-500 rounded-full text-white'>
+                        <a href={`${business.socialLinks.whatsapp}`} target='_blank'>
+                        <AiOutlineWhatsApp className='w-6 h-6 md:w-6 md:h-6' />
+                        </a>
+                    </button>
+}
+
+
+
+
+
                 </div>
 
                 {

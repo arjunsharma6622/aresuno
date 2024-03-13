@@ -14,6 +14,8 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
 
   console.log(categories)
 
+  console.log(userLocationName)
+
 
 
   const handleSwiper = (swiperInstance) => {

@@ -147,24 +147,35 @@ const Services = () => {
         </div>
       ) : (
         allBusinesses.length > 0 && (
-          <div>
-            {showEnquiryForm && (
+          <div className="flex items-center w-full md:gap-16">
+            {/* {showEnquiryForm && (
               <EnquiryForm
                 categoryId={subCategoryId}
                 onClose={() => setShowEnquiryForm(false)}
               />
-            )}
-            <h1 className="text-lg md:text-2xl font-semibold text-center mt-6">
+            )} */}
+
+            <div className="md:flex-[10] w-full md:px-10 px-4">
+              <div>
+            <h1 className="text-lg md:text-2xl font-semibold mt-6">
               Find the service you want
             </h1>
-            <p className="text-sm md:text-base md:mb-8 mb-6 text-center ">
+            <p className="text-sm md:text-base md:mb-8 mb-6 ">
               Total of {allBusinesses.length} {extractedName} available in{" "}
               {extractedCity}
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-4 w-[90%] md:w-[95%] mx-auto mb-8">
+            </div>
+            <div className="flex flex-col grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-4 md:px-0 w-full md:w-[95%] mb-8">
               {allBusinesses?.map((business) => (
                 <ServiceCard key={business._id} business={business} />
               ))}
+            </div>
+
+            </div>
+
+            <div className="md:flex hidden flex-[2]">
+
+
             </div>
           </div>
         )

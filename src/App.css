@@ -189,6 +189,20 @@ body {
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
+.truncated-description-2 {
+  -webkit-line-clamp: 2; /* Chrome, Safari, Opera browsers */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.truncated-description-3 {
+  -webkit-line-clamp: 3; /* Chrome, Safari, Opera browsers */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
 
 .blog-page-description h2{
   font-size: 20px;
