@@ -1,8 +1,10 @@
 export const API_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8000"
-    : "https://aresuno-server.vercel.app";
 
+  process.env.NODE_ENV === "development"
+    ?"https://aresuno-server.vercel.app"
+     :"http://localhost:8000"
+    // : "https://aresuno-server.vercel.app";
+  
 export const ToastParams = {
   position: "top-center",
   autoClose: 1000,

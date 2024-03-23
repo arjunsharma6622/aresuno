@@ -42,12 +42,12 @@ const Home = () => {
     try {
       const res = await axios.get(`${API_URL}/api/userData`, {
         headers: { Authorization: `Bearer ${token}` },
-        });
+      });
 
-        console.log(res.data)
+      console.log(res.data)
     }
     catch (err) {
-      if(err.response.data.message === "Unauthorized"){
+      if (err.response.data.message === "Unauthorized") {
         localStorage.removeItem("token");
         dispatch(userLogout())
       }
@@ -75,7 +75,7 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    fetchAllCategories(); 
+    fetchAllCategories();
   }, []);
 
 
@@ -88,22 +88,22 @@ const Home = () => {
         <meta name="author" content="Aresuno" />
         <link rel="canonical" href="https://www.aresuno.com" />
         <meta name="description"
-    content="Explore and discover a wide range of services on Aresuno. Find ratings, reviews, images, and addresses for different services. Your go-to platform for service recommendations." />
-  <meta name="keywords" content="services, ratings, reviews, images, addresses, Aresuno, discover services" />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Aresuno - Discover and Rate Services" />
-  <meta property="og:description"
-    content="and discover a wide range of services on Aresuno. Find ratings, reviews, images, and addresses for different services. Your go-to platform for service recommendations." />
-  <meta property="og:url" content="https://www.aresuno.com/" />
-  <meta property="og:site_name" content="Aresuno" />
+          content="Explore and discover a wide range of services on Aresuno. Find ratings, reviews, images, and addresses for different services. Your go-to platform for service recommendations." />
+        <meta name="keywords" content="services, ratings, reviews, images, addresses, Aresuno, discover services" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Aresuno - Discover and Rate Services" />
+        <meta property="og:description"
+          content="and discover a wide range of services on Aresuno. Find ratings, reviews, images, and addresses for different services. Your go-to platform for service recommendations." />
+        <meta property="og:url" content="https://www.aresuno.com/" />
+        <meta property="og:site_name" content="Aresuno" />
       </Helmet>
 
       <Banner />
       <MainCategories />
       <ServiceCategories />
       <div className="bg-gray-300 h-[120px] md:h-[300px] w-full mt-5">
-  </div>
+      </div>
 
 
 
