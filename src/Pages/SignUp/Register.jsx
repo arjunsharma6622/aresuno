@@ -61,11 +61,11 @@ const Register = () => {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
-  const [otpVefiryLoading, setOtpVefiryLoading] = useState(false);
+  const [otpVerifyLoading, setOtpVerifyLoading] = useState(false);
 
   const handleSubmitOtp = async (e) => {
     e.preventDefault();
-    setOtpVefiryLoading(true);
+    setOtpVerifyLoading(true);
     try {
       await axios.patch(`${API_URL}/api/user/verify-otp`, {
         _id: formData._id,
@@ -75,9 +75,9 @@ const Register = () => {
 
       toast.success("OTP Verified", ToastParams);
       setOtpVerified(true);
-      setOtpVefiryLoading(false);
+      setOtpVerifyLoading(false);
     } catch (err) {
-      setOtpVefiryLoading(false);
+      setOtpVerifyLoading(false);
       toast.error(err.response.data.message, ToastParams);
     }
   };
@@ -387,7 +387,7 @@ const Register = () => {
                           alt=""
                           className="bx bxl-facebook facebook-icon text-blue-500 rounded-full flex items-center justify-center w-8 h-8 mr-2"
                         ></img>
-                        <span>Signpu with Facebook</span>
+                        <span>Signup with Facebook</span>
                       </a>
                     </div>
 
@@ -432,7 +432,7 @@ const Register = () => {
                             className="bg-blue-500 flex-[4] text-white w-full py-3  px-4 rounded-lg focus:outline-none"
                             onClick={handleSubmitOtp}
                           >
-                            {otpVefiryLoading ? (
+                            {otpVerifyLoading ? (
                               <div
                                 className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                                 role="status"
