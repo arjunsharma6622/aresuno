@@ -16,6 +16,27 @@ import InputBx from "../User/InputBx";
 import { API_URL, ToastParams } from "../../utils/util";
 import { LuLayoutDashboard } from "react-icons/lu";
 
+const validateFormData = (formData) => {
+  const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+  if (!emailRegex.test(formData.email)) {
+    return "Invalid email address";
+  }
+
+  const passwordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  if (!passwordRegex.test(formData.password)) {
+    return "Password should contain minimum eight characters, at least one letter, one number and one special character";
+  }
+
+  const phoneNumberRegex =
+    /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm;
+  if (!phoneNumberRegex.test(formData.phone)) {
+    return "Invalid phone number.";
+  }
+
+  return true;
+};
+
 const Register = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -85,8 +106,15 @@ const Register = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
+    const validation = validateFormData(formData);
+    if (typeof validation === "string") {
+      toast.error(validation, ToastParams);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -243,6 +271,7 @@ const Register = () => {
                         <div className="field input-field mb-6 w-full">
                           <InputBx
                             type={"text"}
+                            required={true}
                             value={formData.name}
                             onChange={handleChange}
                             placeholder={"Name"}
@@ -258,6 +287,7 @@ const Register = () => {
                         <div className="field input-field mb-6 w-full">
                           <InputBx
                             type={"number"}
+                            required={true}
                             value={formData.phone}
                             onChange={handleChange}
                             placeholder={"Phone"}
@@ -275,6 +305,7 @@ const Register = () => {
                         <InputBx
                           type={"email"}
                           value={formData.email}
+                          required={true}
                           onChange={handleChange}
                           placeholder={"Email"}
                           name={"email"}
@@ -310,6 +341,7 @@ const Register = () => {
                             id="password"
                             type={showPassword ? "text" : "password"}
                             name="password"
+                            required={true}
                             value={formData.password}
                             onChange={handleChange}
                             onFocus={() => handleFocus("password")}
@@ -424,6 +456,7 @@ const Register = () => {
                             pattern={"d*"}
                             name="otp"
                             maxLength="4"
+                            required={true}
                             max={9999}
                             onChange={(e) => setOtp(e.target.value)}
                             className="flex-[8] border border-gray-300 w-full py-3 px-3 text-gray-600 leading-tight focus:outline-none focus:border-blue-500 rounded-lg"
