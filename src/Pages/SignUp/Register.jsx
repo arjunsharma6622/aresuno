@@ -13,24 +13,30 @@ import {
 } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
 import InputBx from "../User/InputBx";
-import { API_URL, ToastParams } from "../../utils/util";
+import {
+  API_URL,
+  ToastParams,
+  validatePhoneNumber,
+  validatePassword,
+  validateEmailAddress,
+} from "../../utils/util";
 import { LuLayoutDashboard } from "react-icons/lu";
 
+/**
+ * Essentially a wrapper which validates formData.
+ * @param {formData} formData current state of the form data.
+ * @return {true | string} true if validates or else error string message.
+ */
 const validateFormData = (formData) => {
-  const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
-  if (!emailRegex.test(formData.email)) {
+  if (!validateEmailAddress(formData.email)) {
     return "Invalid email address";
   }
 
-  const passwordRegex =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-  if (!passwordRegex.test(formData.password)) {
+  if (!validatePassword(formData.password)) {
     return "Password should contain minimum eight characters, at least one letter, one number and one special character";
   }
 
-  const phoneNumberRegex =
-    /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm;
-  if (!phoneNumberRegex.test(formData.phone)) {
+  if (!validatePhoneNumber(formData.phone)) {
     return "Invalid phone number.";
   }
 
