@@ -6,7 +6,33 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
-import { API_URL, ToastParams } from "../../utils/util";
+import {
+  API_URL,
+  ToastParams,
+  validateEmailAddress,
+  validatePassword,
+  validatePhoneNumber,
+} from "../../utils/util";
+
+/**
+ * Essentially a wrapper which validates formData.
+ * @param {formData} formData current state of the form data.
+ * @return {true | string} true if validates or else error string message.
+ */
+const validateFormData = (formData) => {
+  if (
+    !validateEmailAddress(formData.email) &&
+    !validatePhoneNumber(formData.email)
+  ) {
+    return "Invalid email address or phone number.";
+  }
+
+  if (!validatePassword(formData.password)) {
+    return "Password should contain minimum eight characters, at least one letter, one number and one special character";
+  }
+
+  return true;
+};
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,8 +51,15 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validation = validateFormData(formData);
+    if (typeof validation === "string") {
+      toast.error(validation);
+      return;
+    }
+
     setIsLoading(true);
     try {
       const res = await axios.post(`${API_URL}/api/login`, formData);
