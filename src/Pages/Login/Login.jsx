@@ -1,16 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { userLogin } from "../../userSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { FiEye, FiEyeOff, FiMail } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { userLogin } from "../../state/slices/userSlice";
 import { API_URL, ToastParams } from "../../utils/util";
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [focusedField, setFocusedField] = useState(null);
@@ -18,7 +16,7 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    phone : ""
+    phone: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,17 +29,12 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await axios.post(
-        `${API_URL}/api/login`,
-        formData
-      );
+      const res = await axios.post(`${API_URL}/api/login`, formData);
 
       const token = res.data.token;
       localStorage.setItem("token", token);
 
-      dispatch(
-        userLogin({ user : res.data.user })
-      );
+      dispatch(userLogin({ user: res.data.user }));
 
       console.log(res.data);
       toast.success("Logged In Successfully", ToastParams);
@@ -139,7 +132,10 @@ const Login = () => {
               </div>
 
               <div className="form-link text-center mb-4">
-                <Link to={"/forget-password"} className="forgot-pass text-blue-500">
+                <Link
+                  to={"/forget-password"}
+                  className="forgot-pass text-blue-500"
+                >
                   Forget password?
                 </Link>
               </div>
@@ -167,7 +163,7 @@ const Login = () => {
 
             <div className="form-link text-center mt-4">
               <span>
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link to="/signup" className="link text-blue-500 underline">
                   Signup
                 </Link>
