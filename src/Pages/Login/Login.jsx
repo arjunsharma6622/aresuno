@@ -22,13 +22,10 @@ import {
 const validateFormData = (formData) => {
   if (
     !validateEmailAddress(formData.email) &&
-    !validatePhoneNumber(formData.email)
+    !validatePhoneNumber(formData.email) &&
+    !validatePassword(formData.password)
   ) {
-    return "Invalid email address or phone number.";
-  }
-
-  if (!validatePassword(formData.password)) {
-    return "Password should contain minimum eight characters, at least one letter, one number and one special character";
+    return "Invalid Email/Phone number or password";
   }
 
   return true;
