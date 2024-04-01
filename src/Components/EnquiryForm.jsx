@@ -4,7 +4,7 @@ import { API_URL, ToastParams } from '../utils/util';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 
-const EnquiryForm = ({ onClose, business, categoryId }) => {
+const EnquiryForm = ({ onClose, business, categoryId, showCloseIcon = true }) => {
   const [enquiry, setEnquiry] = useState({
     name: '',
     phone: '',
@@ -120,10 +120,11 @@ const EnquiryForm = ({ onClose, business, categoryId }) => {
                 </div>
       
       
-      
+      { showCloseIcon &&
                 <div className='absolute top-4 right-4'>
                     <FiX className='w-5 h-5 cursor-pointer' onClick={onClose} />
                   </div>
+}
               </div>  
         ) : (
           <div className='w-[90%] md:w-[40%] bg-white  flex gap-6  rounded-xl'>

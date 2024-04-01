@@ -186,37 +186,37 @@ const Business = () => {
         {
             link: "website",
             icon: (
-                <CgWebsite className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                <CgWebsite className="text-[#1467E5] h-5 w-5 md:h-5 md:w-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             ),
         },
         {
             link: "instagram",
             icon: (
-                <FiInstagram className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                <FiInstagram className="text-[#1467E5] h-5 w-5 md:h-5 md:w-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             ),
         },
         {
             link: "whatsapp",
             icon: (
-                <AiOutlineWhatsApp className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                <AiOutlineWhatsApp className="text-[#1467E5] h-5 w-5 md:h-5 md:w-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             ),
         },
         {
             link: "twitter",
             icon: (
-                <FiTwitter className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                <FiTwitter className="text-[#1467E5] h-5 w-5 md:h-5 md:w-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             ),
         },
         {
             link: "facebook",
             icon: (
-                <FiFacebook className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                <FiFacebook className="text-[#1467E5] h-5 w-5 md:h-5 md:w-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             ),
         },
         {
             link: "youtube",
             icon: (
-                <FiYoutube className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                <FiYoutube className="text-[#1467E5] h-5 w-5 md:h-5 md:w-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             ),
         },
     ];
@@ -445,59 +445,56 @@ const Business = () => {
 
 
 
-            <div className="w-full md:border border-solid border-gray-300 rounded-xl md:p-8 flex justify-center flex-col md:flex-row gap-4">
+            <div className="w-full md:border border-solid border-gray-300 rounded-xl  flex justify-center flex-col">
+<div className="relative">
+            <img src={business.images.cover} alt="" className="rounded-tr-xl rounded-tl-xl aspect-[20/3] object-cover w-full"/>
+
+            <div className="absolute left-10 -bottom-7">
+                <img src={"/assets/images/businessLogo.png"} alt="" className="w-24 h-24 p-1 bg-white object-cover rounded-full shadow-md "/>
+            </div>
+            </div>
+
+<div className="flex md:flex-row flex-col mt-3 w-full md:p-6 md:px-10 md:items-start md:justify-start">
                 <div className="flex md:flex-[9] justify-center items-center">
+                    
                     <div className="w-full bg-cover bg-center">
+
 
                         <div className="flex flex-col md:flex-row md:gap-6 justify-start items-center">
 
-                            <div className="md:flex-[4] flex w-[90%] md:w-[300px] rounded-xl">
-                                <div className="w-full h-[200px] rounded-xl relative">
-                                    <Swiper
-                                        spaceBetween={30}
-                                        centeredSlides={true}
-                                        autoplay={{
-                                            delay: 2500,
-                                            disableOnInteraction: false,
-                                        }}
-                                        modules={[Autoplay, Pagination]}
-                                        className="mySwiper rounded-xl"
-                                    >
-                                        {business.images?.gallery.map((slide, index) => (
-                                            <SwiperSlide className="rounded-xl" key={index}>
-                                                <img loading="lazy" src={slide} alt="" className="rounded-xl" />
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
-                                    <span className="z-10 absolute top-0 left-0 rounded-tl-xl rounded-br-xl bg-green-600 text-xs text-white px-3 py-1 font-medium">
-                                        top rated
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className="md:flex-[8] mt-2 md:mt-0 w-[90%] flex flex-col gap-2 justify-between items-start md:h-[200px]">
+                            <div className="md:flex-[8] mt-2 md:mt-0 w-[90%] flex flex-col gap-1 justify-start items-start">
                                 <div className="text-black flex-col flex justify-start items-start">
                                     <span className="text-xl md:text-3xl font-bold">{business.name}</span>
+
+                                    <div className="flex items-center justify-start gap-2">
                                     <span className="text-gray-800 text-sm md:text-base font-medium">
                                         {business.category?.name}
                                     </span>
+
+                                    <div className="rounded-full w-1 h-1 bg-gray-500"></div>
 
                                     <div className="flex items-center text-xs">
                                         <span className="text-gray-600 text-xs font-normal">
                                             {business.address?.city}
                                         </span>
                                     </div>
-                                </div>
 
-                                <div className="flex items-center gap-3">
-                                    <span className="text-gray-600 md:text-sm text-xs  bg-gray-200 py-[2px] px-2 font-semibold rounded-full">
+
+                                    <div className="rounded-full w-1 h-1 bg-gray-500"></div>
+
+
+
+                                    {/* <span className="text-gray-600 md:text-sm text-xs  bg-gray-200 py-[2px] px-2 font-semibold rounded-full">
                                         {totalYearsCompleted} Yrs
-                                    </span>
+                                    </span> */}
+
+
 
                                     <span className="flex items-center gap-1 text-xs">
                                         <BiCheckShield className="text-green-600 w-5 h-5 md:w-6 md:h-6" />
                                         Verified
                                     </span>
+                                    </div>
                                 </div>
 
                                 {avgRating ? (
@@ -550,7 +547,9 @@ const Business = () => {
                                     </div>
                                 )}
 
-                                <div className="w-full flex items-center justify-start gap-2 md:gap-4">
+
+
+                    <div className="w-fit flex mt-1 items-center justify-start gap-2 md:gap-2">
                                     {businessLinks.map((item, index) => {
                                         return (
                                             business.socialLinks?.[item.link] && (
@@ -561,8 +560,7 @@ const Business = () => {
                                                 >
                                                     <div
                                                         key={index}
-                                                        className="cursor-pointer relative bg-[#E9F5FE] rounded-full md:h-9 md:w-9 w-8 h-8"
-                                                        style={{ border: "2px solid #C9E0F2" }}
+                                                        className="cursor-pointer relative rounded-full md:h-6 md:w-6 w-6 h-6"
                                                     >
                                                         {item.icon}
                                                     </div>
@@ -571,13 +569,17 @@ const Business = () => {
                                         );
                                     })}
                                 </div>
+
+
+
+
                             </div>
 
                         </div>
                     </div>
                 </div>
 
-                <div className="flex md:flex-[3] flex-col border-t pt-4 md:border-none md:pt-0 mt-2 m-auto w-[90%] gap-4 justify-center items-center">
+                <div className="flex md:flex-[3] flex-col border-t pt-4 md:border-none md:pt-0 w-[90%] gap-4 justify-center items-center">
                     <div className="w-full">
                         <div className="flex items-start gap-3">
                             <div className="w-full">
@@ -590,18 +592,9 @@ const Business = () => {
                                             </div>
                                         )}
 
-                                        <div className="flex items-center gap-2 cursor-pointer">
-                                            <span className="text-gray-600 text-xs md:text-sm">
-                                                <a href="#timings">
-                                                    View timings
-                                                </a>
 
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        className={`w-20 justify-center  flex items-center px-3 md:py-1 py-2 text-xs md:text-sm rounded-full font-medium ${isStoreOpenNow(business)
+                                        <div
+                                        className={`w-fit justify-center  flex items-center px-2 md:py-1 py-2 text-xs md:text-xs rounded-full font-medium ${isStoreOpenNow(business)
                                             ? "bg-green-500"
                                             : "bg-red-500"
                                             }`}
@@ -616,6 +609,9 @@ const Business = () => {
                                             </div>
                                         )}
                                     </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -645,6 +641,9 @@ const Business = () => {
                         <EnquiryForm onClose={() => setEnquiryClick(false)}/> 
                         }
                     </div>
+
+
+                </div>
                 </div>
             </div>
 

@@ -21,6 +21,12 @@ const Services = () => {
   const [category, setCategory] = useState({});
   const [cityCoordinates, setCityCoordinates] = useState([]);
 
+
+  const [showEnquiryForm, setShowEnquiryForm] = useState(false);
+  const [showEnquiryForm2, setShowEnquiryForm2] = useState(false);
+
+
+
   const [blogs, setBlogs] = useState([]);
 
   const fetchCategoryBlogs = async () => {
@@ -47,11 +53,13 @@ const Services = () => {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      setShowEnquiryForm2(true);
+    }, 1000);
     fetchCategoryBlogs();
     fetchCategory();
   }, [extractedName]);
 
-  const [showEnquiryForm, setShowEnquiryForm] = useState(false);
 
   const coordinates = useSelector((state) => {
     return state.user.coordinates;
@@ -181,21 +189,13 @@ const Services = () => {
         )
       )}
 
-      {!isLoading && allBusinesses.length === 0 && <NotFound />}
+      {!isLoading && allBusinesses.length === 0 && (
+        <>
+                    {showEnquiryForm2 && <EnquiryForm showCloseIcon={false} categoryId={subCategoryId}/>}
+                    </>
+      )}
 
-      <div>
-        <h1 className="text-2xl md:text-3xl font-semibold text-center md:mt-10 mt-6 md:mb-4">
-          Blogs
-        </h1>
-        <p className="md:mb-8 mb-6 text-center ">
-          Total of {blogs.length} blogs available
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-[85%] mx-auto mb-8">
-          {/* {blogs?.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} />
-          ))} */}
-        </div>
-      </div>
+
     </div>
   );
 };
