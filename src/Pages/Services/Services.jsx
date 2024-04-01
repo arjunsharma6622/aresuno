@@ -145,23 +145,25 @@ const Services = () => {
             Total of {allBusinesses.length} {extractedName} available in{" "}
             {extractedCity}
           </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-[85%] mx-auto mb-8">
+<div className="flex md:gap-16">
+          <div className="flex flex-col gap-6 w-[85%] flex-[10] mx-auto mb-8 px-4 md:px-10">
             <ServiceCardSkeleton />
             <ServiceCardSkeleton />
             <ServiceCardSkeleton />
             <ServiceCardSkeleton />
           </div>
+
+
+          <div className="md:flex hidden flex-[2]">
+
+
+</div>
+
+</div>
         </div>
       ) : (
         allBusinesses.length > 0 && (
           <div className="flex items-center w-full md:gap-16">
-            {/* {showEnquiryForm && (
-              <EnquiryForm
-                categoryId={subCategoryId}
-                onClose={() => setShowEnquiryForm(false)}
-              />
-            )} */}
 
             <div className="md:flex-[10] w-full md:px-10 px-4">
               <div>
