@@ -137,8 +137,8 @@ const Services = () => {
         <meta name="geo.region" content={`${city}`} />
       </Helmet>
       {isLoading ? (
-        <div>
-          <h1 className="text-lg md:text-2xl font-semibold text-center md:mt-10 mt-6 md:mb-4">
+        <div className="p-10">
+          <h1 className="text-lg md:text-3xl font-semibold text-center">
             Find the service you want
           </h1>
           <p className="text-sm md:text-base md:mb-8 mb-6 text-center ">
@@ -153,29 +153,23 @@ const Services = () => {
             <ServiceCardSkeleton />
           </div>
 
-
-          <div className="md:flex hidden flex-[2]">
-
-
-</div>
-
 </div>
         </div>
       ) : (
         allBusinesses.length > 0 && (
-          <div className="flex items-center w-full md:gap-16">
+          <div className="flex items-center justify-center w-full md:gap-16 p-10">
 
-            <div className="md:flex-[10] w-full md:px-10 px-4">
+            <div className=" w-full md:px-10 px-4">
               <div>
-            <h1 className="text-lg md:text-2xl font-semibold mt-6">
+            <h1 className=" text-xl text-center md:text-3xl font-semibold">
               Find the service you want
             </h1>
-            <p className="text-sm md:text-base md:mb-8 mb-6 ">
+            <p className="text-lg text-center md:text-base md:mb-8 mb-6 ">
               Total of {allBusinesses.length} {extractedName} available in{" "}
               {extractedCity}
             </p>
             </div>
-            <div className="flex flex-col grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-4 md:px-0 w-full md:w-[95%] mb-8">
+            <div className="flex flex-col md:gap-6 gap-4 md:px-0 w-full md:w-full mb-8">
               {allBusinesses?.map((business) => (
                 <ServiceCard key={business._id} business={business} />
               ))}
@@ -183,10 +177,10 @@ const Services = () => {
 
             </div>
 
-            <div className="md:flex hidden flex-[2]">
+            {/* <div className="md:flex hidden flex-[2]">
 
 
-            </div>
+            </div> */}
           </div>
         )
       )}

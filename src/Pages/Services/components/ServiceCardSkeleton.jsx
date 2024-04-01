@@ -28,12 +28,14 @@ const ServiceCardSkeleton = () => {
           </div>
 
 
-          <div className="flex flex-col gap-2">
+
+
+        </div>
+
+        <div className="flex items-center gap-4">
           <button className="rounded-full w-24 px-2 py-[10px] text-white bg-gray-200 flex items-center justify-center gap-4 h-6"></button>
           <button className="rounded-full w-24 px-2 py-[10px] text-white bg-gray-200 flex items-center justify-center gap-4 h-6"></button>
           <button className="rounded-full w-10 px-2 py-[10px] text-white bg-gray-200 flex items-center justify-center gap-4 h-6"></button>
-        </div>
-
         </div>
         </div>
 
