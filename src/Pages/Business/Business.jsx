@@ -646,9 +646,9 @@ const Business = () => {
                 {/* business bottom sedtion */}
 
                 {/* business bottom left */}
-                <div className="w-full md:w-full flex flex-col gap-4 flex-[9] md:border border-solid border-[#d7d7d7] rounded-xl md:px-2 pt-3">
+                <div className="w-full md:w-full flex flex-col gap-6 flex-[9] md:border border-solid border-[#d7d7d7] rounded-xl ">
 
-                    <div className="md:flex hidden items-center justify-between px-12 py-5 rounded-xl bg-gray-300">
+                    <div className="md:flex hidden items-center justify-between px-12 py-5 border-b">
                         <div className="w-full flex items-center justify-between ">
                             <span className="">
                                 <a href="#overview">Overview</a>
@@ -673,12 +673,12 @@ const Business = () => {
                             </span>
                         </div>
                     </div>
-                    <div className="w-full flex flex-col items-center justify-center gap-10 md:px-8 md:py-8 pt-2">
+                    <div className="w-full flex flex-col items-center justify-center gap-10 md:px-8 md:py-8 md:pt-0 pt-2">
                         {/* overview */}
 
                         <div
                             id="overview"
-                            className="w-full border-b border-t pt-5 pb-10 border-b-gray-300 border-t-gray-300"
+                            className="w-full border-b pt-0 pb-10 border-b-gray-300 border-t-gray-300"
                         >
                             <div className="w-full">
                                 <div className="flex items-center justify-start gap-3 md:gap-4">
