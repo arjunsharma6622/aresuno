@@ -68,12 +68,6 @@ const Business = () => {
 
     const user = useSelector((state) => state.user);
 
-
-
-    // const avgRating =
-    //     ratings.reduce((acc, item) => acc + (item.rating || 0), 0) /
-    //     ratings.length;
-
     const fullStars = Math.floor(avgRating);
     const hasHalfStar = avgRating % 1 !== 0;
 
@@ -171,9 +165,10 @@ const Business = () => {
             const ratingsRes = await axios.get(
                 `${API_URL}/api/rating/${res.data._id}`
             );
+            console.log("sss", ratingsRes.data);
             setRatings(ratingsRes.data.filteredRatings);
             setTotalRatings(ratingsRes.data.totalRatings);
-            setAvgRating(ratingsRes.data.avgRating);
+            setAvgRating(ratingsRes.data.avgRating == 'NaN' ? 0 : ratingsRes.data.avgRating);
             console.log(res.data);
             setIsBusinessFetching(false);
         } catch (e) {
@@ -474,7 +469,7 @@ const Business = () => {
                                     <div className="rounded-full w-1 h-1 bg-gray-500"></div>
 
                                     <div className="flex items-center text-xs">
-                                        <span className="text-gray-600 text-xs font-normal">
+                                        <span className="text-gray-600 text-sm font-normal">
                                             {business.address?.city}
                                         </span>
                                     </div>
