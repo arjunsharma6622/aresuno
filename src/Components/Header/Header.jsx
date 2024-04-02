@@ -193,11 +193,11 @@ const Header = ({homePage}) => {
         </div>
 
         <div className="">
-            {/* <Link to={`${user.userType}/dashboard`} className="flex items-center gap-4"> */}
+            <Link to={`/signup`} className="flex items-center gap-4">
             <button className="flex items-center gap-4 border border-black px-2 py-2 rounded-lg">
                 List your business
             </button>
-            {/* </Link> */}
+            </Link>
         </div>
 
 

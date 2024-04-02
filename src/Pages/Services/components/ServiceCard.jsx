@@ -18,6 +18,7 @@ import CallClick from "../../../Components/CallClickForm";
 import { useSelector } from "react-redux";
 import EnquiryForm from "../../../Components/EnquiryForm";
 import { CgWebsite } from "react-icons/cg";
+import { FaWhatsapp } from "react-icons/fa";
 
 const ServiceCard = ({ business }) => {
   const user = useSelector((state) => state.user);
@@ -107,46 +108,47 @@ const ServiceCard = ({ business }) => {
     setCallClick(false);
   };
 
-
-  const businessLinks = [
+  const commonIconProps = {
+    className: "text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+  };
+const businessLinks = [
     {
-        link: "website",
-        icon: (
-            <CgWebsite className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        ),
+      link: "website",
+      icon: (
+        <CgWebsite {...commonIconProps} />
+      ),
     },
     {
-        link: "instagram",
-        icon: (
-            <FiInstagram className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        ),
+      link: "instagram",
+      icon: (
+        <FiInstagram {...commonIconProps} />
+      ),
     },
     {
-        link: "whatsapp",
-        icon: (
-            <AiOutlineWhatsApp className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        ),
+      link: "whatsapp",
+      icon: (
+        <FaWhatsapp {...commonIconProps} />
+      ),
     },
     {
-        link: "twitter",
-        icon: (
-            <FiTwitter className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        ),
+      link: "twitter",
+      icon: (
+        <FiTwitter {...commonIconProps} />
+      ),
     },
     {
-        link: "facebook",
-        icon: (
-            <FiFacebook className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        ),
+      link: "facebook",
+      icon: (
+        <FiFacebook {...commonIconProps} />
+      ),
     },
     {
-        link: "youtube",
-        icon: (
-            <FiYoutube className="text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        ),
+      link: "youtube",
+      icon: (
+        <FiYoutube {...commonIconProps} />
+      ),
     },
-];
-
+  ];
   return (
     <div
       className="flex md:flex-row flex-col border rounded-2xl relative overflow-hidden"
@@ -167,7 +169,7 @@ const ServiceCard = ({ business }) => {
             loading="lazy"
             src={business.images.cover}
             alt=""
-            className="w-full h-full object-cover rounded-tl-lg rounded-bl-lg"
+            className="w-full h-full aspect-[20/9] md:aspect-auto object-cover rounded-tl-lg rounded-bl-lg"
           />
         </Link>
       </div>
@@ -176,8 +178,8 @@ const ServiceCard = ({ business }) => {
         <div className="flex px-4 flex-col gap-3 justify-between">
           <div className="text-base md:text-lg border-b pb-2 items-center gap-4 border-gray-300">
             <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div>
+            <div className="flex items-start md:items-center gap-2">
+              <div className="hidden md:flex">
                 <img
                   src={
                     business.images.logo
@@ -185,13 +187,13 @@ const ServiceCard = ({ business }) => {
                       : "/assets/images/businessLogo.png"
                   }
                   alt=""
-                  className="w-10 h-10 rounded-full object-cover"
+                  className="md:w-10 md:h-10 w-8 h-8 rounded-full object-cover"
                 />
               </div>
-              <h1 className="text-xl font-semibold">
+              <h1 className="md:text-xl text-base font-semibold">
                 {business.name}
 
-                <div className="flex items-center gap-3">
+                <div className="flex md:flex-row flex-col items-start md:items-center gap-1 md:gap-3">
                 <div className="flex gap-1 text-sm font-normal items-center">
                   <FiMapPin className="w-4 h-4" />
 
@@ -200,7 +202,7 @@ const ServiceCard = ({ business }) => {
                   </span>
                 </div>
                 
-                <span className="w-1 h-1 rounded-full bg-black"></span>
+                <span className="w-1 h-1 rounded-full hidden md:flex bg-black"></span>
 
                 <div className="flex gap-1 items-center">
                 {avgRating ? (
@@ -274,21 +276,21 @@ const ServiceCard = ({ business }) => {
                                     })}
                                 </div>
 
-          <div className="flex gap-4 mt-2 justify-start items-center">
+          <div className="flex gap-4 md:mt-2 justify-start items-center">
 
 
 <button
   className="w-fit px-2 py-2 md:px-6 md:py-2 bg-blue-500 text-white rounded-xl"
   onClick={handleCallClick}
 >
-  <a className="flex text-sm items-center gap-3 justify-center">
+  <a className="flex text-xs md:text-sm items-center gap-3 justify-center">
     <FiPhoneCall className="w-4 h-4 md:w-5 md:h-5" />
     Call Now
   </a>
 </button>
 <button
   onClick={() => setShowEnquiryForm(true)}
-  className="w-fit text-sm  md:px-6 px-3 py-2  md:py-2 text-white bg-blue-500 flex items-center justify-center gap-3 rounded-xl"
+  className="w-fit text-xs md:text-sm  md:px-6 px-3 py-2  md:py-2 text-white bg-blue-500 flex items-center justify-center gap-3 rounded-xl"
 >
   <FiMessageSquare className="w-4 h-4 md:w-5 md:h-5" />
   Enquire
@@ -297,7 +299,7 @@ const ServiceCard = ({ business }) => {
 {business.socialLinks?.whatsapp && (
                 <button className="w-fit h-fit px-1 py-1 bg-green-500 rounded-full text-white">
                   <a href={`${business.socialLinks.whatsapp}`} target="_blank">
-                    <AiOutlineWhatsApp className="w-6 h-6 md:w-6 md:h-6" />
+                    <FaWhatsapp className="w-6 h-6 md:w-6 md:h-6" />
                   </a>
                   
                 </button>

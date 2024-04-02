@@ -167,7 +167,7 @@ const Services = () => {
         <meta name="geo.region" content={`${city}`} />
       </Helmet>
       {isLoading ? (
-        <div className="p-10">
+        <div className="md:p-10">
           <h1 className="text-lg md:text-3xl font-semibold text-center">
             Find the service you want
           </h1>
@@ -186,26 +186,26 @@ const Services = () => {
         </div>
       ) : (
         allBusinesses.length > 0 && (
-          <div className="flex items-start  justify-start w-full md:gap-6 p-10">
+          <div className="flex items-start m-auto mt-4  justify-start md:w-full w-[90%] md:gap-6 md:p-10">
             <div className=" w-full">
               <div>
                 <h1 className=" text-xl text-center md:text-3xl font-semibold">
                   Find the service you want
                 </h1>
-                <p className="text-lg text-center md:text-base md:mb-8 mb-6 ">
+                <p className="text-sm text-center md:text-base md:mb-8 mb-6 ">
                   Total of {allBusinesses.length} {extractedName} available in{" "}
                   {extractedCity}
                 </p>
               </div>
 
-              <div className="flex justify-start gap-5">
+              <div className="flex md:flex-row flex-col justify-start gap-5">
                 <div className="flex  flex-col md:gap-6 flex-[8.5] gap-4 md:px-0 w-full md:w-full mb-8">
                   {allBusinesses?.map((business) => (
                     <ServiceCard key={business._id} business={business} />
                   ))}
                 </div>
 
-                <div className="md:flex hidden flex-[3.5] h-fit">
+                <div className="md:flex flex flex-[3.5] h-fit">
                   <div className="w-full border shadow-md border-gray-200 rounded-xl py-6 pb-8 px-5">
                     <span className="text-xl font-bold">Any Query?</span>
                     <p className="text-gray-500 text-sm my-2">
