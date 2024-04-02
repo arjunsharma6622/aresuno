@@ -43,8 +43,6 @@ const Home = () => {
       const res = await axios.get(`${API_URL}/api/userData`, {
         headers: { Authorization: `Bearer ${token}` },
         });
-
-        console.log(res.data)
     }
     catch (err) {
       if(err.response.data.message === "Unauthorized"){
@@ -64,12 +62,10 @@ const Home = () => {
 
   const fetchAllCategories = async () => {
     try {
-      console.log('fetching........')
       const res = await axios.get(`${API_URL}/api/category/`);
       const resTitles = await axios.get(`${API_URL}/api/category-title/`);
       dispatch(setAllCategories(res.data));
       dispatch(setAllCategoryTitle(resTitles.data));
-      console.log("Categories fetched:", res.data);
     } catch (err) {
       console.error("Error fetching categories:", err);
     }

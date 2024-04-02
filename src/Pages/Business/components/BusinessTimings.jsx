@@ -5,7 +5,7 @@ const BusinessTimings = ({business}) => {
   return (
     <div
     id="timings"
-    className="border-b pb-10 w-full border-b-gray-300"
+    className="border-b pb-4 md:pb-10 w-full border-b-gray-300"
   >
     <div className="flex items-center gap-3 md:gap-4">
       <FiClock className="text-black w-5 h-5 md:w-6 md:h-6" />
@@ -17,7 +17,7 @@ const BusinessTimings = ({business}) => {
     <div className="flex items-center flex-wrap text-center gap-4 justify-start mt-4 text-sm md:text-base">
       {business.timing?.map((time, index) =>
         time.isOpen && time.from && time.to ? (
-          <div key={index} className="flex w-fit items-center gap-2 bg-green-400 rounded-full px-4 py-1">
+          <div key={time._id} className="flex w-fit items-center gap-2 bg-green-400 rounded-full px-4 py-1">
             <span className="font-medium w-full">
               {time.day.slice(0, 3)}
             </span>
@@ -26,7 +26,7 @@ const BusinessTimings = ({business}) => {
             </div>
           </div>
         ) : (
-          <div className="flex items-center gap-2 w-fit bg-gray-300 rounded-full px-4 py-1">
+          <div key={time._id} className="flex items-center gap-2 w-fit bg-gray-300 rounded-full px-4 py-1">
             <span className="font-medium">
               {time.day.slice(0, 3)}
             </span>

@@ -5,7 +5,7 @@ const Overview = ({ business }) => {
   return (
     <div
     id="overview"
-    className="w-full border-b pt-0 pb-10 border-b-gray-300 border-t-gray-300"
+    className="w-full border-b border-t md:border-none py-4 md:pt-0 md:pb-10 border-b-gray-300 border-t-gray-300"
   >
     <div className="w-full">
       <div className="flex items-center justify-start gap-3 md:gap-4">

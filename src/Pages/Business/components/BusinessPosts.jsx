@@ -6,7 +6,7 @@ const BusinessPosts = () => {
 
     <div
     id="posts"
-    className="w-full border-b pb-10 border-b-gray-300"
+    className="w-full border-b pb-4 md:pb-10 border-b-gray-300"
   >
     <div className="flex items-center gap-3 md:gap-4">
       <FiInbox className="text-black w-5 h-5 md:w-6 md:h-6" />

@@ -8,7 +8,7 @@ const BusinessRatings = ({ratings, avgRating, hasHalfStar, fullStars, }) => {
   return (
 
         <div
-          className="w-full flex flex-col border-b pb-10 border-b-gray-300"
+          className="w-full flex flex-col border-b pb-4 md:pb-10 border-b-gray-300"
           id="ratings"
         >
           <div className="flex gap-3 items-center md:gap-4">

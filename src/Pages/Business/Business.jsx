@@ -1,51 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {
-  FiArrowRight,
-  FiClock,
-  FiFacebook,
-  FiFileText,
-  FiHelpCircle,
-  FiImage,
-  FiInbox,
-  FiInstagram,
-  FiMail,
-  FiMessageSquare,
-  FiNavigation,
-  FiPhone,
-  FiStar,
-  FiTwitter,
-  FiUploadCloud,
-  FiX,
-  FiYoutube,
-} from "react-icons/fi";
-import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
-import { PiCalendarCheckLight } from "react-icons/pi";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { CgWebsite } from "react-icons/cg";
-import { BiCheckShield, BiLoader, BiStar } from "react-icons/bi";
+
+import { AiFillStar } from "react-icons/ai";
 import axios from "axios";
-import Accordion from "./components/Accordion";
-import { RiUserFollowLine, RiUserUnfollowLine } from "react-icons/ri";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 
-import { Person } from "schema-dts";
-import { JsonLd } from "react-schemaorg";
 import NotFound from "../NotFound/NotFound";
 import { API_URL, ToastParams } from "../../utils/util";
 import { LuLoader } from "react-icons/lu";
-import CallClickForm from "../../Components/CallClickForm";
-import EnquiryForm from "../../Components/EnquiryForm";
 import BusinessHeader from "./components/BusinessHeader";
 import Overview from "./components/BusinessOverview";
 import Images from "./components/BusinessImages";
@@ -104,7 +72,6 @@ const Business = () => {
           },
         }
       );
-      console.log(res);
       setReview("");
       setSelectedStars(4);
       setIsReviewLoading(false);
@@ -127,29 +94,26 @@ const Business = () => {
         `${API_URL}/api/business/getBusinessByName/${businessName}`
       );
       setBusiness(res.data);
-      // const postsRes = await axios.get(
-      //     `${API_URL}/api/post/all-posts/${res.data._id}`
-      // );
-      // setPosts(postsRes.data);
+      const postsRes = await axios.get(
+          `${API_URL}/api/post/all-posts/${res.data._id}`
+      );
+      setPosts(postsRes.data);
 
       const ratingsRes = await axios.get(
         `${API_URL}/api/rating/${res.data._id}`
       );
-      console.log("sss", ratingsRes.data);
       setRatings(ratingsRes.data.filteredRatings);
       setTotalRatings(ratingsRes.data.totalRatings);
       setAvgRating(
         ratingsRes.data.avgRating == "NaN" ? 0 : ratingsRes.data.avgRating
       );
-      console.log(res.data);
       setIsBusinessFetching(false);
     } catch (e) {
       setIsBusinessFetching(false);
+      toast.error("Something went wrong", ToastParams);
       console.log(e);
     }
   };
-
-  console.log(business._id);
 
   const [isEnquiryLoading, setIsEnquiryLoading] = useState(false);
   const [isEnquirySent, setIsEnquirySent] = useState(false);
@@ -173,7 +137,6 @@ const Business = () => {
         `${API_URL}/api/enquiry/create`,
         enquiryToSend
       );
-      console.log(res);
       toast.success("Enquiry Sent", ToastParams);
       setEnquiry({
         name: "",
@@ -190,7 +153,6 @@ const Business = () => {
     }
   };
 
-  console.log(enquiry);
 
   const openingHours = business.timing?.map((hour) => {
     if (hour.isOpen) {
@@ -241,7 +203,7 @@ const Business = () => {
       )}
 
       {!isBusinessFetching && business && (
-        <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-10">
+        <div className="bg-white flex flex-col gap-6 justify-center w-full md:px-6 mt-5">
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -300,7 +262,7 @@ const Business = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-full flex flex-col items-center justify-center gap-10 md:px-8 md:py-8 md:pt-0 pt-2">
+              <div className="w-full flex flex-col items-center justify-center gap-4 md:gap-10 md:px-8 md:py-8 md:pt-0 pt-2">
                 <Overview business={business} />
 
                 <Images business={business} />

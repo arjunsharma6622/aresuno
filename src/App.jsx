@@ -59,8 +59,6 @@ function Main() {
 
   const user = useSelector((state) => state.user);
 
-  console.log("ssssss in app jsx");
-
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);

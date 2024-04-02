@@ -12,12 +12,6 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
 
    const userLocationName = useSelector((state) => state.user.locationName);
 
-  console.log(categories)
-
-  console.log(userLocationName)
-
-
-
   const handleSwiper = (swiperInstance) => {
     setSwiper(swiperInstance);
   };
@@ -28,9 +22,6 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
     setIsEnd(swiper.isEnd);
     }
   };
-
-  console.log('isStart', isStart);
-  console.log('isEnd', isEnd);
 
   return (
     <div className="relative">

@@ -8,6 +8,8 @@ import { isStoreOpenNow } from '../../../utils/businessPageUtils';
 import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri';
 import CallClickForm from '../../../Components/CallClickForm';
 import EnquiryForm from '../../../Components/EnquiryForm';
+import { toast } from 'react-toastify';
+import { ToastParams } from '../../../utils/util';
 
 const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) => {
     const [callClick, setCallClick] = useState(false);
@@ -23,12 +25,11 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
                 business: business._id,
               }
             );
-    
-            console.log(res.data);
-    
+        
             window.location.href = `tel:${business.phone}`;
           } catch (err) {
             console.log(err);
+            toast.error("Something went wrong.", ToastParams );
           }
         } else {
           setCallClick(true);
@@ -89,15 +90,15 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
       <img
         src={business.images.cover}
         alt=""
-        className="rounded-tr-xl rounded-tl-xl aspect-[20/3] object-cover w-full"
+        className="rounded-tr-xl rounded-tl-xl aspect-[10/3] md:aspect-[20/3] object-cover w-full"
       />
 
-      <div className="absolute left-10 -bottom-7">
+      <div className="absolute md:left-10 md:-bottom-7 left-4 -bottom-4">
         <div className="relative">
           <img
             src={"/assets/images/businessLogo.png"}
             alt=""
-            className="w-24 h-24 bg-white object-cover rounded-full shadow-md"
+            className="md:w-24 md:h-24 w-16 h-16 bg-white object-cover rounded-full shadow-md"
           />
           <div
             className={`absolute top-1 right-1 justify-center  flex items-center w-5 h-5 text-xs md:text-xs rounded-full font-medium border-white border-2 ${
@@ -110,7 +111,7 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
     </div>
 
     <div className="flex md:flex-row flex-col mt-3 w-full md:p-6 md:px-10 md:items-start md:justify-start">
-      <div className="flex md:flex-[9] justify-center items-center">
+      <div className="flex md:flex-[9] py-2 justify-center items-center">
         <div className="w-full bg-cover bg-center">
           <div className="flex flex-col md:flex-row md:gap-6 justify-start items-center">
             <div className="md:flex-[8] mt-2 md:mt-0 w-[90%] flex flex-col gap-1 justify-start items-start">
@@ -220,8 +221,8 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
         </div>
       </div>
 
-      <div className="flex md:flex-[3] flex-col border-t pt-4 md:border-none md:pt-0 w-[90%] gap-4 justify-center items-center">
-        <div className="w-full flex md:flex-col flex-row items-center gap-4 md:gap-2">
+      <div className="flex md:flex-[3] flex-col border-t pt-4 md:border-none md:pt-0  gap-4 justify-center items-center">
+        <div className=" flex md:flex-col flex-col w-[90%] justify-center items-center gap-4 md:gap-2">
 
           <button
             className="w-full flex items-center justify-center gap-2 p-2  rounded-full border border-solid border-blue-600 text-sm md:text-base"
