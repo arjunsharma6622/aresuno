@@ -205,7 +205,7 @@ const Services = () => {
                   ))}
                 </div>
 
-                <div className="md:flex flex flex-[3.5] h-fit">
+                <div className="sticky top-20 hidden md:flex flex-[3.5] h-fit">
                   <div className="w-full border shadow-md border-gray-200 rounded-xl py-6 pb-8 px-5">
                     <span className="text-xl font-bold">Any Query?</span>
                     <p className="text-gray-500 text-sm my-2">
