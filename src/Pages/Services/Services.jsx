@@ -5,10 +5,11 @@ import { useParams } from "react-router-dom";
 import ServiceCard from "./components/ServiceCard";
 import ServiceCardSkeleton from "./components/ServiceCardSkeleton";
 import NotFound from "../NotFound/NotFound";
-import { API_URL } from "../../utils/util";
+import { API_URL, ToastParams } from "../../utils/util";
 import EnquiryForm from "../../Components/EnquiryForm";
 import { Helmet } from "react-helmet-async";
 import BlogCard from "../Blog/BlogCard";
+import { ToastContainer, toast } from "react-toastify";
 
 const Services = () => {
   const [allBusinesses, setAllBusinesses] = useState([]);
@@ -24,6 +25,47 @@ const Services = () => {
 
   const [showEnquiryForm, setShowEnquiryForm] = useState(false);
   const [showEnquiryForm2, setShowEnquiryForm2] = useState(false);
+
+
+
+  const [isEnquiryLoading, setIsEnquiryLoading] = useState(false)
+  const [isEnquirySent, setIsEnquirySent] = useState(false)
+
+
+  const [enquiry, setEnquiry] = useState({
+      name: "",
+      phone: "",
+      message: "",
+  })
+
+  const handleEnquirySubmit = async () => {
+      setIsEnquiryLoading(true)
+      
+      try {
+          const enquiryToSend = {
+              ...enquiry
+          }
+              enquiryToSend.category = category?._id
+          const res = await axios.post(`${API_URL}/api/enquiry/create`, enquiryToSend)
+          console.log(res)
+          toast.success('Enquiry Sent', ToastParams)
+          setEnquiry({
+              name: "",
+              phone: "",
+              message: "",
+          })
+          setIsEnquiryLoading(false)
+          setIsEnquirySent(true)
+          
+      } catch (err) {
+        console.error(err);
+
+        toast.error('Something went wrong', ToastParams)
+        setIsEnquiryLoading(false)
+      }
+    };
+
+  console.log(enquiry)
 
 
 
@@ -157,9 +199,9 @@ const Services = () => {
         </div>
       ) : (
         allBusinesses.length > 0 && (
-          <div className="flex items-center justify-center w-full md:gap-16 p-10">
+          <div className="flex items-start  justify-start w-full md:gap-6 p-10">
 
-            <div className=" w-full md:px-10 px-4">
+            <div className=" w-full">
               <div>
             <h1 className=" text-xl text-center md:text-3xl font-semibold">
               Find the service you want
@@ -169,18 +211,73 @@ const Services = () => {
               {extractedCity}
             </p>
             </div>
-            <div className="flex flex-col md:gap-6 gap-4 md:px-0 w-full md:w-full mb-8">
+
+            <div className="flex justify-start gap-5">
+
+            <div className="flex  flex-col md:gap-6 flex-[8.5] gap-4 md:px-0 w-full md:w-full mb-8">
               {allBusinesses?.map((business) => (
                 <ServiceCard key={business._id} business={business} />
               ))}
             </div>
 
+            <div className="md:flex hidden flex-[3.5] h-fit">
+            <div className="w-full border shadow-md border-gray-200 rounded-xl py-6 pb-8 px-5">
+                        <span className="text-xl font-bold">Any Query?</span>
+                        <p className="text-gray-500 text-sm my-2">
+                            Write to us and we will get back to you
+                        </p>
+                        <div className="flex items-center flex-col gap-4">
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                className="w-full h-10 bg-gray-100 rounded-md px-4"
+                                value={enquiry.name}
+                                onChange={(e) => setEnquiry({ ...enquiry, name: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Phone Number"
+                                className="w-full h-10 bg-gray-100 rounded-md px-4"
+                                value={enquiry.phone}
+                                onChange={(e) => setEnquiry({ ...enquiry, phone: e.target.value })}
+                            />
+                            <textarea
+                                name="text"
+                                id=""
+                                cols="30"
+                                placeholder="Message"
+                                rows="10"
+                                className="w-full h-32 bg-gray-100 rounded-md px-4 py-2 resize-none"
+                                value={enquiry.message}
+                                onChange={(e) => setEnquiry({ ...enquiry, message: e.target.value })}
+                            ></textarea>
+                            <button onClick={handleEnquirySubmit} className="bg-blue-600 text-white w-full h-10 rounded-md">
+                                {
+                                    isEnquiryLoading ? (
+                                        <div
+                                            className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                            role="status"
+                                        >
+                                            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                                Loading...
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        "Send"
+                                    )
+                                }
+                            </button>
+                        </div>
+                    </div>
             </div>
 
-            {/* <div className="md:flex hidden flex-[2]">
+            </div>
 
 
-            </div> */}
+
+
+            </div>
+
           </div>
         )
       )}
@@ -192,6 +289,7 @@ const Services = () => {
       )}
 
 
+<ToastContainer />
     </div>
   );
 };

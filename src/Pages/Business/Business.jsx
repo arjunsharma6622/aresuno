@@ -1009,22 +1009,22 @@ const Business = () => {
                                 </h2>
                             </div>
 
-                            <div className="flex flex-col gap-5 mt-4 text-sm md:text-base">
+                            <div className="flex items-center flex-wrap text-center gap-4 justify-start mt-4 text-sm md:text-base">
                                 {business.timing?.map((time, index) => (
 
                                     time.isOpen && time.from && time.to ? (
-                                        <div className="flex flex-col gap-1">
-                                            <span className="font-medium">{time.day}</span>
-                                            <div className=" flex items-center gap-2">
+                                        <div className="flex w-fit items-center gap-2 bg-green-400 rounded-full px-4 py-1">
+                                            <span className="font-medium w-full">{time.day.slice(0, 3)}</span>
+                                            <div className="text-xs flex items-center gap-2">
                                                 <span>{time.from}</span>
-                                                to
+                                                -
                                                 <span>{time.to}</span>
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="flex flex-col gap-1">
-                                            <span className="font-medium">{time.day}</span>
-                                            <span className="text-gray-500">Closed</span>
+                                        <div className="flex items-center gap-2 w-fit bg-gray-300 rounded-full px-4 py-1">
+                                            <span className="font-medium">{time.day.slice(0, 3)}</span>
+                                            <span className="text-gray-500 text-xs">Closed</span>
                                         </div>
                                     )
 
@@ -1074,7 +1074,7 @@ const Business = () => {
 
                 {/* business bottom right */}
                 <div className="flex flex-col flex-[4.7] gap-6">
-                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-5">
+                    <div className="w-full border border-gray-200 shadow-md rounded-xl py-6 pb-8 px-5">
                         <div className="text-xl font-bold mb-3">
                             <span>Rate us</span>
                         </div>
@@ -1160,7 +1160,7 @@ const Business = () => {
                         </div>
                     </div>
 
-                    <div className="w-full border border-solid border-gray-300 rounded-xl py-6 pb-8 px-5">
+                    <div className="w-full border shadow-md border-gray-200 rounded-xl py-6 pb-8 px-5">
                         <span className="text-xl font-bold">Any Query?</span>
                         <p className="text-gray-500 text-sm my-2">
                             Write to us and we will get back to you
