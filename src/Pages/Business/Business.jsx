@@ -287,7 +287,7 @@ const Business = () => {
             </div>
 
             {/* business bottom right */}
-            <div className="flex flex-col flex-[4.7] gap-6">
+            <div className="flex flex-col flex-[4.7] gap-6 sticky top-0 md:flex h-fit">
               <div className="w-full border border-gray-200 shadow-md rounded-xl py-6 pb-8 px-5">
                 <div className="text-xl font-bold mb-3">
                   <span>Rate us</span>
@@ -375,7 +375,7 @@ const Business = () => {
                 </div>
               </div>
 
-              <div className="w-full border shadow-md border-gray-200 rounded-xl py-6 pb-8 px-5">
+              <div className="w-full  border shadow-md border-gray-200 rounded-xl py-6 pb-8 px-5">
                 <span className="text-xl font-bold">Any Query?</span>
                 <p className="text-gray-500 text-sm my-2">
                   Write to us and we will get back to you
