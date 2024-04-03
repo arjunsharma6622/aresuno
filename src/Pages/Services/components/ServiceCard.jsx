@@ -114,44 +114,32 @@ const ServiceCard = ({ business }) => {
 const businessLinks = [
     {
       link: "website",
-      icon: (
-        <CgWebsite {...commonIconProps} />
-      ),
+      icon: "website.png"
     },
     {
       link: "instagram",
-      icon: (
-        <FiInstagram {...commonIconProps} />
-      ),
+      icon: "instagram.png"
     },
     {
       link: "whatsapp",
-      icon: (
-        <FaWhatsapp {...commonIconProps} />
-      ),
+      icon: "whatsapp.png"
     },
     {
       link: "twitter",
-      icon: (
-        <FiTwitter {...commonIconProps} />
-      ),
+      icon: "twitter.png"
     },
     {
       link: "facebook",
-      icon: (
-        <FiFacebook {...commonIconProps} />
-      ),
+      icon: "facebook.png"
     },
     {
       link: "youtube",
-      icon: (
-        <FiYoutube {...commonIconProps} />
-      ),
+      icon: "youtube.png"
     },
   ];
   return (
     <div
-      className="flex md:flex-row flex-col border rounded-2xl relative overflow-hidden"
+      className="flex md:flex-row md:gap-3 flex-col border rounded-2xl relative overflow-hidden"
       key={business._id}
     >
       <script
@@ -234,28 +222,7 @@ const businessLinks = [
             <div className="flex flex-col w-full gap-2 md:gap-3">
 
 
-              <div className="flex gap-2 flex-wrap">
-                {business.services?.slice(0, 3).map((service, index) => (
-                  <span
-                    key={index}
-                    className="text-xs px-3 py-[5px] bg-gray-200 rounded-full"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
-
-              <p className="text-sm truncated-description-2">
-                {business.description}
-              </p>
-            </div>
-
-
-          </div>
-
-
-
-          <div className="w-fit flex mt-1 items-center justify-start gap-2 md:gap-4">
+            <div className="w-fit flex mt-1 items-center justify-start gap-2 md:gap-4">
                                     {businessLinks.map((item, index) => {
                                         return (
                                             business.socialLinks?.[item.link] && (
@@ -268,7 +235,8 @@ const businessLinks = [
                                                         key={index}
                                                         className="cursor-pointer relative rounded-full md:h-6 md:w-6 w-6 h-6"
                                                     >
-                                                        {item.icon}
+                                                        {/* {item.icon} */}
+                                                        <img src={`/assets/images/socials/${item.icon}`} alt="" />
                                                     </div>
                                                 </a>
                                             )
@@ -276,11 +244,35 @@ const businessLinks = [
                                     })}
                                 </div>
 
-          <div className="flex gap-4 md:mt-2 justify-start items-center">
+
+              <div className="flex gap-2 flex-wrap">
+                {business.services?.slice(0, 3).map((service, index) => (
+                  <span
+                    key={index}
+                    className="text-[10px] md:text-xs px-3 py-[5px] bg-gray-200 rounded-full"
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
+
+              <p className="text-xs md:text-sm truncated-description-2">
+                {business.description}
+              </p>
+            </div>
+
+
+          </div>
+
+
+
+
+
+          <div className="flex md:flex-row flex-col gap-2 w-full md:gap-4 md:mt-2 justify-start items-center">
 
 
 <button
-  className="w-fit px-2 py-2 md:px-6 md:py-2 bg-blue-500 text-white rounded-xl"
+  className="w-full md:w-fit px-2 py-3 md:px-6 md:py-2 bg-orange-500 text-white rounded-xl"
   onClick={handleCallClick}
 >
   <a className="flex text-xs md:text-sm items-center gap-3 justify-center">
@@ -290,20 +282,11 @@ const businessLinks = [
 </button>
 <button
   onClick={() => setShowEnquiryForm(true)}
-  className="w-fit text-xs md:text-sm  md:px-6 px-3 py-2  md:py-2 text-white bg-blue-500 flex items-center justify-center gap-3 rounded-xl"
+  className="w-full md:w-fit text-xs md:text-sm  md:px-6 px-3 py-3  md:py-2 text-white bg-blue-500 flex items-center justify-center gap-3 rounded-xl"
 >
   <FiMessageSquare className="w-4 h-4 md:w-5 md:h-5" />
   Enquire
 </button>
-
-{business.socialLinks?.whatsapp && (
-                <button className="w-fit h-fit px-1 py-1 bg-green-500 rounded-full text-white">
-                  <a href={`${business.socialLinks.whatsapp}`} target="_blank">
-                    <FaWhatsapp className="w-6 h-6 md:w-6 md:h-6" />
-                  </a>
-                  
-                </button>
-              )}
 </div>
         </div>
 
