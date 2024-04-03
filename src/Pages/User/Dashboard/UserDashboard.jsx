@@ -17,7 +17,7 @@ const UserDashboard = () => {
       const token = localStorage.getItem("token");
       const res = await axios.get(
         "https://aresuno-server.vercel.app/api/user/",
-        { headers: { Authorization: `Bearer ${token}` } },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const user = res.data;
       console.log(user);
@@ -175,20 +175,6 @@ const UserDashboard = () => {
       rating: 2,
     },
   ]);
-
-  const handleEditProfile = () => {
-    setEditMode(!editMode);
-  };
-
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
-  const saveProfile = () => {
-    // Send an API request to save the updated profile data
-    // You can implement this part based on your backend
-    setEditMode(false);
-  };
 
   return (
     <>

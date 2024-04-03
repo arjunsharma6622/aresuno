@@ -25,7 +25,7 @@ const Blog = ({ categoryBlogPage }) => {
   const fetchAllCategoryBlogs = async () => {
     try {
       const response = await axios.get(
-        `${API_URL}/api/blog/category/${categoryName}`,
+        `${API_URL}/api/blog/category/${categoryName}`
       );
       setAllBlogs(response.data);
       console.log(response.data);

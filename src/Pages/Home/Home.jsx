@@ -7,14 +7,12 @@ import { getBanner } from "../../state/slices/bannerSlice";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { userLogout } from "../../state/slices/userSlice";
-import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/util";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import { setAllCategoryTitle } from "../../state/slices/categoriestitleSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const fetchBanner = async () => {
     try {
@@ -28,7 +26,7 @@ const Home = () => {
   const fetchUserData = async () => {
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.get(`${API_URL}/api/userData`, {
+      await axios.get(`${API_URL}/api/userData`, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch (err) {

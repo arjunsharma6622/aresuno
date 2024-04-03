@@ -33,7 +33,7 @@ const CategoryInput = ({
           1000 /
           1024
         ).toFixed(2)} MB`,
-        ToastParams,
+        ToastParams
       );
       return false;
     } else {
@@ -174,7 +174,7 @@ const CategoryInput = ({
   );
 };
 
-const AddCategories = ({}) => {
+const AddCategories = () => {
   const [categories, setCategories] = useState([
     {
       name: "",
@@ -185,11 +185,7 @@ const AddCategories = ({}) => {
     },
   ]);
 
-  const categoriesToShow = useSelector((state) => state.categories);
-
-  const [isLoading, setIsLoading] = useState(false);
   const [isCategoryLoading, setIsCategoryLoading] = useState(false);
-
   const [newCategoryTitle, setNewCategoryTitle] = useState("");
 
   const addCategory = () => {
@@ -201,31 +197,31 @@ const AddCategories = ({}) => {
 
   const removeCategory = (index) => {
     setCategories((prevCategories) =>
-      prevCategories.filter((_, i) => i !== index),
+      prevCategories.filter((_, i) => i !== index)
     );
   };
 
   const updateCategory = (index, categoryData) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, ...categoryData } : cat,
-      ),
+        i === index ? { ...cat, ...categoryData } : cat
+      )
     );
   };
 
   const updateCategoryName = (index, name) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, name: name } : cat,
-      ),
+        i === index ? { ...cat, name: name } : cat
+      )
     );
   };
 
   const updateCategoryKeywords = (index, keywords) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, keywords: keywords } : cat,
-      ),
+        i === index ? { ...cat, keywords: keywords } : cat
+      )
     );
   };
 
@@ -248,7 +244,7 @@ const AddCategories = ({}) => {
 
             const uploadResponse = await axios.post(
               "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-              imageData,
+              imageData
             );
 
             const imageUrl = uploadResponse.data.secure_url;
@@ -295,7 +291,7 @@ const AddCategories = ({}) => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },
+        }
       );
 
       console.log(res.data);
@@ -311,28 +307,26 @@ const AddCategories = ({}) => {
     }
   };
 
-  const createNewCategoryTitle = async () => {
-    try {
-      const res = await axios.post(
-        `${API_URL}/api/category-title/create`,
-        { title: newCategoryTitle },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        },
-      );
-      console.log(res.data);
-      toast.success("Category created successfully", ToastParams);
-      setNewCategoryTitle("");
-    } catch (err) {
-      console.log(err);
-      toast.error("Problem creating category", ToastParams);
-      setNewCategoryTitle("");
-    }
-  };
-
-  const categoriesFromState = useSelector((state) => state.categories);
+  // const createNewCategoryTitle = async () => {
+  //   try {
+  //     const res = await axios.post(
+  //       `${API_URL}/api/category-title/create`,
+  //       { title: newCategoryTitle },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     console.log(res.data);
+  //     toast.success("Category created successfully", ToastParams);
+  //     setNewCategoryTitle("");
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error("Problem creating category", ToastParams);
+  //     setNewCategoryTitle("");
+  //   }
+  // };
 
   const businessTypes = ["Service", "Doctor", "Manufacturing"];
 
@@ -347,7 +341,7 @@ const AddCategories = ({}) => {
           </h2>
           <div className="flex gap-8 ">
             {businessTypes.map((businessType, index) => (
-              <div className="flex gap-2">
+              <div className="flex gap-2" key={index}>
                 <input
                   type="radio"
                   id={businessType}
@@ -408,10 +402,10 @@ const AddCategories = ({}) => {
             >
               {isCategoryLoading && (
                 <div
-                  class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                  className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                   role="status"
                 >
-                  <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                  <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
                     Loading...
                   </span>
                 </div>

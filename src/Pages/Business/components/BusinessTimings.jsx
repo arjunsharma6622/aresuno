@@ -14,7 +14,7 @@ const BusinessTimings = ({ business }) => {
       </div>
 
       <div className="flex items-center flex-wrap text-center gap-4 justify-start mt-4 text-sm md:text-base">
-        {business.timing?.map((time, index) =>
+        {business.timing?.map((time) =>
           time.isOpen && time.from && time.to ? (
             <div
               key={time._id}
@@ -33,7 +33,7 @@ const BusinessTimings = ({ business }) => {
               <span className="font-medium">{time.day.slice(0, 3)}</span>
               <span className="text-gray-500 text-xs">Closed</span>
             </div>
-          ),
+          )
         )}
       </div>
     </div>

@@ -4,10 +4,9 @@ export const isStoreOpenNow = (business) => {
     weekday: "long",
   });
   const currentHour = currentDate.getHours();
-  const currentMinute = currentDate.getMinutes();
 
   const currentTiming = business?.timing?.find(
-    (item) => item.day === currentDay,
+    (item) => item.day === currentDay
   );
 
   if (currentTiming && currentTiming.isOpen) {
@@ -45,7 +44,7 @@ export const daysAgoFormatDate = (dateString) => {
     inputDate.getFullYear() === currentDate.getFullYear()
   ) {
     const hoursDifference = Math.round(
-      (currentDate - inputDate) / (1000 * 60 * 60),
+      (currentDate - inputDate) / (1000 * 60 * 60)
     );
     if (hoursDifference > 0) {
       return `${hoursDifference} ${
@@ -57,7 +56,7 @@ export const daysAgoFormatDate = (dateString) => {
   }
 
   const elapsedDays = Math.round(
-    (currentDate - inputDate) / (1000 * 60 * 60 * 24),
+    (currentDate - inputDate) / (1000 * 60 * 60 * 24)
   );
 
   if (elapsedDays <= 1) {

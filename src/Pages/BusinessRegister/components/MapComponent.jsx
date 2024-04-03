@@ -101,23 +101,9 @@ const MapComponent = ({ businessDetails, setBusinessDetails }) => {
     });
   }, [businessDetails.address.coordinates]);
 
-  const handleDone = () => {
-    setIsDone(true);
-    console.log(
-      "Final position:",
-      marker.getPosition().lat(),
-      marker.getPosition().lng(),
-    );
-  };
-
   return (
     <div>
       <div ref={mapRef} style={{ height: "400px", width: "100%" }}></div>
-      {/* {!isDone && (
-        <button onClick={handleDone} className='bg-blue-500 w-full mt-4 text-white py-2 px-4 rounded-md'>
-          Done
-        </button>
-      )} */}
     </div>
   );
 };

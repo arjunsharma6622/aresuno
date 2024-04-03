@@ -64,8 +64,8 @@ const Leads = ({ businesses }) => {
       business.callLeads.map((callLead) => ({
         ...callLead,
         business: business.name,
-      })),
-    ),
+      }))
+    )
   );
 
   const [allEnquiries, setAllEnquiries] = useState(
@@ -73,8 +73,8 @@ const Leads = ({ businesses }) => {
       business.enquiries.map((enquiry) => ({
         ...enquiry,
         business: business.name,
-      })),
-    ),
+      }))
+    )
   );
 
   console.log(allCallLeads);
@@ -97,7 +97,7 @@ const Leads = ({ businesses }) => {
               return (
                 new Date(lead.createdAt).toDateString() ===
                 new Date(
-                  new Date().setDate(new Date().getDate() - 1),
+                  new Date().setDate(new Date().getDate() - 1)
                 ).toDateString()
               );
             }
@@ -118,8 +118,8 @@ const Leads = ({ businesses }) => {
               );
             }
           })
-          .map((lead) => ({ ...lead, business: business.name })),
-      ),
+          .map((lead) => ({ ...lead, business: business.name }))
+      )
     );
   };
 
@@ -141,7 +141,7 @@ const Leads = ({ businesses }) => {
               return (
                 new Date(enquiry.createdAt).toDateString() ===
                 new Date(
-                  new Date().setDate(new Date().getDate() - 1),
+                  new Date().setDate(new Date().getDate() - 1)
                 ).toDateString()
               );
             }
@@ -163,8 +163,8 @@ const Leads = ({ businesses }) => {
               );
             }
           })
-          .map((enquiry) => ({ ...enquiry, business: business.name })),
-      ),
+          .map((enquiry) => ({ ...enquiry, business: business.name }))
+      )
     );
   };
 
@@ -178,8 +178,8 @@ const Leads = ({ businesses }) => {
         <div className="mt-6 flex flex-col gap-5">
           <div className="">
             <div className="flex gap-5">
-              {callLeadFilter.map((filter) => (
-                <div className="flex items-center gap-3">
+              {callLeadFilter.map((filter, index) => (
+                <div className="flex items-center gap-3" key={index}>
                   <input
                     type="radio"
                     name="call lead filter"
@@ -210,8 +210,8 @@ const Leads = ({ businesses }) => {
                 </th>
               </tr>
               <tbody className="bg-white divide-y divide-gray-200 text-xs md:text-sm">
-                {[...allCallLeads].reverse().map((lead) => (
-                  <tr className="border ">
+                {[...allCallLeads].reverse().map((lead, index) => (
+                  <tr className="border" key={index}>
                     <td className="px-6 py-3 text-left ">
                       {new Date(lead.createdAt).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -238,8 +238,8 @@ const Leads = ({ businesses }) => {
         <div className="mt-6 flex flex-col gap-5">
           <div>
             <div className="flex gap-5">
-              {enquiryFilter.map((filter) => (
-                <div className="flex items-center gap-3">
+              {enquiryFilter.map((filter, index) => (
+                <div className="flex items-center gap-3" key={index}>
                   <input
                     type="radio"
                     name="enquiry filter"
@@ -289,12 +289,12 @@ const Leads = ({ businesses }) => {
 
                   //   })
 
-                  [...allEnquiries].reverse().map((enquiry) => (
-                    <tr className="border ">
+                  [...allEnquiries].reverse().map((enquiry, index) => (
+                    <tr className="border" key={index}>
                       <td className="px-6 py-3 text-left ">
                         {new Date(enquiry.createdAt).toLocaleDateString(
                           "en-US",
-                          { year: "numeric", month: "long", day: "numeric" },
+                          { year: "numeric", month: "long", day: "numeric" }
                         )}
                       </td>
                       <td className="px-6 py-3 text-left ">{enquiry.name}</td>

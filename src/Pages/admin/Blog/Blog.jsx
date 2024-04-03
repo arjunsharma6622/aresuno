@@ -37,7 +37,7 @@ const Blog = ({ blogs }) => {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        imageData,
+        imageData
       );
 
       console.log(uploadResponse.data);
@@ -61,7 +61,7 @@ const Blog = ({ blogs }) => {
           image: imageUrl,
           description: post.description,
           category: post.category,
-        },
+        }
       );
 
       console.log(createPostResponse.data);
@@ -106,7 +106,6 @@ const Blog = ({ blogs }) => {
 
   const handleCroppedImage = (croppedImage) => {
     setImage(croppedImage);
-    setIsCropping(false); // Exit cropping mode
   };
 
   const categories = useSelector((state) => state.categories);
@@ -243,8 +242,8 @@ const Blog = ({ blogs }) => {
       <div className="flex-[4]">
         <h1 className="text-2xl font-bold">All Blogs</h1>
         <div className="grid grid-cols-1 mt-4 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allBlogs?.map((blog) => (
-            <BlogCard blog={blog} />
+          {allBlogs?.map((blog, i) => (
+            <BlogCard blog={blog} key={i} />
           ))}
         </div>
       </div>

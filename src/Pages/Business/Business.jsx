@@ -37,8 +37,6 @@ const Business = () => {
   const [totalRatings, setTotalRatings] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
 
-  const user = useSelector((state) => state.user);
-
   const fullStars = Math.floor(avgRating);
   const hasHalfStar = avgRating % 1 !== 0;
 
@@ -64,14 +62,15 @@ const Business = () => {
         setIsReviewLoading(false);
         return;
       }
-      const res = await axios.post(
+
+      await axios.post(
         `${API_URL}/api/rating/create/${business._id}`,
         { rating: selectedStars, review: review },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
       setReview("");
       setSelectedStars(4);
@@ -92,21 +91,21 @@ const Business = () => {
     setIsBusinessFetching(true);
     try {
       const res = await axios.get(
-        `${API_URL}/api/business/getBusinessByName/${businessName}`,
+        `${API_URL}/api/business/getBusinessByName/${businessName}`
       );
       setBusiness(res.data);
       const postsRes = await axios.get(
-        `${API_URL}/api/post/all-posts/${res.data._id}`,
+        `${API_URL}/api/post/all-posts/${res.data._id}`
       );
       setPosts(postsRes.data);
 
       const ratingsRes = await axios.get(
-        `${API_URL}/api/rating/${res.data._id}`,
+        `${API_URL}/api/rating/${res.data._id}`
       );
       setRatings(ratingsRes.data.filteredRatings);
       setTotalRatings(ratingsRes.data.totalRatings);
       setAvgRating(
-        ratingsRes.data.avgRating == "NaN" ? 0 : ratingsRes.data.avgRating,
+        ratingsRes.data.avgRating == "NaN" ? 0 : ratingsRes.data.avgRating
       );
       setIsBusinessFetching(false);
     } catch (e) {
@@ -134,10 +133,7 @@ const Business = () => {
       };
       enquiryToSend.business = business._id;
       enquiryToSend.category = business.category?._id;
-      const res = await axios.post(
-        `${API_URL}/api/enquiry/create`,
-        enquiryToSend,
-      );
+      await axios.post(`${API_URL}/api/enquiry/create`, enquiryToSend);
       toast.success("Enquiry Sent", ToastParams);
       setEnquiry({
         name: "",
@@ -170,8 +166,8 @@ const Business = () => {
       streetAddress: business.address?.street
         ? business.address?.street
         : business.address?.landmark
-          ? business.address?.landmark
-          : "",
+        ? business.address?.landmark
+        : "",
       addressLocality: business.address?.city,
       addressRegion: business.address?.state,
       postalCode: business.address?.pincode,

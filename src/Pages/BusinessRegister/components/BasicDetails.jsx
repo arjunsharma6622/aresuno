@@ -18,13 +18,14 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
         break;
       case "description":
         setDescriptionError(
-          value ? "" : "Please enter the business description",
+          value ? "" : "Please enter the business description"
         );
         break;
-      case "email":
+      case "email": {
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         setEmailError(emailPattern.test(value) ? "" : "Invalid email format");
         break;
+      }
       default:
         break;
     }
@@ -72,14 +73,14 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
     }
   };
 
-  const handlePhoneChange = (value) => {
-    if (value && value.length >= 2 && value.length <= 14) {
-      setBusinessDetails((prev) => ({ ...prev, phone: value }));
-      setPhoneError("");
-    } else {
-      setPhoneError("Please enter a valid phone number");
-    }
-  };
+  // const handlePhoneChange = (value) => {
+  //   if (value && value.length >= 2 && value.length <= 14) {
+  //     setBusinessDetails((prev) => ({ ...prev, phone: value }));
+  //     setPhoneError("");
+  //   } else {
+  //     setPhoneError("Please enter a valid phone number");
+  //   }
+  // };
 
   const [service, setService] = useState("");
 

@@ -27,7 +27,7 @@ const BusinessFaqs = ({ businessDetails, setBusinessDetails }) => {
       <div className="flex justify-start gap-8 items-center">
         <div className="flex items-center gap-2">
           <BiQuestionMark className="w-6 h-6" />
-          <h2 className="text-xl font-semibold">Add FAQ's</h2>
+          <h2 className="text-xl font-semibold">Add FAQ&apos;s</h2>
         </div>
         {businessFaqUpdate ? (
           <FiEdit2

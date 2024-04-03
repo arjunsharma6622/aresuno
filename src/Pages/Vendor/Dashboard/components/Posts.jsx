@@ -24,8 +24,6 @@ const Posts = ({ posts, businesses }) => {
     });
   });
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
 
@@ -46,22 +44,19 @@ const Posts = ({ posts, businesses }) => {
     setIsCropping(false); // Exit cropping mode
   };
 
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  // const onCropComplete = useCallback(
+  //   async (croppedArea, croppedAreaPixels) => {
+  //     try {
+  //       const croppedImageBlob = await getCroppedImg(image, croppedAreaPixels);
+  //       console.log(croppedImageBlob);
 
-  const onCropComplete = useCallback(
-    async (croppedArea, croppedAreaPixels) => {
-      try {
-        const croppedImageBlob = await getCroppedImg(image, croppedAreaPixels);
-        console.log(croppedImageBlob);
-
-        // Use the cropped image blob as needed (e.g., upload to server)
-      } catch (error) {
-        console.error("Error getting cropped image:", error);
-      }
-    },
-    [image],
-  );
+  //       // Use the cropped image blob as needed (e.g., upload to server)
+  //     } catch (error) {
+  //       console.error("Error getting cropped image:", error);
+  //     }
+  //   },
+  //   [image]
+  // );
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -82,7 +77,7 @@ const Posts = ({ posts, businesses }) => {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        imageData,
+        imageData
       );
 
       console.log(uploadResponse.data);
@@ -107,7 +102,7 @@ const Posts = ({ posts, businesses }) => {
           image: imageUrl,
           description: post.description,
           businessId: post.businessId,
-        },
+        }
       );
 
       console.log(createPostResponse.data);
@@ -270,7 +265,7 @@ const Posts = ({ posts, businesses }) => {
                 <div className=" flex flex-col gap-4 overflow-y-auto h-[400px]">
                   {posts.map((post, index) => {
                     const businessName = businesses.find(
-                      (business) => business._id === post.businessId,
+                      (business) => business._id === post.businessId
                     ).name;
                     return (
                       <RecentPosts
@@ -356,7 +351,7 @@ const Posts = ({ posts, businesses }) => {
                               year: "numeric",
                               month: "short",
                               day: "numeric",
-                            },
+                            }
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -366,7 +361,7 @@ const Posts = ({ posts, businesses }) => {
                               year: "numeric",
                               month: "short",
                               day: "numeric",
-                            },
+                            }
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -385,7 +380,7 @@ const Posts = ({ posts, businesses }) => {
                           </div>
                         </td>
                       </tr>
-                    )),
+                    ))
                   )}
                 </tbody>
               </table>
