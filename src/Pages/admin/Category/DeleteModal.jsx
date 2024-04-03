@@ -4,25 +4,30 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { API_URL, ToastParams } from "../../../utils/util";
 
-export default function DeleteModal({ categoryId, subCategory, onClose, mainCategory }) {
+export default function DeleteModal({
+  categoryId,
+  subCategory,
+  onClose,
+  mainCategory,
+}) {
   const [open, setOpen] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
-  const deleteUrl = subCategory ? `${API_URL}/api/category/${subCategory._id}` : `${API_URL}/api/category-title/${mainCategory._id}`;
-  
+  const deleteUrl = subCategory
+    ? `${API_URL}/api/category/${subCategory._id}`
+    : `${API_URL}/api/category-title/${mainCategory._id}`;
 
-  console.log(`The cat is ${subCategory ? subCategory.name : mainCategory.name}`)
+  console.log(
+    `The cat is ${subCategory ? subCategory.name : mainCategory.name}`,
+  );
 
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      const res = await axios.delete(
-        deleteUrl,
-        {
-          headers : {
-            Authorization : `Bearer ${localStorage.getItem('token')}`
-          }
-        }
-      );
+      const res = await axios.delete(deleteUrl, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       console.log(res);
       toast.success("Category Deleted", ToastParams);
       onClose();
@@ -51,15 +56,22 @@ export default function DeleteModal({ categoryId, subCategory, onClose, mainCate
             <div className="mt-4 text-center">
               <h3 className="text-lg font-medium">
                 Delete{" "}
-                <span className="font-bold underline"> {subCategory? subCategory.name : mainCategory.title }</span>{" "}
+                <span className="font-bold underline">
+                  {" "}
+                  {subCategory ? subCategory.name : mainCategory.title}
+                </span>{" "}
                 Category
               </h3>
               {mainCategory && (
                 <div className="px-4">
-                  <p className="text-sm text-gray-500">All the below mentioned subCategories will be deleted</p>
+                  <p className="text-sm text-gray-500">
+                    All the below mentioned subCategories will be deleted
+                  </p>
                   <div className="mt-2 flex flex-wrap gap-2 items-center justify-center">
                     {mainCategory.subcategories.map((subCategory) => (
-                      <span className="text-xs bg-gray-200 rounded-full px-3 py-[6px] flex items-center justify-center">{subCategory.name}</span>
+                      <span className="text-xs bg-gray-200 rounded-full px-3 py-[6px] flex items-center justify-center">
+                        {subCategory.name}
+                      </span>
                     ))}
                   </div>
                 </div>

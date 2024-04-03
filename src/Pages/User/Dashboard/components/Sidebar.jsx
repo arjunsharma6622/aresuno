@@ -1,29 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  AiOutlineAppstore,
-  AiOutlineAppstoreAdd,
-  AiOutlineUser,
-} from "react-icons/ai";
-import { BiDollar } from "react-icons/bi";
+import { AiOutlineUser } from "react-icons/ai";
 import { LuLayoutDashboard } from "react-icons/lu";
-import {
-  MdOutlineLeaderboard,
-  MdOutlinePostAdd,
-  MdOutlineReviews,
-} from "react-icons/md";
+import { MdOutlinePostAdd } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import {
-  FiArrowLeft,
-  FiArrowRight,
-  FiBell,
-  FiHome,
-  FiLogOut,
-  FiMenu,
-  FiMessageSquare,
-  FiStar,
-  FiX,
-} from "react-icons/fi";
+import { FiBell, FiLogOut, FiMenu, FiStar, FiX } from "react-icons/fi";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { userLogout } from "../../../../state/slices/userSlice";
 
@@ -55,7 +36,6 @@ const Sidebar = ({ user }) => {
       icon: <FiStar className="w-5 h-5 md:w-6 md:h-6 " />,
       path: "reviews",
     },
-
   ];
 
   const isActiveLink = (path) => {

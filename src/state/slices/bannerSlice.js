@@ -1,17 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const bannerSlice = createSlice({
-    name : "Banner",
-    initialState : {
-        url : "",
+  name: "Banner",
+  initialState: {
+    url: "",
+  },
+  reducers: {
+    getBanner: (state, action) => {
+      state.url = action.payload;
     },
-    reducers : {
-        getBanner : (state, action) => {
-            state.url = action.payload
-        }
-        
-    }
-})
+  },
+});
 
-export const { getBanner } = bannerSlice.actions
-export default bannerSlice.reducer
+export const { getBanner } = bannerSlice.actions;
+export default bannerSlice.reducer;

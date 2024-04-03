@@ -1,5 +1,3 @@
-import React from "react";
-import { FiFacebook, FiInstagram, FiLinkedin, FiTwitter, FiYoutube } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -10,15 +8,19 @@ const Footer = () => {
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
           <div className="text-3xl font-semibold leading-10 mb-3">
             <Link to="/" aria-label="Aresuno Home">
-              <img src="./assets/logo.png" alt="" className="w-24"/>
+              <img src="./assets/logo.png" alt="" className="w-24" />
             </Link>
           </div>
-          <p className="text-base leading-6 mb-5">India’s Fastest online service provider</p>
+          <p className="text-base leading-6 mb-5">
+            India’s Fastest online service provider
+          </p>
         </div>
 
         {/* Popular Links */}
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
-          <div className="text-base font-bold leading-6 mb-3">Popular Links</div>
+          <div className="text-base font-bold leading-6 mb-3">
+            Popular Links
+          </div>
           <ul className="space-y-3">
             <li className="text-sm">Packers and Movers in New Delhi</li>
             <li className="text-sm">Web Designers in New Delhi</li>
@@ -33,23 +35,17 @@ const Footer = () => {
           <div className="text-base font-bold leading-6 mb-3">Corporate</div>
           <ul className="space-y-3">
             <li className="text-sm">
-            <Link to={"/about"}>              
-              About Us
-              
-              </Link></li>
+              <Link to={"/about"}>About Us</Link>
+            </li>
             <li className="text-sm">Contact Us</li>
-            
+
             <li className="text-sm">
-            <Link to={"/privacy"}>
-              Privacy Policy
-              </Link>
-              </li>
-            
+              <Link to={"/privacy"}>Privacy Policy</Link>
+            </li>
+
             <li className="text-sm">
-              <Link to={"/terms"}>
-              Terms and Conditions
-              </Link>
-              </li>
+              <Link to={"/terms"}>Terms and Conditions</Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -77,16 +73,61 @@ const Footer = () => {
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
           <div className="text-xl font-semibold leading-8 mb-2">Follow Us</div>
           <div className="flex space-x-5">
-            <Link to={"https://in.linkedin.com/company/aresuno"} target="_blank" aria-label="aresuno linkedin link">
-              <FiLinkedin className="w-6 h-6 text-blue-600" />
+            <Link
+              to={"https://in.linkedin.com/company/aresuno"}
+              target="_blank"
+              aria-label="aresuno linkedin link"
+            >
+              <img
+                src="/assets/images/socials/linkedin.png"
+                alt=""
+                className="w-8 h-8"
+              />
             </Link>
-            <Link to={"https://www.instagram.com/aresuno.3/"} target="_blank" aria-label="aresuno instagram link">
-              <FiInstagram className="w-6 h-6 text-blue-600" />
+            <Link
+              to={"https://www.instagram.com/aresuno.3/"}
+              target="_blank"
+              aria-label="aresuno instagram link"
+            >
+              <img
+                src="/assets/images/socials/twitter.png"
+                alt=""
+                className="w-8 h-8"
+              />
             </Link>
-            <Link to={"https://www.facebook.com/people/Aresuno/100070231573790/"} target="_blank" aria-label="aresuno facebook link">
-              <FiFacebook className="w-6 h-6 text-blue-600" />
+            <Link
+              to={"https://www.facebook.com/people/Aresuno/100070231573790/"}
+              target="_blank"
+              aria-label="aresuno facebook link"
+            >
+              <img
+                src="/assets/images/socials/instagram.png"
+                alt=""
+                className="w-8 h-8"
+              />
             </Link>
-
+            <Link
+              to={"https://www.facebook.com/people/Aresuno/100070231573790/"}
+              target="_blank"
+              aria-label="aresuno facebook link"
+            >
+              <img
+                src="/assets/images/socials/youtube.png"
+                alt=""
+                className="w-8 h-8"
+              />
+            </Link>
+            <Link
+              to={"https://www.facebook.com/people/Aresuno/100070231573790/"}
+              target="_blank"
+              aria-label="aresuno facebook link"
+            >
+              <img
+                src="/assets/images/socials/facebook.png"
+                alt=""
+                className="w-8 h-8"
+              />
+            </Link>
           </div>
         </div>
       </div>

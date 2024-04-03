@@ -1,11 +1,11 @@
-import React from 'react'
-import BusinessRegister from '../../../BusinessRegister/BusinessRegister';
-const AddListing = () => {
-    return (
-      <div>
-        <BusinessRegister />
-      </div>
-    );
-  };
+import BusinessRegister from "../../../BusinessRegister/BusinessRegister";
 
-export default AddListing
+const AddListing = () => {
+  return (
+    <div>
+      <BusinessRegister />
+    </div>
+  );
+};
+
+export default AddListing;

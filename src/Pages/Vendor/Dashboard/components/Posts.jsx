@@ -1,45 +1,30 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import ModalEdit from "./ModalEdit";
 import SeeMore from "./SeeMore";
 import { useDropzone } from "react-dropzone";
-
-import { LuImagePlus } from "react-icons/lu";
-import {
-  FiChevronDown,
-  FiExternalLink,
-  FiLink,
-  FiLink2,
-  FiX,
-  FiXCircle,
-} from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { FiChevronDown, FiLink2, FiXCircle } from "react-icons/fi";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Cropper from "react-easy-crop";
 import { getCroppedImg } from "./getCroppedImage";
 import { BiImageAdd } from "react-icons/bi";
 import EasyCrop from "./EasyCrop";
 import { API_URL, ToastParams } from "../../../../utils/util";
 
 const Posts = ({ posts, businesses }) => {
-
   const [images, setImages] = useState([]);
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    acceptedFiles.forEach(file => {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
       reader.onload = () => {
-        setImages(prevImages => [...prevImages, reader.result])
-      }
-    })
+        setImages((prevImages) => [...prevImages, reader.result]);
+      };
+    });
+  });
 
-  })
-
-
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({onDrop});
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -75,7 +60,7 @@ const Posts = ({ posts, businesses }) => {
         console.error("Error getting cropped image:", error);
       }
     },
-    [image]
+    [image],
   );
 
   const handleImageChange = (event) => {
@@ -83,13 +68,12 @@ const Posts = ({ posts, businesses }) => {
     setImageToShow(URL.createObjectURL(file));
     setImage(file);
   };
-  
 
   const handleImage = async () => {
     try {
       setIsLoading(true);
 
-      console.log('image while uploading', image)
+      console.log("image while uploading", image);
 
       const imageData = new FormData();
       imageData.append("file", image);
@@ -98,7 +82,7 @@ const Posts = ({ posts, businesses }) => {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        imageData
+        imageData,
       );
 
       console.log(uploadResponse.data);
@@ -123,7 +107,7 @@ const Posts = ({ posts, businesses }) => {
           image: imageUrl,
           description: post.description,
           businessId: post.businessId,
-        }
+        },
       );
 
       console.log(createPostResponse.data);
@@ -153,11 +137,6 @@ const Posts = ({ posts, businesses }) => {
         />
       </div>
 
-
-
-
-
-
       <div className="flex-[8] flex flex-col justify-start gap-2">
         <div className="flex gap-2 items-center">
           <span className="text-base font-semibold">{businessName}</span>
@@ -175,10 +154,9 @@ const Posts = ({ posts, businesses }) => {
     </div>
   );
 
-  console.log("Image-----", image)
+  console.log("Image-----", image);
 
-        const [toCrop, settoCrop] = useState(false)
-
+  const [toCrop, settoCrop] = useState(false);
 
   return (
     <div className="overflow-x-auto">
@@ -188,12 +166,6 @@ const Posts = ({ posts, businesses }) => {
           post={selectedPost}
         />
       )}
-
-
-      
-
-
-
 
       <div className="mt-6">
         <h2 className="text-lg md:text-2xl font-semibold">Business Posts</h2>
@@ -207,12 +179,12 @@ const Posts = ({ posts, businesses }) => {
                 <div>
                   <div className="w-full relative">
                     {/* <img src={imageToShow} alt="" /> */}
-        <EasyCrop
-          image={imageToShow}
-          setImage={handleCroppedImage}
-          aspectRatio={2/1}
-          widthOfImg={"w-64"}
-        />
+                    <EasyCrop
+                      image={imageToShow}
+                      setImage={handleCroppedImage}
+                      aspectRatio={2 / 1}
+                      widthOfImg={"w-64"}
+                    />
                     <FiXCircle
                       className="w-6 h-6 z-20 absolute top-2 right-2 cursor-pointer bg-red-200 rounded-full text-red-500 "
                       onClick={() => setImage(null)}
@@ -290,141 +262,137 @@ const Posts = ({ posts, businesses }) => {
             </div>
           </div>
 
-{ posts.length > 0 ?
-          <div className="flex-[6] w-full  rounded hidden md:block">
-            <h2 className="mb-4 text-base font-semibold">Recent Posts</h2>
+          {posts.length > 0 ? (
+            <div className="flex-[6] w-full  rounded hidden md:block">
+              <h2 className="mb-4 text-base font-semibold">Recent Posts</h2>
 
-            <div className="relative">
-              <div className=" flex flex-col gap-4 overflow-y-auto h-[400px]">
-                {posts.map((post, index) => {
-                  const businessName = businesses.find(
-                    (business) => business._id === post.businessId
-                  ).name;
-                  return (
-                    <RecentPosts
-                      key={index}
-                      post={post}
-                      businessName={businessName}
-                    />
-                  );
-                })}
+              <div className="relative">
+                <div className=" flex flex-col gap-4 overflow-y-auto h-[400px]">
+                  {posts.map((post, index) => {
+                    const businessName = businesses.find(
+                      (business) => business._id === post.businessId,
+                    ).name;
+                    return (
+                      <RecentPosts
+                        key={index}
+                        post={post}
+                        businessName={businessName}
+                      />
+                    );
+                  })}
+                </div>
+                <div className="gradient-overlay-bottom"></div>
               </div>
-              <div className="gradient-overlay-bottom"></div>
             </div>
-          </div>
-
-          :
-
-          (
+          ) : (
             <div className="border h-64 border-dashed border-black flex-[6] w-full items-center hidden md:flex justify-center rounded">
               <h2 className="text-2xl font-semibold">No Posts Yet!</h2>
             </div>
-          )
-}
-
-
+          )}
         </div>
       </div>
 
-{ posts.length > 0 &&
-<div className="mt-6">
-
-      <h1 className="text-lg md:text-2xl font-semibold mb-6">
-        You have {posts.length === 0 ? "No" : posts.length} Posts
-      </h1>
-      {posts.length === 0 ? (
-        <div className="">
-          <button>Add Post</button>
-        </div>
-      ) : (
-        <div className="min-w-full overflow-auto">
-          <table className="w-full table-auto">
-            <thead className="">
-              <tr className="bg-gray-300">
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  Posted In
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  Image
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  Description
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  Created
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  Last update
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200 text-xs md:text-sm">
-              {businesses.map((business, topindex) =>
-                business.posts.map((post, index) => (
-                  <tr key={index}>
-                    {/* <td className="px-6 py-4 whitespace-nowrap">{post._id}</td> */}
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {business.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {post.image ? (
-                        <img
-                          src={post.image}
-                          alt="post"
-                          className="h-10 object-cover rounded-md"
-                        />
-                      ) : (
-                        "-"
-                      )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-wrap">
-                      {/* <SeeMore text={post.description} maxWords={3} /> */}
-                      {post.description.split(" ").slice(0, 3).join(" ")}...
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {new Date(post.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {new Date(post.updatedAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center gap-4">
-                        <FiEdit3
-                          className="text-gray-600 w-5 h-5 cursor-pointer"
-                          onClick={() => {
-                            setSelectedPost({
-                              ...post,
-                              businessName: business.name,
-                            });
-                            setShowEditModal(true);
-                          }}
-                        />
-                        <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" />
-                      </div>
-                    </td>
+      {posts.length > 0 && (
+        <div className="mt-6">
+          <h1 className="text-lg md:text-2xl font-semibold mb-6">
+            You have {posts.length === 0 ? "No" : posts.length} Posts
+          </h1>
+          {posts.length === 0 ? (
+            <div className="">
+              <button>Add Post</button>
+            </div>
+          ) : (
+            <div className="min-w-full overflow-auto">
+              <table className="w-full table-auto">
+                <thead className="">
+                  <tr className="bg-gray-300">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      Posted In
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      Image
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      Description
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      Created
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      Last update
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500">
+                      Actions
+                    </th>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200 text-xs md:text-sm">
+                  {businesses.map((business, topindex) =>
+                    business.posts.map((post, index) => (
+                      <tr key={index}>
+                        {/* <td className="px-6 py-4 whitespace-nowrap">{post._id}</td> */}
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {business.name}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {post.image ? (
+                            <img
+                              src={post.image}
+                              alt="post"
+                              className="h-10 object-cover rounded-md"
+                            />
+                          ) : (
+                            "-"
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-wrap">
+                          {/* <SeeMore text={post.description} maxWords={3} /> */}
+                          {post.description.split(" ").slice(0, 3).join(" ")}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {new Date(post.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            },
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {new Date(post.updatedAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            },
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center gap-4">
+                            <FiEdit3
+                              className="text-gray-600 w-5 h-5 cursor-pointer"
+                              onClick={() => {
+                                setSelectedPost({
+                                  ...post,
+                                  businessName: business.name,
+                                });
+                                setShowEditModal(true);
+                              }}
+                            />
+                            <FiTrash2 className="text-red-500 w-5 h-5 cursor-pointer" />
+                          </div>
+                        </td>
+                      </tr>
+                    )),
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
-
-</div>
-}
-
-
     </div>
   );
 };

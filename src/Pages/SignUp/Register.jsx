@@ -136,7 +136,7 @@ const Register = () => {
           userLogin({
             name: res.data.vendor.name,
             userType: formData.role,
-          })
+          }),
         );
       }
 
@@ -145,7 +145,7 @@ const Register = () => {
           userLogin({
             name: res.data.user.name,
             userType: formData.role,
-          })
+          }),
         );
       }
 

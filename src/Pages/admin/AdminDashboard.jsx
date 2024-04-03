@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import Banner from "./Banner/Banner";
@@ -207,10 +207,16 @@ const AdminDashboard = () => {
                   <Enquiries enquiries={enquiries} />
                 )}
                 {selectedField === "Leads" && (
-                  <LeadsDashboard callLeads={callLeads} enquiries={enquiries} subField={selectedSubField}/>
+                  <LeadsDashboard
+                    callLeads={callLeads}
+                    enquiries={enquiries}
+                    subField={selectedSubField}
+                  />
                 )}
                 {selectedField === "Banner" && <Banner />}
-                {selectedField === "Categories" && <CategoryDashboard subField={selectedSubField}/>}
+                {selectedField === "Categories" && (
+                  <CategoryDashboard subField={selectedSubField} />
+                )}
                 {selectedField === "Blogs" && <Blog blogs={blogs} />}
                 {selectedField === "Location Data" && (
                   <LocationData allLocations={allLocations} />

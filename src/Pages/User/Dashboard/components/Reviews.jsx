@@ -1,4 +1,3 @@
-import React from "react";
 import { BsStarFill } from "react-icons/bs";
 
 const Reviews = ({ Reviews }) => {
@@ -32,9 +31,9 @@ const Reviews = ({ Reviews }) => {
               <tr key={index}>
                 <td className="px-6 py-4 whitespace-nowrap">{review.title}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex gap-2 items-center">{
-                    extract6Words(review.content)
-                  }</div>
+                  <div className="flex gap-2 items-center">
+                    {extract6Words(review.content)}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap flex gap-1">
                   {Array.from({ length: review.rating }, (_, i) => (

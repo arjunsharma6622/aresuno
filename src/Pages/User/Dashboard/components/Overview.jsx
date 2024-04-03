@@ -1,10 +1,8 @@
 import React from "react";
-// import { userLogin } from "../../../../state/slices/userSlice";
-import { useSelector } from "react-redux";
-import { MdOutlinePostAdd, MdReviews } from "react-icons/md";
-import { BiImageAdd, BiRupee, BiSolidBusiness } from "react-icons/bi";
-import { BsPeopleFill, BsStarFill } from "react-icons/bs";
-import {useNavigate} from "react-router-dom"
+import { MdReviews } from "react-icons/md";
+import { BiSolidBusiness } from "react-icons/bi";
+import { BsStarFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const Overview = ({ user, Enquiries, Reviews }) => {
   console.log(Enquiries, "enquiries");
@@ -15,7 +13,7 @@ const Overview = ({ user, Enquiries, Reviews }) => {
     Reviews: MdReviews,
   };
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col gap-10 md:gap-16 mt-6">
@@ -54,8 +52,8 @@ const Overview = ({ user, Enquiries, Reviews }) => {
                   {key === "Enquiries"
                     ? Enquiries.length
                     : key === "Reviews"
-                    ? Reviews.length
-                    : "-"}
+                      ? Reviews.length
+                      : "-"}
                 </span>
               </div>
             </div>
@@ -68,43 +66,52 @@ const Overview = ({ user, Enquiries, Reviews }) => {
           Past Inquiries
         </h2>
         <div className="bg-white rounded-xl overflow-auto">
-        <table className="md:w-full ">
-          <thead className="">
-            <tr className="bg-blue-500">
-              <th className="px-6 py-3 text-left text-xs font-medium text-white">
-                S.no
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white">
-                name
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white">
-                phone
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white">
-                message
-              </th>
-
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200 text-xs md:text-sm">
-            {Enquiries.slice(0,5).map((enquiry, index) => (
-              <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap">{enquiry.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{enquiry.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{enquiry.phone}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex gap-2 items-center">
-                    {enquiry.message}
-                  </div>
-                </td>
-  
+          <table className="md:w-full ">
+            <thead className="">
+              <tr className="bg-blue-500">
+                <th className="px-6 py-3 text-left text-xs font-medium text-white">
+                  S.no
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-white">
+                  name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-white">
+                  phone
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-white">
+                  message
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200 text-xs md:text-sm">
+              {Enquiries.slice(0, 5).map((enquiry, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4 whitespace-nowrap">{enquiry.id}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {enquiry.name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {enquiry.phone}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex gap-2 items-center">
+                      {enquiry.message}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <div className="flex justify-center items-center">
-          <button className=" text-white font-medium bg-blue-500 p-2 px-5 rounded-lg mt-4" onClick={()=>{navigate("/dashboard/inquiries")}}>View all</button>
+          <button
+            className=" text-white font-medium bg-blue-500 p-2 px-5 rounded-lg mt-4"
+            onClick={() => {
+              navigate("/dashboard/inquiries");
+            }}
+          >
+            View all
+          </button>
         </div>
       </div>
       <div>
@@ -148,7 +155,14 @@ const Overview = ({ user, Enquiries, Reviews }) => {
           </table>
         </div>
         <div className="flex justify-center items-center">
-          <button className=" text-white font-medium bg-blue-500 p-2 px-5 rounded-lg mt-4" onClick={()=>{navigate("/dashboard/reviews")}}>View all</button>
+          <button
+            className=" text-white font-medium bg-blue-500 p-2 px-5 rounded-lg mt-4"
+            onClick={() => {
+              navigate("/dashboard/reviews");
+            }}
+          >
+            View all
+          </button>
         </div>
       </div>
     </div>

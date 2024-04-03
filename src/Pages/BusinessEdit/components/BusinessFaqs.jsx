@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BiQuestionMark } from "react-icons/bi";
 import { FiEdit2, FiTrash2, FiX } from "react-icons/fi";
 

@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-// import Slider from "@material-ui/core/Slider";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./Crop";
 
@@ -18,20 +17,20 @@ const EasyCrop = ({ image, setImage, aspectRatio, widthOfImg }) => {
     const res = await fetch(url);
     const blob = await res.blob();
     return new File([blob], fileName, { type: blob.type });
-  }
+  };
 
   const showCroppedImage = useCallback(async () => {
     try {
       const croppedImage = await getCroppedImg(
         image,
         croppedAreaPixels,
-        rotation
+        rotation,
       );
       console.log("donee", { croppedImage });
       setCroppedImage(croppedImage);
       const file = await blobUrlToFile(croppedImage, "crop.png");
       console.log(file);
-    setImage(file);
+      setImage(file);
     } catch (e) {
       console.error(e);
     }
@@ -42,13 +41,7 @@ const EasyCrop = ({ image, setImage, aspectRatio, widthOfImg }) => {
   }, []);
 
   return (
-
-
     <div className="flex flex-col gap-3 items-center justify-center">
-
-
-
-
       <div
         className="relative"
         style={{
@@ -71,47 +64,46 @@ const EasyCrop = ({ image, setImage, aspectRatio, widthOfImg }) => {
             onZoomChange={setZoom}
             onRotationChange={setRotation}
             classes={{
-              containerClassName: "rounded-xl"
+              containerClassName: "rounded-xl",
             }}
-
           />
         </div>
-
       </div>
-
 
       <div className="flex items-center gap-2">
-
-      <button
-        style={{
-          display: image === null || croppedImage !== null ? "none" : "block",
-        }}
-        className="bg-green-500 text-white py-2 px-4 rounded w-full"
-        onClick={showCroppedImage}
-      >
-        Done
-      </button>
-
-
+        <button
+          style={{
+            display: image === null || croppedImage !== null ? "none" : "block",
+          }}
+          className="bg-green-500 text-white py-2 px-4 rounded w-full"
+          onClick={showCroppedImage}
+        >
+          Done
+        </button>
       </div>
-
-
 
       {croppedImage && (
-      <div className=" flex flex-col items-start gap-3">
-        <div className="flex">
-          <img className={`rounded-lg ${widthOfImg}`} src={croppedImage} alt="cropped" />
+        <div className=" flex flex-col items-start gap-3">
+          <div className="flex">
+            <img
+              className={`rounded-lg ${widthOfImg}`}
+              src={croppedImage}
+              alt="cropped"
+            />
           </div>
-        <button onClick={onClose} className="bg-blue-500 w-full text-white py-2 px-4 rounded">Crop</button>
-      </div>
-
+          <button
+            onClick={onClose}
+            className="bg-blue-500 w-full text-white py-2 px-4 rounded"
+          >
+            Crop
+          </button>
+        </div>
       )}
     </div>
   );
 };
 
 export default EasyCrop;
-
 
 // import { useCallback, useState } from "react";
 // // import Slider from "@material-ui/core/Slider";
@@ -149,11 +141,7 @@ export default EasyCrop;
 
 //   return (
 
-
 //     <div className="flex flex-col gap-3">
-
-
-
 
 //       <div
 //         className="relative"

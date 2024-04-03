@@ -12,13 +12,13 @@ import Register from "./Pages/SignUp/Register";
 import VendorDashboard from "./Pages/Vendor/Dashboard/VendorDashboard";
 import UserDashboard from "./Pages/User/Dashboard/UserDashboard";
 import Login from "./Pages/Login/Login";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import BusinessOnboarding from "./Pages/BusinessOnboarding/BusinessOnboarding";
 import AdminDashboard from "./Pages/admin/AdminDashboard";
 import BusinessEdit from "./Pages/BusinessEdit/BusinessEdit";
-import {  useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import Services from "./Pages/Services/Services";
 import BusinessRegister from "./Pages/BusinessRegister/BusinessRegister";
 import Business from "./Pages/Business/Business";
@@ -58,8 +58,6 @@ function Main() {
   const isDoctorsPage = location.pathname === "/doctors";
 
   const user = useSelector((state) => state.user);
-
-  console.log("ssssss in app jsx");
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);

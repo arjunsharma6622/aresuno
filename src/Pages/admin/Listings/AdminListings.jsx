@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiEdit2, FiExternalLink, FiTrash2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
@@ -7,7 +7,9 @@ const AdminListings = ({ businesses }) => {
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   return (
     <div className="mt-6">
-      <h1 className="text-lg md:text-2xl font-semibold mb-2 md:mb-6">All Listings</h1>
+      <h1 className="text-lg md:text-2xl font-semibold mb-2 md:mb-6">
+        All Listings
+      </h1>
       <div className="md:mb-6 mb-4">
         <span>Total Businesses : {businesses.length}</span>
       </div>
@@ -22,10 +24,12 @@ const AdminListings = ({ businesses }) => {
             </span>
             <div className="flex gap-2 flex-col text-xs md:text-sm">
               <span>
-                <span className="font-semibold">Category : </span> {business.category.name}
+                <span className="font-semibold">Category : </span>{" "}
+                {business.category.name}
               </span>
               <span>
-                <span className="font-semibold"> Phone : </span> {business.phone}
+                <span className="font-semibold"> Phone : </span>{" "}
+                {business.phone}
               </span>
               <span>
                 <span className="font-semibold">Created on : </span>

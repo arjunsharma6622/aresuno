@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiEdit2, FiImage, FiUploadCloud, FiX } from "react-icons/fi";
-import { MdOutlineCloudDone } from "react-icons/md";
-import axios from "axios"
+import axios from "axios";
 
 const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
   //   handle image gallery
@@ -41,34 +40,34 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
     });
   };
 
-  console.log(images)
-  console.log(logoImage)
-  console.log(coverImage)
+  console.log(images);
+  console.log(logoImage);
+  console.log(coverImage);
 
   const handleImagesUpload = async (e) => {
     e.preventDefault();
-  
+
     try {
       const uploadPromises = images.map(async (image, index) => {
         const imageData = new FormData();
-  
+
         imageData.append(`file`, image);
         imageData.append(
           "folder",
-          `aresuno/businessImages/${businessDetails.name}/gallery`
+          `aresuno/businessImages/${businessDetails.name}/gallery`,
         );
         imageData.append("upload_preset", "ml_default");
-  
+
         const uploadResponse = await axios.post(
           "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-          imageData
+          imageData,
         );
-  
+
         return uploadResponse.data.secure_url;
       });
-  
+
       const uploadedUrls = await Promise.all(uploadPromises);
-  
+
       const uploadLogoImage = async () => {
         if (logoImage) {
           try {
@@ -76,15 +75,15 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             logoImageData.append(`file`, logoImage);
             logoImageData.append(
               "folder",
-              `aresuno/businessImages/${businessDetails.name}/logo`
+              `aresuno/businessImages/${businessDetails.name}/logo`,
             );
             logoImageData.append("upload_preset", "ml_default");
-  
+
             const logoUploadResponse = await axios.post(
               "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-              logoImageData
+              logoImageData,
             );
-  
+
             return logoUploadResponse.data.secure_url;
           } catch (error) {
             console.error("Error uploading logo image:", error);
@@ -92,7 +91,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
           }
         }
       };
-  
+
       const uploadCoverImage = async () => {
         if (coverImage) {
           try {
@@ -100,15 +99,15 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             coverImageData.append(`file`, coverImage);
             coverImageData.append(
               "folder",
-              `aresuno/businessImages/${businessDetails.name}/cover`
+              `aresuno/businessImages/${businessDetails.name}/cover`,
             );
             coverImageData.append("upload_preset", "ml_default");
-  
+
             const coverUploadResponse = await axios.post(
               "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-              coverImageData
+              coverImageData,
             );
-  
+
             return coverUploadResponse.data.secure_url;
           } catch (error) {
             console.error("Error uploading cover image:", error);
@@ -116,15 +115,15 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
           }
         }
       };
-  
+
       const [logoImageUrl, coverImageUrl] = await Promise.all([
         uploadLogoImage(),
         uploadCoverImage(),
       ]);
-  
+
       console.log(logoImageUrl, coverImageUrl);
       console.log(uploadedUrls);
-  
+
       setBusinessDetails((prev) => ({
         ...prev,
         images: {
@@ -139,88 +138,82 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
       // Handle the error appropriately, e.g., show an error message to the user
     }
   };
-  
 
-//   const handleImagesUpload = async (e) => {
-//     e.preventDefault();
+  //   const handleImagesUpload = async (e) => {
+  //     e.preventDefault();
 
-//     try {
+  //     try {
 
-//     const uploadPromises = images.map(async (image, index) => {
-//         const imageData = new FormData();
+  //     const uploadPromises = images.map(async (image, index) => {
+  //         const imageData = new FormData();
 
-//         imageData.append(`file`, image);
-//         imageData.append(
-//           "folder",
-//           `aresuno/businessImages/${businessDetails.name}/gallery`
-//         );
-//         imageData.append("upload_preset", "ml_default");
+  //         imageData.append(`file`, image);
+  //         imageData.append(
+  //           "folder",
+  //           `aresuno/businessImages/${businessDetails.name}/gallery`
+  //         );
+  //         imageData.append("upload_preset", "ml_default");
 
-//         const uploadResponse = await axios.post(
-//           "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-//           imageData
-//         );
+  //         const uploadResponse = await axios.post(
+  //           "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+  //           imageData
+  //         );
 
-//         return uploadResponse.data.secure_url;
-//       });
+  //         return uploadResponse.data.secure_url;
+  //       });
 
-//       const uploadedUrls = await Promise.all(uploadPromises)
+  //       const uploadedUrls = await Promise.all(uploadPromises)
 
+  //       const uploadLogoImage = async () => {
+  //         if(logoImage){
+  //             const logoImageData = new FormData();
+  //             logoImageData.append(`file`, logoImage);
+  //             logoImageData.append(
+  //               "folder",
+  //               `aresuno/businessImages/${businessDetails.name}/logo`
+  //             );
+  //             logoImageData.append("upload_preset", "ml_default");
 
-//       const uploadLogoImage = async () => {
-//         if(logoImage){
-//             const logoImageData = new FormData();
-//             logoImageData.append(`file`, logoImage);
-//             logoImageData.append(
-//               "folder",
-//               `aresuno/businessImages/${businessDetails.name}/logo`
-//             );
-//             logoImageData.append("upload_preset", "ml_default");
+  //             const logoUploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", logoImageData);
+  //             return logoUploadResponse.secure_url;
+  //         }
+  //       }
 
-//             const logoUploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", logoImageData);
-//             return logoUploadResponse.secure_url;
-//         }
-//       }
+  //       const uploadCoverImage = async () => {
+  //         if(coverImage){
+  //             const coverImageData = new FormData();
+  //             coverImageData.append(`file`, coverImage);
+  //             coverImageData.append(
+  //               "folder",
+  //               `aresuno/businessImages/${businessDetails.name}/cover`
+  //             );
+  //             coverImageData.append("upload_preset", "ml_default");
 
+  //             const coverUploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", coverImageData);
+  //             return coverUploadResponse.secure_url;
+  //         }
+  //       }
 
-//       const uploadCoverImage = async () => {
-//         if(coverImage){
-//             const coverImageData = new FormData();
-//             coverImageData.append(`file`, coverImage);
-//             coverImageData.append(
-//               "folder",
-//               `aresuno/businessImages/${businessDetails.name}/cover`
-//             );
-//             coverImageData.append("upload_preset", "ml_default");
+  //       const [ logoImageUrl, coverImageUrl ] = await Promise.all([uploadLogoImage(), uploadCoverImage()])
 
-//             const coverUploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", coverImageData);
-//             return coverUploadResponse.secure_url;
-//         }
-//       }
+  //         console.log(logoImageUrl, coverImageUrl)
+  //         console.log(uploadedUrls)
 
+  //       setBusinessDetails((prev) => ({
+  //         ...prev,
+  //         images : {
+  //           ...prev.images,
+  //           logo : logoImageUrl ? logoImageUrl : prev.images.logo,
+  //           cover : coverImageUrl ? coverImageUrl : prev.images.cover,
+  //           gallery : [...prev.images.gallery, ...uploadedUrls]
+  //         }
+  //       }));
 
-//       const [ logoImageUrl, coverImageUrl ] = await Promise.all([uploadLogoImage(), uploadCoverImage()])
-
-//         console.log(logoImageUrl, coverImageUrl)
-//         console.log(uploadedUrls)
-
-
-//       setBusinessDetails((prev) => ({
-//         ...prev,
-//         images : {
-//           ...prev.images,
-//           logo : logoImageUrl ? logoImageUrl : prev.images.logo,
-//           cover : coverImageUrl ? coverImageUrl : prev.images.cover,
-//           gallery : [...prev.images.gallery, ...uploadedUrls]
-//         }
-//       }));
-
-
-//     } catch (err) {
-//       console.error("Error uploading images to Cloudinary:", err);
-//       setIsLoading(false);
-//     }
-//   };
+  //     } catch (err) {
+  //       console.error("Error uploading images to Cloudinary:", err);
+  //       setIsLoading(false);
+  //     }
+  //   };
 
   const [businessImagesUpdate, setBusinessImagesUpdate] = useState(true);
   return (
@@ -252,20 +245,19 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             {!businessImagesUpdate && (
               <div className="w-fit">
                 <div>
-                <label htmlFor="logo" className="cursor-pointer w-24 h-24">
+                  <label htmlFor="logo" className="cursor-pointer w-24 h-24">
                     <div className="bg-blue-500 absolute p-2 rounded-full -right-3 -bottom-3">
-                    <FiEdit2 className="w-5 h-5 text-white" />
+                      <FiEdit2 className="w-5 h-5 text-white" />
                     </div>
-                </label>
-                <input
-                  type="file"
-                  id="logo"
-                  accept="image/*"
-                  onChange={handleLogoImageChange}
-                  className=" hidden"
-                />
-                
-              </div>
+                  </label>
+                  <input
+                    type="file"
+                    id="logo"
+                    accept="image/*"
+                    onChange={handleLogoImageChange}
+                    className=" hidden"
+                  />
+                </div>
               </div>
             )}
             <div>
@@ -290,10 +282,9 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                   htmlFor="coverImage"
                   className="cursor-pointer w-24 h-24"
                 >
-                    <div className="bg-blue-500 absolute p-2 rounded-full -right-3 -bottom-3">
+                  <div className="bg-blue-500 absolute p-2 rounded-full -right-3 -bottom-3">
                     <FiEdit2 className="w-5 h-5 text-white" />
-                    </div>
-
+                  </div>
                 </label>
                 <input
                   type="file"
@@ -325,7 +316,12 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
         <div className="flex flex-col gap-2 items-start">
           <h1 className="text-lg font-semibold">Add your business gallery</h1>
 
-          {images.length > 0 && <span>{images.length + businessDetails.images?.gallery?.length} Images Added</span>}
+          {images.length > 0 && (
+            <span>
+              {images.length + businessDetails.images?.gallery?.length} Images
+              Added
+            </span>
+          )}
 
           <div className="mb-4 grid grid-cols-4 w-full gap-4">
             {businessDetails.images?.gallery?.map((image, index) => (
@@ -346,18 +342,15 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                         images: {
                           ...prev.images,
                           gallery: prev.images.gallery.filter(
-                            (_, i) => i !== index
+                            (_, i) => i !== index,
                           ),
                         },
                       }));
                     }}
-
-
                   />
                 )}
               </div>
             ))}
-
 
             {images &&
               imagesToShow?.map((image, index) => (
@@ -368,17 +361,17 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                     alt={`Selected Image ${index}`}
                     className="object-cover h-full rounded-xl aspect-[16/10]"
                   />
-                  { !businessImagesUpdate &&
-                  <FiX
-                    className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
-                    onClick={() => {
-                      setImages((prev) => prev.filter((_, i) => i !== index));
-                      setImagesToShow((prev) =>
-                        prev.filter((_, i) => i !== index)
-                      );
-                    }}
-                  />
-                  }
+                  {!businessImagesUpdate && (
+                    <FiX
+                      className="absolute -top-2 -right-2 w-6 h-6 text-white cursor-pointer bg-red-500 rounded-full p-1"
+                      onClick={() => {
+                        setImages((prev) => prev.filter((_, i) => i !== index));
+                        setImagesToShow((prev) =>
+                          prev.filter((_, i) => i !== index),
+                        );
+                      }}
+                    />
+                  )}
                 </div>
               ))}
           </div>
@@ -401,15 +394,15 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             </label>
           )}
 
-          {(images.length > 0 || logoImage || coverImage)  &&
-              <button
-                className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onClick={handleImagesUpload}
-              >
-                <FiUploadCloud className="w-6 h-6" />
-                Upload Changes
-              </button>
-            }
+          {(images.length > 0 || logoImage || coverImage) && (
+            <button
+              className="mt-2 py-2 px-4 bg-blue-500 flex gap-4 text-white rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={handleImagesUpload}
+            >
+              <FiUploadCloud className="w-6 h-6" />
+              Upload Changes
+            </button>
+          )}
         </div>
       </div>
     </div>
