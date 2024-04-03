@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AiFillStar, AiOutlineWhatsApp } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 import {
-  FiExternalLink,
-  FiFacebook,
-  FiInstagram,
+  FiMap,
   FiMapPin,
-  FiMessageCircle,
   FiMessageSquare,
   FiPhoneCall,
-  FiTwitter,
-  FiYoutube,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../../utils/util";
@@ -17,8 +12,7 @@ import axios from "axios";
 import CallClick from "../../../Components/CallClickForm";
 import { useSelector } from "react-redux";
 import EnquiryForm from "../../../Components/EnquiryForm";
-import { CgWebsite } from "react-icons/cg";
-import { FaWhatsapp } from "react-icons/fa";
+
 
 const ServiceCard = ({ business }) => {
   const user = useSelector((state) => state.user);
@@ -178,16 +172,34 @@ const businessLinks = [
                   className="md:w-10 md:h-10 w-8 h-8 rounded-full object-cover"
                 />
               </div>
-              <h1 className="md:text-xl text-base font-semibold">
+              <h1 className="md:text-xl text-lg font-semibold">
                 {business.name}
 
                 <div className="flex md:flex-row flex-col items-start md:items-center gap-1 md:gap-3">
+
+                  <div className="flex items-center gap-4 md:flex md:gap-3">
                 <div className="flex gap-1 text-sm font-normal items-center">
-                  <FiMapPin className="w-4 h-4" />
 
                   <span className="text-sm font-normal">
                     {business.address?.district}
                   </span>
+
+                  <FiMapPin className="w-4 h-4 text-blue-500" />
+
+
+                </div>
+              
+                <span className="w-1 h-1 rounded-full hidden md:flex bg-black"></span>
+
+
+                <Link target="_blank" to={`https://www.google.com/maps/dir//${business.address.coordinates[1]},${business.address.coordinates[0]}/@${business.address.coordinates[1]},${business.address.coordinates[0]},17.66z?entry=ttu`} className="flex gap-2 text-sm font-normal items-center">
+                  <span className="text-sm font-normal">
+                  Directions
+                  </span>
+
+                  <FiMap className="w-4 h-4 text-blue-500"/>
+                </Link>
+
                 </div>
                 
                 <span className="w-1 h-1 rounded-full hidden md:flex bg-black"></span>
@@ -249,7 +261,7 @@ const businessLinks = [
                 {business.services?.slice(0, 3).map((service, index) => (
                   <span
                     key={index}
-                    className="text-[10px] md:text-xs px-3 py-[5px] bg-gray-200 rounded-full"
+                    className="text-[10px] md:text-xs px-3 py-[5px] bg-gray-200 text-black rounded-full"
                   >
                     {service}
                   </span>
@@ -268,23 +280,23 @@ const businessLinks = [
 
 
 
-          <div className="flex md:flex-row flex-col gap-2 w-full md:gap-4 md:mt-2 justify-start items-center">
+          <div className="flex flex-row gap-2 w-full md:gap-4 md:mt-2 justify-start items-center">
 
 
 <button
-  className="w-full md:w-fit px-2 py-3 md:px-6 md:py-2 bg-orange-500 text-white rounded-xl"
+  className="w-full md:w-fit px-2 py-2 md:px-6 md:py-2 border border-blue-500 text-blue-500 rounded-xl"
   onClick={handleCallClick}
 >
-  <a className="flex text-xs md:text-sm items-center gap-3 justify-center">
-    <FiPhoneCall className="w-4 h-4 md:w-5 md:h-5" />
+  <a className="flex text-sm md:text-base font-medium items-center gap-3 justify-center">
+    <FiPhoneCall className="w-5 h-5 md:w-5 md:h-5" />
     Call Now
   </a>
 </button>
 <button
   onClick={() => setShowEnquiryForm(true)}
-  className="w-full md:w-fit text-xs md:text-sm  md:px-6 px-3 py-3  md:py-2 text-white bg-blue-500 flex items-center justify-center gap-3 rounded-xl"
+  className="w-full md:w-fit text-sm md:text-base  font-medium md:px-6 px-3 py-2  md:py-2 text-white bg-blue-500 flex items-center justify-center gap-3 rounded-xl"
 >
-  <FiMessageSquare className="w-4 h-4 md:w-5 md:h-5" />
+  <FiMessageSquare className="w-5 h-5 md:w-5 md:h-5" />
   Enquire
 </button>
 </div>

@@ -21,6 +21,7 @@ import BusinessRatings from "./components/BusinessRatings";
 import BusinessPosts from "./components/BusinessPosts";
 import BusinessTimings from "./components/BusinessTimings";
 import BusinessFaqs from "./components/BusinessFaqs";
+import BusinessAddress from "./components/BusinessAddress";
 
 const Business = () => {
   const [business, setBusiness] = useState({});
@@ -266,6 +267,8 @@ const Business = () => {
                 <Overview business={business} />
 
                 <Images business={business} />
+
+                <BusinessAddress business={business} />
 
                 {business.posts?.length > 0 && (
                   <BusinessPosts business={business} />
