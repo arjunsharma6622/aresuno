@@ -12,7 +12,7 @@ const Footer = () => {
             </Link>
           </div>
           <p className="text-base leading-6 mb-5">
-            India’s Fastest online service provider
+            India&apos;s Fastest online service provider
           </p>
         </div>
 
@@ -134,7 +134,7 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="max-w-6xl mx-auto mt-16 text-center text-sm leading-5">
-        Copyright © 2023 aresuno.com
+        Copyright © 2024 aresuno.com
       </div>
     </footer>
   );

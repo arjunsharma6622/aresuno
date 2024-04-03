@@ -7,10 +7,11 @@ const PrivacyPolicy = () => {
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
           <p className="mb-4">
-            Welcome to Aresuno's Privacy Policy. We prioritize the protection of
-            your privacy and are committed to handling your personal information
-            responsibly. This Privacy Policy details the types of data we
-            collect, how we use it, and the measures we take to safeguard it.
+            Welcome to Aresuno&apos;s Privacy Policy. We prioritize the
+            protection of your privacy and are committed to handling your
+            personal information responsibly. This Privacy Policy details the
+            types of data we collect, how we use it, and the measures we take to
+            safeguard it.
           </p>
         </section>
 

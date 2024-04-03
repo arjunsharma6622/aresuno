@@ -5,13 +5,13 @@ import axios from "axios";
 const AllBusinesses = ({ businesses, categories }) => {
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(
+      await axios.delete(
         `https://aresuno-server.vercel.app/api/business/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },
+        }
       );
       window.location.reload();
     } catch (err) {
@@ -62,7 +62,10 @@ const AllBusinesses = ({ businesses, categories }) => {
                   <div className="flex gap-2 items-center">
                     {business.name}
                     <Link
-                      to={`/business/${business.name.split(" ").join("-").toLowerCase()}`}
+                      to={`/business/${business.name
+                        .split(" ")
+                        .join("-")
+                        .toLowerCase()}`}
                     >
                       <FiExternalLink className="text-blue-500 w-4 h-4 cursor-pointer" />
                     </Link>

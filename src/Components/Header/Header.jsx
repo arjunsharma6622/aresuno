@@ -1,17 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import { userLogout } from "../../state/slices/userSlice";
-import {
-  FiDollarSign,
-  FiLogOut,
-  FiMapPin,
-  FiMenu,
-  FiUser,
-  FiX,
-} from "react-icons/fi";
-import { CiUser } from "react-icons/ci";
+import { FiLogOut, FiMapPin, FiMenu, FiX } from "react-icons/fi";
 import { LuLayoutDashboard } from "react-icons/lu";
 
 const Header = ({ homePage }) => {
@@ -27,7 +18,11 @@ const Header = ({ homePage }) => {
   return (
     <div className="w-full">
       <div
-        className={`w-[100%] h-16 ${!homePage && "bg-white"}  items-center justify-between px-4 sm:px-6 lg:px-8 shadow-md ${homePage && "shadow-none text-white"} text-black hidden md:flex`}
+        className={`w-[100%] h-16 ${
+          !homePage && "bg-white"
+        }  items-center justify-between px-4 sm:px-6 lg:px-8 shadow-md ${
+          homePage && "shadow-none text-white"
+        } text-black hidden md:flex`}
       >
         <div className={` text-2xl font-semibold`}>
           {/* <Link to="/">Aresuno</Link> */}
@@ -44,7 +39,9 @@ const Header = ({ homePage }) => {
             </div>
 
             <button
-              className={` border ${homePage && "border-white"} border-black px-3 py-1 rounded-lg`}
+              className={` border ${
+                homePage && "border-white"
+              } border-black px-3 py-1 rounded-lg`}
             >
               <Link className="" to={"/vendor/onboarding"}>
                 List your business
@@ -83,7 +80,9 @@ const Header = ({ homePage }) => {
 
                     <div className="px-4 w-full py-3 hover:bg-gray-100">
                       <Link
-                        to={`/${user.role === "admin" ? "admin" : "dashboard"}/`}
+                        to={`/${
+                          user.role === "admin" ? "admin" : "dashboard"
+                        }/`}
                         className="flex items-center gap-4"
                       >
                         <LuLayoutDashboard className="w-5 h-5" />
@@ -127,7 +126,9 @@ const Header = ({ homePage }) => {
             </div>
 
             <button
-              className={`border border-black ${homePage && "border-white"} px-3 py-1 rounded-lg`}
+              className={`border border-black ${
+                homePage && "border-white"
+              } px-3 py-1 rounded-lg`}
             >
               <Link className="" to={"/signup"}>
                 List your business
@@ -144,7 +145,9 @@ const Header = ({ homePage }) => {
       </div>
 
       <div
-        className={`${homePage && "text-white shadow-none"} text-black shadow-md relative flex justify-between items-center px-4 py-4 md:hidden`}
+        className={`${
+          homePage && "text-white shadow-none"
+        } text-black shadow-md relative flex justify-between items-center px-4 py-4 md:hidden`}
       >
         <div className="text-xl font-medium text-blue-500">
           <Link to="/" aria-label="Aresuno Home">

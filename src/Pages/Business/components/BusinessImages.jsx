@@ -33,16 +33,14 @@ const Images = ({ business }) => {
       </div>
 
       {/* <div className="flex items-center justify-start gap-4 mt-4">
-                          <button
-                              className="flex items-center gap-2 p-2 px-4 bg-[#E9F5FE] rounded-full"
-                              style={{ border: "2px solid #C9E0F2" }}
-                          >
-                              <FiUploadCloud className="text-gray-700 w-6 h-6" />
-                              <p className="text-blue-500 text-md font-medium">
-                                  Upload Photos
-                              </p>
-                          </button>
-                      </div> */}
+        <button
+          className="flex items-center gap-2 p-2 px-4 bg-[#E9F5FE] rounded-full"
+          style={{ border: "2px solid #C9E0F2" }}
+        >
+          <FiUploadCloud className="text-gray-700 w-6 h-6" />
+          <p className="text-blue-500 text-md font-medium">Upload Photos</p>
+        </button>
+      </div> */}
     </div>
   );
 };

@@ -18,7 +18,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   const [imageToShow, setImageToShow] = useState(null);
 
   const [showOnHome, setShowOnHome] = useState(
-    category ? category.showOnHome : categoryTitle.showOnHome,
+    category ? category.showOnHome : categoryTitle.showOnHome
   );
 
   const [icon, setIcon] = useState(null);
@@ -31,23 +31,15 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   console.log(`SubCategoryToEdit is`);
   console.log(subCategoryToEdit);
 
-  const categoryTitles = useSelector((state) => state.categoriestitle);
-
-  const handleCategoryTitleChange = (e) => {
-    const categoryTitleId = e.target.value;
-    setMainCategoryToEdit((prevCategory) => ({
-      ...prevCategory,
-      categoryTitle: categoryTitleId,
-    }));
-  };
+  // const handleCategoryTitleChange = (e) => {
+  //   const categoryTitleId = e.target.value;
+  //   setMainCategoryToEdit((prevCategory) => ({
+  //     ...prevCategory,
+  //     categoryTitle: categoryTitleId,
+  //   }));
+  // };
 
   console.log(`The cat is ${category ? category.name : categoryTitle.title}`);
-
-  const handleImageChange = (e) => {
-    setImageToUpdate(e.target.files[0]);
-    const imageUrl = URL.createObjectURL(e.target.files[0]);
-    setImageToShow(imageUrl);
-  };
 
   const handleIconChange = (e) => {
     setIcon(e.target.files[0]);
@@ -69,7 +61,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },
+        }
       );
       const imageUrl = uploadResponse.data.secure_url;
 
@@ -88,7 +80,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        iconData,
+        iconData
       );
       const iconUrl = uploadResponse.data.secure_url;
 
@@ -108,7 +100,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },
+        }
       );
       console.log(res);
       toast.success("Main Category Updated", ToastParams);
@@ -162,7 +154,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },
+        }
       );
       console.log(res);
       toast.success("Category Updated", ToastParams);

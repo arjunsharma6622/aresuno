@@ -1,24 +1,24 @@
 const BusinessIframe = ({ businessDetails, setBusinessDetails }) => {
-  const handleIframeChange = (e) => {
-    const { value } = e.target;
-    function extractSrcLink(iframeTag) {
-      const srcRegex = /src="(.*?)"/;
-      const match = iframeTag.match(srcRegex);
-      if (match) {
-        return match[1];
-      } else {
-        return null;
-      }
-    }
-    const extractedLink = extractSrcLink(value);
-    setBusinessDetails((prev) => ({
-      ...prev,
-      iframe: {
-        embedLink: value,
-        extractedLink: extractedLink,
-      },
-    }));
-  };
+  // const handleIframeChange = (e) => {
+  //   const { value } = e.target;
+  //   function extractSrcLink(iframeTag) {
+  //     const srcRegex = /src="(.*?)"/;
+  //     const match = iframeTag.match(srcRegex);
+  //     if (match) {
+  //       return match[1];
+  //     } else {
+  //       return null;
+  //     }
+  //   }
+  //   const extractedLink = extractSrcLink(value);
+  //   setBusinessDetails((prev) => ({
+  //     ...prev,
+  //     iframe: {
+  //       embedLink: value,
+  //       extractedLink: extractedLink,
+  //     },
+  //   }));
+  // };
 
   return (
     <div className="md:mt-6 md:mb-6">

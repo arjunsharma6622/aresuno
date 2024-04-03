@@ -7,14 +7,12 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { userLogout } from "../../state/slices/userSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/util";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import { setAllCategoryTitle } from "../../state/slices/categoriestitleSlice";
 
 const Doctor = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const fetchBanner = async () => {
     try {

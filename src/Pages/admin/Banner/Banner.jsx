@@ -14,7 +14,7 @@ const Banner = () => {
   const fetchBanner = async () => {
     try {
       const res = await axios.get(
-        "https://aresuno-server.vercel.app/api/banner",
+        "https://aresuno-server.vercel.app/api/banner"
       );
       const bannerUrl = res.data[0].image;
       console.log(bannerUrl);
@@ -45,7 +45,7 @@ const Banner = () => {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        imageData,
+        imageData
       );
 
       console.log(uploadResponse.data.secure_url);
@@ -73,13 +73,13 @@ const Banner = () => {
       if (banner.image) {
         const res = await axios.put(
           `https://aresuno-server.vercel.app/api/banner/${banner._id}`,
-          { image: bannerImageUrl },
+          { image: bannerImageUrl }
         );
         console.log(res.data);
       } else {
         const res = await axios.post(
           "https://aresuno-server.vercel.app/api/banner/add",
-          bannerData,
+          bannerData
         );
         console.log(res.data);
       }
@@ -160,10 +160,10 @@ const Banner = () => {
           >
             {isLoading ? (
               <div
-                class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                 role="status"
               >
-                <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
                   Loading...
                 </span>
               </div>

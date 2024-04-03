@@ -55,7 +55,7 @@ const Sidebar = ({
   return (
     <div className="flex my-4 mt-6 flex-col gap-8 justify-start items-start h-full overflow-y-scroll w-full">
       {sidebarItems.map(({ name, icon, subMenu }, index) => (
-        <div className="text-sm flex flex-col gap-3 w-full">
+        <div className="text-sm flex flex-col gap-3 w-full" key={index}>
           <div
             className={`flex items-center cursor-pointer gap-2 ${
               selectedField === name ? "text-blue-500" : "text-gray-700"

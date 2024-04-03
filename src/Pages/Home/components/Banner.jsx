@@ -23,9 +23,6 @@ const Banner = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
-  // const [crds, setCrds] = useState([]);
-  const [coordinates, setCoordinates] = useState([]);
-  const [slugLocationName, setSlugLocationName] = useState("");
 
   const userLocationName = useSelector((state) => state.user.locationName);
   const [location, setLocation] = useState(userLocationName);
@@ -44,23 +41,23 @@ const Banner = () => {
       area: "", // You can set this value based on your requirements
       city:
         place.address_components.find((component) =>
-          component.types.includes("locality"),
+          component.types.includes("locality")
         )?.long_name || "",
       dcity:
         place.address_components.find((component) =>
-          component.types.includes("administrative_area_level_2"),
+          component.types.includes("administrative_area_level_2")
         )?.long_name || "",
       state:
         place.address_components.find((component) =>
-          component.types.includes("administrative_area_level_1"),
+          component.types.includes("administrative_area_level_1")
         )?.long_name || "",
       country:
         place.address_components.find((component) =>
-          component.types.includes("country"),
+          component.types.includes("country")
         )?.long_name || "",
       pincode:
         place.address_components.find((component) =>
-          component.types.includes("postal_code"),
+          component.types.includes("postal_code")
         )?.long_name || "",
       lat: place.geometry.location.lat(),
       long: place.geometry.location.lng(),
@@ -73,7 +70,7 @@ const Banner = () => {
       setUserCoordinates({
         lat: formattedLocation.lat,
         lng: formattedLocation.long,
-      }),
+      })
     );
     dispatch(setUserLocationName({ locationName: formattedLocation.city }));
 
@@ -88,7 +85,7 @@ const Banner = () => {
     const fetchBanner = async () => {
       try {
         const res = await axios.get(
-          "https://aresuno-server.vercel.app/api/banner",
+          "https://aresuno-server.vercel.app/api/banner"
         );
         dispatch(getBanner(res.data[0].image));
       } catch (err) {
@@ -100,7 +97,7 @@ const Banner = () => {
   }, []);
 
   const filteredSubcategories = categories.filter((category) =>
-    category.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    category.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleDetectLocation = async () => {
@@ -109,7 +106,7 @@ const Banner = () => {
       console.log(`Latitude: ${crds.latitude}`);
       console.log(`Longitude: ${crds.longitude}`);
       const location = await axios.get(
-        `${API_URL}/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`,
+        `${API_URL}/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`
       );
       console.log(location.data);
       setLocation(location.data.city);
