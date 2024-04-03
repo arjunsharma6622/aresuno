@@ -14,7 +14,7 @@ const OtpForm = ({ phone, setIsOtpVerified }) => {
         {
           phone,
           otp: otp,
-        }
+        },
       );
       if (response.data.success) {
         setOtp("");

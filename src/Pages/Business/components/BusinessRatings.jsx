@@ -34,7 +34,7 @@ const BusinessRatings = ({ ratings, avgRating, hasHalfStar, fullStars }) => {
 
                   {[
                     ...Array(
-                      5 - (fullStars ? fullStars : 0) - (hasHalfStar ? 1 : 0)
+                      5 - (fullStars ? fullStars : 0) - (hasHalfStar ? 1 : 0),
                     ),
                   ].map((_, index) => (
                     <BsStar
@@ -56,8 +56,8 @@ const BusinessRatings = ({ ratings, avgRating, hasHalfStar, fullStars }) => {
               {ratings?.length === 0
                 ? "No ratings yet"
                 : ratings?.length === 1
-                ? "1 rating"
-                : `${ratings?.length} ratings`}
+                  ? "1 rating"
+                  : `${ratings?.length} ratings`}
             </span>
           </div>
 

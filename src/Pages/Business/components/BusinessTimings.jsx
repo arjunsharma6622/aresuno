@@ -33,7 +33,7 @@ const BusinessTimings = ({ business }) => {
               <span className="font-medium">{time.day.slice(0, 3)}</span>
               <span className="text-gray-500 text-xs">Closed</span>
             </div>
-          )
+          ),
         )}
       </div>
     </div>

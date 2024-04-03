@@ -64,8 +64,8 @@ const Leads = ({ businesses }) => {
       business.callLeads.map((callLead) => ({
         ...callLead,
         business: business.name,
-      }))
-    )
+      })),
+    ),
   );
 
   const [allEnquiries, setAllEnquiries] = useState(
@@ -73,8 +73,8 @@ const Leads = ({ businesses }) => {
       business.enquiries.map((enquiry) => ({
         ...enquiry,
         business: business.name,
-      }))
-    )
+      })),
+    ),
   );
 
   console.log(allCallLeads);
@@ -97,7 +97,7 @@ const Leads = ({ businesses }) => {
               return (
                 new Date(lead.createdAt).toDateString() ===
                 new Date(
-                  new Date().setDate(new Date().getDate() - 1)
+                  new Date().setDate(new Date().getDate() - 1),
                 ).toDateString()
               );
             }
@@ -118,8 +118,8 @@ const Leads = ({ businesses }) => {
               );
             }
           })
-          .map((lead) => ({ ...lead, business: business.name }))
-      )
+          .map((lead) => ({ ...lead, business: business.name })),
+      ),
     );
   };
 
@@ -141,7 +141,7 @@ const Leads = ({ businesses }) => {
               return (
                 new Date(enquiry.createdAt).toDateString() ===
                 new Date(
-                  new Date().setDate(new Date().getDate() - 1)
+                  new Date().setDate(new Date().getDate() - 1),
                 ).toDateString()
               );
             }
@@ -163,8 +163,8 @@ const Leads = ({ businesses }) => {
               );
             }
           })
-          .map((enquiry) => ({ ...enquiry, business: business.name }))
-      )
+          .map((enquiry) => ({ ...enquiry, business: business.name })),
+      ),
     );
   };
 
@@ -294,7 +294,7 @@ const Leads = ({ businesses }) => {
                       <td className="px-6 py-3 text-left ">
                         {new Date(enquiry.createdAt).toLocaleDateString(
                           "en-US",
-                          { year: "numeric", month: "long", day: "numeric" }
+                          { year: "numeric", month: "long", day: "numeric" },
                         )}
                       </td>
                       <td className="px-6 py-3 text-left ">{enquiry.name}</td>

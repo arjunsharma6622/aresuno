@@ -18,7 +18,7 @@ const BasicDetails = ({ businessDetails, setBusinessDetails }) => {
         break;
       case "description":
         setDescriptionError(
-          value ? "" : "Please enter the business description"
+          value ? "" : "Please enter the business description",
         );
         break;
       case "email": {

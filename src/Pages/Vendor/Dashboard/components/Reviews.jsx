@@ -42,7 +42,7 @@ const Reviews = ({ businesses }) => {
                     {ratingReview.review}
                   </td>
                 </tr>
-              ))
+              )),
             )}
           </tbody>
         </table>

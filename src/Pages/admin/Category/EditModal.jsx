@@ -18,7 +18,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   const [imageToShow, setImageToShow] = useState(null);
 
   const [showOnHome, setShowOnHome] = useState(
-    category ? category.showOnHome : categoryTitle.showOnHome
+    category ? category.showOnHome : categoryTitle.showOnHome,
   );
 
   const [icon, setIcon] = useState(null);
@@ -61,7 +61,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       const imageUrl = uploadResponse.data.secure_url;
 
@@ -80,7 +80,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        iconData
+        iconData,
       );
       const iconUrl = uploadResponse.data.secure_url;
 
@@ -100,7 +100,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res);
       toast.success("Main Category Updated", ToastParams);
@@ -154,7 +154,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res);
       toast.success("Category Updated", ToastParams);

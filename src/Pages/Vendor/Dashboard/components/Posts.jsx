@@ -77,7 +77,7 @@ const Posts = ({ posts, businesses }) => {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        imageData
+        imageData,
       );
 
       console.log(uploadResponse.data);
@@ -102,7 +102,7 @@ const Posts = ({ posts, businesses }) => {
           image: imageUrl,
           description: post.description,
           businessId: post.businessId,
-        }
+        },
       );
 
       console.log(createPostResponse.data);
@@ -265,7 +265,7 @@ const Posts = ({ posts, businesses }) => {
                 <div className=" flex flex-col gap-4 overflow-y-auto h-[400px]">
                   {posts.map((post, index) => {
                     const businessName = businesses.find(
-                      (business) => business._id === post.businessId
+                      (business) => business._id === post.businessId,
                     ).name;
                     return (
                       <RecentPosts
@@ -351,7 +351,7 @@ const Posts = ({ posts, businesses }) => {
                               year: "numeric",
                               month: "short",
                               day: "numeric",
-                            }
+                            },
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -361,7 +361,7 @@ const Posts = ({ posts, businesses }) => {
                               year: "numeric",
                               month: "short",
                               day: "numeric",
-                            }
+                            },
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -380,7 +380,7 @@ const Posts = ({ posts, businesses }) => {
                           </div>
                         </td>
                       </tr>
-                    ))
+                    )),
                   )}
                 </tbody>
               </table>

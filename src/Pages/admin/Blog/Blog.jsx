@@ -37,7 +37,7 @@ const Blog = ({ blogs }) => {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        imageData
+        imageData,
       );
 
       console.log(uploadResponse.data);
@@ -61,7 +61,7 @@ const Blog = ({ blogs }) => {
           image: imageUrl,
           description: post.description,
           category: post.category,
-        }
+        },
       );
 
       console.log(createPostResponse.data);

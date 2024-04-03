@@ -63,10 +63,10 @@ const Overview = ({ businesses, posts, ratings, callLeads }) => {
                   {key === "posts"
                     ? posts.length
                     : key === "reviews"
-                    ? ratings.length
-                    : key === "businesses"
-                    ? businesses.length
-                    : "-"}
+                      ? ratings.length
+                      : key === "businesses"
+                        ? businesses.length
+                        : "-"}
                 </span>
               </div>
             </div>

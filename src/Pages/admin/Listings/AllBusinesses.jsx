@@ -11,7 +11,7 @@ const AllBusinesses = ({ businesses, categories }) => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       window.location.reload();
     } catch (err) {
