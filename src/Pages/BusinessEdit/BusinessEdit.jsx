@@ -109,7 +109,7 @@ const BusinessEdit = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res);
       toast.success("Business Details Updated", ToastParams);

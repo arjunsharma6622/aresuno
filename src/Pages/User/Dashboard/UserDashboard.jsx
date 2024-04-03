@@ -1,5 +1,5 @@
 import axios from "axios";
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "./DashboardLayout";
 import { Route, Routes } from "react-router-dom";
 import Overview from "./components/Overview";
@@ -17,7 +17,7 @@ const UserDashboard = () => {
       const token = localStorage.getItem("token");
       const res = await axios.get(
         "https://aresuno-server.vercel.app/api/user/",
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       const user = res.data;
       console.log(user);
@@ -36,67 +36,73 @@ const UserDashboard = () => {
 
   const [userEnquiries, setUserEnquiries] = useState([
     {
-      "id": 1,
-      "name": "John Doe",
-      "phone": "123-456-7890",
-      "message": "I would like to inquire about your products."
+      id: 1,
+      name: "John Doe",
+      phone: "123-456-7890",
+      message: "I would like to inquire about your products.",
     },
     {
-      "id": 2,
-      "name": "Jane Smith",
-      "phone": "987-654-3210",
-      "message": "Could you provide me with a price quotation?"
+      id: 2,
+      name: "Jane Smith",
+      phone: "987-654-3210",
+      message: "Could you provide me with a price quotation?",
     },
     {
-      "id": 3,
-      "name": "Alice Johnson",
-      "phone": "555-123-4567",
-      "message": "I need more information about your shipping policies."
+      id: 3,
+      name: "Alice Johnson",
+      phone: "555-123-4567",
+      message: "I need more information about your shipping policies.",
     },
     {
-      "id": 4,
-      "name": "Bob Thompson",
-      "phone": "444-555-6666",
-      "message": "I am interested in your services. Can you provide more details?"
+      id: 4,
+      name: "Bob Thompson",
+      phone: "444-555-6666",
+      message:
+        "I am interested in your services. Can you provide more details?",
     },
     {
-      "id": 5,
-      "name": "Eve Wilson",
-      "phone": "777-888-9999",
-      "message": "Can you confirm if the item I'm interested in is currently available?"
+      id: 5,
+      name: "Eve Wilson",
+      phone: "777-888-9999",
+      message:
+        "Can you confirm if the item I'm interested in is currently available?",
     },
     {
-      "id": 6,
-      "name": "Michael Brown",
-      "phone": "123-555-7890",
-      "message": "I have a technical issue with your software product. Can you assist?"
+      id: 6,
+      name: "Michael Brown",
+      phone: "123-555-7890",
+      message:
+        "I have a technical issue with your software product. Can you assist?",
     },
     {
-      "id": 7,
-      "name": "Emily Davis",
-      "phone": "555-777-3333",
-      "message": "I would like to customize your product to fit my specific requirements."
+      id: 7,
+      name: "Emily Davis",
+      phone: "555-777-3333",
+      message:
+        "I would like to customize your product to fit my specific requirements.",
     },
     {
-      "id": 8,
-      "name": "David Martinez",
-      "phone": "888-999-1111",
-      "message": "Here's my feedback on the recent service I received from your company."
+      id: 8,
+      name: "David Martinez",
+      phone: "888-999-1111",
+      message:
+        "Here's my feedback on the recent service I received from your company.",
     },
     {
-      "id": 9,
-      "name": "Sophia Anderson",
-      "phone": "111-222-3333",
-      "message": "I have encountered an issue with your website. Can you help resolve it?"
+      id: 9,
+      name: "Sophia Anderson",
+      phone: "111-222-3333",
+      message:
+        "I have encountered an issue with your website. Can you help resolve it?",
     },
     {
-      "id": 10,
-      "name": "William Wilson",
-      "phone": "333-444-5555",
-      "message": "I am interested in partnership opportunities with your organization."
-    }
-  ]
-  );
+      id: 10,
+      name: "William Wilson",
+      phone: "333-444-5555",
+      message:
+        "I am interested in partnership opportunities with your organization.",
+    },
+  ]);
   const [userReviews, setUserReviews] = useState([
     {
       id: 1,

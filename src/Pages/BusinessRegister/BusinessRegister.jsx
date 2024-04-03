@@ -43,12 +43,12 @@ const BusinessRegister = () => {
     description: "",
     category: "",
     address: {
-      street : "",
-      landmark : "",
-      pincode : "",
-      city : "",
-      state : "",
-      coordinates : []
+      street: "",
+      landmark: "",
+      pincode: "",
+      city: "",
+      state: "",
+      coordinates: [],
     },
     timing: [
       { day: "Monday", from: "", to: "", isOpen: false },
@@ -70,11 +70,11 @@ const BusinessRegister = () => {
     },
     modeOfPayment: [],
     services: [],
-    images : {
-      logo : "",
-      cover : "",
-      gallery : []
-    }
+    images: {
+      logo: "",
+      cover: "",
+      gallery: [],
+    },
   });
 
   const [notFilledError, setNotFilledError] = useState("");
@@ -83,14 +83,11 @@ const BusinessRegister = () => {
     try {
       setBusinessRegisterLoading(true);
       const token = localStorage.getItem("token");
-      const userRes = await axios.get(
-        `${API_URL}/api/user/`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const userRes = await axios.get(`${API_URL}/api/user/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const { _id: vendorId, name: vendorName } = userRes.data;
 
       setBusinessDetails((prev) => ({
@@ -112,16 +109,15 @@ const BusinessRegister = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       toast.success("Business Registered", ToastParams);
-      if(userRes.data.role === "admin"){
+      if (userRes.data.role === "admin") {
         setBusinessRegisterLoading(false);
         window.location.reload();
         navigate(`/admin`);
-      }
-      else{
+      } else {
         navigate(`/dashboard`);
       }
 
@@ -178,7 +174,7 @@ const BusinessRegister = () => {
 
       // Filter out any empty or undefined values
       const filledLinks = socialPlatforms.filter(
-        (link) => link && link.trim() !== ""
+        (link) => link && link.trim() !== "",
       );
 
       // Check if at least 3 links are entered
@@ -202,7 +198,8 @@ const BusinessRegister = () => {
 
       if (hasIncompleteFAQ) {
         toast.error(
-          "Please ensure all FAQs have both a question and an answer", ToastParams
+          "Please ensure all FAQs have both a question and an answer",
+          ToastParams,
         );
         return; // Exit the function if there's an error
       }
@@ -251,10 +248,10 @@ const BusinessRegister = () => {
             setBusinessDetails={setBusinessDetails}
           />
 
-        //   <BusinessImages
-        //   businessDetails={businessDetails}
-        //   setBusinessDetails={setBusinessDetails}
-        // />
+          //   <BusinessImages
+          //   businessDetails={businessDetails}
+          //   setBusinessDetails={setBusinessDetails}
+          // />
         );
       case "businessCategory":
         return (
@@ -340,9 +337,7 @@ const BusinessRegister = () => {
             ))}
           </div>
           <div className=" flex flex-col gap-2 md:flex-row text-sm md:text-base justify-between items-start">
-            <p>
-              {(currentSectionIndex + 1) * 10}% Done
-            </p>
+            <p>{(currentSectionIndex + 1) * 10}% Done</p>
 
             <div className="flex justify-end md:justify-end gap-4 md:gap-6 text-sm md:text-base">
               {currentSectionIndex > 0 && (
@@ -391,7 +386,6 @@ const BusinessRegister = () => {
                     </span>
                   </div>
                 )}
-
               </button>
             </div>
           </div>

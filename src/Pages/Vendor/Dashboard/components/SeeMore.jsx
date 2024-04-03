@@ -30,7 +30,6 @@
 
 // export default SeeMore;
 
-
 // import React, { useState } from "react";
 
 // const SeeMore = ({ text, maxWords }) => {
@@ -58,9 +57,6 @@
 // };
 
 // export default SeeMore;
-
-
-
 
 import { useState } from "react";
 

@@ -1,10 +1,6 @@
 import axios from "axios";
-import  {  useState } from "react";
-import {
-  FiUploadCloud,
-  FiX,
-  FiXCircle,
-} from "react-icons/fi";
+import { useState } from "react";
+import { FiUploadCloud, FiX, FiXCircle } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { API_URL, ToastParams } from "../../../utils/util";
@@ -21,12 +17,11 @@ const CategoryInput = ({
   const [category, setCategory] = useState({
     name: "",
     image: { url: null, altTag: "" },
-    businessType : "",
-    icon : "",
-    keywords : ""
+    businessType: "",
+    icon: "",
+    keywords: "",
   });
   const [imageToShow, setImageToShow] = useState(null);
-
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -37,7 +32,8 @@ const CategoryInput = ({
           e.target.files[0].size /
           1000 /
           1024
-        ).toFixed(2)} MB`, ToastParams
+        ).toFixed(2)} MB`,
+        ToastParams,
       );
       return false;
     } else {
@@ -68,19 +64,18 @@ const CategoryInput = ({
 
   const handleCategoryKeywordsChange = (e) => {
     const categoryKeywords = e.target.value;
-    setCategory((prevCategory) => ({ ...prevCategory, keywords: categoryKeywords }));
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      keywords: categoryKeywords,
+    }));
     onUpdateCategoryKeywords(index, categoryKeywords);
   };
-
-
 
   console.log(category);
 
   return (
     <div className="border w-full rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
       <div className="w-full flex flex-col gap-5">
-
-
         <div className="flex items-center justify-between w-full">
           <label htmlFor="" className="flex flex-col gap-3 w-full">
             Category Name
@@ -93,95 +88,79 @@ const CategoryInput = ({
           </label>
         </div>
 
-
-
-
-
-
         <div className="w-full flex flex-col gap-1 text-sm">
-                    <label htmlFor="altTag" className="font-medium text-base">
-                      Keywords{" "}
-                      <span className="text-gray-500 text-sm font-normal">
-                        - add comma separated keywords
-                      </span>
-                    </label>
-
-                    <textarea
-                      type="text"
-                      id="altTag"
-                      placeholder="eg. electronics, mobile, laptop, tv"
-                      value={category.keywords}
-                      className="border rounded-lg py-2 px-4 focus:outline-none"
-                      onChange={(e) => handleCategoryKeywordsChange(e)}
-                    />
-                  </div>
-
-
-<div className="w-full flex items-end">
-
-        <div className="flex flex-col gap-2 flex-[3]">
-        {!category.image.url && (
-
-        <label
-          htmlFor="categoryImage"
-          className="flex mb-2 flex-col w-fit gap-2 cursor-pointer"
-        >
-          <span className="text-gray-700">Category Image</span>
-          <div className="flex items-center gap-2 border text-gray-700 border-dashed p-6 w-fit border-gray-500 rounded-lg">
-            <FiUploadCloud className="w-6 h-6" />
-          </div>
-          <input
-            type="file"
-            id="categoryImage"
-            multiple={false}
-            className="hidden"
-            onChange={handleImageChange}
-          />
-        </label>
-              )}
-
-{category.image.url && (
-        <div className="relative w-fit">
-          <img
-            src={imageToShow}
-            alt=""
-            className=" w-24 h-24 object-cover rounded-xl"
-          />
-          <FiXCircle className="absolute bg-white rounded-full -top-2 -right-2 w-5 h-5 text-red-500 cursor-pointer" onClick={() => {
-            setCategory((prevCategory) => ({
-              ...prevCategory,
-              image: { ...prevCategory.image, url: null },
-            }));
-            setImageToShow(null);            
-          }}/>
-        </div>
-      )}
-
-      </div>
-
-
-
-
-<div className="flex items-center justify-between flex-[9]">
-          <label htmlFor="" className="flex flex-col gap-3  w-full">
-            Describe your image (helps in SEO)
-            <input
-              type="text"
-              value={category.image.altTag}
-              onChange={onUpdateCategoryImageAltTagHandler}
-              className="border rounded-lg py-2 px-4 focus:outline-none"
-            />
+          <label htmlFor="altTag" className="font-medium text-base">
+            Keywords{" "}
+            <span className="text-gray-500 text-sm font-normal">
+              - add comma separated keywords
+            </span>
           </label>
+
+          <textarea
+            type="text"
+            id="altTag"
+            placeholder="eg. electronics, mobile, laptop, tv"
+            value={category.keywords}
+            className="border rounded-lg py-2 px-4 focus:outline-none"
+            onChange={(e) => handleCategoryKeywordsChange(e)}
+          />
         </div>
 
+        <div className="w-full flex items-end">
+          <div className="flex flex-col gap-2 flex-[3]">
+            {!category.image.url && (
+              <label
+                htmlFor="categoryImage"
+                className="flex mb-2 flex-col w-fit gap-2 cursor-pointer"
+              >
+                <span className="text-gray-700">Category Image</span>
+                <div className="flex items-center gap-2 border text-gray-700 border-dashed p-6 w-fit border-gray-500 rounded-lg">
+                  <FiUploadCloud className="w-6 h-6" />
+                </div>
+                <input
+                  type="file"
+                  id="categoryImage"
+                  multiple={false}
+                  className="hidden"
+                  onChange={handleImageChange}
+                />
+              </label>
+            )}
+
+            {category.image.url && (
+              <div className="relative w-fit">
+                <img
+                  src={imageToShow}
+                  alt=""
+                  className=" w-24 h-24 object-cover rounded-xl"
+                />
+                <FiXCircle
+                  className="absolute bg-white rounded-full -top-2 -right-2 w-5 h-5 text-red-500 cursor-pointer"
+                  onClick={() => {
+                    setCategory((prevCategory) => ({
+                      ...prevCategory,
+                      image: { ...prevCategory.image, url: null },
+                    }));
+                    setImageToShow(null);
+                  }}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center justify-between flex-[9]">
+            <label htmlFor="" className="flex flex-col gap-3  w-full">
+              Describe your image (helps in SEO)
+              <input
+                type="text"
+                value={category.image.altTag}
+                onChange={onUpdateCategoryImageAltTagHandler}
+                className="border rounded-lg py-2 px-4 focus:outline-none"
+              />
+            </label>
+          </div>
         </div>
-
-
-
-
       </div>
-
-
 
       {onRemove && (
         <button
@@ -195,13 +174,15 @@ const CategoryInput = ({
   );
 };
 
-
-
-
-
 const AddCategories = ({}) => {
   const [categories, setCategories] = useState([
-    { name: "", image: { url: null, altTag: "" }, businessType : "", icon : "", keywords : ""  },
+    {
+      name: "",
+      image: { url: null, altTag: "" },
+      businessType: "",
+      icon: "",
+      keywords: "",
+    },
   ]);
 
   const categoriesToShow = useSelector((state) => state.categories);
@@ -220,34 +201,33 @@ const AddCategories = ({}) => {
 
   const removeCategory = (index) => {
     setCategories((prevCategories) =>
-      prevCategories.filter((_, i) => i !== index)
+      prevCategories.filter((_, i) => i !== index),
     );
   };
 
   const updateCategory = (index, categoryData) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, ...categoryData } : cat
-      )
+        i === index ? { ...cat, ...categoryData } : cat,
+      ),
     );
   };
 
   const updateCategoryName = (index, name) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, name: name } : cat
-      )
+        i === index ? { ...cat, name: name } : cat,
+      ),
     );
   };
 
   const updateCategoryKeywords = (index, keywords) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, keywords: keywords } : cat
-      )
+        i === index ? { ...cat, keywords: keywords } : cat,
+      ),
     );
   };
-
 
   console.log("categories");
   console.log(categories);
@@ -268,7 +248,7 @@ const AddCategories = ({}) => {
 
             const uploadResponse = await axios.post(
               "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-              imageData
+              imageData,
             );
 
             const imageUrl = uploadResponse.data.secure_url;
@@ -304,18 +284,18 @@ const AddCategories = ({}) => {
         return {
           ...category,
           image: { url: imgUrls[index], altTag: category.image.altTag },
-          businessType : selectedBusinessType
+          businessType: selectedBusinessType,
         };
       });
 
       const res = await axios.post(
         `${API_URL}/api/category/create`,
-        updatedCategories, {
-            headers : {
-                Authorization : `Bearer ${localStorage.getItem("token")}`
-            }
-        }
-      
+        updatedCategories,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
       );
 
       console.log(res.data);
@@ -337,10 +317,10 @@ const AddCategories = ({}) => {
         `${API_URL}/api/category-title/create`,
         { title: newCategoryTitle },
         {
-            headers : {
-                Authorization : `Bearer ${localStorage.getItem("token")}`
-            }
-        }
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
       );
       console.log(res.data);
       toast.success("Category created successfully", ToastParams);
@@ -354,38 +334,37 @@ const AddCategories = ({}) => {
 
   const categoriesFromState = useSelector((state) => state.categories);
 
-  const businessTypes = [
-    "Service",
-    "Doctor",
-    "Manufacturing",
-  ]
+  const businessTypes = ["Service", "Doctor", "Manufacturing"];
 
-  const [selectedBusinessType, setSelectedBusinessType] = useState("service")
+  const [selectedBusinessType, setSelectedBusinessType] = useState("service");
 
   return (
     <div className="flex flex-col gap-4">
-
-
-
-
       <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-10">
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Select the business type in which you want to add categories</h2>
-        <div className="flex gap-8 ">
-          {
-            businessTypes.map((businessType, index) => (
+        <div className="flex flex-col gap-2">
+          <h2 className="text-xl font-semibold">
+            Select the business type in which you want to add categories
+          </h2>
+          <div className="flex gap-8 ">
+            {businessTypes.map((businessType, index) => (
               <div className="flex gap-2">
-                <input type="radio" id={businessType} name="businessType" value={businessType.toLowerCase()} checked={selectedBusinessType === businessType.toLowerCase()} onChange={() => setSelectedBusinessType(businessType.toLowerCase())}/>
+                <input
+                  type="radio"
+                  id={businessType}
+                  name="businessType"
+                  value={businessType.toLowerCase()}
+                  checked={selectedBusinessType === businessType.toLowerCase()}
+                  onChange={() =>
+                    setSelectedBusinessType(businessType.toLowerCase())
+                  }
+                />
                 <label htmlFor={businessType}>{businessType}</label>
               </div>
-            ))
-          }
+            ))}
+          </div>
         </div>
-      </div>
         <div className="flex gap-4">
-
-
-        <div className="w-[70%] bg-white rounded-xl">
+          <div className="w-[70%] bg-white rounded-xl">
             <h2 className="text-xl font-semibold mb-4">Add Categories</h2>
 
             <div className="flex flex-col gap-5">
@@ -442,7 +421,6 @@ const AddCategories = ({}) => {
             </button>
           </div>
 
-
           {/* <div className="w-1/2 bg-white rounded-xl">
             { selectedBusinessType === "service" &&
             <div className="mb-6">
@@ -471,13 +449,8 @@ const AddCategories = ({}) => {
 }
 
           </div> */}
-
-
-
-
         </div>
       </div>
-
     </div>
   );
 };

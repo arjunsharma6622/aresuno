@@ -1,17 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const businessSlice = createSlice({
-    name : "Business",
-    initialState : {
-        name : "",
+  name: "Business",
+  initialState: {
+    name: "",
+  },
+  reducers: {
+    getBusiness: (state, action) => {
+      state.name = action.payload;
     },
-    reducers : {
-        getBusiness : (state, action) => {
-            state.name = action.payload
-        }
-        
-    }
-})
+  },
+});
 
-export const { getBusiness } = businessSlice.actions
-export default businessSlice.reducer
+export const { getBusiness } = businessSlice.actions;
+export default businessSlice.reducer;

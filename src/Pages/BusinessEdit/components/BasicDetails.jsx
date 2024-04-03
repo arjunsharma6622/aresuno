@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { BiDetail } from "react-icons/bi";
 import { FiChevronDown, FiEdit2, FiX, FiXCircle } from "react-icons/fi";
 import { PhoneInput } from "react-international-phone";
@@ -47,7 +47,7 @@ const BasicDetails = ({
 
   const removeService = (index) => {
     const updatedServices = businessDetails.services.filter(
-      (_, i) => i !== index
+      (_, i) => i !== index,
     );
     setBusinessDetails({
       ...businessDetails,

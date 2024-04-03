@@ -1,11 +1,11 @@
-import BusinessRegister from '../../../BusinessRegister/BusinessRegister';
+import BusinessRegister from "../../../BusinessRegister/BusinessRegister";
 
 const AddListing = () => {
-    return (
-      <div>
-        <BusinessRegister />
-      </div>
-    );
-  };
+  return (
+    <div>
+      <BusinessRegister />
+    </div>
+  );
+};
 
-export default AddListing
+export default AddListing;

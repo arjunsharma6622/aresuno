@@ -1,19 +1,13 @@
-import AllCategories from './AllCategories'
-import AddCategories from './AddCategories'
+import AllCategories from "./AllCategories";
+import AddCategories from "./AddCategories";
 
-
-const CategoryDashboard = ({subField}) => {
-
+const CategoryDashboard = ({ subField }) => {
   return (
     <div>
-            {
-                subField == "All Categories" && <AllCategories />
-            }
-            {
-                subField == "Add Categories" && <AddCategories />
-            }
+      {subField == "All Categories" && <AllCategories />}
+      {subField == "Add Categories" && <AddCategories />}
     </div>
-  )
-}
+  );
+};
 
-export default CategoryDashboard
+export default CategoryDashboard;

@@ -151,8 +151,8 @@ const BusinessHours = ({ businessDetails, setBusinessDetails }) => {
                           (time) =>
                             new Date(`01/01/2000 ${time}`) >
                             new Date(
-                              `01/01/2000 ${businessDetails.timing[index].from}`
-                            )
+                              `01/01/2000 ${businessDetails.timing[index].from}`,
+                            ),
                         )
                         .map((time) => (
                           <option key={time} value={time}>

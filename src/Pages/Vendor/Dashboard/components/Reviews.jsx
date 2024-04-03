@@ -4,10 +4,12 @@ const Reviews = ({ businesses }) => {
   const extract6Words = (text) => {
     const words = text.split(" ");
     return words.slice(0, 6).join(" ");
-  }
+  };
   return (
     <div>
-      <h1 className="text-lg md:text-2xl font-semibold mt-6 md:mt-0 mb-3 md:mb-6">All the Ratings & Reviews</h1>
+      <h1 className="text-lg md:text-2xl font-semibold mt-6 md:mt-0 mb-3 md:mb-6">
+        All the Ratings & Reviews
+      </h1>
 
       <div className="bg-white rounded-xl overflow-auto">
         <table className="md:w-full ">
@@ -44,7 +46,7 @@ const Reviews = ({ businesses }) => {
                     {ratingReview.review}
                   </td>
                 </tr>
-              ))
+              )),
             )}
           </tbody>
         </table>

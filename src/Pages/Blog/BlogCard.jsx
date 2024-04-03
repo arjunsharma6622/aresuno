@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const BlogCard = ({ type, blog, categoryName }) => {
   const categories = useSelector((state) => state.categories);
   const category = categories.find(
-    (category) => category._id === blog.category
+    (category) => category._id === blog.category,
   );
   const categoryNameFormatted = categoryName
     ? categoryName

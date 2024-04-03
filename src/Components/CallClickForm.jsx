@@ -1,17 +1,17 @@
-import  { useState, useEffect } from 'react';
-import {  FiX } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import { API_URL } from '../utils/util';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import { FiX } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { API_URL } from "../utils/util";
+import axios from "axios";
 
 const CallClickForm = ({ onClose, business }) => {
   const [userDetails, setUserDetails] = useState({
-    name: '',
-    phone: '',
+    name: "",
+    phone: "",
   });
   console.log(userDetails);
 
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const [count, setCount] = useState(60);
 
   const [showNumber, setShowNumber] = useState(false);
@@ -35,14 +35,14 @@ const CallClickForm = ({ onClose, business }) => {
       };
       const res = await axios.post(
         `${API_URL}/api/call-lead/create`,
-        callLeadToSend
+        callLeadToSend,
       );
       setCallLead(res.data);
       console.log(res.data);
 
       setUserDetails({
-        name: '',
-        phone: '',
+        name: "",
+        phone: "",
       });
 
       setShowNumber(true);
@@ -51,17 +51,18 @@ const CallClickForm = ({ onClose, business }) => {
     }
   };
 
-
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(`${API_URL}/api/call-lead/verify-otp`, {
-        _id: callLead._id,
-        otp : otp,
-        phone: callLead.phone,
-      });
-        setIsOtpVerified(true);
-      
+      const response = await axios.patch(
+        `${API_URL}/api/call-lead/verify-otp`,
+        {
+          _id: callLead._id,
+          otp: otp,
+          phone: callLead.phone,
+        },
+      );
+      setIsOtpVerified(true);
     } catch (err) {
       console.log(err);
     }
@@ -78,12 +79,11 @@ const CallClickForm = ({ onClose, business }) => {
     return () => clearInterval(timer);
   }, [count]);
 
-
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     };
   }, []);
 
@@ -95,24 +95,21 @@ const CallClickForm = ({ onClose, business }) => {
             <div className="flex justify-between items-start">
               <div className="">
                 <h2 className="text-lg md:text-xl font-bold">
-                  Get Phone Number of{' '}
+                  Get Phone Number of{" "}
                   <span className="text-blue-500">
-                    {business.name.split(' ').slice(0, 2).join(' ')}
-                    {business.name?.length > 2 ? '' : '...'}
+                    {business.name.split(" ").slice(0, 2).join(" ")}
+                    {business.name?.length > 2 ? "" : "..."}
                   </span>
                 </h2>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
-                  To get phone number either{' '}
+                  To get phone number either{" "}
                   <Link to="/login" className="text-blue-500 underline">
                     Login
-                  </Link>{' '}
+                  </Link>{" "}
                   or give your details
                 </p>
               </div>
-              <FiX
-                className="w-6 h-6  cursor-pointer"
-                onClick={onClose}
-              />
+              <FiX className="w-6 h-6  cursor-pointer" onClick={onClose} />
             </div>
 
             <form className="flex flex-col gap-4 mt-4 md:mt-6">
@@ -160,9 +157,9 @@ const CallClickForm = ({ onClose, business }) => {
         ) : !isOtpVerified ? (
           <div className=" flex justify-start bg-white rounded-xl items-center w-[90%] md:w-[40%] py-8 md:py-10 px-8 md:px-10">
             <div className="bg-white rounded w-full">
-              <div className='flex justify-between items-start'>
-              <h2 className="text-2xl font-semibold">Enter OTP</h2>
-              <FiX className="w-6 h-6 cursor-pointer" onClick={onClose} />
+              <div className="flex justify-between items-start">
+                <h2 className="text-2xl font-semibold">Enter OTP</h2>
+                <FiX className="w-6 h-6 cursor-pointer" onClick={onClose} />
               </div>
               <p className="text-sm text-gray-600 mb-4">
                 Please enter the 4-digit OTP sent to your phone number.
@@ -178,7 +175,10 @@ const CallClickForm = ({ onClose, business }) => {
                   className="py-3 px-4 w-full border border-gray-300 text-center tracking-[0.8rem] text-xl mb-4 rounded focus:outline-none focus:border-blue-500"
                 />
               </div>
-              <button onClick={handleOTPSubmit} className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <button
+                onClick={handleOTPSubmit}
+                className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
                 Submit
               </button>
 
@@ -194,7 +194,7 @@ const CallClickForm = ({ onClose, business }) => {
             <div className="flex justify-between items-start">
               <div>
                 <h2 className=" md:text-xl font-bold">
-                  <span className="text-blue-500 mr-1">{business.name} </span>{' '}
+                  <span className="text-blue-500 mr-1">{business.name} </span>{" "}
                   Phone Number
                 </h2>
                 <p className=" text-gray-900 mt-1 text-lg font-medium">
@@ -204,20 +204,17 @@ const CallClickForm = ({ onClose, business }) => {
                   Call this number to get more details about this business
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
-                  You can also visit this business by clicking on the{' '}
+                  You can also visit this business by clicking on the{" "}
                   <Link
                     target="_blank"
-                    to={`/business/${business.name.split(' ').join('-')}`}
+                    to={`/business/${business.name.split(" ").join("-")}`}
                     className="text-blue-500 underline cursor-pointer"
                   >
                     View
                   </Link>
                 </p>
               </div>
-              <FiX
-                className="w-6 h-6  cursor-pointer"
-                onClick={onClose}
-              />
+              <FiX className="w-6 h-6  cursor-pointer" onClick={onClose} />
             </div>
 
             <div className="flex items-center justify-center gap-6 w-full mt-4 md:mt-6 bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-3 md:py-3 md:px-4 rounded focus:outline-none focus:shadow-outline">

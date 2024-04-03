@@ -1,20 +1,23 @@
-import  { useEffect, useState } from 'react';
-import { API_URL, ToastParams } from '../utils/util';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import { useEffect, useState } from "react";
+import { API_URL, ToastParams } from "../utils/util";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const OtpForm = ({ phone, setIsOtpVerified }) => {
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const [resendTimer, setResendTimer] = useState(60);
 
   const verifyOtp = async () => {
     try {
-      const response = await axios.post(`${API_URL}/api/forgetPassword-verify-otp`, {
-        phone,
-        otp: otp,
-      });
+      const response = await axios.post(
+        `${API_URL}/api/forgetPassword-verify-otp`,
+        {
+          phone,
+          otp: otp,
+        },
+      );
       if (response.data.success) {
-        setOtp('');
+        setOtp("");
       }
 
       setIsOtpVerified(true);
@@ -30,9 +33,11 @@ const OtpForm = ({ phone, setIsOtpVerified }) => {
 
   const handleResendOtp = async () => {
     try {
-      const response = await axios.post(`${API_URL}/api/forgetPassword-otp`, { phone: phone });
+      const response = await axios.post(`${API_URL}/api/forgetPassword-otp`, {
+        phone: phone,
+      });
       console.log(response.data);
-      toast.success('OTP Sent', ToastParams);
+      toast.success("OTP Sent", ToastParams);
     } catch (err) {
       console.log(err);
     }
@@ -40,11 +45,10 @@ const OtpForm = ({ phone, setIsOtpVerified }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if(resendTimer > 0){
+      if (resendTimer > 0) {
         setResendTimer(resendTimer - 1);
-      }
-      else if(resendTimer === 0){
-        return
+      } else if (resendTimer === 0) {
+        return;
       }
     }, 1000);
 
@@ -74,15 +78,15 @@ const OtpForm = ({ phone, setIsOtpVerified }) => {
         </button>
 
         <p className="text-sm text-gray-600 mb-4">
-          Didn't receive the OTP?{' '}
+          Didn't receive the OTP?{" "}
           <button
             type="button"
             disabled={resendTimer > 0}
             onClick={handleResendOtp}
-            className={` ${resendTimer > 0 ? 'cursor-not-allowed text-gray-500' : 'text-blue-500'}`}
+            className={` ${resendTimer > 0 ? "cursor-not-allowed text-gray-500" : "text-blue-500"}`}
           >
             Resend
-          </button>{' '}
+          </button>{" "}
           {resendTimer > 0 && <span>{resendTimer}</span>}
         </p>
       </div>

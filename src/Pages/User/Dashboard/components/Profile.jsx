@@ -30,7 +30,7 @@ const Profile = ({ user }) => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       setUpdatedPassword({
         newPassword: "",
@@ -53,69 +53,64 @@ const Profile = ({ user }) => {
   };
 
   const handleImage = async () => {
-    try{
+    try {
       setIsImageUploading(true);
       const imageData = new FormData();
       imageData.append("file", image);
       imageData.append("upload_preset", "ml_default");
       imageData.append("folder", "aresuno/vendors");
-      const res = await axios.post("https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload", imageData);
+      const res = await axios.post(
+        "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
+        imageData,
+      );
       console.log(res.data);
       const imageUrl = res.data.secure_url;
       return imageUrl;
-
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
-  }
-
+  };
 
   const handleImageUpload = async (e) => {
     e.preventDefault();
     const imageUrl = await handleImage();
 
-    try{
+    try {
       const res = await axios.patch(
         "https://aresuno-server.vercel.app/api/user/",
         {
-          image: imageUrl
+          image: imageUrl,
         },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res.data);
       toast.success("Profile Image Updated");
       setIsImageUploading(false);
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
       toast.error("Error uploading image");
     }
-
-  }
+  };
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
-
-
 
     try {
       const res = await axios.patch(
         "https://aresuno-server.vercel.app/api/user/",
         {
-          name: userEdit?.name
+          name: userEdit?.name,
         },
-
 
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res.data);
       toast.success("Profile Updated");
@@ -129,50 +124,65 @@ const Profile = ({ user }) => {
     const file = e.target.files[0];
     setImage(file);
     setImageToShow(URL.createObjectURL(file));
-  }
+  };
 
   return (
     <div className="w-full flex justify-center items-center flex-col gap-8 mt-6">
-
       <div className="relative flex items-center flex-col">
         <img
-          src={user.image&&!image ? user.image : image ? imageToShow : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+          src={
+            user.image && !image
+              ? user.image
+              : image
+                ? imageToShow
+                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          }
           alt=""
           className="rounded-full border-2 w-20 h-20 md:w-32 md:h-32 object-cover"
         />
-        {image ? 
-
+        {image ? (
           <div className="flex gap-2 mt-4">
-            <button onClick={handleImageUpload} className="bg-blue-500 rounded-sm py-2 px-4 text-white">{isImageUploading ? "Uploading..." : "Upload"}</button>
-            <button onClick={() => {setImage(null); setImageToShow(null)}} className="bg-red-500 rounded-sm py-2 px-4 text-white">Cancel</button>
+            <button
+              onClick={handleImageUpload}
+              className="bg-blue-500 rounded-sm py-2 px-4 text-white"
+            >
+              {isImageUploading ? "Uploading..." : "Upload"}
+            </button>
+            <button
+              onClick={() => {
+                setImage(null);
+                setImageToShow(null);
+              }}
+              className="bg-red-500 rounded-sm py-2 px-4 text-white"
+            >
+              Cancel
+            </button>
           </div>
-         :
-        <div className="absolute bottom-1 -right-1 cursor-pointer">
-        <label htmlFor="profileImage">
-
-        <div className="p-4 md:p-5 bg-blue-500 cursor-pointer rounded-full w-5 h-5 md:w-7 md:h-7 relative">
-          
-          <input 
-          type="file" 
-          id="profileImage" 
-          className="opacity-0 absolute inset-0 w-full h-full cursor-pointer" 
-          accept="image/*"
-          onChange={handleImageChange}
-          style={{ display: "none" }}
-          />
-          <BsFillCameraFill className="text-white cursor-pointer w-4 h-4 md:w-5 md:h-5 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"/>
-        </div>
-        </label>
-
-        </div>
-}
+        ) : (
+          <div className="absolute bottom-1 -right-1 cursor-pointer">
+            <label htmlFor="profileImage">
+              <div className="p-4 md:p-5 bg-blue-500 cursor-pointer rounded-full w-5 h-5 md:w-7 md:h-7 relative">
+                <input
+                  type="file"
+                  id="profileImage"
+                  className="opacity-0 absolute inset-0 w-full h-full cursor-pointer"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                />
+                <BsFillCameraFill className="text-white cursor-pointer w-4 h-4 md:w-5 md:h-5 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2" />
+              </div>
+            </label>
+          </div>
+        )}
       </div>
 
       <div className="flex w-full flex-col items-center md:flex-row md:items-start justify-between gap-8">
         <div className="px-3 py-3 w-full md:w-1/2 bg-white md:px-8 md:py-10 rounded-xl border md:shadow-lg">
-
           <div className="flex justify-between items-center">
-            <h2 className="text-base md:text-lg font-medium">Update Your Details</h2>
+            <h2 className="text-base md:text-lg font-medium">
+              Update Your Details
+            </h2>
             {edit ? (
               <FiEdit
                 className="text-gray-500 cursor-pointer w-5 h-5 md:w-6 md:h-6"
@@ -233,7 +243,9 @@ const Profile = ({ user }) => {
 
         <div className="px-3 py-3 w-full md:w-1/2 bg-white md:p-6 md:py-10 rounded-xl border md:shadow-lg">
           <div className="flex justify-between items-center">
-            <h2 className="text-base md:text-lg font-medium">Change Password</h2>
+            <h2 className="text-base md:text-lg font-medium">
+              Change Password
+            </h2>
 
             <FiLock className="text-gray-500 w-5 h-5 md:w-6 md:h-6" />
           </div>
@@ -309,7 +321,6 @@ const Profile = ({ user }) => {
             </form>
           </div>
         </div>
-
       </div>
     </div>
   );

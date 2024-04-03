@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Navigation } from 'swiper/modules';
-import { SwiperSlide, Swiper } from 'swiper/react';
+import { useState } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Navigation } from "swiper/modules";
+import { SwiperSlide, Swiper } from "swiper/react";
 
 const CategoriesSlider = ({ categories, categoryTitle }) => {
   const [swiper, setSwiper] = useState(null);
   const [isStart, setIsStart] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
 
-   const userLocationName = useSelector((state) => state.user.locationName);
+  const userLocationName = useSelector((state) => state.user.locationName);
 
   const handleSwiper = (swiperInstance) => {
     setSwiper(swiperInstance);
@@ -18,8 +18,8 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
 
   const handleSlideChange = () => {
     if (swiper) {
-    setIsStart(swiper.isBeginning);
-    setIsEnd(swiper.isEnd);
+      setIsStart(swiper.isBeginning);
+      setIsEnd(swiper.isEnd);
     }
   };
 
@@ -29,7 +29,10 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
         modules={[Navigation]}
         slidesPerView={4}
         spaceBetween={30}
-        navigation={{ nextEl: `.arrow-right-${categoryTitle.title}`, prevEl: `.arrow-left-${categoryTitle.title}` }}
+        navigation={{
+          nextEl: `.arrow-right-${categoryTitle.title}`,
+          prevEl: `.arrow-left-${categoryTitle.title}`,
+        }}
         autoHeight={true}
         pagination={{ clickable: true, dynamicBullets: true }}
         onSwiper={handleSwiper}
@@ -56,12 +59,18 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
               to={`/${userLocationName.toLowerCase()}/${subCategory.name.replace(/\s+/g, "-").toLowerCase()}`}
               className="w-full flex flex-col items-center max-md:w-full max-md:ml-0"
             >
-              <div key={index} className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
+              <div
+                key={index}
+                className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0"
+              >
                 <div className="justify-start items-start flex grow flex-col">
                   <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch justify-start rounded-lg">
                     <img
                       loading="lazy"
-                      src={subCategory.image.url.replace('/upload', '/upload/c_scale,h_500')}
+                      src={subCategory.image.url.replace(
+                        "/upload",
+                        "/upload/c_scale,h_500",
+                      )}
                       alt={subCategory.image.altTag}
                       className="w-full h-full object-cover"
                     />
@@ -79,29 +88,23 @@ const CategoriesSlider = ({ categories, categoryTitle }) => {
         ))}
       </Swiper>
 
-      { !isStart &&
-
+      {!isStart && (
         <button
           className={` arrow-right-${categoryTitle.title} arrow shadow-lg bg-gray-100/30 backdrop-blur-lg rounded-full p-[6px] absolute top-1/2 transform -translate-y-1/2 -left-4 z-[20] cursor-pointer `}
           onClick={() => swiper.slidePrev()}
         >
-          
           <FiChevronLeft className="w-5 h-5" />
         </button>
+      )}
 
-      }
-
-
-{ !isEnd &&
-
+      {!isEnd && (
         <button
           className={` arrow-left-${categoryTitle.title} arrow shadow-lg bg-gray-100/30 backdrop-blur-lg rounded-full p-[6px] absolute top-1/2 transform -translate-y-1/2 -right-4 z-[20] cursor-pointer`}
           onClick={() => swiper.slideNext()}
         >
           <FiChevronRight className="w-5 h-5" />
         </button>
-
-}
+      )}
     </div>
   );
 };

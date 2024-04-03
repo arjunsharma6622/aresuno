@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {  FiEdit3, FiX } from "react-icons/fi";
+import { FiEdit3, FiX } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
 import { API_URL, ToastParams } from "../../../utils/util";
 import { useSelector } from "react-redux";
@@ -18,14 +18,13 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   const [imageToShow, setImageToShow] = useState(null);
 
   const [showOnHome, setShowOnHome] = useState(
-    category ? category.showOnHome : categoryTitle.showOnHome
+    category ? category.showOnHome : categoryTitle.showOnHome,
   );
 
   const [icon, setIcon] = useState(null);
   const [iconToShow, setIconToShow] = useState(category ? category.icon : null);
 
   const [subCategoryToEdit, setSubCategoryToEdit] = useState(category);
-
 
   const [mainCategoryToEdit, setMainCategoryToEdit] = useState(categoryTitle);
 
@@ -70,7 +69,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       const imageUrl = uploadResponse.data.secure_url;
 
@@ -89,7 +88,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
       const uploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-        iconData
+        iconData,
       );
       const iconUrl = uploadResponse.data.secure_url;
 
@@ -109,7 +108,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res);
       toast.success("Main Category Updated", ToastParams);
@@ -163,7 +162,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res);
       toast.success("Category Updated", ToastParams);
@@ -185,24 +184,23 @@ export default function EditModal({ category, onClose, categoryTitle }) {
       {open && (
         <div className="z-[40] fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm">
           <div className="bg-white flex flex-col gap-6 p-6 rounded-lg w-[55%]">
-
-<div className="flex items-center justify-center gap-6">
-            <div className="flex items-center justify-center">
-              <div className="h-12 w-12 flex items-center justify-center rounded-full bg-gray-100">
-                <FiEdit3 className="h-6 w-6 text-gray-600" />
+            <div className="flex items-center justify-center gap-6">
+              <div className="flex items-center justify-center">
+                <div className="h-12 w-12 flex items-center justify-center rounded-full bg-gray-100">
+                  <FiEdit3 className="h-6 w-6 text-gray-600" />
+                </div>
               </div>
-            </div>
 
-            <div className="text-center">
-              <h3 className="text-lg font-medium">
-                Edit
-                <span className="font-bold underline">
-                  {" "}
-                  {category ? category.name : categoryTitle.title}
-                </span>{" "}
-                Category
-              </h3>
-            </div>
+              <div className="text-center">
+                <h3 className="text-lg font-medium">
+                  Edit
+                  <span className="font-bold underline">
+                    {" "}
+                    {category ? category.name : categoryTitle.title}
+                  </span>{" "}
+                  Category
+                </h3>
+              </div>
             </div>
 
             <div className=" flex items-start gap-2 flex-col w-[90%] m-auto justify-center">
@@ -372,17 +370,20 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                       type="text"
                       id="altTag"
                       placeholder="eg. electronics, mobile, laptop, tv"
-                      value={subCategoryToEdit.keywords ? subCategoryToEdit.keywords : ""}
+                      value={
+                        subCategoryToEdit.keywords
+                          ? subCategoryToEdit.keywords
+                          : ""
+                      }
                       className="text-base w-full border border-gray-300 p-2 rounded-md resize-none"
                       onChange={(e) => {
                         setSubCategoryToEdit({
                           ...subCategoryToEdit,
                           keywords: e.target.value,
                         });
-                      } }
+                      }}
                     />
                   </div>
-
 
                   <div className="w-full flex flex-col gap-1 text-sm">
                     <label htmlFor="altTag" className="font-medium text-base">
@@ -393,20 +394,21 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                       type="text"
                       id="altTag"
                       placeholder="description"
-                      value={subCategoryToEdit.description ? subCategoryToEdit.description : ""}
+                      value={
+                        subCategoryToEdit.description
+                          ? subCategoryToEdit.description
+                          : ""
+                      }
                       className="text-base w-full border border-gray-300 p-2 rounded-md resize-none"
                       onChange={(e) => {
                         setSubCategoryToEdit({
                           ...subCategoryToEdit,
                           description: e.target.value,
                         });
-                      } }
+                      }}
                       rows={4}
-                      
                     />
                   </div>
-
-
                 </div>
               ) : (
                 <div className="w-full flex flex-col gap-4 text-sm">

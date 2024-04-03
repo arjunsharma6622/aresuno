@@ -23,7 +23,7 @@ const BusinessAddress = ({ businessDetails, setBusinessDetails }) => {
     const address = `${businessDetails.address.street} ${businessDetails.address.landmark} ${businessDetails.address.pincode} ${businessDetails.address.city} ${businessDetails.address.district} ${businessDetails.address.state} India`;
     try {
       const res = await axios.get(
-        `${API_URL}/api/getLatLongFromAddress?address=${address}`
+        `${API_URL}/api/getLatLongFromAddress?address=${address}`,
       );
       console.log(res.data);
 

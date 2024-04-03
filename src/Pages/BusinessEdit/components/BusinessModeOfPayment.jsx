@@ -6,65 +6,65 @@ const BusinessModeOfPayment = ({ businessDetails, setBusinessDetails }) => {
   // handle mode of payment
   const paymentModes = [
     {
-    name : "Cash",
-    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/pwgkaicbn4oiqlmbdu4y.png"
+      name: "Cash",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/pwgkaicbn4oiqlmbdu4y.png",
     },
     {
-    name : "Card",
-    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817173/aresuno/paymentModes/dy4nsy9gl6m6bnb2nfmd.png"
+      name: "Card",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817173/aresuno/paymentModes/dy4nsy9gl6m6bnb2nfmd.png",
     },
     {
-    name : "Visa",
-    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/xoinunrckkg3rww8k77b.png"
+      name: "Visa",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/xoinunrckkg3rww8k77b.png",
     },
     {
-    name : "Rupay",
-    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/obi22zyxsbq5xlzlp0ws.png"
+      name: "Rupay",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/obi22zyxsbq5xlzlp0ws.png",
     },
     {
-    name : "Mastercard",
-    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/hhqomnbw4qrwdwhob5mp.png"
+      name: "Mastercard",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/hhqomnbw4qrwdwhob5mp.png",
     },
     {
-    name : "UPI",
-    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xkiu9aow2dqy0rr7dtrn.png"
+      name: "UPI",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xkiu9aow2dqy0rr7dtrn.png",
     },
     {
-    name : "Google Pay",
-    icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/fvpdyuhabbvdkqdyu0ob.png"
+      name: "Google Pay",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/fvpdyuhabbvdkqdyu0ob.png",
     },
     {
-      name : "PhonePe",
-      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/cbazb5dpnijmc488pvbx.png"
+      name: "PhonePe",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817170/aresuno/paymentModes/cbazb5dpnijmc488pvbx.png",
     },
     {
-      name : "Patym",
-      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/rs14sxkqwwnbxshhrbbw.png"
+      name: "Patym",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/rs14sxkqwwnbxshhrbbw.png",
     },
     {
-      name : "Apple Pay",
-      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xkiu9aow2dqy0rr7dtrn.png"
+      name: "Apple Pay",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xkiu9aow2dqy0rr7dtrn.png",
     },
     {
-      name : "Razorpay",
-      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/vlkap6xgiua5svwbjkpm.png"
+      name: "Razorpay",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817172/aresuno/paymentModes/vlkap6xgiua5svwbjkpm.png",
     },
     {
-      name : "American Express",
-      icon : "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xr6kdw1itposojv1bsw0.png"
+      name: "American Express",
+      icon: "https://res.cloudinary.com/dexnb3wkw/image/upload/v1705817171/aresuno/paymentModes/xr6kdw1itposojv1bsw0.png",
     },
   ];
 
   const handleModeOfPaymentClick = (option, icon) => {
     const isOptionIncluded = businessDetails.modeOfPayment.some(
-      (item) => item.name === option
+      (item) => item.name === option,
     );
 
     if (isOptionIncluded) {
       setBusinessDetails((prev) => ({
         ...prev,
         modeOfPayment: prev.modeOfPayment.filter(
-          (item) => item.name !== option
+          (item) => item.name !== option,
         ),
       }));
     } else {
