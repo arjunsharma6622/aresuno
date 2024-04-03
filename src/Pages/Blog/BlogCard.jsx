@@ -1,14 +1,12 @@
-import React from "react";
-import { FiExternalLink, FiUser } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import dateFormat, { masks } from "dateformat";
+import dateFormat from "dateformat";
 import { useSelector } from "react-redux";
 
 const BlogCard = ({ type, blog, categoryName }) => {
   const categories = useSelector((state) => state.categories);
   const category = categories.find(
-    (category) => category._id === blog.category
+    (category) => category._id === blog.category,
   );
   const categoryNameFormatted = categoryName
     ? categoryName

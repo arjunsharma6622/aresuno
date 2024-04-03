@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Overview from "./components/Overview";
 import Reviews from "./components/Reviews";
@@ -11,7 +11,6 @@ import AddListing from "./components/AddListing";
 import Profile from "./components/Profile";
 import DashboardLayout from "./DashboardLayout";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Header from "../../../Components/Header/Header";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../state/slices/userSlice";
 import { API_URL, ToastParams } from "../../../utils/util";
@@ -27,8 +26,8 @@ const VendorDashboard = () => {
   const [allRatings, setAllRatings] = useState([]);
   const [allCallLeads, setAllCallLeads] = useState([]);
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const fetchUserData = async () => {
     try {
@@ -45,7 +44,6 @@ const VendorDashboard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-
       // Extract all posts from businesses array
       const allPosts = businesses.flatMap((business) => business.posts);
       const allRatings = businesses.flatMap((business) => business.ratings);
@@ -59,11 +57,11 @@ const VendorDashboard = () => {
       console.error("An error occurred:", error);
       console.error("An error occurred:", error.response.data.message);
 
-      if(error.response.data.message === "Unauthorized"){
+      if (error.response.data.message === "Unauthorized") {
         localStorage.removeItem("token");
-        toast.error("Session Expired, Please Login", ToastParams)
-        dispatch(userLogout())
-        navigate("/")
+        toast.error("Session Expired, Please Login", ToastParams);
+        dispatch(userLogout());
+        navigate("/");
       }
       // Handle error (e.g., show a user-friendly message)
     }
@@ -73,7 +71,7 @@ const VendorDashboard = () => {
     fetchUserData();
   }, []);
 
-  console.log(user)
+  console.log(user);
 
   return (
     <div className="relative h-screen">
@@ -84,7 +82,14 @@ const VendorDashboard = () => {
         <Routes>
           <Route
             path="/"
-            element={<Overview businesses={businesses} posts={allPosts} ratings={allRatings} callLeads={allCallLeads}/>}
+            element={
+              <Overview
+                businesses={businesses}
+                posts={allPosts}
+                ratings={allRatings}
+                callLeads={allCallLeads}
+              />
+            }
           />
           <Route path="/profile" element={<Profile user={user} />} />
           <Route
@@ -100,7 +105,7 @@ const VendorDashboard = () => {
             path="/reviews"
             element={<Reviews businesses={businesses} />}
           />
-          <Route path="/leads" element={<Leads businesses={businesses}/>} />
+          <Route path="/leads" element={<Leads businesses={businesses} />} />
           <Route path="/subscriptions" element={<Subscriptions />} />
         </Routes>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { FiArrowLeft, FiClock, FiEdit3, FiImage } from "react-icons/fi";
@@ -109,7 +109,7 @@ const BusinessEdit = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res);
       toast.success("Business Details Updated", ToastParams);

@@ -15,7 +15,7 @@ export default function Modal({ business, onClose }) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       console.log(res);
       onClose();

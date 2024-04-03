@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-import { FiHardDrive, FiNavigation } from "react-icons/fi";
-import { MdOutlineBusinessCenter } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { API_URL } from "../../../utils/util";
-import { setAllCategories } from "../../../state/slices/categoriesSlice";
 
 const MainCategories = () => {
-  const categories = useSelector((state) => state.categories.filter((category) => category.businessType === "doctor"));
-  const categoriesToShowOnHome = categories.length > 0 && categories.filter((category) => category.showOnHome);
+  const categories = useSelector((state) =>
+    state.categories.filter((category) => category.businessType === "doctor"),
+  );
+  const categoriesToShowOnHome =
+    categories.length > 0 &&
+    categories.filter((category) => category.showOnHome);
   const categoryTitles = useSelector((state) => state.categoriestitle);
-  
-  const categoryTitlesToShowOnHome = categoryTitles.length > 0 && categoryTitles.filter((categoryTitle) => categoryTitle.showOnHome);
+
+  const categoryTitlesToShowOnHome =
+    categoryTitles.length > 0 &&
+    categoryTitles.filter((categoryTitle) => categoryTitle.showOnHome);
   const userLocationName = useSelector((state) => state.user.locationName);
 
-  console.log(categoryTitlesToShowOnHome)
+  console.log(categoryTitlesToShowOnHome);
 
   const isMobile = window.innerWidth < 450;
   const numberOfIconsToShow = isMobile ? 15 : 14;
-
 
   return (
     <div className="self-center w-full max-w-[1314px] mt-6 md:mt-16">
@@ -27,24 +27,32 @@ const MainCategories = () => {
       </div>
       <div className="m-auto self-center w-full  max-w-[1200px] mt-12 max-md:max-w-full max-md:mt-10">
         <div className="flex flex-wrap gap-4 md:gap-10 justify-center items-start">
-          {
-            categoriesToShowOnHome.slice(0, numberOfIconsToShow).map((category, index) => (
-              <Link key={index} to={`${userLocationName?.toLowerCase()}/${category.name.split(" ").join("-").toLowerCase()}`} className="">
-              <div
+          {categoriesToShowOnHome
+            .slice(0, numberOfIconsToShow)
+            .map((category, index) => (
+              <Link
                 key={index}
-                className="flex flex-col gap-3 items-center justify-center w-24 md:w-32 h-full"
+                to={`${userLocationName?.toLowerCase()}/${category.name.split(" ").join("-").toLowerCase()}`}
+                className=""
               >
-                <div className="">
-                  <img loading="lazy" src={category.icon} alt={category.image.altTag} className="bg-gray-100 p-4 rounded-xl w-20 md:w-24"/>
+                <div
+                  key={index}
+                  className="flex flex-col gap-3 items-center justify-center w-24 md:w-32 h-full"
+                >
+                  <div className="">
+                    <img
+                      loading="lazy"
+                      src={category.icon}
+                      alt={category.image.altTag}
+                      className="bg-gray-100 p-4 rounded-xl w-20 md:w-24"
+                    />
+                  </div>
+                  <span className="text-xs md:text-sm text-center leading-4 ">
+                    {category.name}
+                  </span>
                 </div>
-                <span className="text-xs md:text-sm text-center leading-4 ">
-                {category.name}
-                </span>
-              </div>
               </Link>
-            ))
-            
-          }
+            ))}
         </div>
       </div>{" "}
     </div>

@@ -1,14 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ServiceCard from "./components/ServiceCard";
 import ServiceCardSkeleton from "./components/ServiceCardSkeleton";
-import NotFound from "../NotFound/NotFound";
 import { API_URL, ToastParams } from "../../utils/util";
 import EnquiryForm from "../../Components/EnquiryForm";
 import { Helmet } from "react-helmet-async";
-import BlogCard from "../Blog/BlogCard";
 import { ToastContainer, toast } from "react-toastify";
 
 const Services = () => {
@@ -42,7 +40,7 @@ const Services = () => {
       enquiryToSend.category = category?._id;
       const res = await axios.post(
         `${API_URL}/api/enquiry/create`,
-        enquiryToSend
+        enquiryToSend,
       );
       toast.success("Enquiry Sent", ToastParams);
       setEnquiry({
@@ -65,7 +63,7 @@ const Services = () => {
   const fetchCategoryBlogs = async () => {
     try {
       const res = await axios.get(
-        `${API_URL}/api/blog/category/${extractedName}`
+        `${API_URL}/api/blog/category/${extractedName}`,
       );
       setBlogs(res.data);
     } catch (e) {
@@ -101,7 +99,7 @@ const Services = () => {
 
     // Find the subcategory with the matching name
     const matchingSubcategory = categories.find(
-      (category) => category.name.toLowerCase() === extractedName
+      (category) => category.name.toLowerCase() === extractedName,
     );
 
     // Return the _id if a matching subcategory is found
@@ -113,7 +111,7 @@ const Services = () => {
       setIsLoading(true);
 
       const res = await axios.get(
-        `${API_URL}/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryName=${extractedName}&city=${city}`
+        `${API_URL}/api/business/getNearbyBusinesses?lat=${coordinates.lat}&long=${coordinates.lng}&categoryName=${extractedName}&city=${city}`,
       );
       setAllBusinesses(res.data.businesses);
       setCityCoordinates(res.data.coordinates);

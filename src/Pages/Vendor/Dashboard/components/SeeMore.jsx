@@ -30,7 +30,6 @@
 
 // export default SeeMore;
 
-
 // import React, { useState } from "react";
 
 // const SeeMore = ({ text, maxWords }) => {
@@ -59,10 +58,7 @@
 
 // export default SeeMore;
 
-
-
-
-import React, { useState } from "react";
+import { useState } from "react";
 
 const SeeMore = ({ text, maxWords }) => {
   const [showMore, setShowMore] = useState(false);

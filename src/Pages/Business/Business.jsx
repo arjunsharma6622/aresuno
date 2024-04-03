@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AiFillStar } from "react-icons/ai";
 import axios from "axios";
@@ -71,7 +71,7 @@ const Business = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       setReview("");
       setSelectedStars(4);
@@ -92,21 +92,21 @@ const Business = () => {
     setIsBusinessFetching(true);
     try {
       const res = await axios.get(
-        `${API_URL}/api/business/getBusinessByName/${businessName}`
+        `${API_URL}/api/business/getBusinessByName/${businessName}`,
       );
       setBusiness(res.data);
       const postsRes = await axios.get(
-          `${API_URL}/api/post/all-posts/${res.data._id}`
+        `${API_URL}/api/post/all-posts/${res.data._id}`,
       );
       setPosts(postsRes.data);
 
       const ratingsRes = await axios.get(
-        `${API_URL}/api/rating/${res.data._id}`
+        `${API_URL}/api/rating/${res.data._id}`,
       );
       setRatings(ratingsRes.data.filteredRatings);
       setTotalRatings(ratingsRes.data.totalRatings);
       setAvgRating(
-        ratingsRes.data.avgRating == "NaN" ? 0 : ratingsRes.data.avgRating
+        ratingsRes.data.avgRating == "NaN" ? 0 : ratingsRes.data.avgRating,
       );
       setIsBusinessFetching(false);
     } catch (e) {
@@ -136,7 +136,7 @@ const Business = () => {
       enquiryToSend.category = business.category?._id;
       const res = await axios.post(
         `${API_URL}/api/enquiry/create`,
-        enquiryToSend
+        enquiryToSend,
       );
       toast.success("Enquiry Sent", ToastParams);
       setEnquiry({
@@ -154,7 +154,6 @@ const Business = () => {
     }
   };
 
-
   const openingHours = business.timing?.map((hour) => {
     if (hour.isOpen) {
       return `${hour.day.slice(0, 2)} ${hour.from}-${hour.to}`; // Assuming 17:00 as a fixed closing time
@@ -171,8 +170,8 @@ const Business = () => {
       streetAddress: business.address?.street
         ? business.address?.street
         : business.address?.landmark
-        ? business.address?.landmark
-        : "",
+          ? business.address?.landmark
+          : "",
       addressLocality: business.address?.city,
       addressRegion: business.address?.state,
       postalCode: business.address?.pincode,

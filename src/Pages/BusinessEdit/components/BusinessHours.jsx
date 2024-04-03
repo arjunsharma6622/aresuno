@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiChevronDown, FiClock, FiEdit2, FiX } from "react-icons/fi";
 
 const BusinessHours = ({ businessDetails, setBusinessDetails }) => {
@@ -151,8 +151,8 @@ const BusinessHours = ({ businessDetails, setBusinessDetails }) => {
                           (time) =>
                             new Date(`01/01/2000 ${time}`) >
                             new Date(
-                              `01/01/2000 ${businessDetails.timing[index].from}`
-                            )
+                              `01/01/2000 ${businessDetails.timing[index].from}`,
+                            ),
                         )
                         .map((time) => (
                           <option key={time} value={time}>

@@ -1,4 +1,3 @@
-import React from "react";
 import { BiLink } from "react-icons/bi";
 import { FaWhatsapp } from "react-icons/fa";
 import {
@@ -54,7 +53,9 @@ const InputWithIcon = ({ name, onChange, value }) => {
   return (
     <div className="flex flex-col" key={name}>
       <label className="flex gap-2 items-center mb-2 capitalize">
-        {name !== "whatsapp" ? `${name} Link` : "Whatsapp Link / 10 digit Number"} 
+        {name !== "whatsapp"
+          ? `${name} Link`
+          : "Whatsapp Link / 10 digit Number"}
       </label>
 
       <div className="relative">
@@ -76,12 +77,12 @@ const BusinessLinks = ({ businessDetails, setBusinessDetails }) => {
     const { name, value } = e.target;
 
     // Check if the link type is WhatsApp and transform if it's a number
-    if (name === 'whatsapp' && /^\d+$/.test(value)) {
+    if (name === "whatsapp" && /^\d+$/.test(value)) {
       setBusinessDetails((prev) => ({
         ...prev,
         socialLinks: {
           ...prev.socialLinks,
-          whatsapp: value && `https://wa.me/${value}`
+          whatsapp: value && `https://wa.me/${value}`,
         },
       }));
     } else {

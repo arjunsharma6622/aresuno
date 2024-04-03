@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BiCategory } from "react-icons/bi";
 import { FiChevronDown, FiEdit2, FiX } from "react-icons/fi";
 import { useSelector } from "react-redux";
