@@ -33,7 +33,7 @@ const CategoryInput = ({
           1000 /
           1024
         ).toFixed(2)} MB`,
-        ToastParams
+        ToastParams,
       );
       return false;
     } else {
@@ -197,31 +197,31 @@ const AddCategories = () => {
 
   const removeCategory = (index) => {
     setCategories((prevCategories) =>
-      prevCategories.filter((_, i) => i !== index)
+      prevCategories.filter((_, i) => i !== index),
     );
   };
 
   const updateCategory = (index, categoryData) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, ...categoryData } : cat
-      )
+        i === index ? { ...cat, ...categoryData } : cat,
+      ),
     );
   };
 
   const updateCategoryName = (index, name) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, name: name } : cat
-      )
+        i === index ? { ...cat, name: name } : cat,
+      ),
     );
   };
 
   const updateCategoryKeywords = (index, keywords) => {
     setCategories((prevCategories) =>
       prevCategories.map((cat, i) =>
-        i === index ? { ...cat, keywords: keywords } : cat
-      )
+        i === index ? { ...cat, keywords: keywords } : cat,
+      ),
     );
   };
 
@@ -244,7 +244,7 @@ const AddCategories = () => {
 
             const uploadResponse = await axios.post(
               "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-              imageData
+              imageData,
             );
 
             const imageUrl = uploadResponse.data.secure_url;
@@ -291,7 +291,7 @@ const AddCategories = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
 
       console.log(res.data);

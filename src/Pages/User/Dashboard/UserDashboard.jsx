@@ -17,7 +17,7 @@ const UserDashboard = () => {
       const token = localStorage.getItem("token");
       const res = await axios.get(
         "https://aresuno-server.vercel.app/api/user/",
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       const user = res.data;
       console.log(user);

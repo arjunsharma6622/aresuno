@@ -54,13 +54,13 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
         imageData.append(`file`, image);
         imageData.append(
           "folder",
-          `aresuno/businessImages/${businessDetails.name}/gallery`
+          `aresuno/businessImages/${businessDetails.name}/gallery`,
         );
         imageData.append("upload_preset", "ml_default");
 
         const uploadResponse = await axios.post(
           "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-          imageData
+          imageData,
         );
 
         return uploadResponse.data.secure_url;
@@ -75,13 +75,13 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             logoImageData.append(`file`, logoImage);
             logoImageData.append(
               "folder",
-              `aresuno/businessImages/${businessDetails.name}/logo`
+              `aresuno/businessImages/${businessDetails.name}/logo`,
             );
             logoImageData.append("upload_preset", "ml_default");
 
             const logoUploadResponse = await axios.post(
               "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-              logoImageData
+              logoImageData,
             );
 
             return logoUploadResponse.data.secure_url;
@@ -99,13 +99,13 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
             coverImageData.append(`file`, coverImage);
             coverImageData.append(
               "folder",
-              `aresuno/businessImages/${businessDetails.name}/cover`
+              `aresuno/businessImages/${businessDetails.name}/cover`,
             );
             coverImageData.append("upload_preset", "ml_default");
 
             const coverUploadResponse = await axios.post(
               "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
-              coverImageData
+              coverImageData,
             );
 
             return coverUploadResponse.data.secure_url;
@@ -343,7 +343,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                         images: {
                           ...prev.images,
                           gallery: prev.images.gallery.filter(
-                            (_, i) => i !== index
+                            (_, i) => i !== index,
                           ),
                         },
                       }));
@@ -368,7 +368,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
                       onClick={() => {
                         setImages((prev) => prev.filter((_, i) => i !== index));
                         setImagesToShow((prev) =>
-                          prev.filter((_, i) => i !== index)
+                          prev.filter((_, i) => i !== index),
                         );
                       }}
                     />

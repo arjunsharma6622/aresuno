@@ -148,7 +148,7 @@ const BusinessHeader = ({
                               key={index}
                               className="text-yellow-500 w-3 h-3 md:w-4 md:h-4"
                             />
-                          )
+                          ),
                         )}
 
                         {hasHalfStar && (
@@ -159,7 +159,7 @@ const BusinessHeader = ({
                           ...Array(
                             5 -
                               (fullStars ? fullStars : 0) -
-                              (hasHalfStar ? 1 : 0)
+                              (hasHalfStar ? 1 : 0),
                           ),
                         ].map((_, index) => (
                           <BsStar

@@ -17,7 +17,7 @@ export default function DeleteModal({
     : `${API_URL}/api/category-title/${mainCategory._id}`;
 
   console.log(
-    `The cat is ${subCategory ? subCategory.name : mainCategory.name}`
+    `The cat is ${subCategory ? subCategory.name : mainCategory.name}`,
   );
 
   const handleDelete = async () => {

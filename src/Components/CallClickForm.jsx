@@ -35,7 +35,7 @@ const CallClickForm = ({ onClose, business }) => {
       };
       const res = await axios.post(
         `${API_URL}/api/call-lead/create`,
-        callLeadToSend
+        callLeadToSend,
       );
       setCallLead(res.data);
       console.log(res.data);
