@@ -1,9 +1,7 @@
 import React from "react";
-// import { userLogin } from "../../../../state/slices/userSlice";
-import { useSelector } from "react-redux";
-import { MdOutlinePostAdd, MdReviews } from "react-icons/md";
-import { BiImageAdd, BiRupee, BiSolidBusiness } from "react-icons/bi";
-import { BsPeopleFill, BsStarFill } from "react-icons/bs";
+import { MdReviews } from "react-icons/md";
+import { BiSolidBusiness } from "react-icons/bi";
+import { BsStarFill } from "react-icons/bs";
 import {useNavigate} from "react-router-dom"
 
 const Overview = ({ user, Enquiries, Reviews }) => {

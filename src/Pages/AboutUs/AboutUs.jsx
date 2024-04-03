@@ -1,4 +1,3 @@
-import React from 'react';
 import { FiLinkedin } from 'react-icons/fi';
 
 const AboutUs = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import MapComponent from "../../BusinessRegister/components/MapComponent";
 import { BiNavigation } from "react-icons/bi";
 

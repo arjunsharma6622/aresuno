@@ -1,10 +1,5 @@
-import React, { useEffect } from "react";
-import { FiHardDrive, FiNavigation } from "react-icons/fi";
-import { MdOutlineBusinessCenter } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { API_URL } from "../../../utils/util";
-import { setAllCategories } from "../../../state/slices/categoriesSlice";
 
 const MainCategories = () => {
   const categories = useSelector((state) => state.categories);

@@ -1,6 +1,4 @@
-import React from 'react'
-import { Helmet } from 'react-helmet-async'
-import { FiDelete, FiEdit2, FiExternalLink, FiTrash2 } from 'react-icons/fi'
+import { FiEdit2, FiExternalLink, FiTrash2 } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { API_URL, ToastParams } from '../../../utils/util'
 import { ToastContainer, toast } from 'react-toastify'

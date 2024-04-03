@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BsFillCameraFill } from "react-icons/bs";
-import { FiCamera, FiEdit, FiEdit2, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
+import { FiEdit, FiEye, FiEyeOff, FiLock, FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 const Profile = ({ user }) => {

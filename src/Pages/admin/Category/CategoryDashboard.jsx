@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import AllCategories from './AllCategories'
 import AddCategories from './AddCategories'
 

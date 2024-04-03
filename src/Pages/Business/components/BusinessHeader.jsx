@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
-import { AiOutlineWhatsApp } from 'react-icons/ai';
+import { useState } from 'react'
 import { BiCheckShield } from 'react-icons/bi';
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
-import { CgWebsite } from 'react-icons/cg';
-import { FiFacebook, FiInstagram, FiMessageSquare, FiPhone, FiTwitter, FiYoutube } from 'react-icons/fi';
+import { FiMessageSquare, FiPhone } from 'react-icons/fi';
 import { isStoreOpenNow } from '../../../utils/businessPageUtils';
 import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri';
 import CallClickForm from '../../../Components/CallClickForm';

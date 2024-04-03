@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,8 +13,6 @@ import BusinessHours from "./components/BusinessHours";
 import BusinessImages from "./components/BusinessImages";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import Input from "../../Components/Input";
-import { MdOutlineDone } from "react-icons/md";
 import Review from "./components/Review";
 import { API_URL, ToastParams } from "../../utils/util";
 

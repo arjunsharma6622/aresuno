@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { FiCheckCircle, FiEdit3, FiTrash2, FiXCircle } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import EditModal from './EditModal';

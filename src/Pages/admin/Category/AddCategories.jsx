@@ -1,21 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import  {  useState } from "react";
 import {
-  FiCheckCircle,
-  FiEdit2,
-  FiEdit3,
-  FiImage,
-  FiPlus,
-  FiTrash2,
-  FiUpload,
   FiUploadCloud,
   FiX,
   FiXCircle,
 } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import DeleteModal from "./DeleteModal";
-import EditModal from "./EditModal";
 import { API_URL, ToastParams } from "../../../utils/util";
 
 const CategoryInput = ({

@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FiCrosshair, FiHardDrive, FiNavigation } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-// import { getBanner } from "../../../bannerSlice";
-// getBanner
 import axios from "axios";
 import { getBanner } from "../../../state/slices/bannerSlice";
 import Header from "../../../Components/Header/Header";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {setUserCoordinates, setUserLocationName} from "../../../state/slices/userSlice";
 import { API_URL } from "../../../utils/util";
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";

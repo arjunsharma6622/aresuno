@@ -1,8 +1,5 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import CategoriesSlider from "./CategoriesSlider";
-import { setAllCategories } from "../../../state/slices/categoriesSlice";
-import { setAllCategoryTitle } from "../../../state/slices/categoriestitleSlice";
 
 const ServiceCategories = () => {
 

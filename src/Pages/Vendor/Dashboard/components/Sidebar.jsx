@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   AiOutlineAppstore,
@@ -10,11 +10,10 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import {
   MdOutlineLeaderboard,
   MdOutlinePostAdd,
-  MdOutlineReviews,
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../../state/slices/userSlice";
-import { FiArrowLeft, FiArrowRight, FiBell, FiHome, FiLogOut, FiMenu, FiMessageSquare, FiStar, FiX } from "react-icons/fi";
+import {  FiBell, FiLogOut, FiMenu, FiStar, FiX } from "react-icons/fi";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Sidebar = ({ user }) => {

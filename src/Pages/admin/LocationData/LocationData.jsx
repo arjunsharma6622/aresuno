@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import  {  useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 import { API_URL, ToastParams } from '../../../utils/util'
 import { FiEdit2, FiTrash2 } from 'react-icons/fi'
 import EditLocation from './EditLocation'
-import DeleteModal from '../Category/DeleteModal'
 import DeleteLocation from './DeleteLocation'
 
 const LocationData = ({allLocations}) => {

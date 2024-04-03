@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { API_URL } from "../../utils/util";
 import BlogCard from "./BlogCard";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
 import keyword_extractor from "keyword-extractor";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import { setAllCategoryTitle } from "../../state/slices/categoriestitleSlice";
 import { IoMdSearch } from "react-icons/io";

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FiChevronDown, FiChevronUp, FiHelpCircle, FiMinus, FiPlus } from 'react-icons/fi';
+import { useState } from 'react';
+import { FiMinus, FiPlus } from 'react-icons/fi';
 
 const Accordion = ({ question, content }) => {
   const [isOpen, setIsOpen] = useState(false);

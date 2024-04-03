@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { FiEdit3 } from 'react-icons/fi'
 import { API_URL, ToastParams } from '../../../utils/util'
 import { ToastContainer, toast } from 'react-toastify'

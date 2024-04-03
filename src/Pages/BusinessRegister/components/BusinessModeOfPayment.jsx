@@ -1,5 +1,4 @@
-import React from 'react'
-import { FiCheck, FiCheckCircle } from 'react-icons/fi';
+import { FiCheckCircle } from 'react-icons/fi';
 import { MdPayment } from 'react-icons/md';
 
 const BusinessModeOfPayment = ({businessDetails, setBusinessDetails}) => {

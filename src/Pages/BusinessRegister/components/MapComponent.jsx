@@ -61,7 +61,7 @@
 
 
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const MapComponent = ({ businessDetails, setBusinessDetails }) => {
   const mapRef = useRef(null);

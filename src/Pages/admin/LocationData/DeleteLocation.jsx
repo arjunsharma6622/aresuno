@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { AiFillExclamationCircle } from 'react-icons/ai'
-import { FiEdit3, FiTrash2 } from 'react-icons/fi'
 import { API_URL, ToastParams } from '../../../utils/util'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'

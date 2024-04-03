@@ -1,4 +1,3 @@
-import React from 'react'
 import { FiHelpCircle } from 'react-icons/fi'
 import Accordion from './Accordion'
 

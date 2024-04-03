@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiEdit2, FiImage, FiUploadCloud, FiX } from "react-icons/fi";
-import { MdOutlineCloudDone } from "react-icons/md";
 import axios from "axios"
 
 const BusinessImages = ({ businessDetails, setBusinessDetails }) => {

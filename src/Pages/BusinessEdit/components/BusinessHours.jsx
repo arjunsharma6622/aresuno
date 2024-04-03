@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiChevronDown, FiClock, FiEdit2, FiX } from "react-icons/fi";
 
 const BusinessHours = ({ businessDetails, setBusinessDetails }) => {

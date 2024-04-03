@@ -1,5 +1,3 @@
-import React from "react";
-
 const ServiceCardSkeleton = () => {
   return (
     <div className="flex shadow-xl rounded-xl">

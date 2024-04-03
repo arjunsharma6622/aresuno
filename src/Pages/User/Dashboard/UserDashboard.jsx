@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import DashboardLayout from "./DashboardLayout";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Overview from "./components/Overview";
 import Profile from "./components/Profile";
 import Inquiries from "./components/Inquiries";

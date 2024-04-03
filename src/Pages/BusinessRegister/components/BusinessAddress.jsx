@@ -1,9 +1,5 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { BiNavigation } from "react-icons/bi";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
 import MapComponent from "./MapComponent";
 import {API_URL} from "../../../utils/util"
 import axios from "axios"

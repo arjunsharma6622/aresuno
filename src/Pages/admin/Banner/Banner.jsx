@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { FiEdit2, FiPlus, FiUploadCloud, FiX } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import { ToastParams } from '../../../utils/util';

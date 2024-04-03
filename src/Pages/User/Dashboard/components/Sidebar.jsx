@@ -1,26 +1,17 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  AiOutlineAppstore,
-  AiOutlineAppstoreAdd,
   AiOutlineUser,
 } from "react-icons/ai";
-import { BiDollar } from "react-icons/bi";
 import { LuLayoutDashboard } from "react-icons/lu";
 import {
-  MdOutlineLeaderboard,
   MdOutlinePostAdd,
-  MdOutlineReviews,
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import {
-  FiArrowLeft,
-  FiArrowRight,
   FiBell,
-  FiHome,
   FiLogOut,
   FiMenu,
-  FiMessageSquare,
   FiStar,
   FiX,
 } from "react-icons/fi";

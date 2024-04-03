@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi';
 import { FiChevronDown, FiLink2, FiXCircle } from 'react-icons/fi';
 import { useSelector } from 'react-redux';

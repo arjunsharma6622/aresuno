@@ -1,8 +1,5 @@
-import React from 'react'
-import { AiOutlineAppstore } from 'react-icons/ai'
 import { BiCategory, BiImage } from 'react-icons/bi'
-import { FaGripLines } from 'react-icons/fa'
-import { FiArrowRight, FiHome, FiMap, FiMapPin, FiMessageSquare, FiPhoneCall, FiPlus, FiPlusCircle, FiUsers } from 'react-icons/fi'
+import { FiArrowRight, FiHome, FiMapPin, FiMessageSquare, FiUsers } from 'react-icons/fi'
 import { LuLayoutDashboard } from 'react-icons/lu'
 import { MdOutlineArticle } from 'react-icons/md'
 

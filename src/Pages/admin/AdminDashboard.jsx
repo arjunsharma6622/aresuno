@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import  { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import Banner from "./Banner/Banner";

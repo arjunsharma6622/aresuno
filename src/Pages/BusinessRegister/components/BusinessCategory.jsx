@@ -46,7 +46,7 @@
 
 
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BiCategory } from 'react-icons/bi';
 import { useSelector } from 'react-redux';
 

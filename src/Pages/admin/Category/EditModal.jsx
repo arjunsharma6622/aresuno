@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { AiFillExclamationCircle } from "react-icons/ai";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FiCamera, FiEdit3, FiX } from "react-icons/fi";
+import {  FiEdit3, FiX } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
 import { API_URL, ToastParams } from "../../../utils/util";
 import { useSelector } from "react-redux";

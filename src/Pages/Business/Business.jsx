@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AiFillStar } from "react-icons/ai";
 import axios from "axios";

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Overview from "./components/Overview";
 import Reviews from "./components/Reviews";
@@ -11,7 +11,6 @@ import AddListing from "./components/AddListing";
 import Profile from "./components/Profile";
 import DashboardLayout from "./DashboardLayout";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Header from "../../../Components/Header/Header";
 import { useDispatch } from "react-redux";
 import { userLogout } from "../../../state/slices/userSlice";
 import { API_URL, ToastParams } from "../../../utils/util";

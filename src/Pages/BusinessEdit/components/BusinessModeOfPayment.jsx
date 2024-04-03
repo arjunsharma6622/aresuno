@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiCheckCircle, FiEdit2, FiX } from "react-icons/fi";
 import { MdPayment } from "react-icons/md";
 

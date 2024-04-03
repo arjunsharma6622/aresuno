@@ -1,4 +1,3 @@
-import React from 'react'
 import { AiFillStar } from 'react-icons/ai'
 import { BsStar, BsStarFill } from 'react-icons/bs'
 import { FiStar } from 'react-icons/fi'

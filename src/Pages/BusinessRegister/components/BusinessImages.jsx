@@ -1,9 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { FiCrop, FiImage, FiPlus, FiUploadCloud, FiX, FiXCircle } from "react-icons/fi";
+import  { useState } from "react";
+import { FiImage, FiUploadCloud, FiXCircle } from "react-icons/fi";
 import { MdOutlineCloudDone } from "react-icons/md";
 import { toast } from "react-toastify";
-import EasyCrop from "../../Vendor/Dashboard/components/EasyCrop";
 
 const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
   const [images, setImages] = useState([]);

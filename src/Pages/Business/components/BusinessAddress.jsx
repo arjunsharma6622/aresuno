@@ -1,4 +1,3 @@
-import React from 'react'
 import { FiNavigation } from 'react-icons/fi'
 
 const BusinessAddress = ({business}) => {

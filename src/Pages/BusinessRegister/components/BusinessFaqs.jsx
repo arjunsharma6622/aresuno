@@ -1,4 +1,3 @@
-import React from 'react';
 import { BiQuestionMark } from 'react-icons/bi';
 import { FiTrash2 } from 'react-icons/fi';
 

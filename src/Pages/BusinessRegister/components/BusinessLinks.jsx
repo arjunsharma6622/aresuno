@@ -1,4 +1,3 @@
-import React from "react";
 import { BiLink } from "react-icons/bi";
 import { FaWhatsapp } from "react-icons/fa";
 import {

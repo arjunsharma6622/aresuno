@@ -1,22 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import  { useCallback, useState } from "react";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import ModalEdit from "./ModalEdit";
 import SeeMore from "./SeeMore";
 import { useDropzone } from "react-dropzone";
-
-import { LuImagePlus } from "react-icons/lu";
 import {
   FiChevronDown,
-  FiExternalLink,
-  FiLink,
   FiLink2,
-  FiX,
   FiXCircle,
 } from "react-icons/fi";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Cropper from "react-easy-crop";
 import { getCroppedImg } from "./getCroppedImage";
 import { BiImageAdd } from "react-icons/bi";
 import EasyCrop from "./EasyCrop";

@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { FiClock } from 'react-icons/fi'
+import  { useState } from 'react'
 
 const Leads = ({businesses}) => {
 

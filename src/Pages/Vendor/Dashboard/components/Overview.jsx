@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { BiImageAdd, BiRupee, BiSolidBusiness } from "react-icons/bi";
+import React  from "react";
+import {  BiRupee, BiSolidBusiness } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { MdOutlinePostAdd, MdReviews } from "react-icons/md";
 import {

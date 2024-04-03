@@ -1,4 +1,3 @@
-import React from 'react'
 import { FiImage } from 'react-icons/fi'
 
 const Images = ({business}) => {

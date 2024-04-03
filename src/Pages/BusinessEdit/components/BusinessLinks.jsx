@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BiLink } from "react-icons/bi";
 import { FaWhatsapp } from "react-icons/fa";
 import {

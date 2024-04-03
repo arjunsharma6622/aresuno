@@ -1,19 +1,12 @@
 import Banner from "./components/Banner";
 import ServiceCategories from "./components/ServiceCategories";
-import Testimonials from "./components/Testimonials";
-import AboutUs from "./components/AboutUs";
 import MainCategories from "./components/MainCategories";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getBanner } from "../../state/slices/bannerSlice";
 import { useEffect } from "react";
-import { Swiper } from 'swiper/react';
-
-import { A11y, Autoplay, Navigation, Pagination } from "swiper/modules";
-import { SwiperSlide } from "swiper/react";
 import { Helmet } from "react-helmet-async";
 import { userLogout } from "../../state/slices/userSlice";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/util";
 import { setAllCategories } from "../../state/slices/categoriesSlice";

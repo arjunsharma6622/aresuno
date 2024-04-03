@@ -1,6 +1,3 @@
-import React from "react";
-import { BsStarFill } from "react-icons/bs";
-
 const Inquiries = ({ Enquiries }) => {
   console.log(Enquiries, "enquiries");
   const extract6Words = (text) => {

@@ -1,4 +1,3 @@
-import React from 'react'
 import { FiArrowRight, FiFileText } from 'react-icons/fi'
 
 const Overview = ({ business }) => {

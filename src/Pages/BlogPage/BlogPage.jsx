@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import { setAllCategoryTitle } from "../../state/slices/categoriestitleSlice";
 import { API_URL } from "../../utils/util";
@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet-async";
 import keyword_extractor from "keyword-extractor";
 import BlogCard from "../Blog/BlogCard";
 import { FaUserCircle } from "react-icons/fa";
-import dateFormat, { masks } from "dateformat";
+import dateFormat  from "dateformat";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const BlogPage = ({ categoryBlogPage }) => {

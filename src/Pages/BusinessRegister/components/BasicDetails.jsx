@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { BiDetail } from "react-icons/bi";
 import { FiChevronDown, FiXCircle } from "react-icons/fi";
-import { PhoneInput } from "react-international-phone";
-import Input from "../../../Components/Input";
 import 'react-international-phone/style.css';
 
 

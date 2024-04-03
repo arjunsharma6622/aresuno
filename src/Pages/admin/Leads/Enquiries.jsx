@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from 'react'
-import { API_URL } from '../../../utils/util'
-import axios from 'axios'
 
 const Enquiries = ({enquiries}) => {
 

@@ -1,8 +1,6 @@
-import React from 'react'
-import { FiExternalLink, FiUser } from 'react-icons/fi'
 import { FaUserCircle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import dateFormat, { masks } from "dateformat";
+import dateFormat  from "dateformat";
 
 
 const BlogCard = ({blog}) => {

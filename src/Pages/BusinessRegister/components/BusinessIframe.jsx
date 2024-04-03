@@ -1,6 +1,3 @@
-import React from 'react'
-import { FiCode } from 'react-icons/fi'
-
 const BusinessIframe = ({ businessDetails, setBusinessDetails }) => {
 
   const handleIframeChange = (e) => {

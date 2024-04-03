@@ -1,4 +1,3 @@
-import React from 'react'
 import { FiClock } from 'react-icons/fi'
 
 const BusinessTimings = ({business}) => {
