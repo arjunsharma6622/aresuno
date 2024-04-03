@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 const Input = ({ type, fieldName, inputValue, handleInputChange, name }) => {
   const handleBlur = () => {

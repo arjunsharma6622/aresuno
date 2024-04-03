@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { FiCheckCircle, FiMessageSquare, FiX } from 'react-icons/fi';
 import { API_URL, ToastParams } from '../utils/util';
 import axios from 'axios'

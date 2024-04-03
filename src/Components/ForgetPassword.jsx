@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import OtpForm from './OtpForm';
 import { API_URL, ToastParams } from '../utils/util';
 import axios from 'axios';

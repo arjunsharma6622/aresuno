@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { FiPhoneCall, FiX } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
+import  { useState, useEffect } from 'react';
+import {  FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { API_URL } from '../utils/util';
 import axios from 'axios';
-import OtpForm from './OtpForm';
 
 const CallClickForm = ({ onClose, business }) => {
   const [userDetails, setUserDetails] = useState({
