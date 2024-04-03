@@ -66,7 +66,7 @@ const ForgetPassword = () => {
 
 
 
-  const onSubmitNumber = async(e) => {
+  const onSubmitNumber = async (e) => {
     try {
       const response = await axios.post(`${API_URL}/api/forgetPassword-otp`, e);
       console.log(response.data)
@@ -100,16 +100,16 @@ const ForgetPassword = () => {
                     register={register("phone", formValidator.mobile)}
                     erorrs={errors}
                     inputClass='w-full border flex-[8] border-gray-300 px-4 py-3 rounded focus:outline-none focus:border-blue-500'
-
+                    maxLength={10}
                   />
 
                   <button type='submit'
-                     className="bg-blue-500 flex-[4] text-white w-full px-4 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+                    className="bg-blue-500 flex-[4] text-white w-full px-4 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
                   >
                     Get OTP
                   </button>
                 </div>
-
+                {errors && <small className='text-red-500'>{errors?.phone?.message}</small>}
               </div>
             </form>
           </div>

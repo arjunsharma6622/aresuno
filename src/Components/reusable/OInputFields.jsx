@@ -47,7 +47,7 @@ const OInputField = props => {
           <input
             name={name}
             type={type}
-            className='w-full  border flex-[8] border-gray-300 px-4 py-3 rounded focus:outline-none focus:border-blue-500'
+            className={inputClass?inputClass:`w-full border flex-[8] border-gray-300 px-4 py-3 rounded focus:outline-none focus:border-blue-500`}
             placeholder={placeholder || ' '}
             maxLength={maxLength}
             id={name}

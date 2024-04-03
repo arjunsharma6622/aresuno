@@ -28,20 +28,20 @@ return {
   //     message: t('CANNOT_START_WITH_A_SPACE')
   //   }
   // },
-  // firstName: {
-  //   required: t('PLEASE_ENTER_FIRST_NAME'),
-  //   pattern: {
-  //     value: /^[^\s].*/,
-  //     message: t('CANNOT_START_WITH_A_SPACE')
-  //   },
-  //   minLength: {
-  //     value: 2,
-  //     message: t('MINIMUM_LENGTH_MUST_BE_2')
-  //   },
-  //   validate: {
-  //     whiteSpace: value => (value.trim() ? true : t('WHITE_SPACES_NOT_ALLOWED'))
-  //   }
-  // },
+  name: {
+    required: 'Please enter name.',
+    pattern: {
+      value: /^[^\s].*/,
+      message: 'Name cannot start with white space.'
+    },
+    minLength: {
+      value: 2,
+      message: 'Minimum length should be 2.'
+    },
+    validate: {
+      whiteSpace: value => (value.trim() ? true : 'White space not allowed.')
+    }
+  },
  
  
   // lastName: {
@@ -63,31 +63,51 @@ return {
   //   }
   // },
  
-  // email: {
-  //   required: t('PLEASE_ENTER_EMAIL_ID'),
-  //   pattern: {
-  //     value: validationRules.email,
-  //     message: t('INVALID_EMAIL_ADDRESS')
-  //   },
-  //   validate: {
-  //     whiteSpace: value => (value.trim() ? true : t('WHITE_SPACES_NOT_ALLOWED'))
-  //   }
-  // },
+  email: {
+    required: 'Please enter email ID.',
+    pattern: {
+      value: validationRules.email,
+      message: 'Please enter valid email ID.'
+    },
+    validate: {
+      whiteSpace: value => (value.trim() ? true : 'White space not allowed.')
+    }
+  },
+
+  password: {
+    required: 'Please enter password.',
+    pattern: {
+      value: validationRules.password,
+      message: validationRules.passwordMessage
+    },
+    validate: {
+      whiteSpace: value => (value.trim() ? true : 'White space not allowed.')
+    }
+  },
+
+
+  ConfirmPassword: {
+    required: 'Please enter confirm password.',
+    pattern: {
+      value: validationRules.password,
+      message: validationRules.confirmPasswordMessage
+    },
+    // validate: {
+    //   whiteSpace: value => (value.trim() ? true : 'White space not allowed.')
+    // }
+  },
+
+
+
+
+ 
  
   mobile: {
-    required: 'Please enter mobile number.',
-    minLength: {
-      value: 10,
-      message: 'Minimum length should be 10 digits.'
-    },
-    min: {
-      value: 0,
-      message: 'Minimum value must is 0.'
-    },
-    maxLength: {
-      value: 10,
-      message: 'Maximum length should be 10 digits.'
-    }
+    required: 'Please enter phone number.',
+    pattern: {
+      value: /^[0-9]{10}$/,
+      message: 'Please enter valid phone number.'
+    },   
   },
   // description: {
   //   required: 'Please enter description.',
