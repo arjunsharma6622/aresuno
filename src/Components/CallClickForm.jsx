@@ -54,14 +54,11 @@ const CallClickForm = ({ onClose, business }) => {
   const handleOTPSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(
-        `${API_URL}/api/call-lead/verify-otp`,
-        {
-          _id: callLead._id,
-          otp: otp,
-          phone: callLead.phone,
-        },
-      );
+      await axios.patch(`${API_URL}/api/call-lead/verify-otp`, {
+        _id: callLead._id,
+        otp: otp,
+        phone: callLead.phone,
+      });
       setIsOtpVerified(true);
     } catch (err) {
       console.log(err);

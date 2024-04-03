@@ -33,7 +33,7 @@ const Overview = ({ business }) => {
               <p className="text-base font-medium mb-1 mt-2">We accept</p>
 
               <div className="grid grid-cols-4 gap-2 w-full md:flex md:flex-wrap md:items-center md:justify-start md:gap-5">
-                {business.modeOfPayment?.map(({ name, icon }, index) => (
+                {business.modeOfPayment?.map(({ name, icon }) => (
                   <div
                     key={name}
                     className="flex items-center mb-2 bg-gray-100 rounded-lg justify-center px-2 md:px-3 py-2"
@@ -44,7 +44,6 @@ const Overview = ({ business }) => {
                         alt={name}
                         className="w-[55px] md:w-[70px] aspect-[2/1] object-cover"
                       />
-                      {/* {name} */}
                     </span>
                   </div>
                 ))}

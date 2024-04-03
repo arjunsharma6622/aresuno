@@ -23,9 +23,6 @@ const Banner = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchBoxFocused, setIsSearchBoxFocused] = useState(false);
-  // const [crds, setCrds] = useState([]);
-  const [coordinates, setCoordinates] = useState([]);
-  const [slugLocationName, setSlugLocationName] = useState("");
 
   const userLocationName = useSelector((state) => state.user.locationName);
   const [location, setLocation] = useState(userLocationName);

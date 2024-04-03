@@ -68,8 +68,11 @@ export default function DeleteModal({
                     All the below mentioned subCategories will be deleted
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2 items-center justify-center">
-                    {mainCategory.subcategories.map((subCategory) => (
-                      <span className="text-xs bg-gray-200 rounded-full px-3 py-[6px] flex items-center justify-center">
+                    {mainCategory.subcategories.map((subCategory, index) => (
+                      <span
+                        className="text-xs bg-gray-200 rounded-full px-3 py-[6px] flex items-center justify-center"
+                        key={index}
+                      >
                         {subCategory.name}
                       </span>
                     ))}

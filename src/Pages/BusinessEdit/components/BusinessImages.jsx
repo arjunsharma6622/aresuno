@@ -48,7 +48,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
     e.preventDefault();
 
     try {
-      const uploadPromises = images.map(async (image, index) => {
+      const uploadPromises = images.map(async (image) => {
         const imageData = new FormData();
 
         imageData.append(`file`, image);
@@ -216,6 +216,7 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
   //   };
 
   const [businessImagesUpdate, setBusinessImagesUpdate] = useState(true);
+
   return (
     <div className="mt-6 mb-6 ">
       <div className="flex justify-start gap-8 items-center">

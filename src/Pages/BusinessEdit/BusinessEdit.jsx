@@ -40,7 +40,6 @@ const BusinessEdit = () => {
       pincode: null,
       coordinates: [],
     },
-    phone: "",
     timing: [
       { day: "Monday", from: "", to: "", isOpen: false },
       { day: "Tuesday", from: "", to: "", isOpen: false },
@@ -182,7 +181,7 @@ const BusinessEdit = () => {
           </div>
 
           <div className="flex w-full flex-col gap-4">
-            {sidebarElements.map(({ name, icon }, index) => (
+            {sidebarElements.map(({ name, icon }) => (
               <div
                 key={name}
                 className={`flex items-center gap-2 cursor-pointer w-full px-6 py-2 ${

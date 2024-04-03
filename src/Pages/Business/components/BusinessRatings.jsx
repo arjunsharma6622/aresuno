@@ -2,6 +2,7 @@ import { AiFillStar } from "react-icons/ai";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { FiStar } from "react-icons/fi";
 import { daysAgoFormatDate } from "../../../utils/businessPageUtils";
+import { BsStarHalf } from "react-icons/bs";
 
 const BusinessRatings = ({ ratings, avgRating, hasHalfStar, fullStars }) => {
   return (

@@ -38,10 +38,7 @@ const Services = () => {
         ...enquiry,
       };
       enquiryToSend.category = category?._id;
-      const res = await axios.post(
-        `${API_URL}/api/enquiry/create`,
-        enquiryToSend,
-      );
+      await axios.post(`${API_URL}/api/enquiry/create`, enquiryToSend);
       toast.success("Enquiry Sent", ToastParams);
       setEnquiry({
         name: "",

@@ -178,8 +178,8 @@ const Leads = ({ businesses }) => {
         <div className="mt-6 flex flex-col gap-5">
           <div className="">
             <div className="flex gap-5">
-              {callLeadFilter.map((filter) => (
-                <div className="flex items-center gap-3">
+              {callLeadFilter.map((filter, index) => (
+                <div className="flex items-center gap-3" key={index}>
                   <input
                     type="radio"
                     name="call lead filter"
@@ -210,8 +210,8 @@ const Leads = ({ businesses }) => {
                 </th>
               </tr>
               <tbody className="bg-white divide-y divide-gray-200 text-xs md:text-sm">
-                {[...allCallLeads].reverse().map((lead) => (
-                  <tr className="border ">
+                {[...allCallLeads].reverse().map((lead, index) => (
+                  <tr className="border" key={index}>
                     <td className="px-6 py-3 text-left ">
                       {new Date(lead.createdAt).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -238,8 +238,8 @@ const Leads = ({ businesses }) => {
         <div className="mt-6 flex flex-col gap-5">
           <div>
             <div className="flex gap-5">
-              {enquiryFilter.map((filter) => (
-                <div className="flex items-center gap-3">
+              {enquiryFilter.map((filter, index) => (
+                <div className="flex items-center gap-3" key={index}>
                   <input
                     type="radio"
                     name="enquiry filter"
@@ -289,8 +289,8 @@ const Leads = ({ businesses }) => {
 
                   //   })
 
-                  [...allEnquiries].reverse().map((enquiry) => (
-                    <tr className="border ">
+                  [...allEnquiries].reverse().map((enquiry, index) => (
+                    <tr className="border" key={index}>
                       <td className="px-6 py-3 text-left ">
                         {new Date(enquiry.createdAt).toLocaleDateString(
                           "en-US",

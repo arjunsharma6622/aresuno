@@ -1,6 +1,8 @@
 import { useState } from "react";
 import MapComponent from "../../BusinessRegister/components/MapComponent";
 import { BiNavigation } from "react-icons/bi";
+import axios from "axios";
+import { API_URL } from "../../../utils/util";
 
 const BusinessAddress = ({ businessDetails, setBusinessDetails }) => {
   const [isAddressValidated, setIsAddressValidated] = useState(false);

@@ -4,7 +4,6 @@ export const isStoreOpenNow = (business) => {
     weekday: "long",
   });
   const currentHour = currentDate.getHours();
-  const currentMinute = currentDate.getMinutes();
 
   const currentTiming = business?.timing?.find(
     (item) => item.day === currentDay,

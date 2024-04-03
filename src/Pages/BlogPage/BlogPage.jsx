@@ -304,9 +304,12 @@ const BlogPage = ({ categoryBlogPage }) => {
         <div className="flex flex-col my-6 md:my-24 flex-1">
           <div className="flex flex-col gap-4 md:px-10 px-2">
             <h1 className="text-lg mb-4 font-semibold">More like this</h1>
-            {allBlogs.map((blog) => {
+            {allBlogs.map((blog, index) => {
               return (
-                <div className="py-6 pt-0  rounded-xl border-zinc-300 hover:scale-105 transform duration-200 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
+                <div
+                  className="py-6 pt-0  rounded-xl border-zinc-300 hover:scale-105 transform duration-200 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]"
+                  key={index}
+                >
                   <BlogCard
                     blog={blog}
                     key={blog._id}
@@ -328,9 +331,9 @@ const BlogPage = ({ categoryBlogPage }) => {
             Tell us What You Need
           </h1>
           <span className="font-semibold text-sm md:text-base text-zinc-500">
-            We'll help you find Web Designers. Help us refine your search by
-            telling us your requirements and we'll contact service providers in
-            your area to help you.
+            We&apos;ll help you find Web Designers. Help us refine your search
+            by telling us your requirements and we&apos;ll contact service
+            providers in your area to help you.
           </span>
         </div>
         <div className="flex flex-col shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-6 gap-4 h-72">

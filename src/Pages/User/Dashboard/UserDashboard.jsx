@@ -176,20 +176,6 @@ const UserDashboard = () => {
     },
   ]);
 
-  const handleEditProfile = () => {
-    setEditMode(!editMode);
-  };
-
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
-  const saveProfile = () => {
-    // Send an API request to save the updated profile data
-    // You can implement this part based on your backend
-    setEditMode(false);
-  };
-
   return (
     <>
       <div className="relative h-screen">

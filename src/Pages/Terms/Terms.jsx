@@ -7,7 +7,7 @@ const TermsAndConditions = () => {
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
           <p className="mb-4">
-            Welcome to Aresuno's Terms and Conditions. By accessing our
+            Welcome to Aresuno&apos;s Terms and Conditions. By accessing our
             platform, you are agreeing to comply with and be bound by the
             following terms and conditions. Please read these terms carefully
             before using our services.
@@ -19,9 +19,9 @@ const TermsAndConditions = () => {
             2. Acceptance of Terms
           </h2>
           <p className="mb-4">
-            Your use of Aresuno's services constitutes acceptance of these terms
-            and conditions. If you do not agree with any part of these terms,
-            please refrain from using our platform.
+            Your use of Aresuno&apos;s services constitutes acceptance of these
+            terms and conditions. If you do not agree with any part of these
+            terms, please refrain from using our platform.
           </p>
         </section>
 

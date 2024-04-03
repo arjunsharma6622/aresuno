@@ -8,6 +8,8 @@ import CallClickForm from "../../../Components/CallClickForm";
 import EnquiryForm from "../../../Components/EnquiryForm";
 import { toast } from "react-toastify";
 import { ToastParams } from "../../../utils/util";
+import axios from "axios";
+import { API_URL } from "../../../utils/util";
 
 const BusinessHeader = ({
   business,
@@ -21,14 +23,11 @@ const BusinessHeader = ({
   const handleCallNow = async () => {
     if (user.name) {
       try {
-        const res = await axios.post(
-          `${API_URL}/api/call-lead/createLoggedInLead`,
-          {
-            name: user.name,
-            phone: user.phone ? user.phone : "-",
-            business: business._id,
-          },
-        );
+        await axios.post(`${API_URL}/api/call-lead/createLoggedInLead`, {
+          name: user.name,
+          phone: user.phone ? user.phone : "-",
+          business: business._id,
+        });
 
         window.location.href = `tel:${business.phone}`;
       } catch (err) {
@@ -192,6 +191,7 @@ const BusinessHeader = ({
                         <a
                           key={index}
                           href={business.socialLinks?.[item.link]}
+                          rel="noreferrer"
                           target="_blank"
                         >
                           <div

@@ -24,8 +24,6 @@ const Posts = ({ posts, businesses }) => {
     });
   });
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
 
@@ -46,22 +44,19 @@ const Posts = ({ posts, businesses }) => {
     setIsCropping(false); // Exit cropping mode
   };
 
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  // const onCropComplete = useCallback(
+  //   async (croppedArea, croppedAreaPixels) => {
+  //     try {
+  //       const croppedImageBlob = await getCroppedImg(image, croppedAreaPixels);
+  //       console.log(croppedImageBlob);
 
-  const onCropComplete = useCallback(
-    async (croppedArea, croppedAreaPixels) => {
-      try {
-        const croppedImageBlob = await getCroppedImg(image, croppedAreaPixels);
-        console.log(croppedImageBlob);
-
-        // Use the cropped image blob as needed (e.g., upload to server)
-      } catch (error) {
-        console.error("Error getting cropped image:", error);
-      }
-    },
-    [image],
-  );
+  //       // Use the cropped image blob as needed (e.g., upload to server)
+  //     } catch (error) {
+  //       console.error("Error getting cropped image:", error);
+  //     }
+  //   },
+  //   [image]
+  // );
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];

@@ -1,16 +1,14 @@
 import { FiTrash2 } from "react-icons/fi";
+import axios from "axios";
 
 const AllUsers = ({ users, vendors }) => {
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(
-        `https://aresuno-server.vercel.app/api/user/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+      await axios.delete(`https://aresuno-server.vercel.app/api/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      );
+      });
       window.location.reload();
     } catch (err) {
       console.log(err);

@@ -31,23 +31,15 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   console.log(`SubCategoryToEdit is`);
   console.log(subCategoryToEdit);
 
-  const categoryTitles = useSelector((state) => state.categoriestitle);
-
-  const handleCategoryTitleChange = (e) => {
-    const categoryTitleId = e.target.value;
-    setMainCategoryToEdit((prevCategory) => ({
-      ...prevCategory,
-      categoryTitle: categoryTitleId,
-    }));
-  };
+  // const handleCategoryTitleChange = (e) => {
+  //   const categoryTitleId = e.target.value;
+  //   setMainCategoryToEdit((prevCategory) => ({
+  //     ...prevCategory,
+  //     categoryTitle: categoryTitleId,
+  //   }));
+  // };
 
   console.log(`The cat is ${category ? category.name : categoryTitle.title}`);
-
-  const handleImageChange = (e) => {
-    setImageToUpdate(e.target.files[0]);
-    const imageUrl = URL.createObjectURL(e.target.files[0]);
-    setImageToShow(imageUrl);
-  };
 
   const handleIconChange = (e) => {
     setIcon(e.target.files[0]);

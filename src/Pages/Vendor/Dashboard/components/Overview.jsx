@@ -11,7 +11,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { graphData } from "../../../../data";
 import { useSelector } from "react-redux";
 
 const iconMapping = {

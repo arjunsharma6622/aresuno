@@ -78,12 +78,16 @@ const OtpForm = ({ phone, setIsOtpVerified }) => {
         </button>
 
         <p className="text-sm text-gray-600 mb-4">
-          Didn't receive the OTP?{" "}
+          Didn&apos;t receive the OTP?{" "}
           <button
             type="button"
             disabled={resendTimer > 0}
             onClick={handleResendOtp}
-            className={` ${resendTimer > 0 ? "cursor-not-allowed text-gray-500" : "text-blue-500"}`}
+            className={` ${
+              resendTimer > 0
+                ? "cursor-not-allowed text-gray-500"
+                : "text-blue-500"
+            }`}
           >
             Resend
           </button>{" "}

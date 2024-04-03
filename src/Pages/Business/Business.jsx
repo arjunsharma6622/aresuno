@@ -37,8 +37,6 @@ const Business = () => {
   const [totalRatings, setTotalRatings] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
 
-  const user = useSelector((state) => state.user);
-
   const fullStars = Math.floor(avgRating);
   const hasHalfStar = avgRating % 1 !== 0;
 
@@ -64,7 +62,8 @@ const Business = () => {
         setIsReviewLoading(false);
         return;
       }
-      const res = await axios.post(
+
+      await axios.post(
         `${API_URL}/api/rating/create/${business._id}`,
         { rating: selectedStars, review: review },
         {
@@ -134,10 +133,7 @@ const Business = () => {
       };
       enquiryToSend.business = business._id;
       enquiryToSend.category = business.category?._id;
-      const res = await axios.post(
-        `${API_URL}/api/enquiry/create`,
-        enquiryToSend,
-      );
+      await axios.post(`${API_URL}/api/enquiry/create`, enquiryToSend);
       toast.success("Enquiry Sent", ToastParams);
       setEnquiry({
         name: "",
