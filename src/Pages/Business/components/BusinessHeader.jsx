@@ -43,45 +43,31 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
     const handleUnfollowBusiness = async () => {
         //pass
     }
-    const commonIconProps = {
-        className: "text-[#1467E5] h-5 w-5 md:h-6 md:w-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-      };
+
     const businessLinks = [
         {
           link: "website",
-          icon: (
-            <CgWebsite {...commonIconProps} />
-          ),
+          icon: "website"
         },
         {
           link: "instagram",
-          icon: (
-            <FiInstagram {...commonIconProps} />
-          ),
+          icon: "instagram"
         },
         {
           link: "whatsapp",
-          icon: (
-            <AiOutlineWhatsApp {...commonIconProps} />
-          ),
+          icon: "whatsapp"
         },
         {
           link: "twitter",
-          icon: (
-            <FiTwitter {...commonIconProps} />
-          ),
+          icon: "twitter"
         },
         {
           link: "facebook",
-          icon: (
-            <FiFacebook {...commonIconProps} />
-          ),
+          icon: "facebook"
         },
         {
           link: "youtube",
-          icon: (
-            <FiYoutube {...commonIconProps} />
-          ),
+          icon: "youtube"
         },
       ];
   return (
@@ -96,7 +82,7 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
       <div className="absolute md:left-10 md:-bottom-7 left-4 -bottom-4">
         <div className="relative">
           <img
-            src={"/assets/images/businessLogo.png"}
+            src={business.images?.logo ? business.images.logo : "/assets/images/businessLogo.png"}
             alt=""
             className="md:w-24 md:h-24 w-16 h-16 bg-white object-cover rounded-full shadow-md"
           />
@@ -134,10 +120,6 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
                   </div>
 
                   <div className="rounded-full w-1 h-1 bg-gray-500"></div>
-
-                  {/* <span className="text-gray-600 md:text-sm text-xs  bg-gray-200 py-[2px] px-2 font-semibold rounded-full">
-                                {totalYearsCompleted} Yrs
-                            </span> */}
 
                   <span className="flex items-center gap-1 text-xs">
                     <BiCheckShield className="text-green-600 w-5 h-5 md:w-6 md:h-6" />
@@ -196,7 +178,7 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
                 </div>
               )}
 
-              <div className="w-fit flex mt-1 items-center justify-start gap-2 md:gap-2">
+              <div className="w-fit flex mt-1 items-center justify-start gap-2 md:gap-3">
                 {businessLinks.map((item, index) => {
                   return (
                     business.socialLinks?.[item.link] && (
@@ -207,9 +189,9 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
                       >
                         <div
                           key={index}
-                          className="cursor-pointer relative rounded-full md:h-6 md:w-6 w-6 h-6"
+                          className="cursor-pointer relative rounded-full md:h-7 md:w-7 w-6 h-6"
                         >
-                          {item.icon}
+                        <img src={`/assets/images/socials/${item.icon}.png`} alt="" />
                         </div>
                       </a>
                     )
@@ -222,7 +204,7 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
       </div>
 
       <div className="flex md:flex-[3] flex-col border-t pt-4 md:border-none md:pt-0  gap-4 justify-center items-center">
-        <div className=" flex md:flex-col flex-col w-[90%] justify-center items-center gap-4 md:gap-2">
+        <div className=" flex md:flex-col flex-col w-full justify-center items-center gap-4 md:gap-2">
 
           <button
             className="w-full flex items-center justify-center gap-2 p-2  rounded-full border border-solid border-blue-600 text-sm md:text-base"
@@ -245,6 +227,15 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
 
 
           <div className="flex items-center gap-2 w-full">
+          <button
+              className="w-full flex items-center justify-center gap-2 p-2  rounded-full bg-blue-600 text-sm md:text-base"
+              onClick={() => setEnquiryClick(true)}
+            >
+              <FiMessageSquare className="text-white w-5 h-5 md:w-6 md:h-6" />
+              <span className="text-white text-sm font-semibold">
+                Enquire Now
+              </span>
+            </button>
             <button
               className="w-full flex items-center justify-center gap-2 p-2  rounded-full bg-blue-600 text-sm md:text-base"
               onClick={handleCallNow}
@@ -260,15 +251,7 @@ const BusinessHeader = ({business, avgRating, fullStars, hasHalfStar, ratings}) 
                 onClose={() => setCallClick(false)}
               />
             )}
-            <button
-              className="w-full flex items-center justify-center gap-2 p-2  rounded-full bg-blue-600 text-sm md:text-base"
-              onClick={() => setEnquiryClick(true)}
-            >
-              <FiMessageSquare className="text-white w-5 h-5 md:w-6 md:h-6" />
-              <span className="text-white text-sm font-semibold">
-                Enquire Now
-              </span>
-            </button>
+
             {enquiryClick && (
               <EnquiryForm onClose={() => setEnquiryClick(false)} />
             )}

@@ -78,13 +78,19 @@ const Footer = () => {
           <div className="text-xl font-semibold leading-8 mb-2">Follow Us</div>
           <div className="flex space-x-5">
             <Link to={"https://in.linkedin.com/company/aresuno"} target="_blank" aria-label="aresuno linkedin link">
-              <FiLinkedin className="w-6 h-6 text-blue-600" />
+              <img src="/assets/images/socials/linkedin.png" alt="" className="w-8 h-8"/>
             </Link>
             <Link to={"https://www.instagram.com/aresuno.3/"} target="_blank" aria-label="aresuno instagram link">
-              <FiInstagram className="w-6 h-6 text-blue-600" />
+              <img src="/assets/images/socials/twitter.png" alt="" className="w-8 h-8"/>
             </Link>
             <Link to={"https://www.facebook.com/people/Aresuno/100070231573790/"} target="_blank" aria-label="aresuno facebook link">
-              <FiFacebook className="w-6 h-6 text-blue-600" />
+              <img src="/assets/images/socials/instagram.png" alt="" className="w-8 h-8"/>
+            </Link>
+            <Link to={"https://www.facebook.com/people/Aresuno/100070231573790/"} target="_blank" aria-label="aresuno facebook link">
+              <img src="/assets/images/socials/youtube.png" alt="" className="w-8 h-8"/>
+            </Link>
+            <Link to={"https://www.facebook.com/people/Aresuno/100070231573790/"} target="_blank" aria-label="aresuno facebook link">
+              <img src="/assets/images/socials/facebook.png" alt="" className="w-8 h-8"/>
             </Link>
 
           </div>
