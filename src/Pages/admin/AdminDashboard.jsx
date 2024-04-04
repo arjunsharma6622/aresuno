@@ -36,7 +36,6 @@ const AdminDashboard = () => {
 
   const handleSelectedField = (field) => {
     setSelectedField(field);
-    console.log(field);
   };
 
   const fetchBusinessesData = async () => {
@@ -46,12 +45,10 @@ const AdminDashboard = () => {
       const resBusinesses = await axios.get(`${API_URL}/api/business/`);
       const businesses = resBusinesses.data;
 
-      console.log(businesses);
       setBusinesses(businesses);
-
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
   const fetchUsersData = async () => {
@@ -72,15 +69,10 @@ const AdminDashboard = () => {
       const vendors = resVendors.data;
 
       setUsers(users);
-
-      console.log(users);
-
       setVendors(vendors);
-      console.log(vendors);
-
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -89,7 +81,7 @@ const AdminDashboard = () => {
       const res = await axios.get(`${API_URL}/api/category/`);
       dispatch(setAllCategories(res.data));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -98,7 +90,7 @@ const AdminDashboard = () => {
       const res = await axios.get(`${API_URL}/api/call-lead`);
       setCallLeads(res.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -107,7 +99,7 @@ const AdminDashboard = () => {
       const res = await axios.get(`${API_URL}/api/enquiry`);
       setEnquiries(res.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -115,9 +107,8 @@ const AdminDashboard = () => {
     try {
       const response = await axios.get(`${API_URL}/api/blog/`);
       setBlogs(response.data);
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -128,19 +119,17 @@ const AdminDashboard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAdminBusinesses(response.data);
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   const fetchAllLocations = async () => {
     try {
       const res = await axios.get(`${API_URL}/api/city/`);
-      console.log(res.data);
       setAllLocations(res.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

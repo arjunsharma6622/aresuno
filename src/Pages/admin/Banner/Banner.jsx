@@ -16,13 +16,9 @@ const Banner = () => {
       const res = await axios.get(
         "https://aresuno-server.vercel.app/api/banner",
       );
-      const bannerUrl = res.data[0].image;
-      console.log(bannerUrl);
-      // setBannerImage(bannerUrl)
-      // setBannerImageToShow(bannerUrl)
       setBanner(res.data[0]);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -48,17 +44,12 @@ const Banner = () => {
         imageData,
       );
 
-      console.log(uploadResponse.data.secure_url);
-
       const bannerImageUrl = uploadResponse.data.secure_url;
-
       return bannerImageUrl;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
-
-  console.log(banner._id);
 
   const handleBannerSubmit = async () => {
     setIsLoading(true);
@@ -71,23 +62,22 @@ const Banner = () => {
       };
 
       if (banner.image) {
-        const res = await axios.put(
+        await axios.put(
           `https://aresuno-server.vercel.app/api/banner/${banner._id}`,
           { image: bannerImageUrl },
         );
-        console.log(res.data);
       } else {
         const res = await axios.post(
           "https://aresuno-server.vercel.app/api/banner/add",
           bannerData,
         );
-        console.log(res.data);
+        console.error(res.data);
       }
 
       setIsLoading(false);
       toast.success("Banner uploaded successfully", ToastParams);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setIsLoading(false);
       toast.error("Banner upload failed", ToastParams);
     }
