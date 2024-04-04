@@ -37,7 +37,6 @@ const BlogPage = ({ categoryBlogPage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     setFormData({
       name: "",
       number: "",
@@ -53,9 +52,8 @@ const BlogPage = ({ categoryBlogPage }) => {
         `${API_URL}/api/blog/category/${categoryName}`,
       );
       setAllBlogs(response.data);
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -63,20 +61,17 @@ const BlogPage = ({ categoryBlogPage }) => {
     try {
       const response = await axios.get(`${API_URL}/api/blog/`);
       setAllBlogs(response.data);
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   const fetchAllCategories = async () => {
     try {
-      console.log("fetching........");
       const res = await axios.get(`${API_URL}/api/category/`);
       const resTitles = await axios.get(`${API_URL}/api/category-title/`);
       dispatch(setAllCategories(res.data));
       dispatch(setAllCategoryTitle(resTitles.data));
-      console.log("Categories fetched:", res.data);
     } catch (err) {
       console.error("Error fetching categories:", err);
     }
@@ -102,7 +97,7 @@ const BlogPage = ({ categoryBlogPage }) => {
       );
       setBlog(response.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -141,8 +136,6 @@ const BlogPage = ({ categoryBlogPage }) => {
       }),
     ],
   };
-
-  console.log(allBlogs);
 
   return (
     <>

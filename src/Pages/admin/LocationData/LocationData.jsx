@@ -42,10 +42,7 @@ const LocationData = ({ allLocations }) => {
         },
       );
 
-      console.log(res.data);
-
       setIsLoading(false);
-
       setLocation({
         name: "",
         latitude: "",
@@ -54,7 +51,7 @@ const LocationData = ({ allLocations }) => {
 
       toast.success("Location Added", ToastParams);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setIsLoading(false);
       toast.error("Something went wrong", ToastParams);
     }

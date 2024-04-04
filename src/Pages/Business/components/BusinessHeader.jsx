@@ -31,7 +31,7 @@ const BusinessHeader = ({
 
         window.location.href = `tel:${business.phone}`;
       } catch (err) {
-        console.log(err);
+        console.error(err);
         toast.error("Something went wrong.", ToastParams);
       }
     } else {

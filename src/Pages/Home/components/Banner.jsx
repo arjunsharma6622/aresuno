@@ -75,8 +75,6 @@ const Banner = () => {
     dispatch(setUserLocationName({ locationName: formattedLocation.city }));
 
     setAddress(formattedLocation.city);
-    console.log("Selected Address:", value);
-    console.log("Latitude and Longitude:", latLng);
   };
 
   const navigate = useNavigate();
@@ -89,7 +87,7 @@ const Banner = () => {
         );
         dispatch(getBanner(res.data[0].image));
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
 
@@ -103,12 +101,9 @@ const Banner = () => {
   const handleDetectLocation = async () => {
     const success = async (pos) => {
       const crds = pos.coords;
-      console.log(`Latitude: ${crds.latitude}`);
-      console.log(`Longitude: ${crds.longitude}`);
       const location = await axios.get(
         `${API_URL}/api/getLocationFromLatLong?lat=${crds.latitude}&long=${crds.longitude}`,
       );
-      console.log(location.data);
       setLocation(location.data.city);
       dispatch(setUserCoordinates({ lat: crds.latitude, lng: crds.longitude }));
       dispatch(setUserLocationName({ locationName: location.data.city }));

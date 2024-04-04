@@ -48,7 +48,6 @@ const Posts = ({ posts, businesses }) => {
   //   async (croppedArea, croppedAreaPixels) => {
   //     try {
   //       const croppedImageBlob = await getCroppedImg(image, croppedAreaPixels);
-  //       console.log(croppedImageBlob);
 
   //       // Use the cropped image blob as needed (e.g., upload to server)
   //     } catch (error) {
@@ -67,9 +66,6 @@ const Posts = ({ posts, businesses }) => {
   const handleImage = async () => {
     try {
       setIsLoading(true);
-
-      console.log("image while uploading", image);
-
       const imageData = new FormData();
       imageData.append("file", image);
       imageData.append("upload_preset", "ml_default");
@@ -80,7 +76,6 @@ const Posts = ({ posts, businesses }) => {
         imageData,
       );
 
-      console.log(uploadResponse.data);
       const imageUrl = uploadResponse.data.secure_url;
       return imageUrl;
     } catch (err) {
@@ -89,13 +84,9 @@ const Posts = ({ posts, businesses }) => {
     }
   };
 
-  console.log("The image url is" + imageUrl);
-
   const handlePost = async () => {
     try {
       const imageUrl = await handleImage();
-      console.log("The image url is" + imageUrl);
-
       const createPostResponse = await axios.post(
         `${API_URL}/api/post/create`,
         {
@@ -105,7 +96,6 @@ const Posts = ({ posts, businesses }) => {
         },
       );
 
-      console.log(createPostResponse.data);
       toast.success("Post Created", ToastParams);
       setIsLoading(false);
       setPost({
@@ -148,10 +138,6 @@ const Posts = ({ posts, businesses }) => {
       </div>
     </div>
   );
-
-  console.log("Image-----", image);
-
-  const [toCrop, settoCrop] = useState(false);
 
   return (
     <div className="overflow-x-auto">

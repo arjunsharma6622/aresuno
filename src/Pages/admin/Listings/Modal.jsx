@@ -17,10 +17,9 @@ export default function Modal({ business, onClose }) {
           },
         },
       );
-      console.log(res);
       onClose();
     } catch (err) {
-      console.log(err.response.data);
+      console.error(err.response.data);
     }
   };
 

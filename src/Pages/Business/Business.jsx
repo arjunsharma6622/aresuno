@@ -77,7 +77,7 @@ const Business = () => {
       setIsReviewLoading(false);
       toast.success("Thank you for your feedback", ToastParams);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       setIsReviewLoading(false);
       toast.error("Something went wrong", ToastParams);
     }
@@ -111,7 +111,7 @@ const Business = () => {
     } catch (e) {
       setIsBusinessFetching(false);
       toast.error("Something went wrong", ToastParams);
-      console.log(e);
+      console.error(e);
     }
   };
 
