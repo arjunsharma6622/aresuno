@@ -23,23 +23,20 @@ const OtpForm = ({ phone, setIsOtpVerified }) => {
       setIsOtpVerified(true);
 
       toast.success("OTP Verified", ToastParams);
-
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error(err.response.data.message, ToastParams);
     }
   };
 
   const handleResendOtp = async () => {
     try {
-      const response = await axios.post(`${API_URL}/api/forgetPassword-otp`, {
+      await axios.post(`${API_URL}/api/forgetPassword-otp`, {
         phone: phone,
       });
-      console.log(response.data);
       toast.success("OTP Sent", ToastParams);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

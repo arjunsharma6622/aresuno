@@ -40,10 +40,6 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
     });
   };
 
-  console.log(images);
-  console.log(logoImage);
-  console.log(coverImage);
-
   const handleImagesUpload = async (e) => {
     e.preventDefault();
 
@@ -121,9 +117,6 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
         uploadCoverImage(),
       ]);
 
-      console.log(logoImageUrl, coverImageUrl);
-      console.log(uploadedUrls);
-
       setBusinessDetails((prev) => ({
         ...prev,
         images: {
@@ -195,9 +188,6 @@ const BusinessImages = ({ businessDetails, setBusinessDetails }) => {
   //       }
 
   //       const [ logoImageUrl, coverImageUrl ] = await Promise.all([uploadLogoImage(), uploadCoverImage()])
-
-  //         console.log(logoImageUrl, coverImageUrl)
-  //         console.log(uploadedUrls)
 
   //       setBusinessDetails((prev) => ({
   //         ...prev,

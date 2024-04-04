@@ -26,10 +26,8 @@ const EasyCrop = ({ image, setImage, aspectRatio, widthOfImg }) => {
         croppedAreaPixels,
         rotation,
       );
-      console.log("donee", { croppedImage });
       setCroppedImage(croppedImage);
       const file = await blobUrlToFile(croppedImage, "crop.png");
-      console.log(file);
       setImage(file);
     } catch (e) {
       console.error(e);
@@ -128,7 +126,6 @@ export default EasyCrop;
 //         croppedAreaPixels,
 //         rotation
 //       );
-//       console.log("donee", { croppedImage });
 //       setCroppedImage(croppedImage);
 //     } catch (e) {
 //       console.error(e);

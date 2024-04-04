@@ -36,10 +36,9 @@ const Profile = ({ user }) => {
         newPassword: "",
         confirmPassword: "",
       });
-      console.log(res.data);
       toast.success("Password Updated");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error("Error Updating Password");
     }
   };
@@ -63,11 +62,10 @@ const Profile = ({ user }) => {
         "https://api.cloudinary.com/v1_1/dexnb3wkw/image/upload",
         imageData,
       );
-      console.log(res.data);
       const imageUrl = res.data.secure_url;
       return imageUrl;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -87,11 +85,10 @@ const Profile = ({ user }) => {
           },
         },
       );
-      console.log(res.data);
       toast.success("Profile Image Updated");
       setIsImageUploading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error("Error uploading image");
     }
   };
@@ -112,10 +109,9 @@ const Profile = ({ user }) => {
           },
         },
       );
-      console.log(res.data);
       toast.success("Profile Updated");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error("Error Updating Profile");
     }
   };

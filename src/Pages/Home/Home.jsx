@@ -19,7 +19,7 @@ const Home = () => {
       const res = await axios.get(`${API_URL}/api/banner`);
       dispatch(getBanner(res.data[0].image));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

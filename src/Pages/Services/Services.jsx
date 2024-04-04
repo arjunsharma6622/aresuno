@@ -64,7 +64,7 @@ const Services = () => {
       );
       setBlogs(res.data);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       setIsLoading(false);
     }
   };
@@ -73,7 +73,7 @@ const Services = () => {
       const res = await axios.get(`${API_URL}/api/category/${extractedName}`);
       setCategory(res.data);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       setIsLoading(false);
     }
   };
@@ -114,7 +114,7 @@ const Services = () => {
       setCityCoordinates(res.data.coordinates);
       setIsLoading(false);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       setIsLoading(false);
     }
   };

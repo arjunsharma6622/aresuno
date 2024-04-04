@@ -15,7 +15,7 @@ const AllBusinesses = ({ businesses, categories }) => {
       );
       window.location.reload();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

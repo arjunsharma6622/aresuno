@@ -26,7 +26,7 @@ const DeleteLocation = ({ loc, onClose }) => {
     } catch (error) {
       toast.error("Something went wrong", ToastParams);
       setIsLoading(false);
-      console.log(error);
+      console.error(error);
     }
   };
 

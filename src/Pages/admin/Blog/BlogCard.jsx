@@ -15,13 +15,9 @@ const BlogCard = ({ blog }) => {
       if (userConfirmed) {
         const response = await axios.delete(`${API_URL}/api/blog/${blog._id}`);
         toast.success(response.data.message, ToastParams);
-        console.log(response.data);
-      } else {
-        // User clicked "Cancel", do nothing or show a message
-        console.log("Deletion canceled by the user");
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error("Error deleting blog", ToastParams);
     }
   };

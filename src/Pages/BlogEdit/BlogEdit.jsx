@@ -16,9 +16,8 @@ const BlogEdit = () => {
     try {
       const response = await axios.get(`${API_URL}/api/blog/${blogId}`);
       setBlog(response.data);
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -47,16 +46,12 @@ const BlogEdit = () => {
     setLoading(true);
     try {
       const response = await axios.put(`${API_URL}/api/blog/${blogId}`, blog);
-
       toast.success(response.data.message, ToastParams);
-      console.log(response.data);
       setLoading(false);
     } catch (err) {
       setLoading(false);
       toast.error(err.response.data.message, ToastParams);
-      console.log(err.response.data);
-
-      console.log(err);
+      console.error(err);
     }
   };
 

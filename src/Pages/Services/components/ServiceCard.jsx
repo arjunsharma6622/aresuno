@@ -81,11 +81,9 @@ const ServiceCard = ({ business }) => {
           },
         );
 
-        console.log(res.data);
-
         window.location.href = `tel:${business.phone}`;
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     } else {
       setCallClick(true);

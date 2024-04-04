@@ -16,8 +16,6 @@ const AllCategories = () => {
 
   const [selectedBusinessType, setSelectedBusinessType] = useState("service");
 
-  console.log("Selected category", selectedCategory);
-
   return (
     <div className="flex flex-col gap-10">
       <div>

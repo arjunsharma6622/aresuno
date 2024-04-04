@@ -20,7 +20,7 @@ const ForgetPassword = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.patch(`${API_URL}/api/reset-password`, {
+      await axios.patch(`${API_URL}/api/reset-password`, {
         password: updatedPassword?.newPassword,
         phone: phoneNumber,
       });
@@ -28,10 +28,9 @@ const ForgetPassword = () => {
         newPassword: "",
         confirmPassword: "",
       });
-      console.log(res.data);
       toast.success("Password Updated", ToastParams);
     } catch (err) {
-      console.log(err);
+      console.error(err);
 
       toast.error("Error Updating Password", ToastParams);
     }
@@ -43,14 +42,13 @@ const ForgetPassword = () => {
 
   const handleGetOtp = async () => {
     try {
-      const response = await axios.post(`${API_URL}/api/forgetPassword-otp`, {
+      await axios.post(`${API_URL}/api/forgetPassword-otp`, {
         phone: phoneNumber,
       });
-      console.log(response.data);
       setOtpSent(true);
       toast.success("OTP Sent", ToastParams);
     } catch (err) {
-      console.log(err.response.data.message);
+      console.error(err.response.data.message);
       toast.error(err.response.data.message, ToastParams);
     }
   };

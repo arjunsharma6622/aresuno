@@ -19,22 +19,18 @@ const Doctor = () => {
       const res = await axios.get(`${API_URL}/api/banner`);
       dispatch(getBanner(res.data[0].image));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   const fetchUserData = async () => {
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.get(`${API_URL}/api/userData`, {
+      await axios.get(`${API_URL}/api/userData`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      console.log(res.data);
     } catch (err) {
-      // console.log(err.response.data.message);
       toast.error(err.response.data.message);
-
       if (err.response.data.message === "Unauthorized") {
         localStorage.removeItem("token");
         dispatch(userLogout());
@@ -49,12 +45,10 @@ const Doctor = () => {
 
   const fetchAllCategories = async () => {
     try {
-      console.log("fetching........");
       const res = await axios.get(`${API_URL}/api/category/`);
       const resTitles = await axios.get(`${API_URL}/api/category-title/`);
       dispatch(setAllCategories(res.data));
       dispatch(setAllCategoryTitle(resTitles.data));
-      console.log("Categories fetched:", res.data);
     } catch (err) {
       console.error("Error fetching categories:", err);
     }

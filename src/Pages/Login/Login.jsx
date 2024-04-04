@@ -66,7 +66,6 @@ const Login = () => {
 
       dispatch(userLogin({ user: res.data.user }));
 
-      console.log(res.data);
       toast.success("Logged In Successfully", ToastParams);
     } catch (err) {
       toast.error("Login Failed", ToastParams);

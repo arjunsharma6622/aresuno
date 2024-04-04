@@ -9,7 +9,6 @@ const CallClickForm = ({ onClose, business }) => {
     name: "",
     phone: "",
   });
-  console.log(userDetails);
 
   const [otp, setOtp] = useState("");
   const [count, setCount] = useState(60);
@@ -38,7 +37,6 @@ const CallClickForm = ({ onClose, business }) => {
         callLeadToSend,
       );
       setCallLead(res.data);
-      console.log(res.data);
 
       setUserDetails({
         name: "",
@@ -47,7 +45,7 @@ const CallClickForm = ({ onClose, business }) => {
 
       setShowNumber(true);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -61,7 +59,7 @@ const CallClickForm = ({ onClose, business }) => {
       });
       setIsOtpVerified(true);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

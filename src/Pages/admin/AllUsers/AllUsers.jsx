@@ -11,7 +11,7 @@ const AllUsers = ({ users, vendors }) => {
       });
       window.location.reload();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

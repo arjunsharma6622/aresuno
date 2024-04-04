@@ -34,9 +34,9 @@ const EditLocation = ({ loc, onClose }) => {
         onClose();
       }
     } catch (err) {
+      console.error(err);
       setIsLoading(false);
       toast.error(err.response.data, ToastParams);
-      console.log(err);
     }
     setIsLoading(false);
   };
