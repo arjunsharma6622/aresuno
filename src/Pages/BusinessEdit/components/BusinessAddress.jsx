@@ -27,7 +27,6 @@ const BusinessAddress = ({ businessDetails, setBusinessDetails }) => {
       const res = await axios.get(
         `${API_URL}/api/getLatLongFromAddress?address=${address}`,
       );
-      console.log(res.data);
 
       setBusinessDetails((prev) => {
         return {
@@ -42,7 +41,7 @@ const BusinessAddress = ({ businessDetails, setBusinessDetails }) => {
       setIsAddressValidated(true);
       setisAddressValidationLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setIsAddressValidated(false);
       setisAddressValidationLoading(false);
     }

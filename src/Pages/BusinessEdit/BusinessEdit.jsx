@@ -75,7 +75,6 @@ const BusinessEdit = () => {
     const { name, value } = e.target;
     setBusinessDetails((prev) => ({ ...prev, [name]: value }));
   };
-  console.log(businessDetails);
 
   useEffect(() => {
     const fetchBusinessDetails = async () => {
@@ -87,7 +86,6 @@ const BusinessEdit = () => {
           },
         });
         setBusinessDetails(res.data);
-        console.log(res.data);
       } catch (error) {
         console.error("Error", error);
       }
@@ -98,7 +96,6 @@ const BusinessEdit = () => {
 
   const handleUpdate = async () => {
     try {
-      console.log(id);
       setIsBusinessUpdating(true);
 
       const res = await axios.put(
@@ -110,12 +107,11 @@ const BusinessEdit = () => {
           },
         },
       );
-      console.log(res);
       toast.success("Business Details Updated", ToastParams);
       setIsBusinessUpdating(false);
     } catch (err) {
       setIsBusinessUpdating(false);
-      console.log(err);
+      console.error(err);
       toast.error("Business Update Failed", ToastParams);
     }
   };

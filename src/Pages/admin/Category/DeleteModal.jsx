@@ -16,10 +16,6 @@ export default function DeleteModal({
     ? `${API_URL}/api/category/${subCategory._id}`
     : `${API_URL}/api/category-title/${mainCategory._id}`;
 
-  console.log(
-    `The cat is ${subCategory ? subCategory.name : mainCategory.name}`,
-  );
-
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
@@ -28,11 +24,10 @@ export default function DeleteModal({
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(res);
       toast.success("Category Deleted", ToastParams);
       onClose();
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error(err, ToastParams);
     }
   };

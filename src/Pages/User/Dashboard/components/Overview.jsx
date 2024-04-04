@@ -5,9 +5,6 @@ import { BsStarFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const Overview = ({ user, Enquiries, Reviews }) => {
-  console.log(Enquiries, "enquiries");
-  console.log(Reviews, "Reviews");
-
   const iconMapping = {
     Enquiries: BiSolidBusiness,
     Reviews: MdReviews,

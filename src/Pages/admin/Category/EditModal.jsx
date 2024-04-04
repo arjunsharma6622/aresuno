@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { FiEdit3, FiX } from "react-icons/fi";
 import { BsFillCameraFill } from "react-icons/bs";
 import { API_URL, ToastParams } from "../../../utils/util";
-import { useSelector } from "react-redux";
 
 export default function EditModal({ category, onClose, categoryTitle }) {
   const [open, setOpen] = useState(true);
@@ -15,7 +14,6 @@ export default function EditModal({ category, onClose, categoryTitle }) {
     : `${API_URL}/api/category-title/${categoryTitle._id}`;
 
   const [imageToUpdate, setImageToUpdate] = useState(null);
-  const [imageToShow, setImageToShow] = useState(null);
 
   const [showOnHome, setShowOnHome] = useState(
     category ? category.showOnHome : categoryTitle.showOnHome,
@@ -28,9 +26,6 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
   const [mainCategoryToEdit, setMainCategoryToEdit] = useState(categoryTitle);
 
-  console.log(`SubCategoryToEdit is`);
-  console.log(subCategoryToEdit);
-
   // const handleCategoryTitleChange = (e) => {
   //   const categoryTitleId = e.target.value;
   //   setMainCategoryToEdit((prevCategory) => ({
@@ -38,8 +33,6 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   //     categoryTitle: categoryTitleId,
   //   }));
   // };
-
-  console.log(`The cat is ${category ? category.name : categoryTitle.title}`);
 
   const handleIconChange = (e) => {
     setIcon(e.target.files[0]);
@@ -67,7 +60,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
       return imageUrl;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -86,7 +79,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
 
       return iconUrl;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -102,11 +95,10 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           },
         },
       );
-      console.log(res);
       toast.success("Main Category Updated", ToastParams);
       onClose();
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error(err, ToastParams);
     }
   };
@@ -144,10 +136,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
         };
       }
 
-      console.log("sub cat to edittt");
-      console.log(subCatToEdit);
-
-      const res = await axios.put(
+      await axios.put(
         editUrl,
         { ...subCatToEdit, showOnHome: showOnHome },
         {
@@ -156,11 +145,10 @@ export default function EditModal({ category, onClose, categoryTitle }) {
           },
         },
       );
-      console.log(res);
       toast.success("Category Updated", ToastParams);
       onClose();
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error(err, ToastParams);
     }
   };

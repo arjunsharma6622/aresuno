@@ -71,8 +71,6 @@ const VendorDashboard = () => {
     fetchUserData();
   }, []);
 
-  console.log(user);
-
   return (
     <div className="relative h-screen">
       {/* <div className="fixed w-full z-[99]">

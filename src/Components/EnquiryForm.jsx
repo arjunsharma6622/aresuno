@@ -31,11 +31,7 @@ const EnquiryForm = ({
       if (business) {
         enquiryToSend.business = business._id;
       }
-      const res = await axios.post(
-        `${API_URL}/api/enquiry/create`,
-        enquiryToSend,
-      );
-      console.log(res);
+      await axios.post(`${API_URL}/api/enquiry/create`, enquiryToSend);
       setIsSending(false);
       setIsSent(true);
       toast.success("Enquiry Sent", ToastParams);

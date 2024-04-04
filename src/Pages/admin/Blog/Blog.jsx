@@ -27,9 +27,6 @@ const Blog = ({ blogs }) => {
   const handleImage = async () => {
     try {
       setIsLoading(true);
-
-      console.log("image while uploading", image);
-
       const imageData = new FormData();
       imageData.append("file", image);
       imageData.append("upload_preset", "ml_default");
@@ -40,7 +37,6 @@ const Blog = ({ blogs }) => {
         imageData,
       );
 
-      console.log(uploadResponse.data);
       const imageUrl = uploadResponse.data.secure_url;
       return imageUrl;
     } catch (err) {
@@ -52,19 +48,13 @@ const Blog = ({ blogs }) => {
   const handlePost = async () => {
     try {
       const imageUrl = await handleImage();
-      console.log("The image url is" + imageUrl);
+      await axios.post(`${API_URL}/api/blog/create`, {
+        title: post.title,
+        image: imageUrl,
+        description: post.description,
+        category: post.category,
+      });
 
-      const createPostResponse = await axios.post(
-        `${API_URL}/api/blog/create`,
-        {
-          title: post.title,
-          image: imageUrl,
-          description: post.description,
-          category: post.category,
-        },
-      );
-
-      console.log(createPostResponse.data);
       toast.success("Post Created", ToastParams);
       setIsLoading(false);
       setPost({
@@ -80,8 +70,6 @@ const Blog = ({ blogs }) => {
       setIsLoading(false);
     }
   };
-
-  console.log("blog is", post);
 
   const modules = {
     toolbar: [

@@ -20,11 +20,10 @@ const UserDashboard = () => {
         { headers: { Authorization: `Bearer ${token}` } },
       );
       const user = res.data;
-      console.log(user);
       setUser(user);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

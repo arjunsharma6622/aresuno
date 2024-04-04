@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { FiUploadCloud, FiX, FiXCircle } from "react-icons/fi";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { API_URL, ToastParams } from "../../../utils/util";
 
@@ -26,7 +25,6 @@ const CategoryInput = ({
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (e.target.files[0].size > 1 * 1000 * 1024) {
-      // console.log("File with maximum size of 1MB is allowed");
       toast.error(
         `File with maximum size of 1MB is allowed, your size is ${(
           e.target.files[0].size /
@@ -70,8 +68,6 @@ const CategoryInput = ({
     }));
     onUpdateCategoryKeywords(index, categoryKeywords);
   };
-
-  console.log(category);
 
   return (
     <div className="border w-full rounded-xl p-5 py-6 relative justify-start flex gap-10 items-end">
@@ -225,8 +221,6 @@ const AddCategories = () => {
     );
   };
 
-  console.log("categories");
-  console.log(categories);
   const uploadAllCategoryImages = async () => {
     setIsCategoryLoading(true);
 
@@ -256,17 +250,15 @@ const AddCategories = () => {
           }
           return category;
         } catch (err) {
-          console.log("some err : ", err.response.data.error.message);
+          console.error(err.response.data.error.message);
           toast.error(err.response.data.error.message, ToastParams);
         }
       });
 
       await Promise.all(uploadPromises);
-      console.log("xxx");
-
       return imgUrls; // Return the array of image URLs
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsCategoryLoading(false);
     }
@@ -294,15 +286,12 @@ const AddCategories = () => {
         },
       );
 
-      console.log(res.data);
       toast.success("Categories added successfully", ToastParams);
-
       setIsCategoryLoading(false);
       setCategories([]);
     } catch (err) {
+      console.error(err);
       setIsCategoryLoading(false);
-
-      console.log(err);
       toast.error("Categories add failed", ToastParams);
     }
   };
@@ -318,11 +307,10 @@ const AddCategories = () => {
   //         },
   //       }
   //     );
-  //     console.log(res.data);
   //     toast.success("Category created successfully", ToastParams);
   //     setNewCategoryTitle("");
   //   } catch (err) {
-  //     console.log(err);
+  //     console.error(err);
   //     toast.error("Problem creating category", ToastParams);
   //     setNewCategoryTitle("");
   //   }

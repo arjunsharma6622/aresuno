@@ -55,10 +55,6 @@ const Leads = ({ businesses }) => {
     },
   ];
 
-  // const [allCallLeads, setAllCallLeads] = useState(businesses.flatMap((business) => {
-  //   console.log(business)
-  //   return {...business.callLeads, business: business.name}}));
-
   const [allCallLeads, setAllCallLeads] = useState(
     businesses.flatMap((business) =>
       business.callLeads.map((callLead) => ({
@@ -76,8 +72,6 @@ const Leads = ({ businesses }) => {
       })),
     ),
   );
-
-  console.log(allCallLeads);
 
   const handleFilterCallLeads = (filter) => {
     setAllCallLeads(

@@ -26,10 +26,9 @@ export default function ModalEdit({ onClose, post }) {
         },
       );
       toast.success("Post Updated", ToastParams);
-      console.log(res.data);
       onClose();
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error("Error Updating Post", ToastParams);
     }
   };

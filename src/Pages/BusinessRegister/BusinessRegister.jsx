@@ -120,11 +120,9 @@ const BusinessRegister = () => {
       } else {
         navigate(`/dashboard`);
       }
-
-      console.log(res.data);
     } catch (error) {
-      setBusinessRegisterLoading(false);
       console.error("Error", error);
+      setBusinessRegisterLoading(false);
       toast.error("Business Registration Failed", ToastParams);
     }
   };
@@ -315,8 +313,6 @@ const BusinessRegister = () => {
         return null;
     }
   };
-
-  console.log(businessDetails);
 
   return (
     <div className="flex items-start justify-center mt-6 md:py-0 px-0 md:px-6 lg:px-8">

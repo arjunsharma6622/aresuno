@@ -1,5 +1,4 @@
 const Inquiries = ({ Enquiries }) => {
-  console.log(Enquiries, "enquiries");
   const extract6Words = (text) => {
     const words = text.split(" ");
     return words.slice(0, 30).join(" ");
