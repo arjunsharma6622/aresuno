@@ -325,10 +325,6 @@ input[type="number"] {
 }
 /* Add any additional styles based on your design preferences */
 
-
-
-
-
 .gradient-free {
   position: absolute;
   top: 0;
@@ -341,7 +337,8 @@ input[type="number"] {
     rgba(0, 0, 0, 0) 100%
   );
   z-index: 1;
-}.gradient-basic {
+}
+.gradient-basic {
   position: absolute;
   top: 0;
   left: 0px;
@@ -353,7 +350,8 @@ input[type="number"] {
     rgba(0, 0, 0, 0) 100%
   );
   z-index: 1;
-}.gradient-advance {
+}
+.gradient-advance {
   position: absolute;
   top: 0;
   left: 0px;
@@ -365,7 +363,8 @@ input[type="number"] {
     rgba(0, 0, 0, 0) 100%
   );
   z-index: 1;
-}.gradient-ultimate {
+}
+.gradient-ultimate {
   position: absolute;
   top: 0;
   left: 0px;
