@@ -34,6 +34,7 @@ import Blog from "./Pages/Blog/Blog";
 import BlogPage from "./Pages/BlogPage/BlogPage";
 import BlogEdit from "./Pages/BlogEdit/BlogEdit";
 import Doctor from "./Pages/Doctor/Doctor";
+import Package from "./Pages/package/Package";
 
 function App() {
   return (
@@ -94,6 +95,7 @@ function Main() {
           <Route path="/signup" element={<Register />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/package" element={<Package />} />
           <Route
             path="/dashboard/*"
             element={

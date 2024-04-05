@@ -324,3 +324,57 @@ input[type="number"] {
   }
 }
 /* Add any additional styles based on your design preferences */
+
+
+
+
+
+.gradient-free {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 100%;
+  height: 110px; /* Adjust the width of the gradient overlay as needed */
+  background: linear-gradient(
+    to bottom,
+    rgba(193, 193, 193, 0.4),
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}.gradient-basic {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 100%;
+  height: 110px; /* Adjust the width of the gradient overlay as needed */
+  background: linear-gradient(
+    to bottom,
+    rgba(33, 159, 255, 0.4),
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}.gradient-advance {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 100%;
+  height: 110px; /* Adjust the width of the gradient overlay as needed */
+  background: linear-gradient(
+    to bottom,
+    rgba(166, 49, 255, 0.4),
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}.gradient-ultimate {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 100%;
+  height: 110px; /* Adjust the width of the gradient overlay as needed */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 125, 25, 0.4),
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
