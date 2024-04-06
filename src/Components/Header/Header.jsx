@@ -66,49 +66,27 @@ const Header = ({ homePage }) => {
               </div>
 
               {profileOpen && (
-                <div className="z-[999] shadow-md border border-gray-600 absolute top-10 right-0 rounded-xl bg-white  text-black w-[200px] py-5">
-                  <div className="flex flex-col gap-2 items-start text-[14px]">
-                    {/* <div className="px-4 w-full py-3 hover:bg-gray-100">
+                <div className="z-[999] shadow-md border border-gray-600 absolute top-10 right-0 rounded-xl bg-white  text-black w-[200px]">
+                  <div className="text-[14px]">
                     <Link
-                      to={`/dashboard`}
-                      className="flex items-center gap-4"
+                      to={`/${user.role === "admin" ? "admin" : "dashboard"}/`}
+                      className="flex items-center gap-4 w-full"
                     >
-                      <FiUser className="w-5 h-5" />
-                      <span>Manage Profile</span>
-                    </Link>
-                  </div> */}
-
-                    <div className="px-4 w-full py-3 hover:bg-gray-100">
-                      <Link
-                        to={`/${
-                          user.role === "admin" ? "admin" : "dashboard"
-                        }/`}
-                        className="flex items-center gap-4"
-                      >
+                      <div className="flex gap-2 rounded-xl px-4 w-full py-3 hover:bg-gray-100">
                         <LuLayoutDashboard className="w-5 h-5" />
                         <span>Dashboard</span>
-                      </Link>
-                    </div>
-
-                    {/* <div className="px-4 w-full py-3 hover:bg-gray-100">
-                    <Link
-                      to={`/dashboard/`}
-                      className="flex items-center gap-4"
-                    >
-                      <FiDollarSign className="w-5 h-5" />
-                      <span>Subscriptions</span>
+                      </div>
                     </Link>
-                  </div> */}
 
-                    <div className="px-4 w-full py-3 hover:bg-gray-100">
-                      <div
-                        className=" text-red-600 cursor-pointer flex gap-4 items-center"
-                        onClick={async () => {
-                          localStorage.removeItem("token");
-                          dispatch(userLogout());
-                          navigate("/");
-                        }}
-                      >
+                    <div
+                      className="px-4 cursor-pointer w-full py-3 rounded-b-xl group hover:bg-red-600"
+                      onClick={async () => {
+                        localStorage.removeItem("token");
+                        dispatch(userLogout());
+                        navigate("/");
+                      }}
+                    >
+                      <div className=" text-red-600 flex gap-4 items-center group-hover:text-white">
                         <FiLogOut className="w-5 h-5" />
                         <span>Logout</span>{" "}
                       </div>
