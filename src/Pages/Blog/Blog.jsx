@@ -47,6 +47,15 @@ const blogCategories = [
   },
 ];
 
+const buttonCategories = [
+  "science",
+  "arts",
+  "technology",
+  "finance",
+  "socials",
+  "sports",
+];
+
 const Blog = ({ categoryBlogPage }) => {
   const [allBlogs, setAllBlogs] = useState([]);
   const { categoryName } = useParams();
@@ -227,65 +236,31 @@ const Blog = ({ categoryBlogPage }) => {
         ))}
       </Swiper>
 
-      <div className="  md:w-[80%] w-[90%] hidden md:flex gap-16 justify-center items-center px-10  ">
-        <button
-          className={`px-3 p-2 w-40 font-semibold duration-200 transition ${
-            activeTab === "science" ? "bg-red-500 rounded-xl text-white" : ""
-          }`}
-          onClick={() => handleTabClick("science")}
-        >
-          science
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "arts" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("arts")}
-        >
-          arts
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "technology" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("technology")}
-        >
-          technology
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "finance" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("finance")}
-        >
-          finance
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "socials" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("socials")}
-        >
-          socials
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "sports" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("sports")}
-        >
-          sports
-        </button>
+      <div className="md:w-[80%] w-[90%] hidden md:flex gap-16 justify-center items-center px-10">
+        {buttonCategories.map((category, index) => {
+          return (
+            <button
+              key={index}
+              className={`px-3 p-2 w-40 font-semibold transition ${
+                activeTab === category
+                  ? "bg-red-500 rounded-md text-white"
+                  : "rounded-md"
+              }`}
+              onClick={() => handleTabClick(category)}
+            >
+              {category}
+            </button>
+          );
+        })}
       </div>
 
       <div className="w-[90%] flex flex-col md:hidden mt-4 rounded-md pr-4 text-zinc-500 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] outline-none">
         <select className="w-full px-3 py-2 rounded-md focus:outline-none focus:border-blue-500">
-          <option value="science">Science</option>
-          <option value="arts">Arts</option>
-          <option value="technology">Technology</option>
-          <option value="finance">Finance</option>
-          <option value="socials">Socials</option>
-          <option value="sports">Sports</option>
+          {buttonCategories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
       </div>
 
