@@ -9,7 +9,43 @@ import { useDispatch } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import { setAllCategoryTitle } from "../../state/slices/categoriestitleSlice";
 import { IoMdSearch } from "react-icons/io";
-import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { Navigation } from "swiper/modules";
+import { SwiperSlide, Swiper } from "swiper/react";
+
+// place holder data.
+const blogCategories = [
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1620783770629-122b7f187703?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2FkZ2V0c3xlbnwwfHwwfHx8MA%3D%3D",
+    alt: "foodj",
+    title: "Food",
+  },
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1676264542565-a6343f36eb8d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D",
+    alt: "travel",
+    title: "Travel",
+  },
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D",
+    alt: "travel",
+    title: "Travel",
+  },
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D",
+    alt: "travel",
+    title: "Travel",
+  },
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D",
+    alt: "travel",
+    title: "Travel",
+  },
+];
 
 const Blog = ({ categoryBlogPage }) => {
   const [allBlogs, setAllBlogs] = useState([]);
@@ -143,65 +179,53 @@ const Blog = ({ categoryBlogPage }) => {
         </button>
       </div>
 
-      <div className="flex justify-center gap-3 px-3 md:gap-8 items-center  md:px-32">
-        <div className="hidden md:flex">
-          <FaChevronCircleLeft className="h-7 w-7 text-blue-500 cursor-pointer" />
-        </div>
-        <div className="">
-          <img
-            src="https://images.unsplash.com/photo-1620783770629-122b7f187703?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2FkZ2V0c3xlbnwwfHwwfHx8MA%3D%3D"
-            alt=""
-            className="h-60  rounded-lg cursor-pointer"
-          />
-        </div>
-        <div>
-          <img
-            src="https://images.unsplash.com/photo-1677296860360-cde4366468d5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cG90cmFpdCUyMGFlc3RoZXRpY3xlbnwwfHwwfHx8MA%3D%3D"
-            alt=""
-            className="h-60  rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1676264542565-a6343f36eb8d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1677296860511-540ffaabaf2b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1706978789424-1e498d4cdf39?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1676264542445-aae51f7ca793?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-
-        <div className="hidden md:flex">
-          <FaChevronCircleRight className="h-7 w-7 text-blue-500 cursor-pointer" />
-        </div>
-      </div>
+      <Swiper
+        modules={[Navigation]}
+        slidesPerView={4}
+        spaceBetween={30}
+        autoHeight={true}
+        pagination={{ clickable: true, dynamicBullets: true }}
+        className="py-3 w-full px-10"
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
+      >
+        {blogCategories?.map((blog_category, index) => (
+          <SwiperSlide key={index} className="">
+            <Link
+              to={``}
+              className="w-full flex flex-col items-center max-md:w-full max-md:ml-0"
+            >
+              <div className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
+                <div className="justify-start items-start flex grow flex-col">
+                  <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch justify-start rounded-lg">
+                    <img
+                      loading="lazy"
+                      src={blog_category.image_src}
+                      alt={blog_category.alt}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
+                      {blog_category.title}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
       <div className="  md:w-[80%] w-[90%] hidden md:flex gap-16 justify-center items-center px-10  ">
         <button
