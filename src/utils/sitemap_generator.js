@@ -2,7 +2,7 @@ import fs from "fs";
 import axios from "axios";
 
 // base backend api url.
-const base_api_url = "https://aresuno-server.vercel.app/api/category/";
+const base_api_url = "https://aresuno-server.vercel.app/api";
 
 const base_url = "https://www.aresuno.com";
 
@@ -12,22 +12,22 @@ const simple_routes = ["blogs", "help"];
 // we also hardcode cities.
 const cities = ["noida", "bengaluru", "mumbai"];
 
+// helper function to join urls
+const join_url = (one, two) => {
+  return one + "/" + two;
+};
+
 // fetch all categories.
-const raw_categories = await axios.get(base_api_url);
+const raw_categories = await axios.get(join_url(base_api_url, "category"));
 const categories = raw_categories.data.map((category) => {
   return category.name.replaceAll(" ", "-");
 });
 
 // fetch all business.
-const raw_businesses = await axios.get(base_api_url);
+const raw_businesses = await axios.get(join_url(base_api_url, "business"));
 const businesses = raw_businesses.data.map((business) => {
   return business.name.replaceAll(" ", "-");
 });
-
-// helper function to join urls
-const join_url = (one, two) => {
-  return one + "/" + two;
-};
 
 // returns <url> xml object with given params.
 const get_url_xml = (loc, lastmod, changefreq, priority) => {
