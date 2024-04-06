@@ -9,7 +9,52 @@ import { useDispatch } from "react-redux";
 import { setAllCategories } from "../../state/slices/categoriesSlice";
 import { setAllCategoryTitle } from "../../state/slices/categoriestitleSlice";
 import { IoMdSearch } from "react-icons/io";
-import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { Navigation } from "swiper/modules";
+import { SwiperSlide, Swiper } from "swiper/react";
+
+// place holder data.
+const blogCategories = [
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1620783770629-122b7f187703?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2FkZ2V0c3xlbnwwfHwwfHx8MA%3D%3D",
+    alt: "foodj",
+    title: "Food",
+  },
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1676264542565-a6343f36eb8d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D",
+    alt: "travel",
+    title: "Travel",
+  },
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D",
+    alt: "travel",
+    title: "Travel",
+  },
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D",
+    alt: "travel",
+    title: "Travel",
+  },
+  {
+    image_src:
+      "https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D",
+    alt: "travel",
+    title: "Travel",
+  },
+];
+
+const buttonCategories = [
+  "science",
+  "arts",
+  "technology",
+  "finance",
+  "socials",
+  "sports",
+];
 
 const Blog = ({ categoryBlogPage }) => {
   const [allBlogs, setAllBlogs] = useState([]);
@@ -143,125 +188,79 @@ const Blog = ({ categoryBlogPage }) => {
         </button>
       </div>
 
-      <div className="flex justify-center gap-3 px-3 md:gap-8 items-center  md:px-32">
-        <div className="hidden md:flex">
-          <FaChevronCircleLeft className="h-7 w-7 text-blue-500 cursor-pointer" />
-        </div>
-        <div className="">
-          <img
-            src="https://images.unsplash.com/photo-1620783770629-122b7f187703?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2FkZ2V0c3xlbnwwfHwwfHx8MA%3D%3D"
-            alt=""
-            className="h-60  rounded-lg cursor-pointer"
-          />
-        </div>
-        <div>
-          <img
-            src="https://images.unsplash.com/photo-1677296860360-cde4366468d5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cG90cmFpdCUyMGFlc3RoZXRpY3xlbnwwfHwwfHx8MA%3D%3D"
-            alt=""
-            className="h-60  rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1676264542565-a6343f36eb8d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1696350929275-fdc99e1274c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1677296860511-540ffaabaf2b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1706978789424-1e498d4cdf39?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
+      <Swiper
+        modules={[Navigation]}
+        slidesPerView={4}
+        spaceBetween={30}
+        autoHeight={true}
+        pagination={{ clickable: true, dynamicBullets: true }}
+        className="py-3 w-full px-10"
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
+      >
+        {blogCategories?.map((blog_category, index) => (
+          <SwiperSlide key={index} className="">
+            <Link
+              to={``}
+              className="w-full flex flex-col items-center max-md:w-full max-md:ml-0"
+            >
+              <div className="w-full flex flex-col items-stretch max-md:w-full max-md:ml-0">
+                <div className="justify-start items-start flex grow flex-col">
+                  <div className="flex-col relative shadow-sm overflow-hidden flex aspect-[1.5235294117647058] w-full items-stretch justify-start rounded-lg">
+                    <img
+                      loading="lazy"
+                      src={blog_category.image_src}
+                      alt={blog_category.alt}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="text-neutral-700 bottom-2 left-3 absolute text-xs font-medium justify-center bg-neutral-200 bg-opacity-80 px-[10px] py-[6px] rounded-md">
+                      {blog_category.title}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-        <div className="hidden md:flex">
-          <img
-            src="https://images.unsplash.com/photo-1676264542445-aae51f7ca793?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBvdHJhaXQlMjBhZXN0aGV0aWN8ZW58MHx8MHx8fDA%3D"
-            alt=""
-            className="h-60 rounded-lg cursor-pointer"
-          />
-        </div>
-
-        <div className="hidden md:flex">
-          <FaChevronCircleRight className="h-7 w-7 text-blue-500 cursor-pointer" />
-        </div>
-      </div>
-
-      <div className="  md:w-[80%] w-[90%] hidden md:flex gap-16 justify-center items-center px-10  ">
-        <button
-          className={`px-3 p-2 w-40 font-semibold duration-200 transition ${
-            activeTab === "science" ? "bg-red-500 rounded-xl text-white" : ""
-          }`}
-          onClick={() => handleTabClick("science")}
-        >
-          science
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "arts" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("arts")}
-        >
-          arts
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "technology" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("technology")}
-        >
-          technology
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "finance" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("finance")}
-        >
-          finance
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "socials" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("socials")}
-        >
-          socials
-        </button>
-        <button
-          className={`px-3 p-2 w-40 hover:bg-red-500 font-semibold rounded-xl hover:text-white duration-200 transition ${
-            activeTab === "sports" ? "bg-red-500 text-white" : ""
-          }`}
-          onClick={() => handleTabClick("sports")}
-        >
-          sports
-        </button>
+      <div className="md:w-[80%] w-[90%] hidden md:flex gap-16 justify-center items-center px-10">
+        {buttonCategories.map((category, index) => {
+          return (
+            <button
+              key={index}
+              className={`px-3 p-2 w-40 font-semibold transition ${
+                activeTab === category
+                  ? "bg-red-500 rounded-md text-white"
+                  : "rounded-md"
+              }`}
+              onClick={() => handleTabClick(category)}
+            >
+              {category}
+            </button>
+          );
+        })}
       </div>
 
       <div className="w-[90%] flex flex-col md:hidden mt-4 rounded-md pr-4 text-zinc-500 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] outline-none">
         <select className="w-full px-3 py-2 rounded-md focus:outline-none focus:border-blue-500">
-          <option value="science">Science</option>
-          <option value="arts">Arts</option>
-          <option value="technology">Technology</option>
-          <option value="finance">Finance</option>
-          <option value="socials">Socials</option>
-          <option value="sports">Sports</option>
+          {buttonCategories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
       </div>
 
