@@ -15,7 +15,7 @@ const BlogCard = ({ type, blog, categoryName }) => {
   return (
     <>
       {type === "main" ? (
-        <div className="cursor-pointer rounded-xl hover:scale-110 transform duration-200 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]">
+        <div className="cursor-pointer rounded-xl transform duration-200 border border-zinc-200 hover:border-zinc-50 hover:shadow-[0px_4px_16px_rgba(17,17,26,0.06),_0px_8px_24px_rgba(17,17,26,0.03),_0px_16px_30px_rgba(17,17,26,0.03)]">
           <div className="flex flex-col gap-4">
             <Link
               to={`/blog/${categoryNameFormatted}/${blog._id}`}
