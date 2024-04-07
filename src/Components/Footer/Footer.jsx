@@ -72,7 +72,7 @@ const Footer = () => {
         {/* Social Links */}
         <div className="col-span-1 md:col-span-1 lg:col-span-1">
           <div className="text-xl font-semibold leading-8 mb-2">Follow Us</div>
-          <div className="flex space-x-5">
+          <div className="grid grid-cols-auto-32">
             <Link
               to={"https://in.linkedin.com/company/aresuno"}
               target="_blank"
