@@ -49,8 +49,6 @@ export const graphData = [
   },
 ];
 
-
-
 export const ServicePackages = [
   {
     name: "Free",

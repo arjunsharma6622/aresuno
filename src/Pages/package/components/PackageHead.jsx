@@ -4,9 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const PackageHead = () => {
@@ -33,8 +33,8 @@ const PackageHead = () => {
     "https://www.hourmaid.com/wp-content/uploads/2017/12/cleaning-services-1024x682.jpeg",
     "https://5.imimg.com/data5/SELLER/Default/2023/3/HO/ST/EC/98516312/housekeeping-services-for-company.jpg",
     "https://t4.ftcdn.net/jpg/05/21/93/17/360_F_521931702_TXOHZBa3tLVISome894Zc061ceab4Txm.jpg",
-    "https://bhopalservicecentre.com/wp-content/uploads/2020/02/ac-repair-service-bhopal.jpg"
-  ]
+    "https://bhopalservicecentre.com/wp-content/uploads/2020/02/ac-repair-service-bhopal.jpg",
+  ];
   return (
     <div className="flex w-full items-end gap-10 mx-auto">
       <div className="flex-[6] w-0">
@@ -50,19 +50,20 @@ const PackageHead = () => {
           }}
           modules={[Autoplay, Pagination, Navigation]}
           className="mySwiper rounded-2xl"
-        >{ sliderImages.map((sliderImage) => (
+        >
+          {sliderImages.map((sliderImage) => (
             <SwiperSlide className="rounded-2xl h-96">
-            <img src={sliderImage} alt="" className="rounded-2xl h-96"/>
-          </SwiperSlide>
-        ))
-
-}
+              <img src={sliderImage} alt="" className="rounded-2xl h-96" />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
       <div className="flex-[7] flex flex-col justify-start gap-10">
         <h1 className="text-3xl leading-relaxed font-medium">
-          <span className="underline text-4xl font-semibold">Transform Your Business</span> with
-          India's Leading Online Marketplace: List Today!
+          <span className="underline text-4xl font-semibold">
+            Transform Your Business
+          </span>{" "}
+          with India's Leading Online Marketplace: List Today!
         </h1>
         <div className="w-full flex items-center rounded-lg h-14 border border-blue-500">
           <input

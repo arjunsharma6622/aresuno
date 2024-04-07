@@ -2,7 +2,14 @@ import React from "react";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { HiCheck, HiX } from "react-icons/hi";
 import { FiMail, FiPhoneCall } from "react-icons/fi";
-import { DoctorFeatures, DoctorPackages, ManufacturerFeatures, ManufacturerPackages, ServiceFeatures, ServicePackages } from "../../../data";
+import {
+  DoctorFeatures,
+  DoctorPackages,
+  ManufacturerFeatures,
+  ManufacturerPackages,
+  ServiceFeatures,
+  ServicePackages,
+} from "../../../data";
 import SelectCategory from "./SelectCategory";
 
 const Pricing = () => {
@@ -10,8 +17,6 @@ const Pricing = () => {
     name: "Service",
     icon: "service.png",
   });
-
-
 
   const getFeatures = (categoryName) => {
     switch (categoryName) {
@@ -177,22 +182,41 @@ const Pricing = () => {
       </div>
 
       <div className="max-w-4xl mx-auto border p-5 px-8 rounded-2xl mb-20 mt-10">
-  <div className="w-full flex flex-col gap-4 justify-start">
-    <div>
-        <div>
-            <img src="/assets/images/customer-care.png" alt="" className="w-28"/>
+        <div className="w-full flex flex-col gap-4 justify-start">
+          <div>
+            <div>
+              <img
+                src="/assets/images/customer-care.png"
+                alt=""
+                className="w-28"
+              />
+            </div>
+            <h1 className="text-2xl font-medium">Need Help Deciding?</h1>
+          </div>
+          <p className="text-sm">
+            We understand that choosing the right plan can be challenging. Our
+            team of experts is here to help you with any queries or concerns you
+            may have. Our dedicated support team is available from Monday to
+            Friday, 9 AM to 6 PM EST. You can reach out to us via phone or
+            email, and we'll be more than happy to assist you.
+          </p>
+          <div className="flex items-center justify-start gap-4">
+            <button className="text-blue-500 rounded-full border border-blue-500 px-5 py-2 flex items-center gap-4">
+              <FiPhoneCall className="w-5 h-5" />{" "}
+              <a href="tel:1800 123 4567">Call us now</a>
+            </button>
+            <button className="text-white rounded-full bg-blue-500 px-5 py-2 flex items-center gap-4">
+              <FiMail className="w-5 h-5" />{" "}
+              <a href="mailto:support@example.com">Email us</a>
+            </button>
+          </div>
+          <p className="text-sm">
+            Our team of experts has years of experience in the industry and is
+            committed to providing you with the best possible solutions tailored
+            to your needs.
+          </p>
         </div>
-    <h1 className="text-2xl font-medium">Need Help Deciding?</h1>
-    </div>
-    <p className="text-sm">We understand that choosing the right plan can be challenging. Our team of experts is here to help you with any queries or concerns you may have. Our dedicated support team is available from Monday to Friday, 9 AM to 6 PM EST. You can reach out to us via phone or email, and we'll be more than happy to assist you.</p>
-    <div className="flex items-center justify-start gap-4">
-      <button className="text-blue-500 rounded-full border border-blue-500 px-5 py-2 flex items-center gap-4"><FiPhoneCall className="w-5 h-5"/> <a href="tel:1800 123 4567">Call us now</a></button>
-      <button className="text-white rounded-full bg-blue-500 px-5 py-2 flex items-center gap-4"><FiMail className="w-5 h-5"/> <a href="mailto:support@example.com">Email us</a></button>
-    </div>
-    <p className="text-sm">Our team of experts has years of experience in the industry and is committed to providing you with the best possible solutions tailored to your needs.</p>
-  </div>
-</div>
-
+      </div>
     </div>
   );
 };
