@@ -6,15 +6,7 @@ const MainCategories = () => {
   const categoriesToShowOnHome =
     categories.length > 0 &&
     categories.filter((category) => category.showOnHome);
-
-  // const categoryTitles = useSelector((state) => state.categoriestitle);
-
-  // const categoryTitlesToShowOnHome =
-  //   categoryTitles.length > 0 &&
-  //   categoryTitles.filter((categoryTitle) => categoryTitle.showOnHome);
-
   const userLocationName = useSelector((state) => state.user.locationName);
-
   const isMobile = window.innerWidth < 450;
   const numberOfIconsToShow = isMobile ? 15 : 14;
 
