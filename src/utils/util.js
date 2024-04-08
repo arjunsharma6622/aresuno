@@ -48,3 +48,10 @@ export const validateEmailAddress = (email) => {
   const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
   return emailRegex.test(email);
 };
+
+/**
+ * Safe way to check if a string is empty or not.
+ * @param {string} str
+ * @return {boolean}
+ */
+export const isEmptyString = (str) => !str?.length;

@@ -14,7 +14,7 @@ import BusinessImages from "./components/BusinessImages";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Review from "./components/Review";
-import { API_URL, ToastParams } from "../../utils/util";
+import { API_URL, ToastParams, isEmptyString } from "../../utils/util";
 
 const BusinessRegister = () => {
   const navigate = useNavigate();
@@ -102,7 +102,7 @@ const BusinessRegister = () => {
         vendorName,
       };
 
-      const res = await axios.post(
+      await axios.post(
         `${API_URL}/api/business/register`,
         updatedBusinessDetails,
         {
@@ -155,10 +155,17 @@ const BusinessRegister = () => {
         toast.error("Please enter the category", ToastParams);
         return; // Exit the function if there's an error
       }
-    }
-
-    // check if it's the fifth section and if social links are missing
-    if (currentSectionIndex === 4) {
+    } else if (currentSectionIndex == 2) {
+      const { address } = businessDetails;
+      const keys = Object.entries(address).map((e) => e[1]);
+      for (let i = 0; i < keys.length; i++) {
+        if (isEmptyString(keys[1])) {
+          toast.error("All fields are requied.");
+          return;
+        }
+      }
+    } else if (currentSectionIndex === 4) {
+      // check if it's the fifth section and if social links are missing
       const { socialLinks } = businessDetails;
 
       const socialPlatforms = [
@@ -180,9 +187,7 @@ const BusinessRegister = () => {
         toast.error("Please enter at least 3 valid social links", ToastParams);
         return; // Exit the function if there's an error
       }
-    }
-
-    if (currentSectionIndex === 5) {
+    } else if (currentSectionIndex === 5) {
       const { faqs } = businessDetails;
 
       // Check if there's at least one FAQ
@@ -201,18 +206,14 @@ const BusinessRegister = () => {
         );
         return; // Exit the function if there's an error
       }
-    }
-
-    if (currentSectionIndex === 6) {
+    } else if (currentSectionIndex === 6) {
       const { modeOfPayment } = businessDetails;
 
       if (modeOfPayment.length < 3) {
         toast.error("Please select at least 3 mode of payment", ToastParams);
         return; // Exit the function if there's an error
       }
-    }
-
-    if (currentSectionIndex === 8) {
+    } else if (currentSectionIndex === 8) {
       const { images } = businessDetails;
 
       if (images.gallery.length < 3) {

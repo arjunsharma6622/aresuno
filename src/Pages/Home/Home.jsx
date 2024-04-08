@@ -37,11 +37,6 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    fetchUserData();
-    fetchBanner();
-  }, []);
-
   const fetchAllCategories = async () => {
     try {
       const res = await axios.get(`${API_URL}/api/category/`);
@@ -52,7 +47,10 @@ const Home = () => {
       console.error("Error fetching categories:", err);
     }
   };
+
   useEffect(() => {
+    fetchUserData();
+    fetchBanner();
     fetchAllCategories();
   }, []);
 

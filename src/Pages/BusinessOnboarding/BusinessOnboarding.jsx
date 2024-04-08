@@ -5,7 +5,7 @@ const BusinessOnboarding = () => {
   const user = useSelector((state) => state.user);
   return (
     <div className="flex h-screen">
-      <div className="relative h-full flex-[5]">
+      <div className="relative lg:block hidden h-full flex-[5]">
         <img
           src="https://papers.co/wallpaper/papers.co-vz49-polygon-blue-texture-abstract-pattern-background-23-wallpaper.jpg"
           alt=""
