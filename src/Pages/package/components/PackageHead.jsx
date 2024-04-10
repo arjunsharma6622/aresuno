@@ -1,4 +1,3 @@
-import React from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -52,7 +51,7 @@ const PackageHead = () => {
           className="mySwiper rounded-2xl"
         >
           {sliderImages.map((sliderImage) => (
-            <SwiperSlide className="rounded-2xl h-96">
+            <SwiperSlide key={sliderImage} className="rounded-2xl h-96">
               <img src={sliderImage} alt="" className="rounded-2xl h-96" />
             </SwiperSlide>
           ))}
@@ -63,7 +62,7 @@ const PackageHead = () => {
           <span className="underline text-4xl font-semibold">
             Transform Your Business
           </span>{" "}
-          with India's Leading Online Marketplace: List Today!
+          with India&apos;s Leading Online Marketplace: List Today!
         </h1>
         <div className="w-full flex items-center rounded-lg h-14 border border-blue-500">
           <input
@@ -78,7 +77,7 @@ const PackageHead = () => {
 
         <div className="flex items-center justify-between gap-6">
           {infoToCustomer.map((info) => (
-            <div className="flex items-center gap-2 flex-col">
+            <div key={info.name} className="flex items-center gap-2 flex-col">
               <div className="p-4 bg-blue-100 rounded-full">
                 <img
                   src={`./assets/images/${info.icon}`}
