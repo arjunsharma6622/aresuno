@@ -193,17 +193,21 @@ const Pricing = () => {
             team of experts is here to help you with any queries or concerns you
             may have. Our dedicated support team is available from Monday to
             Friday, 9 AM to 6 PM EST. You can reach out to us via phone or
-            email, and we'll be more than happy to assist you.
+            email, and we&apos;ll be more than happy to assist you.
           </p>
           <div className="flex items-center justify-start gap-4">
-            <button className="text-blue-500 rounded-full border border-blue-500 px-5 py-2 flex items-center gap-4">
-              <FiPhoneCall className="w-5 h-5" />{" "}
-              <a href="tel:1800 123 4567">Call us now</a>
-            </button>
-            <button className="text-white rounded-full bg-blue-500 px-5 py-2 flex items-center gap-4">
-              <FiMail className="w-5 h-5" />{" "}
-              <a href="mailto:support@example.com">Email us</a>
-            </button>
+            <a
+              href="tel:1800 123 4567"
+              className="text-blue-500 px-2 py-1 rounded-full  border border-blue-500 flex items-center gap-1"
+            >
+              <FiPhoneCall /> <p className="text-sm">Call us</p>
+            </a>
+            <a
+              href="mailto:info@aresuno.com"
+              className="text-white px-2 py-1 rounded-full bg-blue-500 flex items-center gap-1"
+            >
+              <FiMail /> <p className="text-sm">Email us</p>
+            </a>
           </div>
           <p className="text-sm">
             Our team of experts has years of experience in the industry and is
