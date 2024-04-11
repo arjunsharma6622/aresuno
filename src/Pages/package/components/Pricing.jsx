@@ -94,11 +94,6 @@ const Pricing = () => {
                     key={pkg.name}
                     className={`h-[120px] w-full sticky top-0  py-4 px-6 border`}
                   >
-                    {/* {(pkg.name === "Pro" || pkg.name === "Advanced" || pkg.name === "Professional") && (
-                      <div className="bg-purple-500 text-white absolute z-[3] top-4 rounded-full left-1/2 -translate-y-1/2 text-[10px] px-2 py-[2px] font-normal -translate-x-1/2">
-                        Popular
-                      </div>
-                    )} */}
                     <div className=" flex items-center gap-1 justify-center flex-col">
                       <div className="w-full text-xs font-semibold uppercase">
                         {pkg.name} plan

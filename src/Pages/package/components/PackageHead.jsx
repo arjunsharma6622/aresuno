@@ -76,7 +76,7 @@ const PackageHead = () => {
           </button>
         </div>
 
-        <div className="flex justify-center items-start gap-1">
+        <div className="flex justify-center items-start gap-1 md:gap-3 lg:gap-9">
           {infoToCustomer.map((info) => (
             <div
               key={info.name}
