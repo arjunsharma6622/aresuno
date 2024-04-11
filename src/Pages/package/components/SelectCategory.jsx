@@ -1,5 +1,3 @@
-import React from "react";
-
 const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
   const categories = [
     { name: "Service", icon: "service.png" },
@@ -13,8 +11,9 @@ const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
       </h1>
 
       <div className="flex items-center justify-between max-w-3xl gap-6 mx-auto">
-        {categories.map((category) => (
+        {categories.map((category, index) => (
           <div
+            key={category + index}
             className={`${selectedCategory.name == category.name ? "bg-blue-500 text-white" : "bg-gray-100 "} p-4 cursor-pointer flex flex- gap-3 items-center justify-start rounded-lg w-full`}
             onClick={() => setSelectedCategory(category)}
           >

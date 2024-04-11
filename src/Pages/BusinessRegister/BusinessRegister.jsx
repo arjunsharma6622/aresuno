@@ -22,7 +22,6 @@ const BusinessRegister = () => {
     "basicDetails",
     "businessCategory",
     "businessAddress",
-    "businessIframe",
     "businessLinks",
     "businessFaqs",
     "businessModeOfPayment",
@@ -164,7 +163,7 @@ const BusinessRegister = () => {
           return;
         }
       }
-    } else if (currentSectionIndex === 4) {
+    } else if (currentSectionIndex === 3) {
       // check if it's the fifth section and if social links are missing
       const { socialLinks } = businessDetails;
 
@@ -187,7 +186,7 @@ const BusinessRegister = () => {
         toast.error("Please enter at least 3 valid social links", ToastParams);
         return; // Exit the function if there's an error
       }
-    } else if (currentSectionIndex === 5) {
+    } else if (currentSectionIndex === 4) {
       const { faqs } = businessDetails;
 
       // Check if there's at least one FAQ
@@ -206,14 +205,14 @@ const BusinessRegister = () => {
         );
         return; // Exit the function if there's an error
       }
-    } else if (currentSectionIndex === 6) {
+    } else if (currentSectionIndex === 5) {
       const { modeOfPayment } = businessDetails;
 
       if (modeOfPayment.length < 3) {
         toast.error("Please select at least 3 mode of payment", ToastParams);
         return; // Exit the function if there's an error
       }
-    } else if (currentSectionIndex === 8) {
+    } else if (currentSectionIndex === 7) {
       const { images } = businessDetails;
 
       if (images.gallery.length < 3) {

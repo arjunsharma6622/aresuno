@@ -1,4 +1,3 @@
-import React from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -35,9 +34,10 @@ const PackageHead = () => {
     "https://t4.ftcdn.net/jpg/05/21/93/17/360_F_521931702_TXOHZBa3tLVISome894Zc061ceab4Txm.jpg",
     "https://bhopalservicecentre.com/wp-content/uploads/2020/02/ac-repair-service-bhopal.jpg",
   ];
+
   return (
     <div className="flex w-full items-end gap-10 mx-auto">
-      <div className="flex-[6] w-0">
+      <div className="flex-[6] hidden lg:block w-0 px-auto">
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
@@ -52,41 +52,46 @@ const PackageHead = () => {
           className="mySwiper rounded-2xl"
         >
           {sliderImages.map((sliderImage) => (
-            <SwiperSlide className="rounded-2xl h-96">
+            <SwiperSlide key={sliderImage} className="rounded-2xl h-96">
               <img src={sliderImage} alt="" className="rounded-2xl h-96" />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
+
       <div className="flex-[7] flex flex-col justify-start gap-10">
-        <h1 className="text-3xl leading-relaxed font-medium">
-          <span className="underline text-4xl font-semibold">
-            Transform Your Business
-          </span>{" "}
-          with India's Leading Online Marketplace: List Today!
+        <h1 className="text-3xl leading-relaxed font-semi">
+          <span className="text-4xl font-bold">Transform Your Business</span>{" "}
+          with India&apos;s Leading Online Marketplace
         </h1>
+
         <div className="w-full flex items-center rounded-lg h-14 border border-blue-500">
           <input
             type="text"
             placeholder="Enter your Number"
-            className="px-4 rounded-lg py-2 focus:outline-none h-full w-full"
+            className="px-2 rounded-lg py-2 focus:outline-none h-full w-full"
           />
-          <button className=" w-60 h-full px-4 bg-blue-500 text-white rounded-tr-lg rounded-br-lg flex items-center gap-2">
-            Create a Listing <FiArrowRight />
+          <button className="w-min h-full p-2 bg-blue-500 text-white rounded-tr-lg rounded-br-lg flex items-center gap-2">
+            Create listing <FiArrowRight />
           </button>
         </div>
 
-        <div className="flex items-center justify-between gap-6">
+        <div className="flex justify-center items-start gap-1">
           {infoToCustomer.map((info) => (
-            <div className="flex items-center gap-2 flex-col">
-              <div className="p-4 bg-blue-100 rounded-full">
+            <div
+              key={info.name}
+              className="max-w-[12rem] flex flex-col items-center text-center"
+            >
+              <div className="bg-blue-100 p-2 rounded-full max-w-[4rem] max-h-[4rem] aspect-square flex items-center justify-center">
                 <img
                   src={`./assets/images/${info.icon}`}
                   alt=""
-                  className="w-12"
+                  className="max-w-[2rem]"
                 />
               </div>
-              <p>{info.name}</p>
+              <div>
+                <p>{info.name}</p>
+              </div>
             </div>
           ))}
         </div>
