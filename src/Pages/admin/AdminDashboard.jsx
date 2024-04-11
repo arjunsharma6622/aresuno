@@ -15,6 +15,7 @@ import AllUsers from "./AllUsers/AllUsers";
 import BusinessDashboard from "./Listings/BusinessDashboard";
 import LeadsDashboard from "./Leads/LeadsDashboard";
 import CategoryDashboard from "./Category/CategoryDashboard";
+import Packages from "./Packages/Packages";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -31,6 +32,8 @@ const AdminDashboard = () => {
 
   const [selectedField, setSelectedField] = useState("Home");
   const [selectedSubField, setSelectedSubField] = useState("");
+
+  const [packagesData, setPackagesData] = useState([]);
 
   const categories = useSelector((state) => state.categories);
 
@@ -133,6 +136,15 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchPackagesData = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/api/package/getpackages`);
+      setPackagesData(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     fetchBusinessesData();
     fetchUsersData();
@@ -142,6 +154,7 @@ const AdminDashboard = () => {
     fetchAllBlogs();
     fetchAdminBusinesses();
     fetchAllLocations();
+    fetchPackagesData();
   }, []);
 
   return (
@@ -209,6 +222,9 @@ const AdminDashboard = () => {
                 {selectedField === "Blogs" && <Blog blogs={blogs} />}
                 {selectedField === "Location Data" && (
                   <LocationData allLocations={allLocations} />
+                )}
+                {selectedField === "Packages" && (
+                  <Packages packagesData={packagesData} />
                 )}
               </div>
             )}

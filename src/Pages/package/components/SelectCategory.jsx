@@ -14,7 +14,7 @@ const SelectCategory = ({ selectedCategory, setSelectedCategory }) => {
         {categories.map((category, index) => (
           <div
             key={category + index}
-            className={`${selectedCategory.name == category.name ? "bg-blue-500 text-white" : "bg-gray-100 "} p-4 cursor-pointer flex flex- gap-3 items-center justify-start rounded-lg w-full`}
+            className={`${selectedCategory.name === category.name ? "bg-blue-500 text-white" : "bg-gray-100 "} p-4 cursor-pointer flex flex- gap-3 items-center justify-start rounded-lg w-full`}
             onClick={() => setSelectedCategory(category)}
           >
             <img

@@ -6,6 +6,7 @@ import {
   FiMessageSquare,
   FiUsers,
 } from "react-icons/fi";
+import { TbPackages } from "react-icons/tb";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlineArticle } from "react-icons/md";
 
@@ -50,6 +51,11 @@ const Sidebar = ({
     {
       name: "Users",
       icon: <FiUsers className="w-6 h-6" />,
+    },
+
+    {
+      name: "Packages",
+      icon: <TbPackages className="w-6 h-6" />,
     },
   ];
   return (
