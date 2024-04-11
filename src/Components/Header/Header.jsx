@@ -112,12 +112,18 @@ const Header = ({ homePage }) => {
                 List your business
               </Link>
             </button>
-            <button className="bg-white text-base border  text-blue-700 px-3 py-1 rounded-lg">
-              <Link to="/login">Login</Link>
-            </button>
-            <button className="bg-white text-base border  text-blue-700 px-3 py-1 rounded-lg">
-              <Link to="/signup">Signup</Link>
-            </button>
+
+            <Link to="/login">
+              <button className="bg-white text-base border  text-blue-700 px-3 py-1 rounded-lg">
+                Login
+              </button>
+            </Link>
+
+            <Link to="/signup">
+              <button className="bg-white text-base border  text-blue-700 px-3 py-1 rounded-lg">
+                Signup
+              </button>
+            </Link>
           </div>
         )}
       </div>

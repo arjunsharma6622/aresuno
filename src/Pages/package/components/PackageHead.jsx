@@ -71,7 +71,7 @@ const PackageHead = () => {
             placeholder="Enter your Number"
             className="px-2 rounded-lg py-2 focus:outline-none h-full w-full"
           />
-          <button className="w-min h-full p-2 bg-blue-500 text-white rounded-tr-lg rounded-br-lg flex items-center gap-2">
+          <button className="w-min h-full p-2 bg-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2">
             Create listing <FiArrowRight />
           </button>
         </div>
