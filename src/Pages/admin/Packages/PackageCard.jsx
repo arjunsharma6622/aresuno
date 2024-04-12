@@ -1,7 +1,6 @@
 import { FiEdit3 } from "react-icons/fi";
 
-const PackageCard = ({ pkg }) => {
-  console.log("from inside pkg", pkg);
+const PackageCard = ({ pkg, editCallback }) => {
   return (
     <div className="bg-white relative shadow rounded-xl p-5 py-5 flex justify-between items-center">
       <div className="justify-start flex-col flex gap-2 items-start">
@@ -28,7 +27,7 @@ const PackageCard = ({ pkg }) => {
           <div className="flex justify-start gap-2 mt-3">
             <FiEdit3
               className="w-5 h-5 text-gray-500 cursor-pointer"
-              onClick={() => pkg.name}
+              onClick={editCallback}
             />
           </div>
         </div>
