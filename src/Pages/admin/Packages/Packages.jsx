@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PackageCard from "./PackageCard";
+import EditPackageModal from "./EditPackageModal";
+import axios from "axios";
+import { API_URL } from "../../../utils/util";
 
-const Packages = ({ packagesData }) => {
+const Packages = () => {
   const [selectedCategory, setSelectedCategory] = useState("service");
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [editingPackage, setEditingPackage] = useState("");
+  const [packagesData, setPackagesData] = useState([]);
+
+  const fetchPackagesData = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/api/package/getpackages`);
+      setPackagesData(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPackagesData();
+  }, []);
+
   return (
     <div className="w-full h-screen">
       {/* Rendering checkbox buttons */}
@@ -48,9 +68,28 @@ const Packages = ({ packagesData }) => {
         {packagesData
           .filter((pkg) => pkg.category === selectedCategory)
           .map((pkg) => {
-            return <PackageCard key={pkg._id} pkg={pkg}></PackageCard>;
+            return (
+              <PackageCard
+                key={pkg._id}
+                pkg={pkg}
+                editCallback={() => {
+                  setEditingPackage(pkg);
+                  setOpenEditModal(true);
+                }}
+              ></PackageCard>
+            );
           })}
       </div>
+
+      {openEditModal && (
+        <EditPackageModal
+          editingPackage={editingPackage}
+          onSubmitCallback={() => {
+            setOpenEditModal(false);
+            fetchPackagesData();
+          }}
+        ></EditPackageModal>
+      )}
     </div>
   );
 };

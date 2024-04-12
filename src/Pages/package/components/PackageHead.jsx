@@ -1,14 +1,19 @@
-import { FiArrowRight } from "react-icons/fi";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-// Import Swiper styles
+import { useForm } from "react-hook-form";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const PackageHead = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+
   const infoToCustomer = [
     {
       name: "Create an Account",
@@ -64,19 +69,36 @@ const PackageHead = () => {
           <span className="text-4xl font-bold">Transform Your Business</span>{" "}
           with India&apos;s Leading Online Marketplace
         </h1>
+        <div>
+          <form
+            className="w-full flex items-center rounded-lg h-14 border border-blue-500"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <input
+              type="text"
+              placeholder="Enter your Number"
+              className="px-2 rounded-lg py-2 focus:outline-none h-full w-full"
+              {...register("number", {
+                required: true,
+                pattern:
+                  /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
+              })}
+            />
+            <input
+              value={"Create listing"}
+              className="w-min h-full p-2 cursor-pointer bg-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2"
+              type="submit"
+            />
+          </form>
 
-        <div className="w-full flex items-center rounded-lg h-14 border border-blue-500">
-          <input
-            type="text"
-            placeholder="Enter your Number"
-            className="px-2 rounded-lg py-2 focus:outline-none h-full w-full"
-          />
-          <button className="w-min h-full p-2 bg-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2">
-            Create listing <FiArrowRight />
-          </button>
+          {errors.number && (
+            <span className="text-red-600 ml-1 text-xs">
+              Invalid phone number
+            </span>
+          )}
         </div>
-
         <div className="flex justify-center items-start gap-1 md:gap-3 lg:gap-9">
+          {" "}
           {infoToCustomer.map((info) => (
             <div
               key={info.name}
