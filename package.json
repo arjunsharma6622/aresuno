@@ -30,6 +30,7 @@
     "react-easy-crop": "^5.0.2",
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.4",
+    "react-hook-form": "^7.51.3",
     "react-icons": "^4.11.0",
     "react-international-phone": "^4.0.2",
     "react-phone-number-input": "^3.3.7",
