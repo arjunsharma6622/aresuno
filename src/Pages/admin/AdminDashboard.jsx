@@ -33,8 +33,6 @@ const AdminDashboard = () => {
   const [selectedField, setSelectedField] = useState("Home");
   const [selectedSubField, setSelectedSubField] = useState("");
 
-  const [packagesData, setPackagesData] = useState([]);
-
   const categories = useSelector((state) => state.categories);
 
   const handleSelectedField = (field) => {
@@ -136,15 +134,6 @@ const AdminDashboard = () => {
     }
   };
 
-  const fetchPackagesData = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/api/package/getpackages`);
-      setPackagesData(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
     fetchBusinessesData();
     fetchUsersData();
@@ -154,7 +143,6 @@ const AdminDashboard = () => {
     fetchAllBlogs();
     fetchAdminBusinesses();
     fetchAllLocations();
-    fetchPackagesData();
   }, []);
 
   return (
@@ -223,9 +211,7 @@ const AdminDashboard = () => {
                 {selectedField === "Location Data" && (
                   <LocationData allLocations={allLocations} />
                 )}
-                {selectedField === "Packages" && (
-                  <Packages packagesData={packagesData} />
-                )}
+                {selectedField === "Packages" && <Packages />}
               </div>
             )}
           </div>
