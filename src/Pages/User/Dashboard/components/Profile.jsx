@@ -23,7 +23,7 @@ const Profile = ({ user }) => {
     e.preventDefault();
 
     try {
-      const res = await axios.patch(
+      await axios.patch(
         "https://aresuno-server.vercel.app/api/user/",
         { password: updatedPassword?.newPassword },
         {
@@ -74,7 +74,7 @@ const Profile = ({ user }) => {
     const imageUrl = await handleImage();
 
     try {
-      const res = await axios.patch(
+      await axios.patch(
         "https://aresuno-server.vercel.app/api/user/",
         {
           image: imageUrl,
@@ -97,7 +97,7 @@ const Profile = ({ user }) => {
     e.preventDefault();
 
     try {
-      const res = await axios.patch(
+      await axios.patch(
         "https://aresuno-server.vercel.app/api/user/",
         {
           name: userEdit?.name,

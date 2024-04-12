@@ -68,6 +68,7 @@ const Services = () => {
       setIsLoading(false);
     }
   };
+
   const fetchCategory = async () => {
     try {
       const res = await axios.get(`${API_URL}/api/category/${extractedName}`);
@@ -129,21 +130,14 @@ const Services = () => {
 
   return (
     <div className="relative">
-      {/* <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(businessStrDataStructure),
-                }}
-            /> */}
-
       <Helmet>
-        <title>{`Find Best ${extractedName} Near ${extractedCity}`}</title>
+        <title>{`Find best ${extractedName} near ${extractedCity}`}</title>
         <meta
           name="description"
           content={
             category.description
               ? category.description
-              : `Find Best ${extractedName} Near ${extractedCity}`
+              : `Find best ${extractedName} near ${extractedCity}`
           }
         />
         <meta
