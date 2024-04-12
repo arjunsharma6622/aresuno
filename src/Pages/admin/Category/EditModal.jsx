@@ -86,7 +86,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
   const handleMainCategoryUpdate = async () => {
     try {
       setIsUpdating(true);
-      const res = await axios.put(
+      await axios.put(
         editUrl,
         { ...mainCategoryToEdit, showOnHome: showOnHome },
         {
@@ -273,7 +273,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                           id="show"
                           value={true}
                           checked={showOnHome === true}
-                          onChange={(e) => setShowOnHome(true)}
+                          onChange={() => setShowOnHome(true)}
                           className="cursor-pointer"
                         />
                         <label htmlFor="show">Show</label>
@@ -286,10 +286,10 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                           id="dontShow"
                           value={false}
                           checked={showOnHome === false}
-                          onChange={(e) => setShowOnHome(false)}
+                          onChange={() => setShowOnHome(false)}
                           className="cursor-pointer"
                         />
-                        <label htmlFor="dontShow">Don't Show</label>
+                        <label htmlFor="dontShow">Don&apos;t Show</label>
                       </div>
                     </div>
                   </div>
@@ -427,7 +427,7 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                         id="show"
                         value={true}
                         checked={showOnHome === true}
-                        onChange={(e) => setShowOnHome(true)}
+                        onChange={() => setShowOnHome(true)}
                         className="cursor-pointer"
                       />
                       <label htmlFor="show">Show</label>
@@ -440,10 +440,10 @@ export default function EditModal({ category, onClose, categoryTitle }) {
                         id="dontShow"
                         value={false}
                         checked={showOnHome === false}
-                        onChange={(e) => setShowOnHome(false)}
+                        onChange={() => setShowOnHome(false)}
                         className="cursor-pointer"
                       />
-                      <label htmlFor="dontShow">Don't Show</label>
+                      <label htmlFor="dontShow">Don&apos;t Show</label>
                     </div>
                   </div>
                 </div>
