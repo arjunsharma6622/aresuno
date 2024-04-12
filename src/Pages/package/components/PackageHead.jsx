@@ -1,4 +1,3 @@
-import { FiArrowRight } from "react-icons/fi";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useForm } from "react-hook-form";
 import "swiper/css";
