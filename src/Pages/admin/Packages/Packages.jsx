@@ -28,7 +28,10 @@ const Packages = () => {
       {/* Rendering checkbox buttons */}
 
       <div className="flex gap-4">
-        <div onChange={() => setSelectedCategory("service")}>
+        <div
+          className={`rounded-md px-2 py-1 ${selectedCategory === "service" ? "bg-blue-500/90" : ""}`}
+          onChange={() => setSelectedCategory("service")}
+        >
           <input
             type="radio"
             id="service"
@@ -39,7 +42,10 @@ const Packages = () => {
             Service
           </label>
         </div>
-        <div onChange={() => setSelectedCategory("doctor")}>
+        <div
+          className={`rounded-sm px-2 py-1 ${selectedCategory === "doctor" ? "bg-blue-500" : ""}`}
+          onChange={() => setSelectedCategory("doctor")}
+        >
           <input
             type="radio"
             id="doctor"
@@ -50,7 +56,10 @@ const Packages = () => {
             Doctor
           </label>
         </div>
-        <div onChange={() => setSelectedCategory("manufacturer")}>
+        <div
+          className={`rounded-sm px-2 py-1 ${selectedCategory === "manufacturer" ? "bg-blue-500" : ""}`}
+          onChange={() => setSelectedCategory("manufacturer")}
+        >
           <input
             type="radio"
             id="manufacturer"
