@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PackageCard from "./PackageCard";
 import EditPackageModal from "./EditPackageModal";
+import AddBenefitModal from "./AddBenefitModal";
 import axios from "axios";
 import { FiTrash2 } from "react-icons/fi";
 import { API_URL } from "../../../utils/util";
@@ -10,7 +11,9 @@ const Packages = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [editingPackage, setEditingPackage] = useState("");
   const [packagesData, setPackagesData] = useState([]);
+
   const [benefitsData, setBenefitsData] = useState([]);
+  const [showAddBenefitModal, setShowAddBenefitModal] = useState(false);
 
   const fetchPackagesData = async () => {
     try {
@@ -124,9 +127,17 @@ const Packages = () => {
       )}
 
       {/* Rendering packages benefits */}
-      <h2 className="font-bold mt-8 mb-2 text-lg">Package benefits</h2>
+      <div className="flex items-center mt-8 mb-2 gap-4">
+        <h2 className="font-bold text-lg">Package benefits</h2>
+        <button
+          className="px-3 py-1 text-white bg-blue-500 rounded-md"
+          onClick={() => setShowAddBenefitModal(true)}
+        >
+          Add
+        </button>
+      </div>
       <table className="w-full text-sm table-auto mb-9 border border-zinc-900/5">
-        <thead className="">
+        <thead>
           <tr className="bg-gray-300">
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Name
@@ -173,6 +184,15 @@ const Packages = () => {
             })}
         </tbody>
       </table>
+
+      {showAddBenefitModal && (
+        <AddBenefitModal
+          onSubmitCallback={() => {
+            fetchPackageBenefitsData();
+            setShowAddBenefitModal(false);
+          }}
+        ></AddBenefitModal>
+      )}
     </div>
   );
 };
