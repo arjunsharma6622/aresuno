@@ -9,6 +9,7 @@ const Packages = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [editingPackage, setEditingPackage] = useState("");
   const [packagesData, setPackagesData] = useState([]);
+  const [benefitsData, setBenefitsData] = useState([]);
 
   const fetchPackagesData = async () => {
     try {
@@ -19,8 +20,18 @@ const Packages = () => {
     }
   };
 
+  const fetchPackageBenefitsData = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/api/package/benefits/fetchAll`);
+      setBenefitsData(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchPackagesData();
+    fetchPackageBenefitsData();
   }, []);
 
   return (
@@ -29,7 +40,7 @@ const Packages = () => {
 
       <div className="flex gap-4">
         <div
-          className={`rounded-md px-2 py-1 ${selectedCategory === "service" ? "bg-blue-500/90" : ""}`}
+          className={`rounded-md px-2 py-1 ${selectedCategory === "service" ? "bg-blue-400/10 border border-blue-300" : ""}`}
           onChange={() => setSelectedCategory("service")}
         >
           <input
@@ -43,7 +54,7 @@ const Packages = () => {
           </label>
         </div>
         <div
-          className={`rounded-sm px-2 py-1 ${selectedCategory === "doctor" ? "bg-blue-500" : ""}`}
+          className={`rounded-md px-2 py-1 ${selectedCategory === "doctor" ? "bg-blue-400/10 border border-blue-300" : ""}`}
           onChange={() => setSelectedCategory("doctor")}
         >
           <input
@@ -57,7 +68,7 @@ const Packages = () => {
           </label>
         </div>
         <div
-          className={`rounded-sm px-2 py-1 ${selectedCategory === "manufacturer" ? "bg-blue-500" : ""}`}
+          className={`rounded-md px-2 py-1 ${selectedCategory === "manufacturer" ? "bg-blue-400/10 border border-blue-300" : ""}`}
           onChange={() => setSelectedCategory("manufacturer")}
         >
           <input
@@ -72,7 +83,9 @@ const Packages = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-auto-150 w-full py-4 gap-4">
+      <h2 className="font-bold mt-6 mb-2 text-lg">Packages</h2>
+
+      <div className="grid grid-cols-auto-150 w-full gap-4">
         {/* Rendering cards. */}
         {packagesData
           .filter((pkg) => pkg.category === selectedCategory)
