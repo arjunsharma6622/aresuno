@@ -30,6 +30,15 @@ const Packages = () => {
     }
   };
 
+  const deleteBenefit = async (benefitId) => {
+    await axios.delete(`${API_URL}/api/package/benefits/delete/${benefitId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    fetchPackageBenefitsData();
+  };
+
   useEffect(() => {
     fetchPackagesData();
     fetchPackageBenefitsData();
@@ -154,7 +163,9 @@ const Packages = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <FiTrash2
                       className="text-red-500 hover:bg-zinc-600/5 rounded-md p-2 group-hover:opacity-100 opacity-0 w-8 h-8 cursor-pointer"
-                      onClick={() => {}}
+                      onClick={() => {
+                        deleteBenefit(benefit._id);
+                      }}
                     />
                   </td>
                 </tr>
