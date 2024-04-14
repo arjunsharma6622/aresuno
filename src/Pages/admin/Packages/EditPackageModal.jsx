@@ -28,7 +28,7 @@ const EditPackageModal = ({ editingPackage, onSubmitCallback }) => {
 
   return (
     <>
-      <div className="w-screen fixed top-0 left-0 h-screen backdrop-blur-sm bg-zinc-800/5">
+      <div className="w-screen fixed z-50 top-0 left-0 h-screen backdrop-blur-sm bg-zinc-800/5">
         <form
           onSubmit={handleSubmit(updatePackage)}
           className="w-max flex flex-col gap-4 p-12 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-xl border border-zinc-700/10"

@@ -38,7 +38,7 @@ const PackageCard = ({ pkg, benefitsData, editCallback }) => {
                   ) : (
                     <TiTimes className="text-red-600 text-2xl" />
                   )}
-                  <p className="">{benefit.name}</p>
+                  <p className="text-sm">{benefit.name}</p>
                 </div>
               );
             })}
