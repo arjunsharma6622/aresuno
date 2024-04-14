@@ -9,6 +9,7 @@ export default {
       gridTemplateColumns: {
         "auto-32": "repeat(auto-fit, minmax(32px, 10fr))",
         "auto-150": "repeat(auto-fit, minmax(150px, 10fr))",
+        "auto-250": "repeat(auto-fit, minmax(250px, 10fr))",
       },
       keyframes: {
         typing: {
