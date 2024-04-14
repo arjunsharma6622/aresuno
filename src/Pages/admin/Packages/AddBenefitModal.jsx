@@ -41,7 +41,7 @@ const AddBenefitModal = ({ selectedCategory, onSubmitCallback }) => {
               type="text"
               {...register("name", {
                 required: true,
-                maxLength: 20,
+                maxLength: 40,
                 minLength: 3,
               })}
             />
