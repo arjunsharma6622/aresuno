@@ -187,6 +187,7 @@ const Packages = () => {
 
       {showAddBenefitModal && (
         <AddBenefitModal
+          selectedCategory={selectedCategory}
           onSubmitCallback={() => {
             fetchPackageBenefitsData();
             setShowAddBenefitModal(false);

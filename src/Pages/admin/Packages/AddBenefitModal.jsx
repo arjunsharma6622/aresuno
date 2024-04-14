@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { API_URL } from "../../../utils/util";
 
-const AddBenefitModal = ({ onSubmitCallback }) => {
+const AddBenefitModal = ({ selectedCategory, onSubmitCallback }) => {
   const {
     register,
     handleSubmit,
@@ -58,6 +58,7 @@ const AddBenefitModal = ({ onSubmitCallback }) => {
                   {...register("category", { required: true })}
                   type="radio"
                   value="service"
+                  checked={selectedCategory === "service"}
                   id="field-service"
                 />
                 <p>Service</p>
@@ -69,6 +70,7 @@ const AddBenefitModal = ({ onSubmitCallback }) => {
                   type="radio"
                   value="doctor"
                   id="field-doctor"
+                  checked={selectedCategory === "doctor"}
                   className="pl-2"
                 />
                 <p>Doctor</p>
@@ -80,6 +82,7 @@ const AddBenefitModal = ({ onSubmitCallback }) => {
                   type="radio"
                   value="manufacturer"
                   id="field-manufacturer"
+                  checked={selectedCategory === "manufacturer"}
                   className="pl-2"
                 />
                 <p>Manufacturer</p>
