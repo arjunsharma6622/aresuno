@@ -98,7 +98,7 @@ const Packages = () => {
 
       <h2 className="font-bold mt-6 mb-2 text-lg">Packages</h2>
 
-      <div className="grid grid-cols-auto-150 w-full gap-4">
+      <div className="grid grid-cols-auto-250 w-full gap-4">
         {/* Rendering cards. */}
         {packagesData
           .filter((pkg) => pkg.category === selectedCategory)
@@ -107,6 +107,9 @@ const Packages = () => {
               <PackageCard
                 key={pkg._id}
                 pkg={pkg}
+                benefitsData={benefitsData.filter(
+                  (benefit) => benefit.category === selectedCategory,
+                )}
                 editCallback={() => {
                   setEditingPackage(pkg);
                   setOpenEditModal(true);
@@ -187,6 +190,7 @@ const Packages = () => {
 
       {showAddBenefitModal && (
         <AddBenefitModal
+          selectedCategory={selectedCategory}
           onSubmitCallback={() => {
             fetchPackageBenefitsData();
             setShowAddBenefitModal(false);
