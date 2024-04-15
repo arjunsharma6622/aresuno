@@ -55,3 +55,17 @@ export const validateEmailAddress = (email) => {
  * @return {boolean}
  */
 export const isEmptyString = (str) => !str?.length;
+
+/**
+ * Removes an item from an array using its name
+ * @param {Array<any>} arr
+ * @param {any} value
+ * @returns New array
+ */
+export const removeItemFromArray = (arr, value) => {
+  var index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
+};
