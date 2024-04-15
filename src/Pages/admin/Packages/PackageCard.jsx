@@ -1,5 +1,5 @@
 import { FiEdit3 } from "react-icons/fi";
-import { TiTick, TiTimes } from "react-icons/ti";
+import { TiTick } from "react-icons/ti";
 
 const PackageCard = ({ pkg, editCallback }) => {
   return (
@@ -26,18 +26,14 @@ const PackageCard = ({ pkg, editCallback }) => {
           </div>
 
           {/* benefits */}
-          <div className="pt-2">
+          <div className="pt-2 flex flex-col items-start justify-start">
             {pkg.features.map((benefit, index) => {
               return (
                 <div
                   key={benefit + index}
                   className="flex items-center justify-center "
                 >
-                  {pkg.features[index + 1] ? (
-                    <TiTick className="text-green-600 text-2xl" />
-                  ) : (
-                    <TiTimes className="text-red-600 text-2xl" />
-                  )}
+                  <TiTick className="text-green-600 text-2xl" />
                   <p className="text-sm">{benefit}</p>
                 </div>
               );
