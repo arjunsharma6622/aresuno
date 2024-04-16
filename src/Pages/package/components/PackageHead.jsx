@@ -41,7 +41,7 @@ const PackageHead = () => {
   ];
 
   return (
-    <div className="flex w-full items-end gap-10 mx-auto">
+    <div className="flex w-full px-4 items-end gap-10 mx-auto">
       <div className="flex-[6] hidden lg:block w-0 px-auto">
         <Swiper
           spaceBetween={30}
@@ -66,9 +66,9 @@ const PackageHead = () => {
 
       <div className="flex-[7] flex flex-col justify-start gap-10">
         <h1 className="text-3xl leading-relaxed font-semi">
-          <span className="text-4xl font-bold bg-gradient-to-r from-primary-light-blue-500 to-primary-light-blue-700 bg-clip-text text-transparent">
+          <p className="text-3xl font-bold bg-gradient-to-r from-primary-light-blue-500 to-primary-light-blue-700 bg-clip-text text-transparent">
             Transform Your Business
-          </span>{" "}
+          </p>{" "}
           <p className="text-base pl-1">
             with India&apos;s Leading Online Marketplace
           </p>
@@ -91,7 +91,7 @@ const PackageHead = () => {
             />
             <input
               value={"Create listing"}
-              className="w-min h-full p-2 cursor-pointer bg-primary-light-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2"
+              className="w-min h-full p-2 text-sm cursor-pointer bg-primary-light-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2"
               type="submit"
             />
           </form>
@@ -102,7 +102,7 @@ const PackageHead = () => {
             </span>
           )}
         </div>
-        <div className="flex justify-center items-start gap-1 md:gap-3 lg:gap-9">
+        <div className="grid grid-cols-2 gap-4">
           {" "}
           {infoToCustomer.map((info) => (
             <div
@@ -117,7 +117,7 @@ const PackageHead = () => {
                 />
               </div>
               <div>
-                <p>{info.name}</p>
+                <p className="py-3 text-sm">{info.name}</p>
               </div>
             </div>
           ))}
