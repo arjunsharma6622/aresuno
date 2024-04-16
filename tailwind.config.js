@@ -10,6 +10,7 @@ export default {
         primary: {
           "light-blue-500": "#2563EB",
           "light-blue-700": "#134cc9",
+          "salmon-500": "#FDEEFF",
         },
       },
       gridTemplateColumns: {
