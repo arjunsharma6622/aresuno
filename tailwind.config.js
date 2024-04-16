@@ -11,6 +11,8 @@ export default {
           "light-blue-500": "#2563EB",
           "light-blue-700": "#134cc9",
           "salmon-500": "#FDEEFF",
+          "teal-500": "#C5FFB6",
+          "sky-500": "#36B7FF",
         },
       },
       gridTemplateColumns: {
