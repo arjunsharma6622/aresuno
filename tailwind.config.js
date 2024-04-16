@@ -6,6 +6,12 @@ export default {
   },
   theme: {
     extend: {
+      colors: {
+        primary: {
+          "light-blue-500": "#2563EB",
+          "light-blue-700": "#134cc9",
+        },
+      },
       gridTemplateColumns: {
         "auto-32": "repeat(auto-fit, minmax(32px, 10fr))",
         "auto-150": "repeat(auto-fit, minmax(150px, 10fr))",
