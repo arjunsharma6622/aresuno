@@ -66,9 +66,14 @@ const PackageHead = () => {
 
       <div className="flex-[7] flex flex-col justify-start gap-10">
         <h1 className="text-3xl leading-relaxed font-semi">
-          <span className="text-4xl font-bold">Transform Your Business</span>{" "}
-          with India&apos;s Leading Online Marketplace
+          <span className="text-4xl font-bold bg-gradient-to-r from-primary-light-blue-500 to-primary-light-blue-700 bg-clip-text text-transparent">
+            Transform Your Business
+          </span>{" "}
+          <p className="text-base pl-1">
+            with India&apos;s Leading Online Marketplace
+          </p>
         </h1>
+
         <div>
           <form
             className="w-full flex items-center rounded-lg h-14 border border-blue-500"
@@ -86,7 +91,7 @@ const PackageHead = () => {
             />
             <input
               value={"Create listing"}
-              className="w-min h-full p-2 cursor-pointer bg-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2"
+              className="w-min h-full p-2 cursor-pointer bg-primary-light-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2"
               type="submit"
             />
           </form>
@@ -104,7 +109,7 @@ const PackageHead = () => {
               key={info.name}
               className="max-w-[12rem] flex flex-col items-center text-center"
             >
-              <div className="bg-blue-100 p-2 rounded-full max-w-[4rem] max-h-[4rem] aspect-square flex items-center justify-center">
+              <div className="bg-primary-salmon-500 p-2 rounded-full max-w-[4rem] max-h-[4rem] aspect-square flex items-center justify-center">
                 <img
                   src={`./assets/images/${info.icon}`}
                   alt=""
