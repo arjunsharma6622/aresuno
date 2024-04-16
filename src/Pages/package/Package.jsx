@@ -7,7 +7,7 @@ const PackageSection = () => {
     <>
       <HeadComponent _title={"Packages"}></HeadComponent>
       <div className="bg-white flex items-center justify-center">
-        <div className="w-[90%] mx-auto flex flex-col gap-32 mt-6 md:mt-16">
+        <div className="w-full mx-auto flex flex-col mt-6 md:mt-16">
           <PackageHead />
           <Pricing />
         </div>
