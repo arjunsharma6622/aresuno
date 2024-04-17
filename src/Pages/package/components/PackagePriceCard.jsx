@@ -8,7 +8,7 @@ const PackagePriceCard = ({ singlePackage, isTopPopular }) => {
       )}
 
       <div
-        className={`rounded-2xl p-4 ${isTopPopular ? "bg-primary-light-blue-500 pt-6" : "bg-white"}`}
+        className={`shadow-2xl shadow-zinc-600/90 rounded-2xl p-4 ${isTopPopular ? "bg-primary-light-blue-500 pt-6" : "bg-white"}`}
       >
         {/* Upper half */}
         <div className="flex w-full ">
