@@ -148,6 +148,7 @@ const EditPackageModal = ({ editingPackage, onSubmitCallback }) => {
                   className=""
                   onClick={(e) => {
                     e.preventDefault();
+                    setNewFeature("");
                     setFeatures([...features, newFeature]);
                   }}
                 >
