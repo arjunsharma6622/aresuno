@@ -1,10 +1,4 @@
-const PackagePriceCard = ({
-  name,
-  price,
-  prevPrice,
-  isTopPopular,
-  benefits,
-}) => {
+const PackagePriceCard = ({ singlePackage, isTopPopular }) => {
   return (
     <div className="relative w-full">
       {isTopPopular && (
@@ -23,17 +17,17 @@ const PackagePriceCard = ({
             {/* name */}
             <div>
               <p
-                className={`font-bold text-2xl uppercase ${isTopPopular ? "text-white" : "text-black"}`}
+                className={`font-bold text-xl uppercase ${isTopPopular ? "text-white" : "text-black"}`}
               >
-                {name}
+                {singlePackage.name}
               </p>
             </div>
 
             {/* benefits */}
             <div className="mt-3">
-              {benefits.map((benefit) => {
+              {singlePackage.features.map((benefit) => {
                 return (
-                  <div key={benefit}>
+                  <div className="py-1" key={benefit}>
                     <p
                       className={`text-sm ${isTopPopular ? "text-white" : "text-black"}`}
                     >
@@ -46,29 +40,29 @@ const PackagePriceCard = ({
           </div>
 
           {/* right half */}
-          <div className="flex flex-col items-end w-full">
+          <div className="flex flex-col items-end w-min">
             {/* prev price */}
             <div className="pt-3">
               <p
                 className={`line-through text-xs ${isTopPopular ? "text-primary-neutral-light" : "text-primary-neutral"}`}
               >
-                ₹{prevPrice}
+                ₹{singlePackage.prevPrice}
               </p>
             </div>
 
             {/* price */}
             <div>
               <p
-                className={`font-semibold text-2xl ${isTopPopular ? "text-white" : "text-black"}`}
+                className={`font-semibold text-xl ${isTopPopular ? "text-white" : "text-black"}`}
               >
-                ₹{price}
+                ₹{singlePackage.price}
               </p>
             </div>
 
             {/* per year */}
             <div>
               <p
-                className={`text-sm ${isTopPopular ? "text-white" : "text-black"}`}
+                className={`text-sm text-nowrap ${isTopPopular ? "text-white" : "text-black"}`}
               >
                 per year
               </p>
