@@ -1,8 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PackagePriceCard from "./PackagePriceCard";
+import axios from "axios";
+import { API_URL } from "../../../utils/util";
 
 const Pricing = () => {
   const [selectedCategory, setSelectedCategory] = useState("service");
+  const [packagesData, setPackagesData] = useState([]);
+
+  const fetchPackagesData = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/package/getpackages`);
+      setPackagesData(response.data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchPackagesData();
+  }, []);
 
   return (
     <div className="h-full w-full mt-12">
@@ -37,14 +53,18 @@ const Pricing = () => {
         </div>
 
         {/* package cards */}
-        <div className="w-full flex flex-col items-center mt-8 px-3">
-          <PackagePriceCard
-            name="Free"
-            price={14999}
-            prevPrice={19999}
-            benefits={["Unlimited bandwidth", "SSL Certificate"]}
-            isTopPopular={!false}
-          />
+        <div className="w-full flex flex-col items-center mt-8 px-3 gap-6">
+          {packagesData
+            .filter(
+              (singlePackage) => singlePackage.category === selectedCategory,
+            )
+            .map((singlePackage) => (
+              <PackagePriceCard
+                key={singlePackage._id}
+                singlePackage={singlePackage}
+                isTopPopular={singlePackage.name === "Professional plan"}
+              />
+            ))}
         </div>
       </div>
     </div>
