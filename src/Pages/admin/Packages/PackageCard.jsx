@@ -3,8 +3,8 @@ import { TiTick } from "react-icons/ti";
 
 const PackageCard = ({ pkg, editCallback }) => {
   return (
-    <div className="bg-white relative border border-zinc-900/10 rounded-xl p-5 py-5 flex justify-between items-center">
-      <div className="justify-start flex-col flex gap-2 items-start">
+    <div className="relative justify-between items-center">
+      <div className="bg-white p-5 border border-zinc-900/10 justify-start flex-col rounded-xl flex gap-2 items-start">
         <div className="flex flex-col">
           {/* name */}
           <h2 className="text-md font-medium">{pkg.name}</h2>

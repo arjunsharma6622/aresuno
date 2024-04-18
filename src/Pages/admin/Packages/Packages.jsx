@@ -87,7 +87,7 @@ const Packages = () => {
                   setEditingPackage(pkg);
                   setOpenEditModal(true);
                 }}
-              ></PackageCard>
+              />
             );
           })}
       </div>
@@ -99,7 +99,7 @@ const Packages = () => {
             setOpenEditModal(false);
             fetchPackagesData();
           }}
-        ></EditPackageModal>
+        />
       )}
     </div>
   );

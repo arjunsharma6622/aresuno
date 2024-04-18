@@ -43,7 +43,7 @@ const Header = ({ homePage }) => {
                 homePage && "border-white"
               } border-black px-3 py-1 rounded-lg`}
             >
-              <Link className="" to={"/vendor/onboarding"}>
+              <Link className="" to={"/package"}>
                 List your business
               </Link>
             </button>

@@ -1,3 +1,5 @@
+import { useEffect, useState, useCallback } from "react";
+
 export const API_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:8000"
@@ -68,4 +70,57 @@ export const removeItemFromArray = (arr, value) => {
     arr.splice(index, 1);
   }
   return arr;
+};
+
+/**
+ * Removes duplicates from an array
+ * @param {Array<any>} arr
+ * @return {Array<any>} out array
+ */
+export const removeDuplicationsArray = (arr) => {
+  var seen = {};
+  return arr.filter(function (item) {
+    // eslint-disable-next-line no-prototype-builtins
+    return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+  });
+};
+
+/**
+ * A react hook to check if the current screen is mobile or not
+ * @link https://github.com/tufantunc/useIsMobile
+ * @param {*} mobileScreenSize
+ * @returns boolean
+ */
+export const useIsMobile = (mobileScreenSize = 768) => {
+  if (typeof window.matchMedia !== "function") {
+    throw Error("matchMedia not supported by browser!");
+  }
+  const [isMobile, setIsMobile] = useState(
+    window.matchMedia(`(max-width: ${mobileScreenSize}px)`).matches,
+  );
+
+  const checkIsMobile = useCallback((event) => {
+    setIsMobile(event.matches);
+  }, []);
+
+  useEffect(() => {
+    const mediaListener = window.matchMedia(
+      `(max-width: ${mobileScreenSize}px)`,
+    );
+    try {
+      mediaListener.addEventListener("change", checkIsMobile);
+    } catch {
+      mediaListener.addListener(checkIsMobile);
+    }
+
+    return () => {
+      try {
+        mediaListener.removeEventListener("change", checkIsMobile);
+      } catch {
+        mediaListener.removeListener(checkIsMobile);
+      }
+    };
+  }, [mobileScreenSize]);
+
+  return isMobile;
 };

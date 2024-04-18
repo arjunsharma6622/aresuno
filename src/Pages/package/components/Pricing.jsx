@@ -1,220 +1,92 @@
-import React from "react";
-import { FaIndianRupeeSign } from "react-icons/fa6";
-import { HiCheck, HiX } from "react-icons/hi";
-import { FiMail, FiPhoneCall } from "react-icons/fi";
-import {
-  DoctorFeatures,
-  DoctorPackages,
-  ManufacturerFeatures,
-  ManufacturerPackages,
-  ServiceFeatures,
-  ServicePackages,
-} from "../../../data";
-import SelectCategory from "./SelectCategory";
+import { useEffect, useState } from "react";
+import PackagePriceCard from "./PackagePriceCard";
+import axios from "axios";
+import { API_URL } from "../../../utils/util";
+import DetailedComparison from "./DetailedComparison";
 
 const Pricing = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState({
-    name: "Service",
-    icon: "service.png",
-  });
+  const [selectedCategory, setSelectedCategory] = useState("service");
+  const [packagesData, setPackagesData] = useState([]);
 
-  const getFeatures = (categoryName) => {
-    switch (categoryName) {
-      case "Service":
-        return ServiceFeatures;
-      case "Doctor":
-        return DoctorFeatures;
-      case "Manufacturer":
-        return ManufacturerFeatures;
-      default:
-        return [];
+  const fetchPackagesData = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/package/getpackages`);
+      setPackagesData(response.data);
+    } catch (e) {
+      console.error(e);
     }
   };
 
-  const getPackage = (categoryName) => {
-    switch (categoryName) {
-      case "Service":
-        return ServicePackages;
-      case "Doctor":
-        return DoctorPackages;
-      case "Manufacturer":
-        return ManufacturerPackages;
-      default:
-        return [];
-    }
-  };
-
-  const getFeatureIcon = (hasFeature) => {
-    return hasFeature ? (
-      <HiCheck className="text-green-500" />
-    ) : (
-      <HiX className="text-red-500" />
-    );
-  };
-
-  const calacPercentage = (prevPrice, price) => {
-    const percent =
-      ((parseInt(prevPrice) - parseInt(price)) / parseInt(prevPrice)) * 100;
-    return Math.round(percent);
-  };
+  useEffect(() => {
+    fetchPackagesData();
+  }, []);
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl font-bold">
-          Choose the Perfect Package for Your Business
-        </h2>
-      </div>
+    <div className="h-full w-full mt-12 bg-neutral-50">
+      <div className="h-full bg-gradient-to-r rounded-t-[2rem] pt-2 lg:pb-8 from-primary-teal-500 to-primary-sky-500 w-full">
+        {/* parent containing both text and category selector */}
+        <div className="w-full lg:bg-neutral-50/40 lg:max-w-[50vw] lg:min-w-96 lg:mx-auto rounded-2xl py-6 mt-7">
+          {/* who are you text */}
+          <div className="w-full flex items-center mb-6 justify-center">
+            <p className="font-bold text-2xl">Who are you?</p>
+          </div>
 
-      <SelectCategory
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
-      <div className="">
-        <div className="w-full">
-          <table className="w-full table-fixed ">
-            <thead className="w-full ">
-              <tr className="w-full ">
-                <th className=" py-4 px-6  border w-full sticky top-0">
-                  {selectedCategory && (
-                    <div className="flex items-center justify-start gap-4">
-                      <img
-                        src={`/assets/images/${selectedCategory?.icon}`}
-                        alt={selectedCategory?.name}
-                        className="w-14 h-14"
-                      />
-                      <p className="text-lg font-medium">
-                        {selectedCategory.name}
-                      </p>
-                    </div>
-                  )}
-                </th>
-                {getPackage(selectedCategory?.name).map((pkg) => (
-                  <th
-                    key={pkg.name}
-                    className={`h-[120px] w-full sticky top-0  py-4 px-6 border`}
-                  >
-                    <div className=" flex items-center gap-1 justify-center flex-col">
-                      <div className="w-full text-xs font-semibold uppercase">
-                        {pkg.name} plan
-                      </div>
-                      {pkg.price != 0 && (
-                        <div className="flex items-center gap-2">
-                          <div
-                            className={` line-through text-gray-400 text-sm flex items-center gap-0 justify-center font-normal`}
-                          >
-                            <FaIndianRupeeSign className="w-4 h-4" />
-                            <span>{pkg.prevPrice}</span>
-                          </div>
-                          <span className="font-medium text-xs text-white bg-green-500 px-2 py-[2px] rounded-full">
-                            {calacPercentage(pkg.prevPrice, pkg.price)}% off
-                          </span>
-                        </div>
-                      )}
-
-                      <div
-                        className={`text-3xl flex items-center gap-0 justify-center font-semibold`}
-                      >
-                        <FaIndianRupeeSign className="w-5 h-5" />
-                        <span>
-                          {pkg.price}
-                          {pkg.price != 0 && (
-                            <span className="text-xs font-bold">/yr</span>
-                          )}
-                        </span>
-                      </div>
-
-                      {pkg.price == 0 && (
-                        <div className="text-sm font-normal">Free Forever</div>
-                      )}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {getFeatures(selectedCategory?.name).map((feature, index) => (
-                <tr key={feature} className={`border`}>
-                  <td className="py-4 px-6 text-start">{feature}</td>
-                  {getPackage(selectedCategory?.name).map((pkg) => (
-                    <td
-                      key={pkg.name}
-                      className={`py-4 px-6 w-full text-center border `}
-                    >
-                      <div className="flex items-center text-2xl w-full justify-center">
-                        {getFeatureIcon(pkg.features[index])}
-                      </div>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-              <td className="py-4 px-6 text-start border italic">
-                Avail the offer here
-              </td>
-              <td className="py-4 px-6 text-center border">
-                <button className="px-4 w-full py-2 bg-blue-500 rounded-lg text-white">
-                  Sign Up
-                </button>
-              </td>
-              <td className="py-4 px-6 text-center border">
-                <button className="px-4 w-full py-2 bg-blue-500 rounded-lg text-white">
-                  Buy Now
-                </button>
-              </td>
-              <td className="py-4 px-6 text-center border">
-                <button className="px-4 w-full py-2 bg-blue-500 rounded-lg text-white">
-                  Buy Now
-                </button>
-              </td>
-              <td className="py-4 px-6 text-center border">
-                <button className="px-4 w-full py-2 bg-blue-500 rounded-lg text-white">
-                  Buy Now
-                </button>
-              </td>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto border p-5 px-8 rounded-2xl mb-20 mt-10">
-        <div className="w-full flex flex-col gap-4 justify-start">
-          <div>
-            <div>
-              <img
-                src="/assets/images/customer-care.png"
-                alt=""
-                className="w-28"
-              />
+          {/* category selector */}
+          <div className="w-full flex items-center justify-center px-12">
+            <div className="flex w-full lg:gap-4">
+              <button
+                onClick={() => setSelectedCategory("service")}
+                className={`py-3 flex-grow basis-0 text-xs rounded-l-md lg:text-base text-center lg:rounded-md lg:font-semibold ${selectedCategory === "service" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500 lg:border lg:border-primary-light-blue-500"}`}
+              >
+                Services
+              </button>
+              <button
+                onClick={() => setSelectedCategory("doctor")}
+                className={`py-1 flex-grow basis-0  text-xs lg:text-base lg:rounded-md  lg:font-semibold ${selectedCategory === "doctor" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500 lg:border lg:border-primary-light-blue-500"}`}
+              >
+                Doctor
+              </button>
+              <button
+                onClick={() => setSelectedCategory("manufacturer")}
+                className={`py-1 flex-grow basis-0 text-xs rounded-r-md lg:text-base lg:rounded-md lg:font-semibold ${selectedCategory === "manufacturer" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500 lg:border lg:border-primary-light-blue-500"}`}
+              >
+                Manufacturer
+              </button>
             </div>
-            <h1 className="text-2xl font-medium">Need Help Deciding?</h1>
           </div>
-          <p className="text-sm">
-            We understand that choosing the right plan can be challenging. Our
-            team of experts is here to help you with any queries or concerns you
-            may have. Our dedicated support team is available from Monday to
-            Friday, 9 AM to 6 PM EST. You can reach out to us via phone or
-            email, and we&apos;ll be more than happy to assist you.
-          </p>
-          <div className="flex items-center justify-start gap-4">
-            <a
-              href="tel:1800 123 4567"
-              className="text-blue-500 px-2 py-1 rounded-full  border border-blue-500 flex items-center gap-1"
-            >
-              <FiPhoneCall /> <p className="text-sm">Call us</p>
-            </a>
-            <a
-              href="mailto:info@aresuno.com"
-              className="text-white px-2 py-1 rounded-full bg-blue-500 flex items-center gap-1"
-            >
-              <FiMail /> <p className="text-sm">Email us</p>
-            </a>
+        </div>
+
+        {/* package cards */}
+        <div className="w-full flex items-center justify-center">
+          <div className="w-full flex flex-col items-center mt-8 px-3 gap-6 lg:px-0 lg:w-[90vw] lg:grid lg:grid-cols-4">
+            {packagesData
+              .filter(
+                (singlePackage) => singlePackage.category === selectedCategory,
+              )
+              .map((singlePackage) => (
+                <PackagePriceCard
+                  key={singlePackage._id}
+                  singlePackage={singlePackage}
+                  isTopPopular={singlePackage.name === "Professional"}
+                />
+              ))}
           </div>
-          <p className="text-sm">
-            Our team of experts has years of experience in the industry and is
-            committed to providing you with the best possible solutions tailored
-            to your needs.
+        </div>
+      </div>
+
+      {/* detailed comparison */}
+      <div className="w-full flex flex-col items-center mt-20 px-3 gap-6">
+        {/* detailed comparison text */}
+        <div className="mb-4">
+          <p className="font-semibold tracking-normal text-lg lg:text-2xl">
+            Detailed Comparison
           </p>
         </div>
+        <DetailedComparison
+          packagesData={packagesData.filter(
+            (singlePackage) => singlePackage.category === selectedCategory,
+          )}
+        />
       </div>
     </div>
   );

@@ -1,9 +1,7 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 import { useForm } from "react-hook-form";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const PackageHead = () => {
   const {
@@ -33,92 +31,84 @@ const PackageHead = () => {
     },
   ];
 
-  const sliderImages = [
-    "https://www.hourmaid.com/wp-content/uploads/2017/12/cleaning-services-1024x682.jpeg",
-    "https://5.imimg.com/data5/SELLER/Default/2023/3/HO/ST/EC/98516312/housekeeping-services-for-company.jpg",
-    "https://t4.ftcdn.net/jpg/05/21/93/17/360_F_521931702_TXOHZBa3tLVISome894Zc061ceab4Txm.jpg",
-    "https://bhopalservicecentre.com/wp-content/uploads/2020/02/ac-repair-service-bhopal.jpg",
-  ];
-
   return (
-    <div className="flex w-full items-end gap-10 mx-auto">
-      <div className="flex-[6] hidden lg:block w-0 px-auto">
-        <Swiper
-          spaceBetween={30}
-          centeredSlides={true}
-          autoplay={{
-            delay: 1500,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Autoplay, Pagination, Navigation]}
-          className="mySwiper rounded-2xl"
-        >
-          {sliderImages.map((sliderImage) => (
-            <SwiperSlide key={sliderImage} className="rounded-2xl h-96">
-              <img src={sliderImage} alt="" className="rounded-2xl h-96" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+    <>
+      {/* salmon bg part */}
+      <div className="flex w-full max-w-[90vw] rounded-xl p-0 items-end gap-10 mx-auto bg-white lg:p-14 lg:bg-primary-salmon-500">
+        <div className="flex-[7] flex flex-col gap-8 justify-start lg:gap-16">
+          {/* text */}
+          <h1 className="leading-relaxed flex flex-col lg:gap-2 mt-3 lg:mt-0">
+            <p className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary-light-blue-500 to-primary-light-blue-700 bg-clip-text text-transparent">
+              Transform Your Business
+            </p>{" "}
+            <p className="text-sm lg:text-2xl lg:tracking-wider pl-1 lg:pl-0">
+              with India&apos;s Leading Online Marketplace
+            </p>
+          </h1>
 
-      <div className="flex-[7] flex flex-col justify-start gap-10">
-        <h1 className="text-3xl leading-relaxed font-semi">
-          <span className="text-4xl font-bold">Transform Your Business</span>{" "}
-          with India&apos;s Leading Online Marketplace
-        </h1>
-        <div>
-          <form
-            className="w-full flex items-center rounded-lg h-14 border border-blue-500"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <input
-              type="text"
-              placeholder="Enter your Number"
-              className="px-2 rounded-lg py-2 focus:outline-none h-full w-full"
-              {...register("number", {
-                required: true,
-                pattern:
-                  /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
-              })}
-            />
-            <input
-              value={"Create listing"}
-              className="w-min h-full p-2 cursor-pointer bg-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2"
-              type="submit"
-            />
-          </form>
-
-          {errors.number && (
-            <span className="text-red-600 ml-1 text-xs">
-              Invalid phone number
-            </span>
-          )}
-        </div>
-        <div className="flex justify-center items-start gap-1 md:gap-3 lg:gap-9">
-          {" "}
-          {infoToCustomer.map((info) => (
-            <div
-              key={info.name}
-              className="max-w-[12rem] flex flex-col items-center text-center"
+          <div>
+            <form
+              className="w-full flex items-center rounded-lg h-14 focus:border focus:border-primary-light-blue-500"
+              onSubmit={handleSubmit(onSubmit)}
             >
-              <div className="bg-blue-100 p-2 rounded-full max-w-[4rem] max-h-[4rem] aspect-square flex items-center justify-center">
-                <img
-                  src={`./assets/images/${info.icon}`}
-                  alt=""
-                  className="max-w-[2rem]"
-                />
-              </div>
-              <div>
-                <p>{info.name}</p>
-              </div>
-            </div>
-          ))}
+              <input
+                type="text"
+                placeholder="Enter your Number"
+                className="px-2 rounded-lg py-2 focus:outline-none h-full w-full border border-neutral-300"
+                {...register("number", {
+                  required: true,
+                  pattern:
+                    /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
+                })}
+              />
+              <input
+                value={"Create listing"}
+                className="w-min h-full p-2 text-sm cursor-pointer bg-primary-light-blue-500 text-white rounded-tr-[5px] rounded-br-[5px] flex items-center gap-2 lg:px-4"
+                type="submit"
+              />
+            </form>
+
+            {/* input errors */}
+            {errors.number && (
+              <span className="text-red-600 ml-1 text-xs">
+                Invalid phone number
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* truck svg */}
+        <div className="flex-[6] hidden w-0 px-auto lg:flex items-center justify-end">
+          <img
+            src={`./assets/truck_delivery.svg`}
+            alt=""
+            className="max-h-[12rem]"
+          />
         </div>
       </div>
-    </div>
+
+      {/* icons part */}
+      <div className="grid grid-cols-2 gap-4 mt-12 lg:flex lg:items-center lg:justify-center lg:gap-12">
+        {" "}
+        {infoToCustomer.map((info) => (
+          <div
+            key={info.name}
+            className="w-full lg:max-w-[12rem] flex flex-col items-center text-center"
+          >
+            <div className="bg-primary-salmon-500 p-2 rounded-full max-w-[4rem] max-h-[4rem] aspect-square flex items-center justify-center">
+              <img
+                src={`./assets/images/${info.icon}`}
+                alt=""
+                className="max-w-[2rem]"
+              />
+            </div>
+            <div>
+              <p className="py-3 text-sm">{info.name}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
