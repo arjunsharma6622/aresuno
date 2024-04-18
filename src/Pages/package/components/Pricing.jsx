@@ -71,6 +71,12 @@ const Pricing = () => {
 
       {/* detailed comparison */}
       <div className="w-full flex flex-col items-center mt-20 px-3 gap-6">
+        {/* detailed comparison text */}
+        <div className="mb-4">
+          <p className="font-semibold tracking-normal text-lg">
+            Detailed Comparison
+          </p>
+        </div>
         <DetailedComparison
           packagesData={packagesData.filter(
             (singlePackage) => singlePackage.category === selectedCategory,
