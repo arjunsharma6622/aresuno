@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PackagePriceCard from "./PackagePriceCard";
 import axios from "axios";
 import { API_URL } from "../../../utils/util";
+import DetailedComparison from "./DetailedComparison";
 
 const Pricing = () => {
   const [selectedCategory, setSelectedCategory] = useState("service");
@@ -21,7 +22,7 @@ const Pricing = () => {
   }, []);
 
   return (
-    <div className="h-full w-full mt-12">
+    <div className="h-full w-full mt-12 bg-neutral-50">
       <div className="h-full bg-gradient-to-r rounded-t-[2rem] pt-2 from-primary-teal-500 to-primary-sky-500 w-full">
         {/* who are you text */}
         <div className="w-full flex items-center my-6 justify-center">
@@ -62,10 +63,19 @@ const Pricing = () => {
               <PackagePriceCard
                 key={singlePackage._id}
                 singlePackage={singlePackage}
-                isTopPopular={singlePackage.name === "Professional plan"}
+                isTopPopular={singlePackage.name === "Professional"}
               />
             ))}
         </div>
+      </div>
+
+      {/* detailed comparison */}
+      <div className="w-full flex flex-col items-center mt-20 px-3 gap-6">
+        <DetailedComparison
+          packagesData={packagesData.filter(
+            (singlePackage) => singlePackage.category === selectedCategory,
+          )}
+        />
       </div>
     </div>
   );
