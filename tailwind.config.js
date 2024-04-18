@@ -15,6 +15,8 @@ export default {
           "sky-500": "#36B7FF",
           neutral: "#787878",
           "neutral-light": "#D5D5D5",
+          "warning-red": "#FF5858",
+          "allowing-green": "#34A853",
         },
       },
       gridTemplateColumns: {
