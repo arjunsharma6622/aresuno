@@ -23,7 +23,7 @@ const Pricing = () => {
 
   return (
     <div className="h-full w-full mt-12 bg-neutral-50">
-      <div className="h-full bg-gradient-to-r rounded-t-[2rem] pt-2 from-primary-teal-500 to-primary-sky-500 w-full">
+      <div className="h-full bg-gradient-to-r rounded-t-[2rem] pt-2 lg:pb-8 from-primary-teal-500 to-primary-sky-500 w-full">
         {/* parent containing both text and category selector */}
         <div className="w-full lg:bg-neutral-50/40 lg:max-w-[50vw] lg:min-w-96 lg:mx-auto rounded-2xl py-6 mt-7">
           {/* who are you text */}
@@ -57,18 +57,20 @@ const Pricing = () => {
         </div>
 
         {/* package cards */}
-        <div className="w-full flex flex-col items-center mt-8 px-3 gap-6">
-          {packagesData
-            .filter(
-              (singlePackage) => singlePackage.category === selectedCategory,
-            )
-            .map((singlePackage) => (
-              <PackagePriceCard
-                key={singlePackage._id}
-                singlePackage={singlePackage}
-                isTopPopular={singlePackage.name === "Professional"}
-              />
-            ))}
+        <div className="w-full flex items-center justify-center">
+          <div className="w-full flex flex-col items-center mt-8 px-3 gap-6 lg:px-0 lg:w-[90vw] lg:grid lg:grid-cols-4">
+            {packagesData
+              .filter(
+                (singlePackage) => singlePackage.category === selectedCategory,
+              )
+              .map((singlePackage) => (
+                <PackagePriceCard
+                  key={singlePackage._id}
+                  singlePackage={singlePackage}
+                  isTopPopular={singlePackage.name === "Professional"}
+                />
+              ))}
+          </div>
         </div>
       </div>
 
@@ -76,7 +78,7 @@ const Pricing = () => {
       <div className="w-full flex flex-col items-center mt-20 px-3 gap-6">
         {/* detailed comparison text */}
         <div className="mb-4">
-          <p className="font-semibold tracking-normal text-lg">
+          <p className="font-semibold tracking-normal text-lg lg:text-2xl">
             Detailed Comparison
           </p>
         </div>
