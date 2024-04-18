@@ -69,3 +69,16 @@ export const removeItemFromArray = (arr, value) => {
   }
   return arr;
 };
+
+/**
+ * Removes duplicates from an array
+ * @param {Array<any>} arr
+ * @return {Array<any>} out array
+ */
+export const removeDuplicationsArray = (arr) => {
+  var seen = {};
+  return arr.filter(function (item) {
+    // eslint-disable-next-line no-prototype-builtins
+    return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+  });
+};
