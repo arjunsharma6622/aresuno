@@ -108,7 +108,7 @@ const Header = ({ homePage }) => {
                 homePage && "border-white"
               } px-3 py-1 rounded-lg`}
             >
-              <Link className="" to={"/signup"}>
+              <Link className="" to={"/package"}>
                 List your business
               </Link>
             </button>
@@ -190,7 +190,7 @@ const Header = ({ homePage }) => {
             </div>
 
             <div className="">
-              <Link to={`/signup`} className="flex items-center gap-4">
+              <Link to={`/package`} className="flex items-center gap-4">
                 <button className="flex items-center gap-4 border border-black px-2 py-2 rounded-lg">
                   List your business
                 </button>
