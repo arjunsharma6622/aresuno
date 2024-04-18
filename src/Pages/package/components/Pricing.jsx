@@ -24,32 +24,35 @@ const Pricing = () => {
   return (
     <div className="h-full w-full mt-12 bg-neutral-50">
       <div className="h-full bg-gradient-to-r rounded-t-[2rem] pt-2 from-primary-teal-500 to-primary-sky-500 w-full">
-        {/* who are you text */}
-        <div className="w-full flex items-center my-6 justify-center">
-          <p className="font-bold text-2xl">Who are you?</p>
-        </div>
+        {/* parent containing both text and category selector */}
+        <div className="w-full lg:bg-neutral-50/40 lg:max-w-[50vw] lg:min-w-96 lg:mx-auto rounded-2xl py-6 mt-7">
+          {/* who are you text */}
+          <div className="w-full flex items-center mb-6 justify-center">
+            <p className="font-bold text-2xl">Who are you?</p>
+          </div>
 
-        {/* category selector */}
-        <div className="w-full flex items-center justify-center">
-          <div className="grid grid-cols-3 rounded-4xl">
-            <button
-              onClick={() => setSelectedCategory("service")}
-              className={`py-3 text-xs rounded-l-md ${selectedCategory === "service" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500"}`}
-            >
-              Service
-            </button>
-            <button
-              onClick={() => setSelectedCategory("doctor")}
-              className={`py-1 text-xs ${selectedCategory === "doctor" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500"}`}
-            >
-              Doctor
-            </button>
-            <button
-              onClick={() => setSelectedCategory("manufacturer")}
-              className={`py-1 px-2 text-xs rounded-r-md ${selectedCategory === "manufacturer" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500"}`}
-            >
-              Manufacturer
-            </button>
+          {/* category selector */}
+          <div className="w-full flex items-center justify-center px-12">
+            <div className="flex w-full lg:gap-4">
+              <button
+                onClick={() => setSelectedCategory("service")}
+                className={`py-3 flex-grow basis-0 text-xs rounded-l-md lg:text-base text-center lg:rounded-md lg:font-semibold ${selectedCategory === "service" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500 lg:border lg:border-primary-light-blue-500"}`}
+              >
+                Services
+              </button>
+              <button
+                onClick={() => setSelectedCategory("doctor")}
+                className={`py-1 flex-grow basis-0  text-xs lg:text-base lg:rounded-md  lg:font-semibold ${selectedCategory === "doctor" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500 lg:border lg:border-primary-light-blue-500"}`}
+              >
+                Doctor
+              </button>
+              <button
+                onClick={() => setSelectedCategory("manufacturer")}
+                className={`py-1 flex-grow basis-0 text-xs rounded-r-md lg:text-base lg:rounded-md lg:font-semibold ${selectedCategory === "manufacturer" ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500 lg:border lg:border-primary-light-blue-500"}`}
+              >
+                Manufacturer
+              </button>
+            </div>
           </div>
         </div>
 
