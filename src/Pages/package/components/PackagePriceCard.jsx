@@ -1,4 +1,5 @@
 import { useIsMobile } from "../../../utils/util";
+import { Link } from "react-router-dom";
 
 const PackagePriceCard = ({ singlePackage, isTopPopular }) => {
   const isMobile = useIsMobile(1024);
@@ -78,13 +79,16 @@ const PackagePriceCard = ({ singlePackage, isTopPopular }) => {
             </div>
 
             {/* lower half */}
-            <div className="w-full flex flex-col items-center justify-center mt-6">
+            <Link
+              to={"/signup"}
+              className="w-full flex flex-col items-center justify-center mt-6"
+            >
               <button
                 className={`w-full font-semibold py-2 rounded-lg ${!isTopPopular ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500"}`}
               >
                 Get started
               </button>
-            </div>
+            </Link>
           </div>
         </div>
       )}
@@ -163,13 +167,16 @@ const PackagePriceCard = ({ singlePackage, isTopPopular }) => {
             )}
 
             {/* button */}
-            <div className="w-full h-full flex flex-col items-center justify-end mt-6">
+            <Link
+              to={"/signup"}
+              className="w-full h-full flex flex-col items-center justify-end mt-6"
+            >
               <button
                 className={`w-full font-semibold py-2 rounded-lg ${!isTopPopular ? "bg-primary-light-blue-500 text-white" : "bg-white text-primary-light-blue-500"}`}
               >
                 Get started
               </button>
-            </div>
+            </Link>
           </div>
         </div>
       )}
