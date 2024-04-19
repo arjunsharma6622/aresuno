@@ -54,7 +54,7 @@ const PackageHead = () => {
               <input
                 type="text"
                 placeholder="Enter your Number"
-                className="px-2 rounded-lg py-2 focus:outline-none h-full w-full border border-neutral-300"
+                className="px-2 rounded-l-lg rounded-y-lg py-2 focus:outline-none h-full w-full border border-neutral-300"
                 {...register("number", {
                   required: true,
                   pattern:
