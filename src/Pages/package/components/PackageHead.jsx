@@ -1,7 +1,5 @@
 import { useForm } from "react-hook-form";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import { useNavigate } from "react-router-dom";
 
 const PackageHead = () => {
   const {
@@ -10,7 +8,11 @@ const PackageHead = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    navigate(`/signup?phoneNo=${data.number}`);
+  };
 
   const infoToCustomer = [
     {
