@@ -100,7 +100,7 @@ const PackagePriceCard = ({ singlePackage, isTopPopular }) => {
       {!isMobile && (
         <div className="h-[100%] flex-grow basis-0">
           <div
-            className={`text-center flex flex-col gap-7 shadow-neutral-600/40 shadow-xl h-[100%] rounded-xl p-4 py-8 ${isTopPopular ? "bg-primary-light-blue-500" : "bg-white"}`}
+            className={`text-center flex flex-col gap-7 shadow-neutral-600/40 shadow-xl h-[100%] rounded-xl p-4 py-8 hover:shadow-neutral-600/80 hover:scale-[102%] transition-all duration-500 ${isTopPopular ? "bg-primary-light-blue-500" : "bg-white"}`}
           >
             {/* package name */}
             <div className="w-full">
